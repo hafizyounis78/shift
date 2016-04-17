@@ -94,7 +94,7 @@ var Calendar = function() {
             addEvent("My Event 4");
             addEvent("My Event 5");
             addEvent("My Event 6");
-
+			
             $('#calendar').fullCalendar('destroy'); // destroy the calendar
             $('#calendar').fullCalendar({ //re-initialize the calendar
                 header: h,
@@ -102,7 +102,22 @@ var Calendar = function() {
                 slotMinutes: 15,
                 editable: true,
                 droppable: true, // this allows things to be dropped onto the calendar !!!
-                drop: function(date, allDay) { // this function is called when something is dropped
+                dow: [ 1, 2, 3, 4 ],
+				selectable: true,
+				select: function(start, end) {
+				var title = prompt('Event Title:');
+				var eventData;
+				if (title) {
+					eventData = {
+						title: title,
+						start: start,
+						end: end
+					};
+					$('#calendar').fullCalendar('renderEvent', eventData, true); // stick? = true
+				}
+				$('#calendar').fullCalendar('unselect');
+			},
+				drop: function(date, allDay) { // this function is called when something is dropped
 
                     // retrieve the dropped element's stored Event Object
                     var originalEventObject = $(this).data('eventObject');
@@ -124,6 +139,11 @@ var Calendar = function() {
                         $(this).remove();
                     }
                 },
+				dayClick: function(date, jsEvent, view, resourceObj) {
+					alert('Date: ' + date.format());
+					alert('Resource ID: ' + resourceObj.id);
+			
+				},
                 events: [{
                     title: 'All Day Event',
                     start: new Date(y, m, 1),

@@ -41,6 +41,14 @@
 <script src="<?php echo base_url();?>assets/global/plugins/moment.min.js"></script>
 <script src="<?php echo base_url();?>assets/global/plugins/fullcalendar/fullcalendar.min.js"></script>
 <script type="text/javascript" src="<?php echo base_url();?>assets/global/plugins/bootstrap-colorpicker/js/bootstrap-colorpicker.js"></script>
+<script type="text/javascript" src="<?php echo base_url();?>assets/global/plugins/bootstrap-datetimepicker/js/bootstrap-datetimepicker.min.js"></script>
+<script type="text/javascript" src="<?php echo base_url();?>assets/global/plugins/bootstrap-timepicker/js/bootstrap-timepicker.min.js"></script>
+<script type="text/javascript" src="<?php echo base_url();?>assets/global/plugins/bootstrap-datepicker/js/bootstrap-datepicker.js"></script>
+<script type="text/javascript" src="<?php echo base_url();?>assets/global/plugins/bootstrap-select/bootstrap-select.min.js"></script>
+<script type="text/javascript" src="<?php echo base_url();?>assets/global/plugins/select2/select2.min.js"></script>
+<script type="text/javascript" src="<?php echo base_url();?>assets/global/plugins/jquery-multi-select/js/jquery.multi-select.js"></script>
+
+
 <!-- END PAGE LEVEL PLUGINS -->
 
 <!-- CORE SCRIPTS -->
@@ -52,7 +60,9 @@
 <!-- BEGIN PAGE LEVEL SCRIPS -->
 <script src="<?php echo base_url();?>assets/admin/pages/scripts/calendar.js"></script>
 <script src="<?php echo base_url();?>assets/admin/pages/scripts/components-pickers.js"></script>
+<script src="<?php echo base_url();?>assets/admin/pages/scripts/components-dropdowns.js"></script>
 <!-- END PAGE LEVEL SCRIPS -->
+
 
 <script>
       jQuery(document).ready(function() {    
@@ -61,6 +71,7 @@
 		 Demo.init(); // init demo features
 		 Calendar.init();
 		 ComponentsPickers.init();
+         ComponentsDropdowns.init();
       });
    </script>
 <!-- END JAVASCRIPTS -->

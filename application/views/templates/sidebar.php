@@ -24,7 +24,7 @@
 					</li>
 					<li <?php if($title == 'fullschedule') echo 'class="active open"';?> >
 						<a href="<?php echo base_url();?>fullschedule">
-						<i class="icon-list"></i>
+						<i class="icon-calendar"></i>
 						<span class="title">Full Schedule</span>
 						</a>
 					</li>
@@ -32,6 +32,25 @@
 						<a href="<?php echo base_url();?>locations">
 						<i class="icon-pointer"></i>
 						<span class="title">Locations</span>
+						</a>
+					</li>
+                    <li <?php if($title == 'shifts') echo 'class="active open"';?>>
+						<a href="<?php echo base_url();?>shifts">
+						<i class="icon-list"></i>
+						<span class="title">Shifts</span>
+						</a>
+					</li>
+
+                    <li <?php if($title == 'shifttemplate') echo 'class="active open"';?>>
+						<a href="<?php echo base_url();?>shifttemplate">
+						<i class="icon-clock"></i>
+						<span class="title">Shift Template</span>
+						</a>
+					</li>
+                    <li <?php if($title == 'timeoff') echo 'class="active open"';?>>
+						<a href="<?php echo base_url();?>timeoff">
+						<i class="icon-speedometer"></i>
+						<span class="title">Tiem off Request</span>
 						</a>
 					</li>
 					<!--<li class="active open">

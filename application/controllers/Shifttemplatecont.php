@@ -1,5 +1,5 @@
 <?php
-class Fullschedulecont extends CI_Controller 
+class Shifttemplatecont extends CI_Controller 
 {
 	public $data;
 	
@@ -35,7 +35,7 @@ class Fullschedulecont extends CI_Controller
    		}*/
 		
 	}
-function fullschedule()
+function shifttemplate()
 {
 }
 }

@@ -22,13 +22,19 @@
                           Your form validation is successful!
                       </div>
                       <div class="form-group">
-                          <label class="control-label col-md-3">Location <span class="required">
-                          * </span>
-                          </label>
-                          <div class="col-md-4">
-                              <input type="text" name="name" data-required="1" class="form-control"/>
-                          </div>
-                      </div>
+                            <label class="control-label col-md-3">Location</label>
+                            <div class="col-md-4">
+                                <select class="form-control input-large select2me" data-placeholder="Select...">
+                                    <option value=""></option>
+                                    <option value="AL">EDEKA</option>
+                                    <option value="WY">Our Location</option>
+                                    <option value="AL">EDEKA1</option>
+                                    <option value="WY">EDEKA2</option>
+                                </select>
+                                <span class="help-block">
+                                .Select Location</span>
+                            </div>
+                        </div>
                       
                       <div class="form-group">
                           <label class="control-label col-md-3">Description</label>
