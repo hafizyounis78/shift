@@ -33,7 +33,7 @@
                       <div class="form-group">
                           <label class="control-label col-md-3">Description</label>
                           <div class="col-md-9">
-                              <textarea name="markdown" data-provide="markdown" rows="10" data-error-container="#editor_error"></textarea>
+                              <textarea class="form-control" name="markdown" data-provide="markdown" rows="10" data-error-container="#editor_error"></textarea>
                               <div id="editor_error">
                               </div>
                           </div>
