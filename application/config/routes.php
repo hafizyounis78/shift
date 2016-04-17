@@ -49,6 +49,9 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 | Examples:	my-controller/index	-> my_controller/index
 |		my-controller/my-method	-> my_controller/my_method
 */
+$route['home/(:any)'] = 'home/view/$1';
+$route['locationscont/(:any)'] = 'locationscont/view/$1';
+$route['Fullschedulecont/(:any)'] = 'Fullschedulecont/view/$1';
 $route['(:any)'] = 'home/view/$1';
 $route['default_controller'] = 'home/view';
 $route['404_override'] = '';

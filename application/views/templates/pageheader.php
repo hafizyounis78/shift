@@ -1,7 +1,7 @@
 <!-- BEGIN PAGE HEADER-->
-<h3 class="page-title">
+<!--<h3 class="page-title">
 Blank Page <small>blank page</small>
-</h3>
+</h3>-->
 <div class="page-bar">
     <ul class="page-breadcrumb">
         <li>

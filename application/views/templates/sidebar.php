@@ -16,16 +16,22 @@
 				<!-- DOC: Set data-keep-expand="true" to keep the submenues expanded -->
 				<!-- DOC: Set data-auto-speed="200" to adjust the sub menu slide up/down speed -->
 				<ul class="page-sidebar-menu page-sidebar-menu-hover-submenu " data-keep-expanded="false" data-auto-scroll="true" data-slide-speed="200">
-					<li class="start active">
-						<a href="home">
+					<li class="start <?php if($title == 'home') echo 'active';?> ">
+						<a href="<?php echo base_url();?>home">
 						<i class="icon-home"></i>
 						<span class="title">Home</span>
 						</a>
 					</li>
-					<li>
-						<a href="schedule">
+					<li <?php if($title == 'fullschedule') echo 'class="active open"';?> >
+						<a href="<?php echo base_url();?>fullschedule">
 						<i class="icon-list"></i>
-						<span class="title">Schedule</span>
+						<span class="title">Full Schedule</span>
+						</a>
+					</li>
+                    <li <?php if($title == 'locations') echo 'class="active open"';?>>
+						<a href="<?php echo base_url();?>locations">
+						<i class="icon-pointer"></i>
+						<span class="title">Locations</span>
 						</a>
 					</li>
 					<!--<li class="active open">

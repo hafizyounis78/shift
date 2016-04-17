@@ -40,6 +40,7 @@
 <!-- IMPORTANT! fullcalendar depends on jquery-ui-1.10.3.custom.min.js for drag & drop support -->
 <script src="<?php echo base_url();?>assets/global/plugins/moment.min.js"></script>
 <script src="<?php echo base_url();?>assets/global/plugins/fullcalendar/fullcalendar.min.js"></script>
+<script type="text/javascript" src="<?php echo base_url();?>assets/global/plugins/bootstrap-colorpicker/js/bootstrap-colorpicker.js"></script>
 <!-- END PAGE LEVEL PLUGINS -->
 
 <!-- CORE SCRIPTS -->
@@ -50,6 +51,7 @@
 
 <!-- BEGIN PAGE LEVEL SCRIPS -->
 <script src="<?php echo base_url();?>assets/admin/pages/scripts/calendar.js"></script>
+<script src="<?php echo base_url();?>assets/admin/pages/scripts/components-pickers.js"></script>
 <!-- END PAGE LEVEL SCRIPS -->
 
 <script>
@@ -58,6 +60,7 @@
 		 Layout.init(); // init current layout
 		 Demo.init(); // init demo features
 		 Calendar.init();
+		 ComponentsPickers.init();
       });
    </script>
 <!-- END JAVASCRIPTS -->
