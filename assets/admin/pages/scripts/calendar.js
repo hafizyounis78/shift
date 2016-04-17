@@ -101,9 +101,11 @@ var Calendar = function() {
                 defaultView: 'month', // change default view with available options from http://arshaw.com/fullcalendar/docs/views/Available_Views/ 
                 slotMinutes: 15,
                 editable: true,
+				eventLimit: true, // allow "more" link when too many events
                 droppable: true, // this allows things to be dropped onto the calendar !!!
                 dow: [ 1, 2, 3, 4 ],
 				selectable: true,
+				selectHelper: true,
 				select: function(start, end) {
 				var title = prompt('Event Title:');
 				var eventData;
