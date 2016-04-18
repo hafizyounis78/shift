@@ -19,7 +19,7 @@ class Locationscont extends CI_Controller
 		else if($this->session->userdata('logged_in'))
 		{*/
 			$this->data['title'] = $page;
-			//$this->$page();
+			$this->$page();
 			$this->load->view('templates/head',$this->data);
 			$this->load->view('templates/header',$this->data);
 			$this->load->view('templates/sidebar');
@@ -35,8 +35,15 @@ class Locationscont extends CI_Controller
    		}*/
 		
 	}
-function locations()
-{
-}
+	function locations()
+	{
+		$this->load->model('locationsmodel');
+		$this->data['locations'] = $this->locationsmodel->get_locations();
+	}
+	function addLocation()
+	{
+		$this->load->model('locationsmodel');
+		$this->locationsmodel->insert_locations();
+	}
 }
 ?>

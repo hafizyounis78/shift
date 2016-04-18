@@ -10,7 +10,7 @@
           </div>
           <div class="portlet-body form">
               <!-- BEGIN FORM-->
-              <form action="#" id="form_sample_3" class="form-horizontal">
+              <form action="#" id="locationForm" class="form-horizontal">
                   <div class="form-body">
                       
                       <div class="alert alert-danger display-hide">
@@ -22,33 +22,25 @@
                           Your form validation is successful!
                       </div>
                       <div class="form-group">
-                            <label class="control-label col-md-3">Location</label>
+                            <label class="control-label col-md-3">Location Name</label>
                             <div class="col-md-4">
-                                <select class="form-control input-large select2me" data-placeholder="Select...">
-                                    <option value=""></option>
-                                    <option value="AL">EDEKA</option>
-                                    <option value="WY">Our Location</option>
-                                    <option value="AL">EDEKA1</option>
-                                    <option value="WY">EDEKA2</option>
-                                </select>
-                                <span class="help-block">
-                                .Select Location</span>
+                                <input id="txtName" name="txtName" type="text" class="form-control form-filter input-sm" >
                             </div>
                         </div>
                       
                       <div class="form-group">
                           <label class="control-label col-md-3">Description</label>
                           <div class="col-md-9">
-                              <textarea class="form-control" name="markdown" data-provide="markdown" rows="10" data-error-container="#editor_error"></textarea>
+                              <textarea id="txtDescription" name="txtDescription" class="form-control"  data-provide="markdown" rows="10" data-error-container="#editor_error"></textarea>
                               <div id="editor_error">
                               </div>
                           </div>
                       </div>
                       <div class="form-group">
-                          <label class="control-label col-md-3">As Component</label>
+                          <label class="control-label col-md-3">Color</label>
                           <div class="col-md-3">
                               <div class="input-group color colorpicker-default" data-color="#3865a8" data-color-format="rgba">
-                                  <input type="text" class="form-control" value="#3865a8" readonly>
+                                  <input id="txtColor" name="txtColor" type="text" class="form-control" value="#3865a8">
                                   <span class="input-group-btn">
                                   <button class="btn default" type="button"><i style="background-color: #3865a8;"></i>&nbsp;</button>
                                   </span>
@@ -61,7 +53,7 @@
                   <div class="form-actions">
                       <div class="row">
                           <div class="col-md-offset-3 col-md-9">
-                              <button type="submit" class="btn green">Save</button>
+                              <button id="btnSaveLocations" type="button" class="btn green">Save</button>
                               <!--<button type="button" class="btn default">Cancel</button>-->
                           </div>
                       </div>
@@ -99,13 +91,29 @@
                            Description
                       </th>
                      
-                      <th width="10%">
+                      <th width="10%" >
                            
                       </th>
                   </tr>
-                  </thead>
+                  </thead >
                   <tbody>
-                  <tr class="active">
+                  <?php
+				 foreach($locations as $row)
+				 {
+					 if ($row->color == '')
+					 	$color = 'class="active"';
+					 else
+					 	$color = 'style="background-color:'.$row->color.'"';
+						
+					 echo '<tr '.$color.'>';
+					 echo '<td>'.$row->id.'</td>';
+					 echo '<td>'.$row->name.'</td>';
+					 echo '<td>'.$row->description.'</td>';
+					 echo '<td></td>';
+					 echo '<tr/>';
+				 }
+				  ?>
+                 <!-- <tr class="active" >
                       <td>
                            1
                       </td>
@@ -164,7 +172,7 @@
                            Column heading
                       </td>
                       
-                  </tr>
+                  </tr>-->
                   </tbody>
                   </table>
               </div>

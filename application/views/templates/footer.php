@@ -63,6 +63,9 @@
 <script src="<?php echo base_url();?>assets/admin/pages/scripts/components-dropdowns.js"></script>
 <!-- END PAGE LEVEL SCRIPS -->
 
+<!-- OUR SCRIPTS -->
+<script src="<?php echo base_url();?>js/locations.js"></script>
+<!-- END OUR SCRIPTS -->
 
 <script>
       jQuery(document).ready(function() {    
