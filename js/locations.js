@@ -18,8 +18,9 @@ $(document).ready(function(){
 			complete: function(){},
 			success: function(returndb){
 				alert(returndb);
+				$('#tbLocations').html(returndb);
 				/*$('#dvConstSuccessMsg').attr('class', 'alert alert-success');
-				$('#tbdConst').html(returndb);
+				$('#tbLocations').html(returndb);
 				if (action == 'addconstants')
 					$('#txtConstantName').val('');*/
 			}

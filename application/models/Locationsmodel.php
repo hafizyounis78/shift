@@ -21,6 +21,17 @@ class Locationsmodel extends CI_Model
 		
 		$this->db->insert('dusseldorf_v3_locations',$data);
 	}
+	function update_locations()
+	{
+		extract($_POST);
+
+		$data['name'] = $txtName;
+		$data['description'] = $txtDescription;
+		$data['color'] = $txtColor;
+		
+		this->db->where('id',$hdnId);
+		$this->db->update('dusseldorf_v3_locations',$data);
+	}
 	
 }
 

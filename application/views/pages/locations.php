@@ -21,6 +21,7 @@
                           <button class="close" data-close="alert"></button>
                           Your form validation is successful!
                       </div>
+                      <<input id="hdnId" name="hdnId" type="hidden" value="" />>
                       <div class="form-group">
                             <label class="control-label col-md-3">Location Name</label>
                             <div class="col-md-4">
@@ -96,7 +97,7 @@
                       </th>
                   </tr>
                   </thead >
-                  <tbody>
+                  <tbody id="tbLocations">
                   <?php
 				 foreach($locations as $row)
 				 {

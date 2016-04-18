@@ -44,6 +44,34 @@ class Locationscont extends CI_Controller
 	{
 		$this->load->model('locationsmodel');
 		$this->locationsmodel->insert_locations();
+		$this->drawLocationTable();
+	}
+	function updateLocation()
+	{
+		$this->load->model('locationsmodel');
+		$this->locationsmodel->update_locations();
+		$this->drawLocationTable();
+	}
+	function drawLocationTable()
+	{
+		
+		$this->load->model('locationsmodel');
+		$locations = $this->locationsmodel->get_locations();
+		
+		foreach($locations as $row)
+	    {
+		   if ($row->color == '')
+			  $color = 'class="active"';
+		   else
+			  $color = 'style="background-color:'.$row->color.'"';
+			  
+		   echo '<tr '.$color.'>';
+		   echo '<td>'.$row->id.'</td>';
+		   echo '<td>'.$row->name.'</td>';
+		   echo '<td>'.$row->description.'</td>';
+		   echo '<td></td>';
+		   echo '<tr/>';
+	    }
 	}
 }
 ?>
