@@ -1,4 +1,14 @@
 <!-- BEGIN PAGE CONTENT-->
+<style>
+.modal-body {
+    max-height: calc(100vh - 210px);
+    overflow-y: auto;
+}
+
+</style>
+
+
+
 <div class="row">
   <div class="col-md-12">
       <div class="portlet box green-meadow calendar">
@@ -76,15 +86,16 @@
               </div>
               <!-- END CALENDAR PORTLET-->
           </div>
-          <div id="form_modal2" class="modal fade" role="dialog" aria-hidden="true">
-									<div class="modal-dialog">
-										<div class="modal-content">
-											<div class="modal-header">
-												<button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
-												<h4 class="modal-title">Add Shift</h4>
-											</div>
-											<div class="modal-body">
-												<form action="#" class="form-horizontal">
+          <!--<div id="responsive" class="modal fade in" aria-hidden="false" tabindex="-1" style="display: block;">-->
+          <div id="form_modal2" class="modal fade">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h4 class="modal-title">Modal title</h4>
+            </div>
+            <div class="modal-body">
+               <form action="#" class="form-horizontal">
 													<div class="form-group">
                                                         <label class="control-label col-md-3">Location</label>
                                                         <div class="col-md-4">
@@ -159,7 +170,20 @@
                                                         </div>
                                                     </div>
                
-                                                    
+                                                    <div class="form-group">
+                                                          <label class="control-label col-md-3">Department <span class="required">
+                                                          * </span>
+                                                          </label>
+                                                          <div class="col-md-4">
+                                                              <select class="form-control" name="select">
+                                                                  <option value="">Select...</option>
+                                                                  <option value="1">Dept 1</option>
+                                                                  <option value="2">Dept 2</option>
+                                                                  <option value="3">Dept 5</option>
+                                                                  <option value="4">Dept 4</option>
+                                                              </select>
+                                                          </div>
+                                                      </div>
                                                     <div class="form-group">
                                                         <label class="control-label col-md-3">Staff</label>
                                                         <div class="col-md-9">
@@ -184,14 +208,18 @@
                                                         </div>
                                                     </div>
 												</form>
-											</div>
-											<div class="modal-footer">
-												<button class="btn" data-dismiss="modal" aria-hidden="true">Close</button>
-												<button class="btn green" data-dismiss="modal">Save changes</button>
-											</div>
-										</div>
-									</div>
-								</div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-primary">Save changes</button>
+            </div>
+        </div>
+        <!-- /.modal-content -->
+    </div>
+    <!-- /.modal-dialog -->
+</div>
+<!-- /.modal -->
+          
       </div>
   </div>
 </div>
