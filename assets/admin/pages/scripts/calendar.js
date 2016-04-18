@@ -107,7 +107,22 @@ var Calendar = function() {
 				selectable: true,
 				selectHelper: true,
 				select: function(start, end) {
-				var title = prompt('Event Title:');
+				 $("#form_modal2").modal();	
+				 $("#drpFromdate").val('');
+ 				 $("#drpTodate").val('');
+				 var endstr = end.format().toString();
+				 var dateParts = endstr.split("-");
+				
+				 var dateOfEnd = new Date(dateParts[0], (dateParts[1] - 1), dateParts[2]);
+				 var endDay = dateOfEnd.getDate() - 1;
+				 if(endDay >=1 && endDay<=9)
+				 	endDay = "0"+endDay;
+					
+				
+				 $("#drpTodate").val(dateParts[0]+'-'+dateParts[1]+'-'+endDay);
+				 $("#drpFromdate").val(start.format());
+				
+				/*var title = prompt('Event Title:');
 				var eventData;
 				if (title) {
 					eventData = {
@@ -116,7 +131,7 @@ var Calendar = function() {
 						end: end
 					};
 					$('#calendar').fullCalendar('renderEvent', eventData, true); // stick? = true
-				}
+				}*/
 				$('#calendar').fullCalendar('unselect');
 			},
 				drop: function(date, allDay) { // this function is called when something is dropped
