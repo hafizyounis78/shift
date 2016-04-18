@@ -88,7 +88,8 @@ var Calendar = function() {
 
             //predefined events
             $('#event_box').html("");
-            addEvent("My Event 1");
+            
+			addEvent("My Event 1");
             addEvent("My Event 2");
             addEvent("My Event 3");
             addEvent("My Event 4");
