@@ -19,6 +19,7 @@ class Locationsmodel extends CI_Model
 		$data['name'] = $txtName;
 		$data['description'] = $txtDescription;
 		$data['color'] = $txtColor;
+		$data['show_order'] =  $this->db->count_all('dusseldorf_v3_locations') + 1;
 		
 		$this->db->insert('dusseldorf_v3_locations',$data);
 	}
