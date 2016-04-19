@@ -58,20 +58,23 @@ class Locationscont extends CI_Controller
 		$this->load->model('locationsmodel');
 		$locations = $this->locationsmodel->get_locations();
 		
+		$i=1;
 		foreach($locations as $row)
-	    {
-		   if ($row->color == '')
-			  $color = 'class="active"';
-		   else
-			  $color = 'style="background-color:'.$row->color.'"';
-			  
-		   echo '<tr '.$color.'>';
-		   echo '<td>'.$row->id.'</td>';
-		   echo '<td>'.$row->name.'</td>';
-		   echo '<td>'.$row->description.'</td>';
-		   echo '<td></td>';
-		   echo '<tr/>';
-	    }
+		 {
+			 if ($row->color == '')
+				$color = 'style="background-color:#ffffff;cursor:pointer"';
+			 else
+				$color = 'style="background-color:'.$row->color.';cursor:pointer"';
+				
+			 echo '<tr '.$color.' onclick="selectRow('.$row->id.')">';
+			 echo '<td>'.$i++.'</td>';
+			 echo '<td id="tdName'.$row->id.'">'.$row->name.'</td>';
+			 echo '<td id="tdDescription'.$row->id.'">'.$row->description.'</td>';
+			 echo '<td id="tdColor'.$row->id.'" data-color="'.$row->color.'"></td>';
+			 echo '<tr/>';
+			 
+			 
+		 }
 	}
 }
 ?>

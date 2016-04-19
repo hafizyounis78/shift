@@ -29,7 +29,7 @@ class Locationsmodel extends CI_Model
 		$data['description'] = $txtDescription;
 		$data['color'] = $txtColor;
 		
-		this->db->where('id',$hdnId);
+		$this->db->where('id',$hdnId);
 		$this->db->update('dusseldorf_v3_locations',$data);
 	}
 	

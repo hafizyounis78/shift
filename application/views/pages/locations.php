@@ -21,7 +21,7 @@
                           <button class="close" data-close="alert"></button>
                           Your form validation is successful!
                       </div>
-                      <<input id="hdnId" name="hdnId" type="hidden" value="" />>
+                      <input id="hdnId" name="hdnId" type="hidden" value="" />
                       <div class="form-group">
                             <label class="control-label col-md-3">Location Name</label>
                             <div class="col-md-4">
@@ -39,11 +39,11 @@
                       </div>
                       <div class="form-group">
                           <label class="control-label col-md-3">Color</label>
-                          <div class="col-md-3">
-                              <div class="input-group color colorpicker-default" data-color="#3865a8" data-color-format="rgba">
-                                  <input id="txtColor" name="txtColor" type="text" class="form-control" value="#3865a8">
+                          <div class="col-md-3"><!--#3865a8-->
+                              <div id="dvColor" class="input-group color colorpicker-default" data-color="#ffffff" data-color-format="rgba">
+                                  <input id="txtColor" name="txtColor" type="text" class="form-control" value="#ffffff">
                                   <span class="input-group-btn">
-                                  <button class="btn default" type="button"><i style="background-color: #3865a8;"></i>&nbsp;</button>
+                                  <button class="btn default" type="button"><i id="iColor" style="background-color: #ffffff;"></i>&nbsp;</button>
                                   </span>
                               </div>
                               <!-- /input-group -->
@@ -79,7 +79,7 @@
           </div>
           <div class="portlet-body">
               <div class="table-scrollable">
-                  <table class="table table-bordered table-hover">
+                  <table class="table table-hover">
                   <thead>
                   <tr>
                       <th width="10%">
@@ -99,20 +99,23 @@
                   </thead >
                   <tbody id="tbLocations">
                   <?php
-				 foreach($locations as $row)
-				 {
+				  $i=1;
+				  foreach($locations as $row)
+				  {
 					 if ($row->color == '')
-					 	$color = 'class="active"';
+					 	$color = 'style="background-color:#ffffff;cursor:pointer"';
 					 else
-					 	$color = 'style="background-color:'.$row->color.'"';
+					 	$color = 'style="background-color:'.$row->color.';cursor:pointer"';
 						
-					 echo '<tr '.$color.'>';
-					 echo '<td>'.$row->id.'</td>';
-					 echo '<td>'.$row->name.'</td>';
-					 echo '<td>'.$row->description.'</td>';
-					 echo '<td></td>';
+					 echo '<tr '.$color.' onclick="selectRow('.$row->id.')">';
+					 echo '<td>'.$i++.'</td>';
+					 echo '<td id="tdName'.$row->id.'">'.$row->name.'</td>';
+					 echo '<td id="tdDescription'.$row->id.'">'.$row->description.'</td>';
+					 echo '<td id="tdColor'.$row->id.'" data-color="'.$row->color.'"></td>';
 					 echo '<tr/>';
-				 }
+					 
+					 
+				  }
 				  ?>
                  <!-- <tr class="active" >
                       <td>
