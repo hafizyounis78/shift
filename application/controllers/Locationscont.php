@@ -52,6 +52,12 @@ class Locationscont extends CI_Controller
 		$this->locationsmodel->update_locations();
 		$this->drawLocationTable();
 	}
+	function orderLocation()
+	{
+		$this->load->model('locationsmodel');
+		$this->locationsmodel->updateLocation_order();
+		$this->drawLocationTable();
+	}
 	function drawLocationTable()
 	{
 		
@@ -60,21 +66,28 @@ class Locationscont extends CI_Controller
 		
 		$i=1;
 		foreach($locations as $row)
-		 {
-			 if ($row->color == '')
+	    {
+			if ($row->color == '')
 				$color = 'style="background-color:#ffffff;cursor:pointer"';
 			 else
 				$color = 'style="background-color:'.$row->color.';cursor:pointer"';
 				
-			 echo '<tr '.$color.' onclick="selectRow('.$row->id.')">';
-			 echo '<td>'.$i++.'</td>';
-			 echo '<td id="tdName'.$row->id.'">'.$row->name.'</td>';
-			 echo '<td id="tdDescription'.$row->id.'">'.$row->description.'</td>';
-			 echo '<td id="tdColor'.$row->id.'" data-color="'.$row->color.'"></td>';
+			 echo '<tr '.$color.'>';
+			 echo '<td id="tdOrder'.$row->id.'"       onclick="selectRow('.$row->id.')">'. $i.	 		    '</td>';
+			 echo '<td id="tdName' .$row->id.'"       onclick="selectRow('.$row->id.')">'. $row->name.		'</td>';
+			 echo '<td id="tdDescription'.$row->id.'" onclick="selectRow('.$row->id.')">'. $row->description.'</td>';
+			 echo '<td id="tdColor'.$row->id.'" data-color="'.$row->color.'">';
+			 if ($i != 1)
+			 	echo '<i class="fa fa-arrow-up order" aria-hidden="true"  onclick="order('.$row->id.',\'-1\')"></i>';
+			 if ($i != count($locations) )
+			 	echo '<i id="iDown" class="fa fa-arrow-down order" aria-hidden="true" onclick="order('.$row->id.',\'+1\')"></i>';
+			 echo '</td>';
 			 echo '<tr/>';
 			 
-			 
-		 }
+			 $i++;
+		   
+		   
+	    }
 	}
 }
 ?>

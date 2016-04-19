@@ -31,8 +31,8 @@
                       
                       <div class="form-group">
                           <label class="control-label col-md-3">Description</label>
-                          <div class="col-md-9">
-                              <textarea id="txtDescription" name="txtDescription" class="form-control"  data-provide="markdown" rows="10" data-error-container="#editor_error"></textarea>
+                          <div class="col-md-4">
+                              <textarea id="txtDescription" name="txtDescription" class="form-control"  data-provide="markdown" rows="2" data-error-container="#editor_error"></textarea>
                               <div id="editor_error">
                               </div>
                           </div>
@@ -55,7 +55,7 @@
                       <div class="row">
                           <div class="col-md-offset-3 col-md-9">
                               <button id="btnSaveLocations" type="button" class="btn green">Save</button>
-                              <!--<button type="button" class="btn default">Cancel</button>-->
+                              <button type="button" class="btn default" onclick="clearForm()">Cancel</button>
                           </div>
                       </div>
                   </div>
@@ -107,14 +107,19 @@
 					 else
 					 	$color = 'style="background-color:'.$row->color.';cursor:pointer"';
 						
-					 echo '<tr '.$color.' onclick="selectRow('.$row->id.')">';
-					 echo '<td>'.$i++.'</td>';
-					 echo '<td id="tdName'.$row->id.'">'.$row->name.'</td>';
-					 echo '<td id="tdDescription'.$row->id.'">'.$row->description.'</td>';
-					 echo '<td id="tdColor'.$row->id.'" data-color="'.$row->color.'"></td>';
+					 echo '<tr '.$color.'>';
+					 echo '<td id="tdOrder'.$row->id.'"       onclick="selectRow('.$row->id.')">'. $i.	 		'</td>';
+					 echo '<td id="tdName' .$row->id.'"       onclick="selectRow('.$row->id.')">'. $row->name.		'</td>';
+					 echo '<td id="tdDescription'.$row->id.'" onclick="selectRow('.$row->id.')">'. $row->description.'</td>';
+					 echo '<td id="tdColor'.$row->id.'" data-color="'.$row->color.'">';
+					 if ($i != 1)
+						echo '<i class="fa fa-arrow-up order" aria-hidden="true"  onclick="order('.$row->id.',\'-1\')"></i>';
+					 if ($i != count($locations) )
+					 	echo '<i class="fa fa-arrow-down order" aria-hidden="true" onclick="order('.$row->id.',\'+1\')"></i>';
+					 echo '</td>';
 					 echo '<tr/>';
 					 
-					 
+					 $i++;
 				  }
 				  ?>
                  <!-- <tr class="active" >
