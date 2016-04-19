@@ -65,6 +65,7 @@
 
 <!-- OUR SCRIPTS -->
 <script src="<?php echo base_url();?>js/locations.js"></script>
+<script src="<?php echo base_url();?>js/timeoff.js"></script>
 <!-- END OUR SCRIPTS -->
 
 <script>

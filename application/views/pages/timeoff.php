@@ -1,3 +1,8 @@
+<?php
+$ction ="addtimeoff";
+$page_title = "addTimeoff";
+$readonly = '';
+?>
 <div class="row">
   <div class="col-md-12">
       <!-- BEGIN VALIDATION STATES-->
@@ -10,7 +15,7 @@
           </div>
           <div class="portlet-body form">
               <!-- BEGIN FORM-->
-              <form action="#" id="form_sample_3" class="form-horizontal">
+              <form action="#" id="timeOffForm" class="form-horizontal">
                   <div class="form-body">
                       
                       <div class="alert alert-danger display-hide">
@@ -22,18 +27,32 @@
                           Your form validation is successful!
                       </div>
                       <div class="form-group">
-                          <label class="control-label col-md-3">Location <span class="required">
-                          * </span>
-                          </label>
-                          <div class="col-md-4">
-                              <input type="text" name="name" data-required="1" class="form-control"/>
-                          </div>
-                      </div>
+                            <label class="control-label col-md-3">Location</label>
+                            <div class="col-md-4">
+                                <select class="form-control input-large select2me" data-placeholder="Select Location" id="drpLocation" name="drpLocation">
+                                    <option value="">Select..</option>
+                                     <?php 
+								  foreach ($location as $location_row)
+								  {
+									  $selected = '';
+									  /*
+									  if ($patient_row->status_id == $location_row->sub_constant_id)
+									  	$selected = 'selected="selected"';
+									  */
+									  echo ' <option value="'.$location_row->id.'" '.$selected.'>'
+									  						 .$location_row->name.'</option>';
+								  }
+								  ?>
+                                </select>
+                                <span class="help-block">
+                                .Select Location</span>
+                            </div>
+                        </div>
                       <div class="form-group">
                                 <label class="control-label col-md-3">Dates</label>
                                 <div class="col-md-3">
-                                    <div class="input-group input-medium date date-picker" data-date-format="dd-mm-yyyy" data-date-start-date="+0d">
-                                        <input type="text" class="form-control" readonly>
+                                    <div class="input-group input-medium date date-picker" data-date-format="yyyy-mm-dd" data-date-start-date="+0d">
+                                        <input type="text" class="form-control" readonly id="dpTimeOffDate" name="dpTimeOffDate">
                                         <span class="input-group-btn">
                                         <button class="btn default" type="button"><i class="fa fa-calendar"></i></button>
                                         </span>
@@ -47,7 +66,7 @@
                             <label class="control-label col-md-3">Time</label>
                             <div class="col-md-2">
                                 <div class="input-group">
-                                    <input type="text" class="form-control timepicker timepicker-24">
+                                    <input type="text" class="form-control timepicker timepicker-24" id="dpTimeOffFromTime" name="dpTimeOffFromTime">
                                     <span class="input-group-btn">
                                     <button class="btn default" type="button"><i class="fa fa-clock-o"></i></button>
                                     </span>
@@ -55,7 +74,7 @@
                             </div>
                             <div class="col-md-2">
                                 <div class="input-group">
-                                    <input type="text" class="form-control timepicker timepicker-24">
+                                    <input type="text" class="form-control timepicker timepicker-24" id="dpTimeOffToTime" name="dpTimeOffToTime">
                                     <span class="input-group-btn">
                                     <button class="btn default" type="button"><i class="fa fa-clock-o"></i></button>
                                     </span>
@@ -79,22 +98,17 @@
                         <label class="control-label col-md-3">Staff</label>
                         <div class="col-md-9">
                             <select multiple="multiple" class="multi-select" id="my_multi_select1" name="my_multi_select1[]">
-                                <option>Dallas Cowboys</option>
-                                <option>New York Giants</option>
-                                <option selected>Philadelphia Eagles</option>
-                                <option selected>Washington Redskins</option>
-                                <option>Chicago Bears</option>
-                                <option>Detroit Lions</option>
-                                <option>Green Bay Packers</option>
-                                <option>Minnesota Vikings</option>
-                                <option selected>Atlanta Falcons</option>
-                                <option>Carolina Panthers</option>
-                                <option>New Orleans Saints</option>
-                                <option>Tampa Bay Buccaneers</option>
-                                <option>Arizona Cardinals</option>
-                                <option>St. Louis Rams</option>
-                                <option>San Francisco 49ers</option>
-                                <option>Seattle Seahawks</option>
+                                <?php
+                                 foreach($staffList as $staff_row)
+									  {
+										  $selected = '';
+						
+						
+											  echo '<option  value='.$staff_row->id.'>'.$staff_row->name.'</option>';
+										  
+									  }
+									  
+										  ?>
                             </select>
                         </div>
                     </div>  
@@ -102,8 +116,8 @@
                   <div class="form-actions">
                       <div class="row">
                           <div class="col-md-offset-3 col-md-9">
-                              <button type="submit" class="btn green">Save</button>
-                              <!--<button type="button" class="btn default">Cancel</button>-->
+                              <button id="btnSaveTimeoff" type="button" class="btn green">Save</button>
+                              <button type="button" class="btn default" onclick="clearForm()">Cancel</button>
                           </div>
                       </div>
                   </div>
