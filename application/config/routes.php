@@ -51,9 +51,9 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 */
 $route['home/(:any)'] = 'home/view/$1';
 $route['locationscont/(:any)'] = 'locationscont/view/$1';
-$route['Fullschedulecont/(:any)'] = 'Fullschedulecont/view/$1';
-$route['Shifttemplatecont/(:any)'] = 'Shifttemplatecont/view/$1';
-$route['Shiftscont/(:any)'] = 'Shiftscont/view/$1';
+$route['fullschedulecont/(:any)'] = 'fullschedulecont/view/$1';
+$route['shifttemplatecont/(:any)'] = 'shifttemplatecont/view/$1';
+$route['shiftscont/(:any)'] = 'shiftscont/view/$1';
 $route['(:any)'] = 'home/view/$1';
 $route['default_controller'] = 'home/view';
 $route['404_override'] = '';
