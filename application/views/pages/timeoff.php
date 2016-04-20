@@ -100,15 +100,13 @@ $readonly = '';
                             <select multiple="multiple" class="multi-select" id="my_multi_select1" name="my_multi_select1[]">
                                 <?php
                                  foreach($staffList as $staff_row)
-									  {
-										  $selected = '';
-						
-						
-											  echo '<option  value='.$staff_row->id.'>'.$staff_row->name.'</option>';
-										  
-									  }
+								  {
+									 
+									  echo '<option  value='.$staff_row->id.'>'.$staff_row->name.'</option>';
 									  
-										  ?>
+								  }
+								  
+								?>
                             </select>
                         </div>
                     </div>  

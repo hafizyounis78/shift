@@ -35,13 +35,13 @@ class Timeoffcont extends CI_Controller
    		}*/
 		
 	}
-function timeoff()
-{   $this->load->model('constantmodel');
-	$this->data['location']= $this->constantmodel->get_location_list();
-	$this->data['staffList']= $this->constantmodel->get_staff_list();
-//	$this->getstaffList();
-}
-function addTimeoff()
+	function timeoff()
+	{   $this->load->model('constantmodel');
+		$this->data['location']= $this->constantmodel->get_location_list();
+		$this->data['staffList']= $this->constantmodel->get_staff_list();
+	//	$this->getstaffList();
+	}
+	function addTimeoff()
 	{
 		$this->load->model('timeoffmodel');
 		$this->timeoffmodel->insert_timeoff();
@@ -53,7 +53,7 @@ function addTimeoff()
 		$this->timeoffmodel->update_timeoff();
 		$this->drawTimeoffTable();
 	}
-function drawTimeoffTable()
+	function drawTimeoffTable()
 	{
 		
 		$this->load->model('timeoffmodel');

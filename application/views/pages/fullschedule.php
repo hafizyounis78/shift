@@ -99,12 +99,16 @@
                     <div class="form-group">
                         <label class="control-label col-md-3">Location</label>
                         <div class="col-md-4">
-                            <select class="form-control input-large select2me" data-placeholder="Select...">
-                                <option value=""></option>
-                                <option value="AL">EDEKA</option>
-                                <option value="WY">Our Location</option>
-                                <option value="AL">EDEKA1</option>
-                                <option value="WY">EDEKA2</option>
+                            <select id="drpLocation" name="drpLocation" class="form-control input-large select2me" data-placeholder="Select...">
+                                <option value="">Select..</option>
+                                <?php 
+								foreach ($location as $location_row)
+								{
+									
+									echo ' <option value="'.$location_row->id.'" '.$selected.'>'
+														   .$location_row->name.'</option>';
+								}
+								?>
                             </select>
                             
                         </div>
@@ -126,7 +130,7 @@
                         <label class="control-label col-md-3">Time</label>
                         <div class="col-md-3">
                             <div class="input-group">
-                                <input id="txtStart" type="text" class="form-control timepicker timepicker-24">
+                                <input id="txtStart" name="txtStart" type="text" class="form-control timepicker timepicker-24">
                                 <span class="input-group-btn">
                                 <button class="btn default" type="button"><i class="fa fa-clock-o"></i></button>
                                 </span>
@@ -134,7 +138,7 @@
                         </div>
                     <div class="col-md-3">
                         <div class="input-group">
-                            <input id="txtEnd" type="text" class="form-control timepicker timepicker-24">
+                            <input id="txtEnd" name="txtEnd" type="text" class="form-control timepicker timepicker-24">
                             <span class="input-group-btn">
                             <button class="btn default" type="button"><i class="fa fa-clock-o"></i></button>
                             </span>
@@ -188,22 +192,15 @@
                         <label class="control-label col-md-3">Staff</label>
                         <div class="col-md-9">
                             <select multiple="multiple" class="multi-select" id="my_multi_select1" name="my_multi_select1[]">
-                                <option>Dallas Cowboys</option>
-                                <option>New York Giants</option>
-                                <option selected>Philadelphia Eagles</option>
-                                <option selected>Washington Redskins</option>
-                                <option>Chicago Bears</option>
-                                <option>Detroit Lions</option>
-                                <option>Green Bay Packers</option>
-                                <option>Minnesota Vikings</option>
-                                <option selected>Atlanta Falcons</option>
-                                <option>Carolina Panthers</option>
-                                <option>New Orleans Saints</option>
-                                <option>Tampa Bay Buccaneers</option>
-                                <option>Arizona Cardinals</option>
-                                <option>St. Louis Rams</option>
-                                <option>San Francisco 49ers</option>
-                                <option>Seattle Seahawks</option>
+                                <?php
+                                foreach($staffList as $staff_row)
+								{
+								   
+									echo '<option  value='.$staff_row->id.'>'.$staff_row->name.'</option>';
+									
+								}
+								  
+								?>
                             </select>
                         </div>
                     </div>

@@ -19,7 +19,7 @@ class Fullschedulecont extends CI_Controller
 		else if($this->session->userdata('logged_in'))
 		{*/
 			$this->data['title'] = $page;
-			//$this->$page();
+			$this->$page();
 			$this->load->view('templates/head',$this->data);
 			$this->load->view('templates/header',$this->data);
 			$this->load->view('templates/sidebar');
@@ -34,6 +34,12 @@ class Fullschedulecont extends CI_Controller
      		redirect('login', 'refresh');
    		}*/
 		
+	}
+	function fullschedule()
+	{
+		$this->load->model('constantmodel');
+		$this->data['location']= $this->constantmodel->get_location_list();
+		$this->data['staffList']= $this->constantmodel->get_staff_list();
 	}
 	function getfullschedule()
 	{
