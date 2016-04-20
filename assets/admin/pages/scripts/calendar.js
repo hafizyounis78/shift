@@ -57,6 +57,7 @@ var Calendar = function() {
             var initDrag = function(el) {
                 // create an Event Object (http://arshaw.com/fullcalendar/docs/event_data/Event_Object/)
                 // it doesn't need to have a start or end
+				//alert('hi');
                 var eventObject = {
                     title: $.trim(el.text()) // use the element's text as the event title
                 };
@@ -72,10 +73,11 @@ var Calendar = function() {
 
             var addEvent = function(title) {
 				
-                title = title.length === 0 ? "Untitled Event" : title;
+                /*title = title.length === 0 ? "Untitled Event" : title;
                 var html = $('<div class="external-event label label-default">' + title + '</div>');
                 jQuery('#event_box').append(html);
-                initDrag(html);
+                initDrag(html);*/
+				
 				
 				
             };
@@ -92,10 +94,34 @@ var Calendar = function() {
             //predefined events
             $('#event_box').html("");
             
+			$.ajax({
+					  url: baseURL+"Fullschedulecont/getfullschedule",
+					  type: "POST",
+					  data:  {},
+					  error: function(xhr, status, error) {
+						  //var err = eval("(" + xhr.responseText + ")");
+						  alert(xhr.responseText);
+					  },
+					  beforeSend: function(){},
+					  complete: function(){},
+					  success: function(returndb){
+						  
+						  for(var a=0; a< returndb.length; a++){
+							  
+							  var html = $('<div class="external-event label label-default col-md-12">' + returndb[a]['txtName'] + 
+											'<br/>' + returndb[a]['txtStart'] + ' - '+ returndb[a]['txtEnd'] +
+											' <i class="fa fa-coffee" aria-hidden="true"></i> ' + returndb[a]['txtBreak'] +' min</div>');
+							jQuery('#event_box').append(html);
+							initDrag(html);
+							  
+						 }//END FOR
+						  
+						 
+					  }
+				});//END $.ajax
 			
-			
-			/*addEvent("My Event 1");
-            addEvent("My Event 2");
+			addEvent("My Event 1");
+           /* addEvent("My Event 2");
             addEvent("My Event 3");
             addEvent("My Event 4");
             addEvent("My Event 5");
@@ -203,23 +229,7 @@ var Calendar = function() {
 						
 					});//END AJAX*/
 						
-					$.ajax({
-					  url: baseURL+"Fullschedulecont/getfullschedule",
-					  type: "POST",
-					  data:  {},
-					  error: function(xhr, status, error) {
-						  //var err = eval("(" + xhr.responseText + ")");
-						  alert(xhr.responseText);
-					  },
-					  beforeSend: function(){},
-					  complete: function(){},
-					  success: function(returndb){
-						  jQuery('#event_box').append(returndb);
-						  initDrag(returndb);
-						  
-						 
-					  }
-					  });//END $.ajax
+					
 					
 				},//END FUN EVENT
             });

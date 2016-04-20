@@ -40,14 +40,29 @@ class Fullschedulecont extends CI_Controller
 		$this->load->model('fullschedulemodel');
 		$shifttemplate = $this->fullschedulemodel->get_shift_templates();
 		
+		$output = array();
 		foreach($shifttemplate as $row)
 	    {
-			echo '<div class="external-event label label-default">'.$row->name.
-							'<br/>' . $row->start . ' - '. $row->start .
-							' <i class="fa fa-coffee" aria-hidden="true"></i>' . $row->lunch_break .'</div>';
+			unset($temp); // Release the contained value of the variable from the last loop
+			$temp = array();
+
+			// It guess your client side will need the id to extract, and distinguish the ScoreCH data
+			$temp['txtName'] 	= $row->name;
+			$temp['txtStart'] 	= $row->start;
+			$temp['txtEnd'] 	= $row->end;
+			$temp['txtBreak'] 	= $row->lunch_break;
 			
+			array_push($output,$temp);
+			
+			
+			/*echo '<div class="external-event label label-default">'.$row->name.
+							'<br/>' . $row->start . ' - '. $row->start .
+							' <i class="fa fa-coffee" aria-hidden="true"></i>' . $row->lunch_break .'</div>';*/
 			
 		}
+		header('Access-Control-Allow-Origin: *');
+			header("Content-Type: application/json");
+			echo json_encode($output);
 	}
 	function addShiftTemplate()
 	{
