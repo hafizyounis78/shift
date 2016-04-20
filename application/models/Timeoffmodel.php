@@ -12,16 +12,27 @@ class Timeoffmodel extends CI_Model
 		return $query->result();
 	}
 	
-	function insert_locations()
+	function insert_timeoff()
 	{
 		extract($_POST);
-
-		$data['name'] = $txtName;
-		$data['description'] = $txtDescription;
-		$data['color'] = $txtColor;
-		$data['show_order'] =  $this->db->count_all('dusseldorf_v3_locations') + 1;
+		print_r($_POST);
+		$staffid = explode(",", $staffList);
+		foreach($staffid as $element)
+		{
 		
-		$this->db->insert('dusseldorf_v3_locations',$data);
+		
+		$data['location_id'] = $drpLocation;
+		$data['date'] = $dpTimeOffDate;
+		$data['date_end'] = $dpTimeOffDate;
+		$data['start'] = $dpTimeOffFromTime;
+		$data['end'] = $dpTimeOffToTime;
+		$data['status'] = $rdStatus;
+		$data['user_id'] = $element;
+		$data['type'] = 2;
+		$this->db->insert('dusseldorf_shifts',$data);
+		}
+		
+		
 	}
 	function update_locations()
 	{

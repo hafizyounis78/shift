@@ -4,15 +4,30 @@ $(document).ready(function(){
 	$('#btnSaveTimeoff').click(function(event) {							
 		event.preventDefault();
 		
-		if ($("#hdnId").val() == '')
+		//if ($("#hdnId").val() == '')
 			var action = "addTimeoff";
-		else
-			var action = "updateTimeoff";
-			
+	/*	else
+			var action = "updateTimeoff";*/
+			/*if (document.getElementById('rdStatus').checked) {
+				  var status_value = document.getElementById('rdStatus').value;
+				}
+				alert(status_value);*/
+			var formData = new FormData();
+	
+	
+				formData.append('drpLocation'		 , $("#drpLocation").val());
+				formData.append('dpTimeOffDate'		 , $("#dpTimeOffDate").val());
+				formData.append('dpTimeOffFromTime'	 ,  $("#dpTimeOffFromTime").val());
+				formData.append('dpTimeOffToTime'	 ,  $("#dpTimeOffToTime").val());
+				formData.append('rdStatus'          ,  $("input[name=rdStatus]:checked").val());
+				formData.append('staffList'		     ,  staffList);
+	
 	$.ajax({
 			url: baseURL+"Timeoffcont/"+action,
 			type: "POST",
-			data:  $("#timeOffForm").serialize(),
+			data: formData,
+			 processData: false,
+			 contentType: false,
 			error: function(xhr, status, error) {
   				//var err = eval("(" + xhr.responseText + ")");
   				alert(xhr.responseText);
@@ -91,29 +106,43 @@ var ComponentsDropdowns = function () {
             selectableOptgroup: true,
 			
 			afterSelect: function(values){
-			  
+				if (staffList=='')
+				staffList=values;
+				else
+			  staffList=staffList+','+values;
+			  //alert("staffList "+staffList);
 			},
 			afterDeselect: function(values){
-			   $.ajax({
-					url: baseURL+"Usertypeperm/deleteusertypepermession",
-					type: "POST",
-					data:  {user_type_id : $("#drpUsertypeperm").val(),
-								  values : values},
-					error: function(xhr, status, error) {
-						//var err = eval("(" + xhr.responseText + ")");
-						alert(xhr.responseText);
-					},
-					beforeSend: function(){},
-					complete: function(){},
-					success: function(returndb){
-						if(returndb != '')
-							$('#my_multi_select2').multiSelect('select', values);
+				//alert("values is "+values);
+			   var staffID =staffList.split(',');
+			   var newstafflist="";
+			   for ( var i = 0; i < staffID.length; i++ )
+				{//alert("i="+i);
+					//staffID[i] =staffList.split(',');
+					if (staffID[i]==values)
+					{
+					//	alert("staffID["+i+"]"+staffID[i])
 					}
-				});//END $.ajax
+					else
+					{
+						if (newstafflist=='')
+							newstafflist=staffID[i];
+						else
+							newstafflist=newstafflist+','+staffID[i];
+					}
+				}
+				staffList=newstafflist;
+				// alert("new staffList "+staffList);
+//			   staffList.split(",");
+//				if (staffID=values)
+				 
+				 
+
+			  //alert(values);
 			},
 			
-			selectableHeader: "<div class='btn-danger' align='center'><b> غـيـر مـتـاحـة </b></div>",
-  			selectionHeader: "<div class='btn-success' align='center'><b> مـتـاحــة </b></div>"
+			selectableHeader: "<div class='btn-danger' align='center'><b> Available </b></div>",
+  			selectionHeader: "<div class='btn-success' align='center'><b> Selected </b></div>"
         });
 	
     }

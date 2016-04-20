@@ -45,7 +45,7 @@ function addTimeoff()
 	{
 		$this->load->model('timeoffmodel');
 		$this->timeoffmodel->insert_timeoff();
-		$this->drawTimeoffTable();
+		//$this->drawTimeoffTable();
 	}
 	function updateTimeoff()
 	{
