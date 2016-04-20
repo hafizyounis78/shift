@@ -19,7 +19,7 @@ class Fullschedulecont extends CI_Controller
 		else if($this->session->userdata('logged_in'))
 		{*/
 			$this->data['title'] = $page;
-			$this->$page();
+			//$this->$page();
 			$this->load->view('templates/head',$this->data);
 			$this->load->view('templates/header',$this->data);
 			$this->load->view('templates/sidebar');
@@ -35,9 +35,25 @@ class Fullschedulecont extends CI_Controller
    		}*/
 		
 	}
-	function fullschedule()
+	function getfullschedule()
 	{
+		$this->load->model('fullschedulemodel');
+		$shifttemplate = $this->fullschedulemodel->get_shift_templates();
 		
+		foreach($shifttemplate as $row)
+	    {
+			echo '<div class="external-event label label-default">'.$row->name.
+							'<br/>' . $row->start . ' - '. $row->start .
+							' <i class="fa fa-coffee" aria-hidden="true"></i>' . $row->lunch_break .'</div>';
+			
+			
+		}
+	}
+	function addShiftTemplate()
+	{
+		$this->load->model('fullschedulemodel');
+		$this->fullschedulemodel->insert_shift_template();
+		//$this->drawLocationTable();
 	}
 }
 ?>

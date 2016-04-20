@@ -34,33 +34,33 @@
                                       
                                    <div id="external-events">
                 
-                              <form class="inline-form">
-                                  <input type="text" value="" class="form-control" placeholder="Name..." id="event_title"/><br/>
+                              <form id="shiftttemplateForm" class="inline-form">
+                                  <input id="txtName" name="txtName" type="text" value="" class="form-control" placeholder="Name..." /><br/>
                                   <label class="control-label">Time</label>
                                   <div class="input-group">
-                                        <input type="text" class="form-control timepicker timepicker-24">
+                                        <input id="txtFrom" name="txtFrom" type="text" class="form-control timepicker timepicker-24" >
                                         <span class="input-group-btn">
                                         <button class="btn default" type="button"><i class="fa fa-clock-o"></i></button>
                                         </span>
                                     </div>
                                     <br/>
                                   <div class="input-group">
-                                        <input type="text" class="form-control timepicker timepicker-24">
+                                        <input id="txtTo" name="txtTo" type="text" class="form-control timepicker timepicker-24">
                                         <span class="input-group-btn">
                                         <button class="btn default" type="button"><i class="fa fa-clock-o"></i></button>
                                         </span>
                                     </div>
                                     <br/>
                                     
-                                    <select class="form-control" name="select">
+                                    <select id="drpBreak" name="drpBreak" class="form-control" name="select">
                                       <option value="">Select Break Time...</option>
-                                      <option value="Category 1">Category 1</option>
-                                      <option value="Category 2">Category 2</option>
-                                      <option value="Category 3">Category 5</option>
-                                      <option value="Category 4">Category 4</option>
+                                      <?php
+									  for($i=0; $i<=240; $i=$i+5)
+									  	echo '<option value="'.$i.'">'.$i.' min</option>';
+									  ?>
                                   </select> 
                                   <br/>
-                                  <a href="javascript:;" id="event_add" class="btn default">
+                                  <a href="javascript:;" id="event_add" class="btn default" onclick="addShiftTemplate()">
                                   Add Shift Template </a>
                                   
                               </form>

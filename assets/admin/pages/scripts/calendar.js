@@ -71,10 +71,13 @@ var Calendar = function() {
             };
 
             var addEvent = function(title) {
+				
                 title = title.length === 0 ? "Untitled Event" : title;
                 var html = $('<div class="external-event label label-default">' + title + '</div>');
                 jQuery('#event_box').append(html);
                 initDrag(html);
+				
+				
             };
 
             $('#external-events div.external-event').each(function() {
@@ -89,12 +92,14 @@ var Calendar = function() {
             //predefined events
             $('#event_box').html("");
             
-			addEvent("My Event 1");
+			
+			
+			/*addEvent("My Event 1");
             addEvent("My Event 2");
             addEvent("My Event 3");
             addEvent("My Event 4");
             addEvent("My Event 5");
-            addEvent("My Event 6");
+            addEvent("My Event 6");*/
 			
             $('#calendar').fullCalendar('destroy'); // destroy the calendar
             $('#calendar').fullCalendar({ //re-initialize the calendar
@@ -162,48 +167,61 @@ var Calendar = function() {
 					alert('Resource ID: ' + resourceObj.id);
 			
 				},
-                events: [{
-                    title: 'All Day Event',
-                    start: new Date(y, m, 1),
-                    backgroundColor: Metronic.getBrandColor('yellow')
-                }, {
-                    title: 'Long Event',
-                    start: new Date(y, m, d - 5),
-                    end: new Date(y, m, d - 2),
-                    backgroundColor: Metronic.getBrandColor('green')
-                }, {
-                    title: 'Repeating Event',
-                    start: new Date(y, m, d - 3, 16, 0),
-                    allDay: false,
-                    backgroundColor: Metronic.getBrandColor('red')
-                }, {
-                    title: 'Repeating Event',
-                    start: new Date(y, m, d + 4, 16, 0),
-                    allDay: false,
-                    backgroundColor: Metronic.getBrandColor('green')
-                }, {
-                    title: 'Meeting',
-                    start: new Date(y, m, d, 10, 30),
-                    allDay: false,
-                }, {
-                    title: 'Lunch',
-                    start: new Date(y, m, d, 12, 0),
-                    end: new Date(y, m, d, 14, 0),
-                    backgroundColor: Metronic.getBrandColor('grey'),
-                    allDay: false,
-                }, {
-                    title: 'Birthday Party',
-                    start: new Date(y, m, d + 1, 19, 0),
-                    end: new Date(y, m, d + 1, 22, 30),
-                    backgroundColor: Metronic.getBrandColor('purple'),
-                    allDay: false,
-                }, {
-                    title: 'Click for Google',
-                    start: new Date(y, m, 28),
-                    end: new Date(y, m, 29),
-                    backgroundColor: Metronic.getBrandColor('yellow'),
-                    url: 'http://google.com/',
-                }]
+                events: function(start, end, timezone, callback){
+						/*var hall = document.getElementById('w_code').value;
+//						var baseurl = "<?php echo base_url(); ?>";
+						$.ajax({
+    						url: baseURL+"pages/booking_calender",
+    						type: "POST",
+							data: {hall:hall},
+    						success:function(retrieved_data){
+         					// Your code here.. use something like this
+							//alert(retrieved_data.length);
+         					//var Obj = JSON.parse(retrieved_data);
+							
+							var arr = [{title: 'All Day Event',
+                    		 start: new Date(y, m, 1),
+                    			backgroundColor: Metronic.getBrandColor('yellow')
+                			}];
+							//alert(arr[0]['start']);
+							
+         					// Since your controller produce array of object you can access the value by using this one :
+         					var events = [];
+							for(var a=0; a< retrieved_data.length; a++){
+              				//	alert("the value with id : " + retrieved_data[a]['title'] + "is " + retrieved_data[a]['start']);
+         						events.push({
+											title:retrieved_data[a]['title'],
+											start:retrieved_data[a]['start'],
+											url:retrieved_data[a]['url'],
+											textColor:retrieved_data[a]['textColor'],
+											backgroundColor:Metronic.getBrandColor(retrieved_data[a]['backgroundColor'])
+											});
+							}//END FOR
+							
+							callback(events);
+    					} //END SUCCESS
+						
+					});//END AJAX*/
+						
+					$.ajax({
+					  url: baseURL+"Fullschedulecont/getfullschedule",
+					  type: "POST",
+					  data:  {},
+					  error: function(xhr, status, error) {
+						  //var err = eval("(" + xhr.responseText + ")");
+						  alert(xhr.responseText);
+					  },
+					  beforeSend: function(){},
+					  complete: function(){},
+					  success: function(returndb){
+						  jQuery('#event_box').append(returndb);
+						  initDrag(returndb);
+						  
+						 
+					  }
+					  });//END $.ajax
+					
+				},//END FUN EVENT
             });
 
         }
