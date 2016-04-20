@@ -126,7 +126,7 @@
                         <label class="control-label col-md-3">Time</label>
                         <div class="col-md-3">
                             <div class="input-group">
-                                <input type="text" class="form-control timepicker timepicker-24">
+                                <input id="txtStart" type="text" class="form-control timepicker timepicker-24">
                                 <span class="input-group-btn">
                                 <button class="btn default" type="button"><i class="fa fa-clock-o"></i></button>
                                 </span>
@@ -134,7 +134,7 @@
                         </div>
                     <div class="col-md-3">
                         <div class="input-group">
-                            <input type="text" class="form-control timepicker timepicker-24">
+                            <input id="txtEnd" type="text" class="form-control timepicker timepicker-24">
                             <span class="input-group-btn">
                             <button class="btn default" type="button"><i class="fa fa-clock-o"></i></button>
                             </span>
@@ -148,12 +148,12 @@
                           * </span>
                           </label>
                           <div class="col-md-4">
-                              <select class="form-control" name="select">
+                              <select id="drplstBreak" class="form-control" name="select">
                                   <option value="">Select...</option>
-                                  <option value="Category 1">Category 1</option>
-                                  <option value="Category 2">Category 2</option>
-                                  <option value="Category 3">Category 5</option>
-                                  <option value="Category 4">Category 4</option>
+                                  <?php
+									  for($i=0; $i<=240; $i=$i+5)
+									  	echo '<option value="'.$i.'">'.$i.' min</option>';
+								  ?>
                               </select>
                           </div>
                       </div>

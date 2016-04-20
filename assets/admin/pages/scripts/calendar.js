@@ -108,9 +108,12 @@ var Calendar = function() {
 						  
 						  for(var a=0; a< returndb.length; a++){
 							  
-							  var html = $('<div class="external-event label label-default col-md-12">' + returndb[a]['txtName'] + 
-											'<br/>' + returndb[a]['txtStart'] + ' - '+ returndb[a]['txtEnd'] +
-											' <i class="fa fa-coffee" aria-hidden="true"></i> ' + returndb[a]['txtBreak'] +' min</div>');
+							  var html = $('<div class="external-event label label-default col-md-12"><span id="dvName">' 
+										    + returndb[a]['txtName'] + 
+										   '</span><br/><span id="dvStart">' + returndb[a]['txtStart'] + '</span> - <span id="dvEnd">'
+										    + returndb[a]['txtEnd'] +
+											'</span><i class="fa fa-coffee" aria-hidden="true"></i> <span id="dvBreak">' 
+											+ returndb[a]['txtBreak'] +'</span> min</div>');
 							jQuery('#event_box').append(html);
 							initDrag(html);
 							  
@@ -167,7 +170,7 @@ var Calendar = function() {
 				$('#calendar').fullCalendar('unselect');
 			},
 				drop: function(date, allDay) { // this function is called when something is dropped
-
+						
                     // retrieve the dropped element's stored Event Object
                     var originalEventObject = $(this).data('eventObject');
                     // we need to copy it, so that multiple events don't have a reference to the same object
@@ -187,6 +190,21 @@ var Calendar = function() {
                         // if so, remove the element from the "Draggable Events" list
                         $(this).remove();
                     }
+					
+					// Open Modal
+					$("#form_modal2").modal();
+					var d = new Date(date);
+					
+					var day = d.getDate();
+					var month = d.getMonth()+1;
+					var year = d.getFullYear();
+					
+					$( "#txtStart" ).timepicker( "setTime", $(this).find("#dvStart").text() );
+					$( "#txtEnd" ).timepicker( "setTime", $(this).find("#dvEnd").text() );
+					$( "#drplstBreak" ).val( $(this).find("#dvBreak").text() );
+					$( "#drpFromdate" ).datepicker( "setDate", year+"-"+month+"-"+day );
+					$( "#drpTodate" ).datepicker( "setDate", year+"-"+month+"-"+day );
+					
                 },
 				dayClick: function(date, jsEvent, view, resourceObj) {
 					alert('Date: ' + date.format());

@@ -15,9 +15,12 @@ function addShiftTemplate()
 			complete: function(){},
 			success: function(returndb){
 				
-                var el = $('<div class="external-event label label-default col-md-12">' + $("#txtName").val() + 
-							' <br/>' + $("#txtFrom").val() + ' - '+ $("#txtTo").val() +
-							' <i class="fa fa-coffee" aria-hidden="true"></i> ' + $("#drpBreak option:selected").text() +' min</div>');
+                var el = $('<div class="external-event label label-default col-md-12"><span id="dvName">' 
+						  + returndb[a]['txtName'] + 
+						 '</span><br/><span id="dvStart">' + returndb[a]['txtStart'] + '</span> - <span id="dvEnd">'
+						  + returndb[a]['txtEnd'] +
+						  '</span><i class="fa fa-coffee" aria-hidden="true"></i> <span id="dvBreak">' 
+						  + returndb[a]['txtBreak'] +'</span> min</div>');
                 jQuery('#event_box').append(el);
 				
 				//--initDrag;
