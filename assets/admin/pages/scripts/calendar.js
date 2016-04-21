@@ -211,10 +211,29 @@ var Calendar = function() {
 					alert('Resource ID: ' + resourceObj.id);
 			
 				},
-				/*eventRender: function (event, element, view) {
-					element.find('.fc-title').append('<div class="hr-line-solid-no-margin"></div><span style="font-size: 10px;background-color: red">'+event.description+'</span></div>');
-					element.find('.fc-title').append('<div class="hr-line-solid-no-margin"></div><span style="font-size: 10px;background-color: red">'+event.description+'</span></div>');
-				},*/
+				eventRender: function (event, element) {
+					/*element.find('.fc-title').append('<div class="hr-line-solid-no-margin"></div><span style="font-size: 10px;background-color: red">'+event.description+'</span></div>');
+					element.find('.fc-title').append('<div class="hr-line-solid-no-margin"></div><span style="font-size: 10px;background-color: red">'+event.description+'</span></div>');*/
+					$('.popover').popover('hide');
+					element.popover({
+				            title: "My Title",
+				            placement:'left',
+							container:'body',
+				            html:true,
+				            content: event.msg
+                        });
+				},
+				/*eventClick: function(event, jsEvent, view) {
+					$this = $(this);
+					$this.popover({
+				            title: "My Title",
+				            placement:'top',
+							container:'body',
+							html:true,
+				            content: event.msg
+                        });
+					return false;            
+				}, */
                 events: function(start, end, timezone, callback){
 						//var hall = document.getElementById('w_code').value;
 //						var baseurl = "<?php echo base_url(); ?>";
@@ -246,6 +265,7 @@ var Calendar = function() {
 									
          						events.push({
 											title:retrieved_data[a]['title'],
+											msg: 'I am clipped to the left which is annoying',
 											start:new Date(startdateParts[0], parseInt(startdateParts[1] - 1), startdateParts[2], starttimeParts[0], starttimeParts[1]),//:retrieved_data[a]['start_date'],
 											end: new Date(enddateParts[0], parseInt(enddateParts[1] - 1), enddateParts[2],  endtimeParts[0], endtimeParts[1]),
 											backgroundColor: retrieved_data[a]['color'],
