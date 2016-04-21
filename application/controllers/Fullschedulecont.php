@@ -87,14 +87,8 @@ function addShift()
 function getall_Shift_calender()
 {
 	$this->load->model('fullschedulemodel');
-	/*if (isset($_POST['hall']) && $_POST['hall'] != 0)
-	{
-		$rec = $this->bookingmodel->get_booking_by_hall($_POST['hall']);
-	}
-	else*/
-	{
-		$rec = $this->fullschedulemodel->get_all_shift();
-	}
+	$rec = $this->fullschedulemodel->get_all_shift();
+	
 	
 	$rec = $rec->result();
 	
@@ -107,12 +101,14 @@ function getall_Shift_calender()
 		// It guess your client side will need the id to extract, and distinguish the ScoreCH data
 //		$temp['url'] = 'addbooking/'.$row->booking_code;
 		//$temp['url'] = ' ';
-		$temp['title'] = $row->start_time."-".$row->end_time."\n";
+		$temp['title'] = $row->name."\n";
 //			"\n".$row->org_desc.
 		$temp['start_date'] = $row->start_date;
 		$temp['start_time'] = $row->start_time;
 		$temp['end_date'] = $row->end_date;
 		$temp['end_time'] = $row->end_time;
+		$temp['location_name'] = $row->name;
+		$temp['color'] = $row->color;
 		//$temp['textColor'] = '#666666';
 		/*if($row->w_code == 1) $temp['backgroundColor'] = 'red';
 		if($row->w_code == 2) $temp['backgroundColor'] = 'blue';

@@ -236,20 +236,21 @@ var Calendar = function() {
 							
          					// Since your controller produce array of object you can access the value by using this one :
          					var events = [];
-							for(var a=0; a< retrieved_data.length; a++){
+							for(var a=0; a< retrieved_data.length; a++)
 								{
-                 /*   title: 'Meeting',
-                    start: new Date(y, m, d, 10, 30),
-                    allDay: false,*/
-                }
-              				//	alert("the value with id : " + retrieved_data[a]['title'] + "is " + retrieved_data[a]['start']);
+									var startdateParts = retrieved_data[a]['start_date'].split("-");
+									var enddateParts = retrieved_data[a]['end_date'].split("-");
+									var starttimeParts = retrieved_data[a]['start_time'].split(":");
+									var endtimeParts = retrieved_data[a]['end_time'].split(":");
+									
+									
          						events.push({
 											title:retrieved_data[a]['title'],
-											start:new Date(y, m, d, 10, 30),//:retrieved_data[a]['start_date'],
-											allDay: false,
-											//end:retrieved_data[a]['end_date'],
-											//textColor:retrieved_data[a]['textColor'],
-											backgroundColor:Metronic.getBrandColor(retrieved_data[a]['backgroundColor'])
+											start:new Date(startdateParts[0], parseInt(startdateParts[1] - 1), startdateParts[2], starttimeParts[0], starttimeParts[1]),//:retrieved_data[a]['start_date'],
+											end: new Date(enddateParts[0], parseInt(enddateParts[1] - 1), enddateParts[2],  endtimeParts[0], endtimeParts[1]),
+											backgroundColor: retrieved_data[a]['color'],
+											allDay: false
+											
 											});
 							}//END FOR
 							
