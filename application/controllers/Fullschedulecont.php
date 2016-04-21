@@ -106,10 +106,11 @@ function getall_Shift_calender()
 
 		// It guess your client side will need the id to extract, and distinguish the ScoreCH data
 //		$temp['url'] = 'addbooking/'.$row->booking_code;
-		$temp['url'] = ' ';
+		//$temp['url'] = ' ';
 		$temp['title'] = $row->start_time."-".$row->end_time."\n";
 //			"\n".$row->org_desc.
 		$temp['start'] = $row->start_date;
+		$temp['end'] = $row->end_time;
 		//$temp['textColor'] = '#666666';
 		/*if($row->w_code == 1) $temp['backgroundColor'] = 'red';
 		if($row->w_code == 2) $temp['backgroundColor'] = 'blue';

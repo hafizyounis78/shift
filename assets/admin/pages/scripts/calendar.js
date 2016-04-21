@@ -211,10 +211,10 @@ var Calendar = function() {
 					alert('Resource ID: ' + resourceObj.id);
 			
 				},
-				eventRender: function (event, element, view) {
+				/*eventRender: function (event, element, view) {
 					element.find('.fc-title').append('<div class="hr-line-solid-no-margin"></div><span style="font-size: 10px;background-color: red">'+event.description+'</span></div>');
 					element.find('.fc-title').append('<div class="hr-line-solid-no-margin"></div><span style="font-size: 10px;background-color: red">'+event.description+'</span></div>');
-				},
+				},*/
                 events: function(start, end, timezone, callback){
 						//var hall = document.getElementById('w_code').value;
 //						var baseurl = "<?php echo base_url(); ?>";
@@ -241,7 +241,7 @@ var Calendar = function() {
          						events.push({
 											title:retrieved_data[a]['title'],
 											start:retrieved_data[a]['start'],
-											//url:retrieved_data[a]['url'],
+											end:retrieved_data[a]['url'],
 											//textColor:retrieved_data[a]['textColor'],
 											backgroundColor:Metronic.getBrandColor(retrieved_data[a]['backgroundColor'])
 											});
