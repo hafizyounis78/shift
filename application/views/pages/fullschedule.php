@@ -14,7 +14,7 @@
       <div class="portlet box green-meadow calendar">
           <div class="portlet-title">
               <div class="caption">
-                  <i class="fa fa-gift"></i>Calendar
+                  <i class="fa fa-gift"></i>Full Schedule
               </div>
           </div>
           <div class="portlet-body">

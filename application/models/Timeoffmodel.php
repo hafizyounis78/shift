@@ -22,14 +22,14 @@ class Timeoffmodel extends CI_Model
 		
 		
 		$data['location_id'] = $drpLocation;
-		$data['date'] = $dpTimeOffDate;
-		$data['date_end'] = $dpTimeOffDate;
-		$data['start'] = $dpTimeOffFromTime;
-		$data['end'] = $dpTimeOffToTime;
+		$data['start_date'] = $dpTimeOffDate;
+		$data['end_date'] = $dpTimeOffDate;
+		$data['start_time'] = $dpTimeOffFromTime;
+		$data['end_time'] = $dpTimeOffToTime;
 		$data['status'] = $rdStatus;
 		$data['user_id'] = $element;
 		$data['type'] = 2;
-		$this->db->insert('dusseldorf_shifts',$data);
+		$this->db->insert('dusseldorf_v3_shifts',$data);
 		}
 		
 		

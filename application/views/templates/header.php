@@ -5,8 +5,8 @@
 	<div class="page-header-inner container">
 		<!-- BEGIN LOGO -->
 		<div class="page-logo">
-			<a href="index.html">
-			<img src="<?php echo base_url();?>assets/admin/layout2/img/logo-default.png" alt="logo" class="logo-default"/>
+			<a href="http://hireit4u.com/supermarket/index.php/dashboard/">
+<!--			<img src="<?php echo base_url();?>assets/admin/layout2/img/logo-default.png" alt="logo" class="logo-default"/>-->
 			</a>
 			<div class="menu-toggler sidebar-toggler">
 				<!-- DOC: Remove the above "hide" to enable the sidebar toggler button on header -->
@@ -24,7 +24,7 @@
 				<button type="button" class="btn btn-circle red-pink dropdown-toggle" data-toggle="dropdown">
 				<i class="icon-bar-chart"></i>&nbsp;<span class="hidden-sm hidden-xs">New&nbsp;</span>&nbsp;<i class="fa fa-angle-down"></i>
 				</button>
-				<ul class="dropdown-menu" role="menu">
+				<!--<ul class="dropdown-menu" role="menu">
 					<li>
 						<a href="#">
 						<i class="icon-user"></i> New User </a>
@@ -50,30 +50,30 @@
 						<i class="icon-users"></i> Pending Users <span class="badge badge-warning">12</span>
 						</a>
 					</li>
-				</ul>
+				</ul>-->
 			</div>
 			
 		</div>
 		<!-- END PAGE ACTIONS -->
 		<!-- BEGIN PAGE TOP -->
-		<div class="page-top">
+		<div class="page-top" style="background: #333">
 			<!-- BEGIN HEADER SEARCH BOX -->
 			<!-- DOC: Apply "search-form-expanded" right after the "search-form" class to have half expanded search box -->
-			<form class="search-form search-form-expanded" action="extra_search.html" method="GET">
+			<!--<form class="search-form search-form-expanded" action="extra_search.html" method="GET">
 				<div class="input-group">
 					<input type="text" class="form-control" placeholder="Search..." name="query">
 					<span class="input-group-btn">
 					<a href="javascript:;" class="btn submit"><i class="icon-magnifier"></i></a>
 					</span>
 				</div>
-			</form>
+			</form>-->
 			<!-- END HEADER SEARCH BOX -->
 			<!-- BEGIN TOP NAVIGATION MENU -->
 			<div class="top-menu">
 				<ul class="nav navbar-nav pull-right">
 					<!-- BEGIN NOTIFICATION DROPDOWN -->
 					<!-- DOC: Apply "dropdown-dark" class after below "dropdown-extended" to change the dropdown styte -->
-					<li class="dropdown dropdown-extended dropdown-notification" id="header_notification_bar">
+					<!--<li class="dropdown dropdown-extended dropdown-notification" id="header_notification_bar">
 						<a href="#" class="dropdown-toggle" data-toggle="dropdown" data-hover="dropdown" data-close-others="true">
 						<i class="icon-bell"></i>
 						<span class="badge badge-default">
@@ -179,11 +179,11 @@
 								</ul>
 							</li>
 						</ul>
-					</li>
+					</li>-->
 					<!-- END NOTIFICATION DROPDOWN -->
 					<!-- BEGIN INBOX DROPDOWN -->
 					<!-- DOC: Apply "dropdown-dark" class after below "dropdown-extended" to change the dropdown styte -->
-					<li class="dropdown dropdown-extended dropdown-inbox" id="header_inbox_bar">
+					<!--<li class="dropdown dropdown-extended dropdown-inbox" id="header_inbox_bar">
 						<a href="#" class="dropdown-toggle" data-toggle="dropdown" data-hover="dropdown" data-close-others="true">
 						<i class="icon-envelope-open"></i>
 						<span class="badge badge-default">
@@ -269,11 +269,11 @@
 								</ul>
 							</li>
 						</ul>
-					</li>
+					</li>-->
 					<!-- END INBOX DROPDOWN -->
 					<!-- BEGIN TODO DROPDOWN -->
 					<!-- DOC: Apply "dropdown-dark" class after below "dropdown-extended" to change the dropdown styte -->
-					<li class="dropdown dropdown-extended dropdown-tasks" id="header_task_bar">
+					<!--<li class="dropdown dropdown-extended dropdown-tasks" id="header_task_bar">
 						<a href="#" class="dropdown-toggle" data-toggle="dropdown" data-hover="dropdown" data-close-others="true">
 						<i class="icon-calendar"></i>
 						<span class="badge badge-default">
@@ -366,11 +366,11 @@
 								</ul>
 							</li>
 						</ul>
-					</li>
+					</li>-->
 					<!-- END TODO DROPDOWN -->
 					<!-- BEGIN USER LOGIN DROPDOWN -->
 					<!-- DOC: Apply "dropdown-dark" class after below "dropdown-extended" to change the dropdown styte -->
-					<li class="dropdown dropdown-user">
+					<!--<li class="dropdown dropdown-user">
 						<a href="#" class="dropdown-toggle" data-toggle="dropdown" data-hover="dropdown" data-close-others="true">
 						<img alt="" class="img-circle" src="<?php echo base_url();?>assets/admin/layout2/img/avatar3_small.jpg"/>
 						<span class="username username-hide-on-mobile">
@@ -409,7 +409,7 @@
 								<i class="icon-key"></i> Log Out </a>
 							</li>
 						</ul>
-					</li>
+					</li>-->
 					<!-- END USER LOGIN DROPDOWN -->
 				</ul>
 			</div>

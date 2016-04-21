@@ -17,15 +17,15 @@ class Fullschedulemodel extends CI_Model
 		extract($_POST);
 
 		$data['name'] = $txtName;
-		$data['start'] = $txtFrom;
-		$data['end'] = $txtTo;
+		$data['start_time'] = $txtFrom;
+		$data['end_time'] = $txtTo;
 		$data['lunch_break'] = $drpBreak;
 		
 		$this->db->insert('dusseldorf_v3_shift_templates',$data);
 	}
 	public function get_all_shift()//,$cut_id)
 	{
-		 $myquery = "SELECT id, date as start_date,start as start_time,end as end_time,date_end FROM dusseldorf_shifts WHERE date > 2016-04-01 ";
+		 $myquery = "SELECT id, start_date,start_time,end_time,end_date FROM dusseldorf_v3_shifts WHERE start_date > 2016-04-01 ";
         return $this->db->query($myquery);
 
 	}

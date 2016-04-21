@@ -54,8 +54,8 @@ class Fullschedulecont extends CI_Controller
 
 			// It guess your client side will need the id to extract, and distinguish the ScoreCH data
 			$temp['txtName'] 	= $row->name;
-			$temp['txtStart'] 	= $row->start;
-			$temp['txtEnd'] 	= $row->end;
+			$temp['txtStart'] 	= $row->start_time;
+			$temp['txtEnd'] 	= $row->end_time;
 			$temp['txtBreak'] 	= $row->lunch_break;
 			
 			array_push($output,$temp);

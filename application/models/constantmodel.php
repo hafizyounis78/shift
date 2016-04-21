@@ -15,7 +15,7 @@ class Constantmodel extends CI_Model
 	{
 		
 		
-		$myquery = "SELECT id, CONCAT(first_name,' ',last_name) as name FROM dusseldorf_users";
+		$myquery = "SELECT id, CONCAT(first_name,' ',last_name) as name FROM dusseldorf_users where type=2";
 		
 		$res = $this->db->query($myquery);
 		return $res->result();

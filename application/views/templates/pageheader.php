@@ -2,8 +2,8 @@
 <!--<h3 class="page-title">
 Blank Page <small>blank page</small>
 </h3>-->
-<div class="page-bar">
-    <ul class="page-breadcrumb">
+<!--<div class="page-bar">-->
+    <!--<ul class="page-breadcrumb">
         <li>
             <i class="fa fa-home"></i>
             <a href="index.html">Home</a>
@@ -16,8 +16,8 @@ Blank Page <small>blank page</small>
         <li>
             <a href="#">Blank Page</a>
         </li>-->
-    </ul>
-    <!--<div class="page-toolbar">
+ <!--   </ul>-->
+   <!--<div class="page-toolbar">
         <div class="btn-group pull-right">
             <button type="button" class="btn btn-fit-height grey-salt dropdown-toggle" data-toggle="dropdown" data-hover="dropdown" data-delay="1000" data-close-others="true">
             Actions <i class="fa fa-angle-down"></i>
@@ -40,5 +40,5 @@ Blank Page <small>blank page</small>
             </ul>
         </div>
     </div>-->
-</div><!-- END PAGE BAR-->
+<!--</div>--><!-- END PAGE BAR-->
 <!-- END PAGE HEADER-->

@@ -17,7 +17,8 @@
 				<!-- DOC: Set data-auto-speed="200" to adjust the sub menu slide up/down speed -->
 				<ul class="page-sidebar-menu page-sidebar-menu-hover-submenu " data-keep-expanded="false" data-auto-scroll="true" data-slide-speed="200">
 					<li class="start <?php if($title == 'home') echo 'active';?> ">
-						<a href="<?php echo base_url();?>home">
+<!--						<a href="<?php echo base_url();?>home">-->
+						<a href="http://hireit4u.com/supermarket/index.php/dashboard/#">
 						<i class="icon-home"></i>
 						<span class="title">Home</span>
 						</a>
@@ -47,10 +48,10 @@
 						<span class="title">Shift Template</span>
 						</a>
 					</li>
-                    <li <?php if($title == 'timeoff') echo 'class="active open"';?>>
-						<a href="<?php echo base_url();?>timeoff">
+                    <li class="last " <?php if($title == 'timeoff') echo 'class="active open"';?>>
+						<a href="<?php echo base_url();?>timeoffcont/timeoff">
 						<i class="icon-speedometer"></i>
-						<span class="title">Tiem off Request</span>
+						<span class="title">Timeoff Request</span>
 						</a>
 					</li>
 					<!--<li class="active open">
@@ -110,7 +111,7 @@
 			
 					
 					
-					<li class="last ">
+					<!--<li class="last ">
 						<a href="javascript:;">
 						<i class="icon-pointer"></i>
 						<span class="title">Maps</span>
@@ -126,7 +127,7 @@
 								Vector Maps</a>
 							</li>
 						</ul>
-					</li>
+					</li>-->
 				</ul>
 				<!-- END SIDEBAR MENU -->
 			</div>

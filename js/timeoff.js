@@ -36,8 +36,8 @@ $(document).ready(function(){
 			complete: function(){},
 			success: function(returndb){
 				
-				$('#tbLocations').html(returndb);
-				var success = $('.alert-success', $("#locationForm"));
+				//$('#tbLocations').html(returndb);
+				var success = $('.alert-success', $("#timeOffForm"));
 				success.show();
 				Metronic.scrollTo(success, -200);
 				clearForm();
