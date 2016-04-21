@@ -10,7 +10,7 @@
           </div>
           <div class="portlet-body form">
               <!-- BEGIN FORM-->
-              <form action="#" id="form_sample_3" class="form-horizontal">
+              <form action="#" id="shiftForm" class="form-horizontal">
                   <div class="form-body">
                       
                       <div class="alert alert-danger display-hide">
@@ -24,12 +24,21 @@
                       <div class="form-group">
                             <label class="control-label col-md-3">Location</label>
                             <div class="col-md-4">
-                                <select class="form-control input-large select2me" data-placeholder="Select...">
-                                    <option value=""></option>
-                                    <option value="AL">EDEKA</option>
-                                    <option value="WY">Our Location</option>
-                                    <option value="AL">EDEKA1</option>
-                                    <option value="WY">EDEKA2</option>
+                                <select class="form-control input-large select2me" data-placeholder="Select..." id="drpLocation" name="drpLocation">
+                                  <option value="">Select..</option>
+                                     <?php 
+								  foreach ($location as $location_row)
+								  {
+									  $selected = '';
+									  /*
+									  if ($patient_row->status_id == $location_row->sub_constant_id)
+									  	$selected = 'selected="selected"';
+									  */
+									  echo ' <option value="'.$location_row->id.'" '.$selected.'>'
+									  						 .$location_row->name.'</option>';
+								  }
+								  ?>
+
                                 </select>
                                 <span class="help-block">
                                 .Select Location</span>
@@ -38,8 +47,8 @@
                       <div class="form-group">
                                 <label class="control-label col-md-3">Dates</label>
                                 <div class="col-md-3">
-                                    <div class="input-group input-medium date date-picker" data-date-format="dd-mm-yyyy" data-date-start-date="+0d">
-                                        <input type="text" class="form-control" readonly>
+                                    <div class="input-group input-medium date date-picker" data-date-format="yyyy-mm-dd" data-date-start-date="+0d">
+                                        <input type="text" class="form-control" readonly id="drpFromdate">
                                         <span class="input-group-btn">
                                         <button class="btn default" type="button"><i class="fa fa-calendar"></i></button>
                                         </span>
@@ -53,7 +62,7 @@
                             <label class="control-label col-md-3">Time</label>
                             <div class="col-md-2">
                                 <div class="input-group">
-                                    <input type="text" class="form-control timepicker timepicker-24">
+                                    <input type="text" class="form-control timepicker timepicker-24" id="txtStart" >
                                     <span class="input-group-btn">
                                     <button class="btn default" type="button"><i class="fa fa-clock-o"></i></button>
                                     </span>
@@ -61,7 +70,7 @@
                             </div>
                             <div class="col-md-2">
                                 <div class="input-group">
-                                    <input type="text" class="form-control timepicker timepicker-24">
+                                    <input type="text" class="form-control timepicker timepicker-24" id="txtEnd">
                                     <span class="input-group-btn">
                                     <button class="btn default" type="button"><i class="fa fa-clock-o"></i></button>
                                     </span>
@@ -74,12 +83,11 @@
                           * </span>
                           </label>
                           <div class="col-md-4">
-                              <select class="form-control" name="select">
-                                  <option value="">Select...</option>
-                                  <option value="Category 1">Category 1</option>
-                                  <option value="Category 2">Category 2</option>
-                                  <option value="Category 3">Category 5</option>
-                                  <option value="Category 4">Category 4</option>
+                              <select class="form-control"  name="drplstBreak">
+                                  <?php
+									  for($i=0; $i<=240; $i=$i+5)
+									  	echo '<option value="'.$i.'">'.$i.' min</option>';
+								  ?>
                               </select>
                           </div>
                       </div>
@@ -99,22 +107,15 @@
                         <label class="control-label col-md-3">Staff</label>
                         <div class="col-md-9">
                             <select multiple="multiple" class="multi-select" id="my_multi_select1" name="my_multi_select1[]">
-                                <option>Dallas Cowboys</option>
-                                <option>New York Giants</option>
-                                <option selected>Philadelphia Eagles</option>
-                                <option selected>Washington Redskins</option>
-                                <option>Chicago Bears</option>
-                                <option>Detroit Lions</option>
-                                <option>Green Bay Packers</option>
-                                <option>Minnesota Vikings</option>
-                                <option selected>Atlanta Falcons</option>
-                                <option>Carolina Panthers</option>
-                                <option>New Orleans Saints</option>
-                                <option>Tampa Bay Buccaneers</option>
-                                <option>Arizona Cardinals</option>
-                                <option>St. Louis Rams</option>
-                                <option>San Francisco 49ers</option>
-                                <option>Seattle Seahawks</option>
+                               <?php
+                                 foreach($staffList as $staff_row)
+								  {
+									 
+									  echo '<option  value='.$staff_row->id.'>'.$staff_row->name.'</option>';
+									  
+								  }
+								  
+								?>
                             </select>
                         </div>
                     </div>  
@@ -134,8 +135,8 @@
                   <div class="form-actions">
                       <div class="row">
                           <div class="col-md-offset-3 col-md-9">
-                              <button type="submit" class="btn green">Save</button>
-                              <!--<button type="button" class="btn default">Cancel</button>-->
+                              <button id="btnSaveShift" type="submit" class="btn green">Save</button>
+                              <button type="button" class="btn default">Cancel</button>
                           </div>
                       </div>
                   </div>

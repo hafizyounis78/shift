@@ -22,10 +22,10 @@ class Timeoffmodel extends CI_Model
 		
 		
 		$data['location_id'] = $drpLocation;
-		$data['start_date'] = $dpTimeOffDate;
-		$data['end_date'] = $dpTimeOffDate;
-		$data['start_time'] = $dpTimeOffFromTime;
-		$data['end_time'] = $dpTimeOffToTime;
+		$data['start_date'] = $drpFromdate;
+		$data['end_date'] = $drpTodate;
+		$data['start_time'] = $txtStart;
+		$data['end_time'] = $txtEnd;
 		$data['status'] = $rdStatus;
 		$data['user_id'] = $element;
 		$data['type'] = 2;

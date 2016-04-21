@@ -52,7 +52,7 @@ $readonly = '';
                                 <label class="control-label col-md-3">Dates</label>
                                 <div class="col-md-3">
                                     <div class="input-group input-medium date date-picker" data-date-format="yyyy-mm-dd" data-date-start-date="+0d">
-                                        <input type="text" class="form-control" readonly id="dpTimeOffDate" name="dpTimeOffDate">
+                                        <input type="text" class="form-control" readonly id="drpFromdate" name="drpFromdate">
                                         <span class="input-group-btn">
                                         <button class="btn default" type="button"><i class="fa fa-calendar"></i></button>
                                         </span>
@@ -66,7 +66,7 @@ $readonly = '';
                             <label class="control-label col-md-3">Time</label>
                             <div class="col-md-2">
                                 <div class="input-group">
-                                    <input type="text" class="form-control timepicker timepicker-24" id="dpTimeOffFromTime" name="dpTimeOffFromTime">
+                                    <input type="text" class="form-control timepicker timepicker-24" id="txtStart" name="txtStart">
                                     <span class="input-group-btn">
                                     <button class="btn default" type="button"><i class="fa fa-clock-o"></i></button>
                                     </span>
@@ -74,7 +74,7 @@ $readonly = '';
                             </div>
                             <div class="col-md-2">
                                 <div class="input-group">
-                                    <input type="text" class="form-control timepicker timepicker-24" id="dpTimeOffToTime" name="dpTimeOffToTime">
+                                    <input type="text" class="form-control timepicker timepicker-24" id="txtEnd" name="txtEnd">
                                     <span class="input-group-btn">
                                     <button class="btn default" type="button"><i class="fa fa-clock-o"></i></button>
                                     </span>

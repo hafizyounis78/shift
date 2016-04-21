@@ -1,11 +1,11 @@
 // JavaScript Document
 var staffList="";
 $(document).ready(function(){
-	$('#btnSaveTimeoff').click(function(event) {							
+	$('#btnSaveShift').click(function(event) {							
 		event.preventDefault();
 		
 		//if ($("#hdnId").val() == '')
-			var action = "addTimeoff";
+			var action = "addShift";
 	/*	else
 			var action = "updateTimeoff";*/
 			/*if (document.getElementById('rdStatus').checked) {
@@ -15,16 +15,18 @@ $(document).ready(function(){
 			var formData = new FormData();
 	
 	
-				formData.append('drpLocation'		 , $("#drpLocation").val());
-				formData.append('drpFromdate'		 , $("#drpFromdate").val());
+				formData.append('drpLocation'		, $("#drpLocation").val());
+				formData.append('drpFromdate'		, $("#drpFromdate").val());
 				formData.append('drpTodate'		, $("#drpFromdate").val());
 				formData.append('txtStart'	    ,  $("#txtStart").val());
 				formData.append('txtEnd'	        ,  $("#txtEnd").val());
 				formData.append('rdStatus'          ,  $("input[name=rdStatus]:checked").val());
-				formData.append('staffList'		     ,  staffList);
+				formData.append('drplstBreak'		, $("#drplstBreak").val());
+				formData.append('staffList'		    ,  staffList);
 	
 	$.ajax({
-			url: baseURL+"Timeoffcont/"+action,
+		url: baseURL+"Shiftscont/addShift",
+			//url: baseURL+"Shiftcont/"+action,
 			type: "POST",
 			data: formData,
 			 processData: false,
@@ -38,7 +40,7 @@ $(document).ready(function(){
 			success: function(returndb){
 				
 				//$('#tbLocations').html(returndb);
-				var success = $('.alert-success', $("#timeOffForm"));
+				var success = $('.alert-success', $("#shiftForm"));
 				success.show();
 				Metronic.scrollTo(success, -200);
 				clearForm();

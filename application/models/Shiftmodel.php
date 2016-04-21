@@ -9,10 +9,14 @@ class Shiftmodel extends CI_Model
 		extract($_POST);
 		print_r($_POST);
 		$staffid = explode(",", $staffList);
+		if (!isset($rdShifttype))
+		   $shftype=1;
+		else
+		     $shftype=$rdShifttype;
 		foreach($staffid as $element)
 		{
 		
-		$data['type'] = $rdShifttype;
+		$data['type'] = $shftype;
 		$data['location_id'] = $drpLocation;
 		$data['start_date'] = $drpFromdate;
 		$data['end_date'] = $drpTodate;
