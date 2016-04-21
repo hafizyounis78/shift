@@ -179,9 +179,9 @@ $readonly = '';
 												 echo '<td id="tdend_Time'.$row->id.'">'. $row->end_time.'</td>';
 												 echo '<td id="tdlocation'.$row->id.'">'. $row->location_desc.'</td>';
 												 echo '<td>
-													  <button id="btnupdateShift" name="btnupdateShift" type="button" class="btn default btn-xs blue" onclick="updateShift('.$row->id.')">
+													  <button id="btnupdateShift" name="btnupdateShift" type="button" class="btn default btn-xs blue" onclick="updatetimeoff('.$row->id.')">
 													  <i class="fa fa-edit"></i> Update </button>
-													  <button id="btndelShift" name="btndelShift" type="submit" value="Delete" class="btn default btn-xs red" onclick="deleteShift('.$row->id.')"><i class="fa fa-trash-o"></i> delete</button>';
+													  <button id="btndelShift" name="btndelShift" type="submit" value="Delete" class="btn default btn-xs red" onclick="deletetimeoff('.$row->id.')"><i class="fa fa-trash-o"></i> delete</button>';
 												 echo '</td>';  
 												
 												 echo '<tr/>';

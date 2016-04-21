@@ -40,6 +40,8 @@ function shifts()
 			$this->load->model('constantmodel');
 		$this->data['location']= $this->constantmodel->get_location_list();
 		$this->data['staffList']= $this->constantmodel->get_staff_list();
+		$this->load->model('Shiftmodel');
+		$this->data['shiftrec']= $this->Shiftmodel->get_all_shifts();
 
 }
 
@@ -47,7 +49,35 @@ function addShift()
 	{
 		$this->load->model('Shiftmodel');
 		$this->Shiftmodel->insert_shift();
-		//$this->drawTimeoffTable();
+		$this->drawShiftsTable();
+	}
+function drawShiftsTable()
+	{
+		
+		$this->load->model('Shiftmodel');
+		$shiftrec = $this->Shiftmodel->get_all_shifts();
+		
+		
+		$i=1;
+		foreach($shiftrec as $row)
+		{
+			 echo '<tr>';		
+			 echo '<td>'.$i++.'</td>';
+			 echo '<td id="tdstaff'.$row->id.'">'.$row->Staff_name.'</td>';
+			 echo '<td id="tdstart_date'.$row->id.'">'. $row->start_date.'</td>';
+			 echo '<td id="tdstart_Time'.$row->id.'">'. $row->start_time.'</td>';
+			 echo '<td id="tdend_Time'.$row->id.'">'. $row->end_time.'</td>';
+			 echo '<td id="tdend_Time'.$row->id.'">'. $row->location_desc.'</td>';
+			 echo '<td>
+				  <button id="btnupdateShift" name="btnupdateShift" type="button" class="btn default btn-xs blue" onclick="updatetimeoff('.$row->id.')">
+				  <i class="fa fa-edit"></i> Update </button>
+				  <button id="btndelShift" name="btndelShift" type="submit" value="Delete" class="btn default btn-xs red" onclick="deletetimeoff('.$row->id.')"><i class="fa fa-trash-o"></i> delete</button>';
+			 echo '</td>';  
+			
+			 echo '<tr/>';
+		}
+										
+		
 	}
 }
 ?>

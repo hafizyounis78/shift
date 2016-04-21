@@ -55,7 +55,7 @@ $(document).ready(function(){
 	
 });
 
-function updateShift(i)
+function updatetimeoff(i)
 {
 	/*
 	//$("#hdnId").val(i);

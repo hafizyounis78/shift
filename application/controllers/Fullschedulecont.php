@@ -110,7 +110,7 @@ function getall_Shift_calender()
 		$temp['title'] = $row->start_time."-".$row->end_time."\n";
 //			"\n".$row->org_desc.
 		$temp['start'] = $row->start_date;
-		$temp['textColor'] = '#666666';
+		//$temp['textColor'] = '#666666';
 		/*if($row->w_code == 1) $temp['backgroundColor'] = 'red';
 		if($row->w_code == 2) $temp['backgroundColor'] = 'blue';
 		if($row->w_code == 3) $temp['backgroundColor'] = 'green';*/

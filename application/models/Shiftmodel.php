@@ -31,7 +31,18 @@ class Shiftmodel extends CI_Model
 		
 		
 	}
-	
+function get_all_shifts()
+	{	
+	 	$myquery = "SELECT  dusseldorf_v3_shifts.id, start_date,start_time,end_time,name as location_desc,CONCAT(first_name,' ',last_name) as Staff_name
+					FROM    dusseldorf_v3_shifts,dusseldorf_v3_locations,dusseldorf_users
+					WHERE   start_date > 2016-04-01 and dusseldorf_v3_shifts.type=1
+					AND     location_id=dusseldorf_v3_locations.id
+					AND      user_id=dusseldorf_users.id";
+        $rec=$this->db->query($myquery);
+		return $rec->result();
+
+
+	}	
 	
 }
 

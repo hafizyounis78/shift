@@ -42,12 +42,12 @@
 						</a>
 					</li>
 
-                    <li <?php if($title == 'shifttemplate') echo 'class="active open"';?>>
+                    <!--<li <?php if($title == 'shifttemplate') echo 'class="active open"';?>>
 						<a href="<?php echo base_url();?>shifttemplatecont/shifttemplate">
 						<i class="icon-clock"></i>
 						<span class="title">Shift Template</span>
 						</a>
-					</li>
+					</li>-->
                     <li class="last " <?php if($title == 'timeoff') echo 'class="active open"';?>>
 						<a href="<?php echo base_url();?>timeoffcont/timeoff">
 						<i class="icon-speedometer"></i>

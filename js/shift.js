@@ -39,16 +39,13 @@ $(document).ready(function(){
 			complete: function(){},
 			success: function(returndb){
 				
-				//$('#tbLocations').html(returndb);
+			
 				var success = $('.alert-success', $("#shiftForm"));
 				success.show();
 				Metronic.scrollTo(success, -200);
 				clearForm();
-				//success.hide();
-				/*$('#dvConstSuccessMsg').attr('class', 'alert alert-success');
-				$('#tbLocations').html(returndb);
-				if (action == 'addconstants')
-					$('#txtConstantName').val('');*/
+				$("#shift_body").html(returndb);
+				
 			}
 		});//END $.ajax
 	}); // END CLICK

@@ -241,8 +241,8 @@ var Calendar = function() {
          						events.push({
 											title:retrieved_data[a]['title'],
 											start:retrieved_data[a]['start'],
-											url:retrieved_data[a]['url'],
-											textColor:retrieved_data[a]['textColor'],
+											//url:retrieved_data[a]['url'],
+											//textColor:retrieved_data[a]['textColor'],
 											backgroundColor:Metronic.getBrandColor(retrieved_data[a]['backgroundColor'])
 											});
 							}//END FOR
