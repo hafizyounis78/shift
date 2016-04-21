@@ -23,5 +23,11 @@ class Fullschedulemodel extends CI_Model
 		
 		$this->db->insert('dusseldorf_v3_shift_templates',$data);
 	}
+	public function get_all_shift()//,$cut_id)
+	{
+		 $myquery = "SELECT id, date as start_date,start as start_time,end as end_time,date_end FROM dusseldorf_shifts WHERE date > 2016-04-01 ";
+        return $this->db->query($myquery);
+
+	}
 }
 ?>

@@ -84,5 +84,47 @@ function addShift()
 		$this->Shiftmodel->insert_shift();
 		//$this->drawTimeoffTable();
 	}
+function getall_Shift_calender()
+{
+	$this->load->model('fullschedulemodel');
+	/*if (isset($_POST['hall']) && $_POST['hall'] != 0)
+	{
+		$rec = $this->bookingmodel->get_booking_by_hall($_POST['hall']);
 	}
+	else*/
+	{
+		$rec = $this->fullschedulemodel->get_all_shift();
+	}
+	
+	$rec = $rec->result();
+	
+	$output = array();
+	foreach($rec as $row)
+	{
+		unset($temp); // Release the contained value of the variable from the last loop
+		$temp = array();
+
+		// It guess your client side will need the id to extract, and distinguish the ScoreCH data
+//		$temp['url'] = 'addbooking/'.$row->booking_code;
+		$temp['url'] = ' ';
+		$temp['title'] = $row->start_time."-".$row->end_time."\n";
+//			"\n".$row->org_desc.
+		$temp['start'] = $row->start_date;
+		$temp['textColor'] = '#666666';
+		/*if($row->w_code == 1) $temp['backgroundColor'] = 'red';
+		if($row->w_code == 2) $temp['backgroundColor'] = 'blue';
+		if($row->w_code == 3) $temp['backgroundColor'] = 'green';*/
+		/*else
+		$temp['backgroundColor'] = 'yellow';
+*/
+		array_push($output,$temp);
+	}
+	
+	header('Access-Control-Allow-Origin: *');
+	header("Content-Type: application/json");
+	echo json_encode($output);
+	
+}
+	}
+	
 ?>

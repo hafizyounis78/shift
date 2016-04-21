@@ -73,7 +73,7 @@ var Calendar = function() {
 
             var addEvent = function(title) {
 				
-                /*title = title.length === 0 ? "Untitled Event" : title;
+               /* title = title.length === 0 ? "Untitled Event" : title;
                 var html = $('<div class="external-event label label-default">' + title + '</div>');
                 jQuery('#event_box').append(html);
                 initDrag(html);*/
@@ -211,13 +211,18 @@ var Calendar = function() {
 					alert('Resource ID: ' + resourceObj.id);
 			
 				},
+				eventRender: function (event, element, view) {
+					element.find('.fc-title').append('<div class="hr-line-solid-no-margin"></div><span style="font-size: 10px;background-color: red">'+event.description+'</span></div>');
+					element.find('.fc-title').append('<div class="hr-line-solid-no-margin"></div><span style="font-size: 10px;background-color: red">'+event.description+'</span></div>');
+				},
                 events: function(start, end, timezone, callback){
-						/*var hall = document.getElementById('w_code').value;
+						//var hall = document.getElementById('w_code').value;
 //						var baseurl = "<?php echo base_url(); ?>";
 						$.ajax({
-    						url: baseURL+"pages/booking_calender",
+    						url: baseURL+"Fullschedulecont/getall_Shift_calender",
     						type: "POST",
-							data: {hall:hall},
+							data:{ },
+//							data: {hall:hall},
     						success:function(retrieved_data){
          					// Your code here.. use something like this
 							//alert(retrieved_data.length);
@@ -245,7 +250,7 @@ var Calendar = function() {
 							callback(events);
     					} //END SUCCESS
 						
-					});//END AJAX*/
+					});//END AJAX
 						
 					
 					
