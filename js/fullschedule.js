@@ -74,18 +74,21 @@ function addShiftTemplate()
 			 processData: false,
 			 contentType: false,
 			error: function(xhr, status, error) {
-  				//var err = eval("(" + xhr.responseText + ")");
+  				//var err = eval("(" + xhr.response	Text + ")");
   				alert(xhr.responseText);
 			},
 			beforeSend: function(){},
 			complete: function(){},
 			success: function(returndb){
-				
-				$('#tbLocations').html(returndb);
-				var success = $('.alert-success', $("#locationForm"));
-				success.show();
+				$(".alert-success").fadeTo(2000, 500).slideUp(500, function(){
+					$(".alert-success").alert('close');
+				});
+								//$('#tbLocations').html(returndb);
+				/*var success = $('.alert-success');
+				success.show();*/
 				Metronic.scrollTo(success, -200);
 				clearForm();
+				
 				//success.hide();
 				/*$('#dvConstSuccessMsg').attr('class', 'alert alert-success');
 				$('#tbLocations').html(returndb);

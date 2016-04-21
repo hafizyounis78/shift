@@ -35,6 +35,7 @@
                                    <div id="external-events">
                 
                               <form id="shiftttemplateForm" class="inline-form">
+                                     
                                   <input id="txtName" name="txtName" type="text" value="" class="form-control" placeholder="Name..." /><br/>
                                   <label class="control-label">Time</label>
                                   <div class="input-group">
@@ -88,11 +89,20 @@
           </div>
           <!--<div id="responsive" class="modal fade in" aria-hidden="false" tabindex="-1" style="display: block;">-->
           <div id="form_modal2" class="modal fade">
+          			
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
                 <h4 class="modal-title">Add Shift</h4>
+                 <div class="alert alert-danger display-hide">
+                      <button class="close" data-close="alert"></button>
+                      You have some form errors. Please check below.
+                  </div>
+                  <div class="alert alert-success display-hide">
+                      <button class="close" data-close="alert"></button>
+                      Your form validation is successful!
+                  </div>
             </div>
             <div class="modal-body">
                <form action="#" class="form-horizontal">
