@@ -52,7 +52,7 @@
                                     </div>
                                     <br/>
                                     
-                                    <select id="drpBreak" name="drpBreak" class="form-control" name="select">
+                                    <select id="drpBreak" name="drpBreak" class="form-control" >
                                       <option value="">Select Break Time...</option>
                                       <?php
 									  for($i=0; $i<=240; $i=$i+5)
@@ -92,10 +92,22 @@
         <div class="modal-content">
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                <h4 class="modal-title">Modal title</h4>
+                <h4 class="modal-title">Add Shift</h4>
             </div>
             <div class="modal-body">
                <form action="#" class="form-horizontal">
+               <div class="form-group">
+                        <label class="control-label col-md-3">Shift type</label>
+                        <div class="col-md-4">
+                          <div class="radio-list">
+                              <label class="radio-inline">
+                              <input type="radio" name="rdShifttype" id="rdShifttype1" value="1" checked>Shift</label>
+                              <label class="radio-inline">
+                              <input type="radio" name="rdShifttype" id="rdShifttype2" value="2">Time Off</label>
+                              
+                          </div>
+                        </div>
+                    </div>
                     <div class="form-group">
                         <label class="control-label col-md-3">Location</label>
                         <div class="col-md-4">
@@ -147,12 +159,12 @@
                     
                     </div>
                                                                         
-                     <div class="form-group">
+                     <div id="divBreak" class="form-group">
                           <label class="control-label col-md-3">Break <span class="required">
                           * </span>
                           </label>
                           <div class="col-md-4">
-                              <select id="drplstBreak" class="form-control" name="select">
+                              <select id="drplstBreak" class="form-control" name="drplstBreak">
                                   <option value="">Select...</option>
                                   <?php
 									  for($i=0; $i<=240; $i=$i+5)
@@ -179,7 +191,7 @@
                           * </span>
                           </label>
                           <div class="col-md-4">
-                              <select class="form-control" name="select">
+                              <select id="drplstDept" class="form-control" name="drplstDept">
                                   <option value="">Select...</option>
                                   <option value="1">Dept 1</option>
                                   <option value="2">Dept 2</option>
@@ -207,8 +219,8 @@
                 </form>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                <button type="button" class="btn btn-primary">Save changes</button>
+                <button   type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                <button  id="btnShiftSave" type="button" class="btn btn-primary">Save </button>
             </div>
         </div>
         <!-- /.modal-content -->

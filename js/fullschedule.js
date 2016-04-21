@@ -41,3 +41,79 @@ function addShiftTemplate()
 		});//END $.ajax
 	
 }
+//********************shift save**************//
+
+	$('#btnShiftSave').click(function(event) {							
+		event.preventDefault();
+		
+		//if ($("#hdnId").val() == '')
+			var action = "addShift";
+	/*	else
+			var action = "updateTimeoff";*/
+			/*if (document.getElementById('rdStatus').checked) {
+				  var status_value = document.getElementById('rdStatus').value;
+				}
+				alert(status_value);*/
+			var formData = new FormData();
+	
+				formData.append('rdShifttype'        ,  $("input[name=rdShifttype]:checked").val());
+				formData.append('drpLocation'		 ,  $("#drpLocation").val());
+				formData.append('drpFromdate'		 ,  $("#drpFromdate").val());
+				formData.append('drpTodate'	         ,  $("#drpTodate").val());
+				formData.append('txtStart'	         ,  $("#txtStart").val());
+				formData.append('txtEnd'	         ,  $("#txtEnd").val());
+				formData.append('drplstBreak'	     ,  $("#drplstBreak").val());
+				formData.append('drplstDept'	     ,  $("#drplstDept").val());
+				formData.append('rdStatus'           ,  $("input[name=rdStatus]:checked").val());
+				formData.append('staffList'		     ,  staffList);
+	
+	$.ajax({
+			url: baseURL+"Fullschedulecont/addShift",
+			type: "POST",
+			data: formData,
+			 processData: false,
+			 contentType: false,
+			error: function(xhr, status, error) {
+  				//var err = eval("(" + xhr.responseText + ")");
+  				alert(xhr.responseText);
+			},
+			beforeSend: function(){},
+			complete: function(){},
+			success: function(returndb){
+				
+				$('#tbLocations').html(returndb);
+				var success = $('.alert-success', $("#locationForm"));
+				success.show();
+				Metronic.scrollTo(success, -200);
+				clearForm();
+				//success.hide();
+				/*$('#dvConstSuccessMsg').attr('class', 'alert alert-success');
+				$('#tbLocations').html(returndb);
+				if (action == 'addconstants')
+					$('#txtConstantName').val('');*/
+			}
+		});//END $.ajax
+	}); // END CLICK
+	
+//****************select shift type*******//
+$(document).ready(function() {
+    $('input[type=radio][name=rdShifttype]').change(function() {
+        if (this.value == '1') {
+            //alert("shift");
+			document.getElementById("divBreak").style.display = "block";	
+			
+			/*var input = document.getElementById('rdStatus1');
+			alert(input);
+			input.innerHTML  = 'New Text';*/
+        }
+        else if (this.value == '2') {
+			document.getElementById("divBreak").style.display = "none";
+          //  alert("time off");
+        }
+    });
+});
+
+
+
+
+
