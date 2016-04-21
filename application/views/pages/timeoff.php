@@ -49,7 +49,7 @@ $readonly = '';
                             </div>
                         </div>
                       <div class="form-group">
-                                <label class="control-label col-md-3">Dates</label>
+                                <label class="control-label col-md-3">Date</label>
                                 <div class="col-md-3">
                                     <div class="input-group input-medium date date-picker" data-date-format="yyyy-mm-dd" data-date-start-date="+0d">
                                         <input type="text" class="form-control" readonly id="drpFromdate" name="drpFromdate">
@@ -133,7 +133,7 @@ $readonly = '';
 						<div class="portlet box purple">
 							<div class="portlet-title">
 								<div class="caption">
-									<i class="fa fa-clock-o"></i>Shift Templates
+									<i class="fa fa-clock-o"></i>Timeoff Table
 								</div>
 								
 							</div>
@@ -145,8 +145,11 @@ $readonly = '';
 										<th>
 											 #
 										</th>
+                                        <th>
+											 Staff
+										</th>
 										<th>
-											 Name
+											 Date
 										</th>
 										<th>
 											Start Time
@@ -155,83 +158,35 @@ $readonly = '';
 											 End Time
 										</th>
 										<th>
-											 Break
+											 Location
+										</th>
+                                        <th>
+											 Action
 										</th>
 									</tr>
 									</thead>
-									<tbody>
-									<tr>
-										<td>
-											 1
-										</td>
-										<td>
-											 Mark
-										</td>
-										<td>
-											 Otto
-										</td>
-										<td>
-											 makr124
-										</td>
-										<td>
-											<span class="label label-sm label-success">
-											Approved </span>
-										</td>
-									</tr>
-									<tr>
-										<td>
-											 2
-										</td>
-										<td>
-											 Jacob
-										</td>
-										<td>
-											 Nilson
-										</td>
-										<td>
-											 jac123
-										</td>
-										<td>
-											<span class="label label-sm label-info">
-											Pending </span>
-										</td>
-									</tr>
-									<tr>
-										<td>
-											 3
-										</td>
-										<td>
-											 Larry
-										</td>
-										<td>
-											 Cooper
-										</td>
-										<td>
-											 lar
-										</td>
-										<td>
-											<span class="label label-sm label-warning">
-											Suspended </span>
-										</td>
-									</tr>
-									<tr>
-										<td>
-											 4
-										</td>
-										<td>
-											 Sandy
-										</td>
-										<td>
-											 Lim
-										</td>
-										<td>
-											 sanlim
-										</td>
-										<td>
-											<span class="label label-sm label-danger">
-											Blocked </span>
-										</td>
-									</tr>
+									<tbody id="timeoff_body">
+			
+						            <?php
+									$i=1;
+										foreach($timeoffrec as $row)
+											{
+												 echo '<tr>';		
+												 echo '<td>'.$i++.'</td>';
+												 echo '<td id="tdstaff'.$row->id.'">'.$row->Staff_name.'</td>';
+												 echo '<td id="tdstart_date'.$row->id.'">'. $row->start_date.'</td>';
+												 echo '<td id="tdstart_Time'.$row->id.'">'. $row->start_time.'</td>';
+												 echo '<td id="tdend_Time'.$row->id.'">'. $row->end_time.'</td>';
+												 echo '<td id="tdlocation'.$row->id.'">'. $row->location_desc.'</td>';
+												 echo '<td>
+													  <button id="btnupdateShift" name="btnupdateShift" type="button" class="btn default btn-xs blue" onclick="updateShift('.$row->id.')">
+													  <i class="fa fa-edit"></i> Update </button>
+													  <button id="btndelShift" name="btndelShift" type="submit" value="Delete" class="btn default btn-xs red" onclick="deleteShift('.$row->id.')"><i class="fa fa-trash-o"></i> delete</button>';
+												 echo '</td>';  
+												
+												 echo '<tr/>';
+											}
+									?>
 									</tbody>
 									</table>
 								</div>

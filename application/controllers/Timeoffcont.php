@@ -39,13 +39,16 @@ class Timeoffcont extends CI_Controller
 	{   $this->load->model('constantmodel');
 		$this->data['location']= $this->constantmodel->get_location_list();
 		$this->data['staffList']= $this->constantmodel->get_staff_list();
+		$this->load->model('timeoffmodel');
+		$this->data['timeoffrec'] = $this->timeoffmodel->get_all_timeoff();
+		
 	//	$this->getstaffList();
 	}
 	function addTimeoff()
 	{
 		$this->load->model('timeoffmodel');
 		$this->timeoffmodel->insert_timeoff();
-		//$this->drawTimeoffTable();
+		$this->drawTimeoffTable();
 	}
 	function updateTimeoff()
 	{
@@ -57,33 +60,30 @@ class Timeoffcont extends CI_Controller
 	{
 		
 		$this->load->model('timeoffmodel');
-		$locations = $this->timeoffmodel->get_timeoff();
+		$timeoffrec = $this->timeoffmodel->get_all_timeoff();
+		
 		
 		$i=1;
-		foreach($locations as $row)
-	    {
-			if ($row->color == '')
-				$color = 'style="background-color:#ffffff;cursor:pointer"';
-			 else
-				$color = 'style="background-color:'.$row->color.';cursor:pointer"';
-				
-			 echo '<tr '.$color.'>';
-			 echo '<td id="tdOrder'.$row->id.'"       onclick="selectRow('.$row->id.')">'. $i.	 		    '</td>';
-			 echo '<td id="tdName' .$row->id.'"       onclick="selectRow('.$row->id.')">'. $row->name.		'</td>';
-			 echo '<td id="tdDescription'.$row->id.'" onclick="selectRow('.$row->id.')">'. $row->description.'</td>';
-			 echo '<td id="tdColor'.$row->id.'" data-color="'.$row->color.'">';
-			 if ($i != 1)
-			 	echo '<i class="fa fa-arrow-up order" aria-hidden="true"  onclick="order('.$row->id.',\'-1\')"></i>';
-			 if ($i != count($locations) )
-			 	echo '<i id="iDown" class="fa fa-arrow-down order" aria-hidden="true" onclick="order('.$row->id.',\'+1\')"></i>';
-			 echo '</td>';
+		foreach($timeoffrec as $row)
+		{
+			 echo '<tr>';		
+			 echo '<td>'.$i++.'</td>';
+			 echo '<td id="tdstaff'.$row->id.'">'.$row->Staff_name.'</td>';
+			 echo '<td id="tdstart_date'.$row->id.'">'. $row->start_date.'</td>';
+			 echo '<td id="tdstart_Time'.$row->id.'">'. $row->start_time.'</td>';
+			 echo '<td id="tdend_Time'.$row->id.'">'. $row->end_time.'</td>';
+			 echo '<td id="tdend_Time'.$row->id.'">'. $row->location_desc.'</td>';
+			 echo '<td>
+				  <button id="btnupdateShift" name="btnupdateShift" type="button" class="btn default btn-xs blue" onclick="updateShift('.$row->id.')">
+				  <i class="fa fa-edit"></i> Update </button>
+				  <button id="btndelShift" name="btndelShift" type="submit" value="Delete" class="btn default btn-xs red" onclick="deleteShift('.$row->id.')"><i class="fa fa-trash-o"></i> delete</button>';
+			 echo '</td>';  
+			
 			 echo '<tr/>';
-			 
-			 $i++;
-		   
-		   
-	    }
-	}	
+		}
+										
+		
+	}
 /*function getstaffList()
 	{
 		$this->load->model('constantmodel');

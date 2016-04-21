@@ -42,6 +42,7 @@ $(document).ready(function(){
 				success.show();
 				Metronic.scrollTo(success, -200);
 				clearForm();
+				$("#timeoff_body").html(returndb);
 				//success.hide();
 				/*$('#dvConstSuccessMsg').attr('class', 'alert alert-success');
 				$('#tbLocations').html(returndb);
@@ -54,50 +55,34 @@ $(document).ready(function(){
 	
 });
 
-function order(id,varOrderOpr)
+function updateShift(i)
 {
-	/*if($('.order').attr('data-operation') == "up")
-		var varOrderOpr = '-1';
-	else if($('.order').attr('data-operation') == "down")
-		var varOrderOpr = '+1';*/
+	/*
+	//$("#hdnId").val(i);
+	$("#drpLocation").val($("#tdlocation"+i).html());
 	
-	//alert(varOrderOpr);return;
-	var varOrder = $("#tdOrder"+id).html();
-	
-	$.ajax({
-			url: baseURL+"Locationscont/orderLocation",
-			type: "POST",
-			data:  {varId:id, varOrder:varOrder, varOrderOpr:varOrderOpr},
-			error: function(xhr, status, error) {
-  				//var err = eval("(" + xhr.responseText + ")");
-  				alert(xhr.responseText);
-			},
-			beforeSend: function(){},
-			complete: function(){},
-			success: function(returndb){
-				
-				$('#tbLocations').html(returndb);
-				
-								
-			}
-		});//END $.ajax
-}
-function selectRow(i)
-{
-	$("#hdnId").val(i);
-	$("#txtName").val($("#tdName"+i).html());
-	$("#txtDescription").val($("#tdDescription"+i).html());
-	$("#txtColor").val($('#tdColor'+i).attr("data-color"));
-	$("#dvColor").colorpicker('setValue', $('#tdColor'+i).attr("data-color"));
+	$("#drpFromdate").val($("#tdstart_date"+i).html());
+	$("#txtStart").val($("#tdstart_Time"+i).html());
+	$("#txtEnd").val($("#tdend_Time"+i).html());
+	$("#rdStatus").val($("#tdlocation"+i).html());
+	/*if ()
+	 	$(":radio[name=rdStatus]", this).attr("checked", true);  
+	 else
+	 $("input:radio[name=rdStatus]:checked").val(1);
+	  $("input:radio[name=active]:not(:checked)").val('no');*/
+	//$("#tdstaff").val($("#tdstaff"+i).html());
 	 Metronic.scrollTo($('#locationForm'), -100);
 }
+
 function clearForm()
 {
-	$("#hdnId").val('');
-	$("#txtName").val('');
-	$("#txtDescription").val('');
-	$("#txtColor").val("#ffffff");
-	$("#dvColor").colorpicker('setValue', "#ffffff");
+	/*$("#hdnId").val(i);
+	//$("#tdstaff").val($("#tdstaff"+i).html());
+	$("#drpFromdate").val('');
+	$("#txtStart").val('');
+	$("#txtEnd").val('');
+	$("#rdStatus").val('');
+*/	 Metronic.scrollTo($('#locationForm'), -100);
 }
 
 var ComponentsDropdowns = function () {
