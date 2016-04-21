@@ -25,7 +25,7 @@ class Fullschedulemodel extends CI_Model
 	}
 	public function get_all_shift()//,$cut_id)
 	{
-		 $myquery = "SELECT id, start_date,start_time,end_time,end_date FROM dusseldorf_v3_shifts WHERE start_date > 2016-04-01 ";
+		 $myquery = "SELECT id, start_date,TIME_FORMAT(start_time,'%h:%i %p') as start_time ,TIME_FORMAT(end_time,'%h:%i %p') as end_time,end_date FROM dusseldorf_v3_shifts WHERE start_date > 2016-04-01 ";
         return $this->db->query($myquery);
 
 	}

@@ -109,8 +109,10 @@ function getall_Shift_calender()
 		//$temp['url'] = ' ';
 		$temp['title'] = $row->start_time."-".$row->end_time."\n";
 //			"\n".$row->org_desc.
-		$temp['start'] = $row->start_date;
-		$temp['end'] = $row->end_time;
+		$temp['start_date'] = $row->start_date;
+		$temp['start_time'] = $row->start_time;
+		$temp['end_date'] = $row->end_date;
+		$temp['end_time'] = $row->end_time;
 		//$temp['textColor'] = '#666666';
 		/*if($row->w_code == 1) $temp['backgroundColor'] = 'red';
 		if($row->w_code == 2) $temp['backgroundColor'] = 'blue';

@@ -227,7 +227,7 @@ var Calendar = function() {
          					// Your code here.. use something like this
 							//alert(retrieved_data.length);
          					//var Obj = JSON.parse(retrieved_data);
-							
+//							alert(retrieved_data[0]['start_time']);
 							var arr = [{title: 'All Day Event',
                     		 start: new Date(y, m, 1),
                     			backgroundColor: Metronic.getBrandColor('yellow')
@@ -237,11 +237,17 @@ var Calendar = function() {
          					// Since your controller produce array of object you can access the value by using this one :
          					var events = [];
 							for(var a=0; a< retrieved_data.length; a++){
+								{
+                 /*   title: 'Meeting',
+                    start: new Date(y, m, d, 10, 30),
+                    allDay: false,*/
+                }
               				//	alert("the value with id : " + retrieved_data[a]['title'] + "is " + retrieved_data[a]['start']);
          						events.push({
 											title:retrieved_data[a]['title'],
-											start:retrieved_data[a]['start'],
-											end:retrieved_data[a]['url'],
+											start:new Date(y, m, d, 10, 30),//:retrieved_data[a]['start_date'],
+											allDay: false,
+											//end:retrieved_data[a]['end_date'],
 											//textColor:retrieved_data[a]['textColor'],
 											backgroundColor:Metronic.getBrandColor(retrieved_data[a]['backgroundColor'])
 											});
