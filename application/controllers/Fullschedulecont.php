@@ -94,7 +94,7 @@ function getall_Shift_calender()
 	
 	$output = array();
 	foreach($rec as $row)
-	{//$rec = $this->fullschedulemodel->get_shift_staff($row->start_date,$row->start_time);
+	{
 		unset($temp); // Release the contained value of the variable from the last loop
 		$temp = array();
 

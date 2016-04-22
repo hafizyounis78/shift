@@ -86,9 +86,10 @@ function addShiftTemplate()
 								//$('#tbLocations').html(returndb);
 				/*var success = $('.alert-success');
 				success.show();*/
-				Metronic.scrollTo(success, -200);
+				//Metronic.scrollTo(success, -200);
 				clearForm();
-				
+				 //$('#calendar').fullCalendar('initCalendar');
+				 location.reload();
 				//success.hide();
 				/*$('#dvConstSuccessMsg').attr('class', 'alert alert-success');
 				$('#tbLocations').html(returndb);
