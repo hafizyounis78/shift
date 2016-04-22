@@ -2,14 +2,15 @@
 class Fullschedulecont extends CI_Controller 
 {
 	public $data;
-	
-	function view ( $page = 'home')
+	public $indata;
+	function view ( $page = 'home', $uid = '' )
 	{
 		if( ! file_exists('application/views/pages/'.$page.'.php'))
 		{
 			show_404();
 		}
-		
+			
+			
 		/*if ($page == 'login')
 		{
 			$data['title'] = $page;
@@ -18,13 +19,16 @@ class Fullschedulecont extends CI_Controller
 		}
 		else if($this->session->userdata('logged_in'))
 		{*/
+			$this->indata =$uid;
 			$this->data['title'] = $page;
+			
 			$this->$page();
 			$this->load->view('templates/head',$this->data);
 			$this->load->view('templates/header',$this->data);
 			$this->load->view('templates/sidebar');
 			$this->load->view('templates/content');
 			$this->load->view('templates/pageheader');
+			
 			$this->load->view('pages/'.$page,$this->data);
 			$this->load->view('templates/footer');
 		/*}
@@ -40,9 +44,12 @@ class Fullschedulecont extends CI_Controller
 		$this->load->model('constantmodel');
 		$this->data['location']= $this->constantmodel->get_location_list();
 		$this->data['staffList']= $this->constantmodel->get_staff_list();
+	//	$this->getall_Shift_calender();
 	}
 	function getfullschedule()
 	{
+		
+			
 		$this->load->model('fullschedulemodel');
 		$shifttemplate = $this->fullschedulemodel->get_shift_templates();
 		
@@ -86,8 +93,19 @@ function addShift()
 	}
 function getall_Shift_calender()
 {
+	
+	
+	
 	$this->load->model('fullschedulemodel');
-	$rec = $this->fullschedulemodel->get_all_shift();
+	if ($this->indata == '')
+	{
+	  
+		$rec = $this->fullschedulemodel->get_all_shift();
+	}
+	else
+		{
+			$rec = $this->fullschedulemodel->get_my_shift($this->indata);
+		}
 	
 	
 	$rec = $rec->result();

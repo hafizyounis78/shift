@@ -52,6 +52,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 $route['home/(:any)'] = 'home/view/$1';
 $route['locationscont/(:any)'] = 'locationscont/view/$1';
 $route['fullschedulecont/(:any)'] = 'fullschedulecont/view/$1';
+$route['fullschedulecont/(:any)/(:any)'] = 'fullschedulecont/view/$1/$2';
 $route['timeoffcont/(:any)'] = 'timeoffcont/view/$1';
 $route['shifttemplatecont/(:any)'] = 'shifttemplatecont/view/$1';
 $route['shiftscont/(:any)'] = 'shiftscont/view/$1';
