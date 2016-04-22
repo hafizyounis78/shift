@@ -94,7 +94,7 @@ function getall_Shift_calender()
 	
 	$output = array();
 	foreach($rec as $row)
-	{
+	{//$rec = $this->fullschedulemodel->get_shift_staff($row->start_date,$row->start_time);
 		unset($temp); // Release the contained value of the variable from the last loop
 		$temp = array();
 
@@ -108,6 +108,7 @@ function getall_Shift_calender()
 		$temp['end_date'] = $row->end_date;
 		$temp['end_time'] = $row->end_time;
 		$temp['location_name'] = $row->name;
+		$temp['event_details'] = $row->emp_name;
 		$temp['color'] = $row->color;
 		//$temp['textColor'] = '#666666';
 		/*if($row->w_code == 1) $temp['backgroundColor'] = 'red';

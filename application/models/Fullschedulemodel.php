@@ -25,11 +25,28 @@ class Fullschedulemodel extends CI_Model
 	}
 	public function get_all_shift()//,$cut_id)
 	{
-		 $myquery = "SELECT    sft.start_date, sft.start_time, sft.end_time, sft.end_date, sft.location_id, loc.name, loc.color, loc.id
+		/* $myquery = "SELECT    sft.start_date, sft.start_time, sft.end_time, sft.end_date, sft.location_id, loc.name, loc.color, loc.id
 					 FROM      dusseldorf_v3_shifts sft, dusseldorf_v3_locations loc
 					 GROUP BY  sft.start_date, sft.start_time, sft.end_time, sft.end_date, sft.location_id, loc.name, loc.color
 					 HAVING    sft.location_id = loc.id
-					 AND       start_date >2016 -04 -01";
+					 AND       start_date >2016 -04 -01";*/
+		 $myquery = " SELECT sft.start_date, sft.start_time, sft.end_time, sft.end_date, sft.location_id, loc.name, loc.color, loc.id, (
+
+						SELECT GROUP_CONCAT( CONCAT( b.first_name, ' ', b.last_name )
+						SEPARATOR ', ' )
+						FROM dusseldorf_users b, dusseldorf_v3_shifts c
+						WHERE b.id = c.user_id
+						AND location_id = sft.location_id
+						AND start_date = sft.start_date
+						AND end_date = sft.end_date
+						AND start_time = sft.start_time
+						AND end_time = sft.end_time
+						) AS emp_name
+						FROM dusseldorf_v3_shifts sft, dusseldorf_v3_locations loc
+						GROUP BY sft.start_date, sft.start_time, sft.end_time, sft.end_date, sft.location_id, loc.name, loc.color
+						HAVING sft.location_id = loc.id
+						AND start_date >2016 -04 -01 ";
+					 
         return $this->db->query($myquery);
 
 	}

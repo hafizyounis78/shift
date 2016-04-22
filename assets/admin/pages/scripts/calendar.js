@@ -216,7 +216,7 @@ var Calendar = function() {
 					element.find('.fc-title').append('<div class="hr-line-solid-no-margin"></div><span style="font-size: 10px;background-color: red">'+event.description+'</span></div>');*/
 					$('.popover').popover('hide');
 					element.popover({
-				            title: "My Title",
+				            title: "Employee",
 				            placement:'left',
 							container:'body',
 				            html:true,
@@ -257,6 +257,7 @@ var Calendar = function() {
          					var events = [];
 							for(var a=0; a< retrieved_data.length; a++)
 								{
+									//alert(retrieved_data[a]['start_date'])
 									var startdateParts = retrieved_data[a]['start_date'].split("-");
 									var enddateParts = retrieved_data[a]['end_date'].split("-");
 									var starttimeParts = retrieved_data[a]['start_time'].split(":");
@@ -265,7 +266,7 @@ var Calendar = function() {
 									
          						events.push({
 											title:retrieved_data[a]['title'],
-											msg: 'I am clipped to the left which is annoying',
+											msg: retrieved_data[a]['event_details'],
 											start:new Date(startdateParts[0], parseInt(startdateParts[1] - 1), startdateParts[2], starttimeParts[0], starttimeParts[1]),//:retrieved_data[a]['start_date'],
 											end: new Date(enddateParts[0], parseInt(enddateParts[1] - 1), enddateParts[2],  endtimeParts[0], endtimeParts[1]),
 											backgroundColor: retrieved_data[a]['color'],
