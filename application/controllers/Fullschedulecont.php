@@ -19,7 +19,11 @@ class Fullschedulecont extends CI_Controller
 		}
 		else if($this->session->userdata('logged_in'))
 		{*/
-			$this->indata =$uid;
+			//$this->indata =$uid;
+			//print_r($this->indata);
+			//print_r($this->uri->segment(3));
+	//		exit();
+		//	return;
 			$this->data['title'] = $page;
 			
 			$this->$page();
@@ -31,6 +35,7 @@ class Fullschedulecont extends CI_Controller
 			
 			$this->load->view('pages/'.$page,$this->data);
 			$this->load->view('templates/footer');
+			
 		/*}
 		else
    		{
@@ -97,14 +102,18 @@ function getall_Shift_calender()
 	
 	
 	$this->load->model('fullschedulemodel');
-	if ($this->indata == '')
+	
+	if ($this->uri->segment(3))
 	{
-	  
-		$rec = $this->fullschedulemodel->get_all_shift();
+		die($this->uri->segment(3));
+	  $rec = $this->fullschedulemodel->get_my_shift($this->uri->segment(3));
+		
 	}
 	else
 		{
-			$rec = $this->fullschedulemodel->get_my_shift($this->indata);
+		//	die($this->uri->segment(2));
+			$rec = $this->fullschedulemodel->get_all_shift();
+			
 		}
 	
 	

@@ -29,7 +29,7 @@ class Fullschedulemodel extends CI_Model
 		
 					 
 					 
-		/* $myquery = " SELECT sft.start_date, sft.start_time, sft.end_time, sft.end_date, sft.location_id, loc.name, loc.color, loc.id, (
+		 $myquery = " SELECT sft.start_date, sft.start_time, sft.end_time, sft.end_date, sft.location_id, loc.name, loc.color, loc.id, (
 
 						SELECT GROUP_CONCAT( CONCAT( b.first_name, ' ', b.last_name )
 						SEPARATOR ', ' )
@@ -40,14 +40,14 @@ class Fullschedulemodel extends CI_Model
 						AND end_date = sft.end_date
 						AND start_time = sft.start_time
 						AND end_time = sft.end_time
+						AND b.id =".$indata."
 						) AS emp_name
 						FROM dusseldorf_v3_shifts sft, dusseldorf_v3_locations loc
 						GROUP BY sft.start_date, sft.start_time, sft.end_time, sft.end_date, sft.location_id, loc.name, loc.color
 						HAVING sft.location_id = loc.id
 						AND start_date >2016 -04 -01 ";
 					 
-        return $this->db->query($myquery);*/
-
+        return $this->db->query($myquery);
 	}
 	public function get_all_shift()//,$cut_id)
 	{

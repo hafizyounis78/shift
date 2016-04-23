@@ -34,6 +34,8 @@
 <script src="<?php echo base_url();?>assets/global/plugins/jquery.cokie.min.js" type="text/javascript"></script>
 <script src="<?php echo base_url();?>assets/global/plugins/uniform/jquery.uniform.min.js" type="text/javascript"></script>
 <script src="<?php echo base_url();?>assets/global/plugins/bootstrap-switch/js/bootstrap-switch.min.js" type="text/javascript"></script>
+<script src="<?php echo base_url();?>assets/global/plugins/jquery-validation/js/jquery.validate.min.js"></script>
+<script src="<?php echo base_url();?>assets/global/plugins/jquery-validation/js/additional-methods.min.js"></script>
 <!-- END CORE PLUGINS -->
 
 <!-- BEGIN PAGE LEVEL PLUGINS -->
@@ -75,9 +77,15 @@
          Metronic.init(); // init metronic core components
 		 Layout.init(); // init current layout
 		 Demo.init(); // init demo features
-		 Calendar.init();
+		
+		  /*******Forms Validation *******************/
+		 TimeOffFormValidation.init();
+ 
+		  Calendar.init();
 		 ComponentsPickers.init();
+		 
          ComponentsDropdowns.init();
+		
       });
    </script>
 <!-- END JAVASCRIPTS -->

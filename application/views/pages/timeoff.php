@@ -1,6 +1,6 @@
 <?php
-$ction ="addtimeoff";
-$page_title = "addTimeoff";
+$action ="addtimeoff";
+
 $readonly = '';
 ?>
 <div class="row">
@@ -26,10 +26,13 @@ $readonly = '';
                           <button class="close" data-close="alert"></button>
                           Your form validation is successful!
                       </div>
+                      <input type="hidden" name="hdnaction" id="hdnaction" value="<?php echo $action; ?>" />
+                      <input type="hidden" name="hdnshiftId" id="hdnshiftId" value="<?php echo $action; ?>" />
                       <div class="form-group">
-                            <label class="control-label col-md-3">Location</label>
+                            <label class="control-label col-md-3">Location <span class="required">
+                          * </span></label>
                             <div class="col-md-4">
-                                <select class="form-control input-large select2me" data-placeholder="Select Location" id="drpLocation" name="drpLocation">
+                                <select class="form-control input-large" data-placeholder="Select Location" id="drpLocation" name="drpLocation">
                                     <option value="">Select..</option>
                                      <?php 
 								  foreach ($location as $location_row)
@@ -49,7 +52,8 @@ $readonly = '';
                             </div>
                         </div>
                       <div class="form-group">
-                                <label class="control-label col-md-3">Date</label>
+                                <label class="control-label col-md-3">Date<span class="required">
+                          * </span></label>
                                 <div class="col-md-3">
                                     <div class="input-group input-medium date date-picker" data-date-format="yyyy-mm-dd" data-date-start-date="+0d">
                                         <input type="text" class="form-control" readonly id="drpFromdate" name="drpFromdate">
@@ -63,7 +67,8 @@ $readonly = '';
                                 </div>
                             </div>
                       <div class="form-group">
-                            <label class="control-label col-md-3">Time</label>
+                            <label class="control-label col-md-3">Time<span class="required">
+                          * </span></label>
                             <div class="col-md-2">
                                 <div class="input-group">
                                     <input type="text" class="form-control timepicker timepicker-24" id="txtStart" name="txtStart">
@@ -94,9 +99,12 @@ $readonly = '';
                           </div>
                         </div>
                     </div>
-                    <div class="form-group">
-                        <label class="control-label col-md-3">Staff</label>
+                    <div class="form-group" id="divUser">
+                        <label class="control-label col-md-3">Staff<span class="required">
+                          * </span></label>
                         <div class="col-md-9">
+                        <span class="help-block">
+                                    Select one staff  at least </span>
                             <select multiple="multiple" class="multi-select" id="my_multi_select1" name="my_multi_select1[]">
                                 <?php
                                  foreach($staffList as $staff_row)
@@ -108,13 +116,20 @@ $readonly = '';
 								  
 								?>
                             </select>
+                            
                         </div>
-                    </div>  
+                    </div>
+                   <div class="form-group" id="dvstaffname" style="display:none">
+                            <label class="control-label col-md-3">Staff name</label>
+                            <div class="col-md-4">
+                                <input id="txtstaffName" name="txtstaffName" type="text" class="form-control form-filter input-sm"  disabled="disabled">
+                            </div>
+                        </div>   
                   </div>
                   <div class="form-actions">
                       <div class="row">
                           <div class="col-md-offset-3 col-md-9">
-                              <button id="btnSaveTimeoff" type="button" class="btn green">Save</button>
+                              <button type="submit" class="btn green">Save</button>
                               <button type="button" class="btn default" onclick="clearForm()">Cancel</button>
                           </div>
                       </div>
@@ -163,21 +178,31 @@ $readonly = '';
                                         <th>
 											 Action
 										</th>
+                                         <th>
+											 Status
+										</th>
 									</tr>
 									</thead>
 									<tbody id="timeoff_body">
 			
 						            <?php
 									$i=1;
+									$statusrow='';
 										foreach($timeoffrec as $row)
 											{
+												if($row->status==1)
+												 $statusrow='Pending';
+												 else
+												 $statusrow='Active';
 												 echo '<tr>';		
 												 echo '<td>'.$i++.'</td>';
 												 echo '<td id="tdstaff'.$row->id.'">'.$row->Staff_name.'</td>';
 												 echo '<td id="tdstart_date'.$row->id.'">'. $row->start_date.'</td>';
 												 echo '<td id="tdstart_Time'.$row->id.'">'. $row->start_time.'</td>';
 												 echo '<td id="tdend_Time'.$row->id.'">'. $row->end_time.'</td>';
-												 echo '<td id="tdlocation'.$row->id.'">'. $row->location_desc.'</td>';
+												 echo '<td id="tdlocation'.$row->id.'" data-loid="'.$row->locationId.'">'. $row->location_desc.'</td>';
+												// echo '<td id="tdrdStatus'.$row->id.'">'. $statusrow.'</td>';
+												 echo '<td id="tdrdStatus'.$row->id.'" data-stid="'.$row->status.'">'.$statusrow.'</td>';		 
 												 echo '<td>
 													  <button id="btnupdateShift" name="btnupdateShift" type="button" class="btn default btn-xs blue" onclick="updatetimeoff('.$row->id.')">
 													  <i class="fa fa-edit"></i> Update </button>
