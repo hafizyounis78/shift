@@ -99,6 +99,25 @@ $readonly = '';
                           </div>
                         </div>
                     </div>
+                    <div class="form-group">
+                          <label class="control-label col-md-3">Department <span class="required">
+                          * </span>
+                          </label>
+                          <div class="col-md-4">
+                              <select id="drplstDept" class="form-control" name="drplstDept">
+                                  <option value="">Select...</option>
+                                  <option value="1">Dept 1</option>
+                                  <option value="2">Dept 2</option>
+                                  <option value="3">Dept 5</option>
+                                  <option value="4">Dept 4</option>
+                                  <option value="5">Dept 2</option>
+                                  <option value="6">Dept 5</option>
+                                  <option value="7">Dept 4</option>
+                                  <option value="8">Dept 5</option>
+                                  <option value="9">Dept 4</option>
+                              </select>
+                          </div>
+                      </div>
                     <div class="form-group" id="divUser">
                         <label class="control-label col-md-3">Staff<span class="required">
                           * </span></label>

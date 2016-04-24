@@ -207,6 +207,11 @@
                                   <option value="2">Dept 2</option>
                                   <option value="3">Dept 5</option>
                                   <option value="4">Dept 4</option>
+                                  <option value="5">Dept 2</option>
+                                  <option value="6">Dept 5</option>
+                                  <option value="7">Dept 4</option>
+                                  <option value="8">Dept 5</option>
+                                  <option value="9">Dept 4</option>
                               </select>
                           </div>
                       </div>

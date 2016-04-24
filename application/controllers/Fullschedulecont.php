@@ -152,6 +152,20 @@ function getall_Shift_calender()
 	echo json_encode($output);
 	
 }
+function getUserByDept()
+{
+	$this->load->model('constantmodel');
+	$staffList=$this->constantmodel->getUser_byDept();
+	 foreach($staffList as $staff_row)
+	  {
+		 
+		  echo '<option  value='.$staff_row->id.'>'.$staff_row->name.'</option>';
+		  
+	  }
+	  
+	
+}
+
 	}
 	
 ?>

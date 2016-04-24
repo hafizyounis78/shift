@@ -10,7 +10,7 @@ function editshift(){
 				formData.append('hdnshiftId'		 , $("#hdnshiftId").val());
 				formData.append('drpLocation'		, $("#drpLocation").val());
 				formData.append('drpFromdate'		, $("#drpFromdate").val());
-				formData.append('drpTodate'		, $("#drpFromdate").val());
+				formData.append('drpTodate'		, $("#drpTodate").val());
 				formData.append('txtStart'	    ,  $("#txtStart").val());
 				formData.append('txtEnd'	        ,  $("#txtEnd").val());
 				formData.append('rdStatus'          ,  $("input[name=rdStatus]:checked").val());
@@ -97,6 +97,7 @@ function updateShift(i)
 	
 	
 	$("#drpFromdate").val($("#tdstart_date"+i).html());
+	$("#drpTodate").val($("#tdend_date"+i).html());
 	$("#txtStart").val($("#tdstart_Time"+i).html());
 	$("#txtEnd").val($("#tdend_Time"+i).html());
 	$("#rdStatus").val($("#tdlocation"+i).html());
@@ -118,8 +119,9 @@ function updateShift(i)
 
             //alert("shift");
 		$("#txtstaffName").val($("#tdstaff"+i).html());
-			document.getElementById("divUser").style.display = "None";	
-			document.getElementById("dvstaffname").style.display = "block";	
+		document.getElementById("divUser").style.display = "None";	
+		document.getElementById("divDept").style.display = "None";	
+		document.getElementById("dvstaffname").style.display = "block";	
 				
 	//$("#tdstaff").val($("#tdstaff"+i).html());
 	//$("#my_multi_select2").html(returndb);
@@ -146,6 +148,7 @@ function clearShiftForm()
             //alert("shift");
 	$("#txtstaffName").val("");
 	document.getElementById("divUser").style.display = "block";
+	document.getElementById("divDept").style.display = "block";	
 	document.getElementById("dvstaffname").style.display = "None";		
 				
 	 //Metronic.scrollTo($('#timeOffForm'), +1000);
@@ -153,16 +156,34 @@ function clearShiftForm()
 function drpdeptChange()
 {
 	    
-		if($("#drpUsertypeperm").val() == '')
+		/*if( $("#drpLocation").val() == ''||$("#drpFromdate").val() == '' || $("#txtStart").val() == '' || $("#txtEnd").val() == '')
 		{
-			$("#dvMenue").css("display","none");
+			
+			document.getElementById("divUser").style.display ="block";	
+			document.getElementById("dvstaffname").style.display =  "None";	
+			var errormsg = $('.alert-danger', $("#shiftForm"));
+				errormsg.show();
+					 Metronic.scrollTo($('#shiftForm'), -100);
 			return;
-		}
+		}*/
+		if (!validateShift())
+		 return;
+		var formData = new FormData();
+	
+				
+				//formData.append('drpLocation'		, $("#drpLocation").val());
+				formData.append('drpFromdate'	, $("#drpFromdate").val());
+				formData.append('drpTodate'		, $("#drpFromdate").val());
+				formData.append('txtStart'	    , $("#txtStart").val());
+				formData.append('txtEnd'	    , $("#txtEnd").val());
+				formData.append('deptNo'        , $("#drplstDept").val()),
 		
 		$.ajax({
-			url: baseURL+"Usertypeperm/getmenue",
+			url: baseURL+"Shiftscont/getUserByDept",
 			type: "POST",
-			data:  {user_type_id : $("#drpUsertypeperm").val()},
+			data: formData,
+			 processData: false,
+			 contentType: false,
 			error: function(xhr, status, error) {
   				//var err = eval("(" + xhr.responseText + ")");
   				alert(xhr.responseText);
@@ -170,9 +191,11 @@ function drpdeptChange()
 			beforeSend: function(){},
 			complete: function(){},
 			success: function(returndb){
-				$("#dvMenue").css("display","block");
-				$("#my_multi_select2").html(returndb);
-				$("#my_multi_select2").multiSelect('refresh');
+				
+				document.getElementById("divUser").style.display = "block";
+				document.getElementById("dvstaffname").style.display = "None";
+				$("#my_multi_select1").html(returndb);
+				$("#my_multi_select1").multiSelect('refresh');
 			}
 		});//END $.ajax
     
@@ -198,6 +221,9 @@ var ShiftFormValidation = function () {
 	                drpFromdate: {
                         required: true
                     },
+	                drpTodate: {
+                        required: true
+                    },
 					txtStart: {
                         required: true
                     },
@@ -206,11 +232,11 @@ var ShiftFormValidation = function () {
                     },
 					drplstBreak: {
                         required:true
-                    },
+                    }/*,
 					my_multi_select1: {
                         required: true,
 						//greaterThanSixty : true
-                    }
+                    }*/
 				},
 
                messages: { // custom messages for radio buttons and checkboxes
@@ -218,23 +244,25 @@ var ShiftFormValidation = function () {
                         required: "Please enter the location"
                     },
                     drpFromdate: {
-                        required: "Please enter shift date"
-                    }
-					,
+                        required: "Please enter shift start date"
+                    },
+	                drpTodate: {
+						required: "Please enter shift end date"
+                    },
                     txtStart: {
-                        required: "Please enter start time of shift"
+                        required: "Please enter shift start time"
                     }
 					,
                     txtEnd: {
-                        required: "Please enter start time of shift"
+                        required: "Please enter shift end time"
                     },
 					drplstBreak: {
                         required: "Please select break time of shift"
-                    },
+                    }/*,
 					my_multi_select1: {
                         required: "Please select at least one staff"
 						
-                    }
+                    }*/
 				},
                 errorPlacement: function (error, element) { // render error placement for each input type
                     if (element.attr("data-error-container")) { 
@@ -294,7 +322,41 @@ return {
     };
 
 }();
+function validateShift()
+{
+	/*var form = $('#submit_form');
+    var error = $('.alert-danger', form);*/
 
+			
+	var error = $('#dvDeptMsg');
+	
+	var valid = true;
+	
+	
+	
+	if ( !$("#drpFromdate").valid() )
+		valid = false;
+		if ( !$("#drpTodate").valid() )
+		valid = false;
+	if ( !$("#txtStart").valid() )
+		valid = false;
+
+	if ( !$("#drpLocation").valid() )
+		valid = false;
+	
+	if(!valid)
+	{
+		
+		error.show();
+        Metronic.scrollTo(error, -200);
+	}
+	else
+	{
+		error.hide();
+	}
+		
+	return valid;
+}
 var ComponentsDropdowns = function () {
 
  var handleMultiSelect = function () {

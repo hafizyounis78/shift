@@ -20,5 +20,13 @@ class Constantmodel extends CI_Model
 		$res = $this->db->query($myquery);
 		return $res->result();
 	}
+function getUser_byDept()
+{
+	extract($_POST);
+	$myquery = "SELECT id, CONCAT(first_name,' ',last_name) as name FROM dusseldorf_users where type=2 and depart_id=".$deptNo;
+		
+		$res = $this->db->query($myquery);
+		return $res->result();
+}	
 }
 ?>

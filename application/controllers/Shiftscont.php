@@ -39,7 +39,7 @@ function shifts()
 {
 			$this->load->model('constantmodel');
 		$this->data['location']= $this->constantmodel->get_location_list();
-		$this->data['staffList']= $this->constantmodel->get_staff_list();
+		//$this->data['staffList']= $this->constantmodel->get_staff_list();
 		$this->load->model('Shiftmodel');
 		$this->data['shiftrec']= $this->Shiftmodel->get_all_shifts();
 
@@ -64,6 +64,19 @@ function deleteShift()
 	$this->Shiftmodel->delete_shift();
 	$this->drawShiftsTable();
 }	
+function getUserByDept()
+{
+	$this->load->model('constantmodel');
+	$staffList=$this->constantmodel->getUser_byDept();
+	 foreach($staffList as $staff_row)
+	  {
+		 
+		  echo '<option  value='.$staff_row->id.'>'.$staff_row->name.'</option>';
+		  
+	  }
+	  
+	
+}
 function drawShiftsTable()
 {
 	
@@ -83,6 +96,7 @@ function drawShiftsTable()
 		 echo '<td>'.$i++.'</td>';
 		 echo '<td id="tdstaff'.$row->id.'">'.$row->Staff_name.'</td>';
 		 echo '<td id="tdstart_date'.$row->id.'">'. $row->start_date.'</td>';
+		  echo '<td id="tdend_date'.$row->id.'">'. $row->end_date.'</td>';
 		 echo '<td id="tdstart_Time'.$row->id.'">'. $row->start_time.'</td>';
 		 echo '<td id="tdend_Time'.$row->id.'">'. $row->end_time.'</td>';
 		 echo '<td id="tdlocation'.$row->id.'" data-loid="'.$row->locationId.'">'. $row->location_desc.'</td>';

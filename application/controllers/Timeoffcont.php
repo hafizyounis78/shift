@@ -90,6 +90,21 @@ class Timeoffcont extends CI_Controller
 		$this->timeoffmodel->delete_timeoff();
 		$this->drawTimeoffTable();
 	}
+	
+function getUserByDept()
+{
+	$this->load->model('constantmodel');
+	$staffList=$this->constantmodel->getUser_byDept();
+	 foreach($staffList as $staff_row)
+	  {
+		 
+		  echo '<option  value='.$staff_row->id.'>'.$staff_row->name.'</option>';
+		  
+	  }
+	  
+	
+}
+
 /*function getstaffList()
 	{
 		$this->load->model('constantmodel');

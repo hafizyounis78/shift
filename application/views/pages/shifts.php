@@ -17,7 +17,10 @@ $readonly = '';
               <!-- BEGIN FORM-->
               <form action="#" id="shiftForm" class="form-horizontal">
                   <div class="form-body">
-                      
+                      <div id="dvDeptMsg" class="alert alert-danger display-none">
+                         <button class="close" data-dismiss="alert"></button>
+                         You should select Location ,date ,start time and end time before selecting department. Please check below.
+                      </div>
                       <div class="alert alert-danger display-hide">
                           <button class="close" data-close="alert"></button>
                           You have some form errors. Please check below.
@@ -53,26 +56,23 @@ $readonly = '';
                             </div>
                         </div>
                       <div class="form-group">
-                                <label class="control-label col-md-3">Dates<span class="required">
-                          * </span></label>
-                                <div class="col-md-3">
-                                    <div class="input-group input-medium date date-picker" data-date-format="yyyy-mm-dd" data-date-start-date="+0d">
-                                        <input type="text" class="form-control" readonly id="drpFromdate">
-                                        <span class="input-group-btn">
-                                        <button class="btn default" type="button"><i class="fa fa-calendar"></i></button>
-                                        </span>
-                                    </div>
-                                    <!-- /input-group -->
-                                    <span class="help-block">
-                                    Select date </span>
-                                </div>
+                        <label class="control-label col-md-3">Date</label>
+                        <div class="col-md-6">
+                            <div class="input-group input-medium date-picker input-daterange" data-date="10/11/2012" data-date-format="yyyy-mm-dd">
+                                <input type="text" id="drpFromdate" class="form-control" name="drpFromdate">
+                                <span class="input-group-addon">
+                                to </span>
+                                <input type="text" id="drpTodate" class="form-control" name="drpTodate">
                             </div>
+                            <!-- /input-group -->
+                        </div>
+                    </div>
                       <div class="form-group">
                             <label class="control-label col-md-3">Time<span class="required">
                           * </span></label>
                             <div class="col-md-2">
                                 <div class="input-group">
-                                    <input type="text" class="form-control timepicker timepicker-24" id="txtStart" >
+                                    <input type="text" class="form-control timepicker timepicker-24" id="txtStart"  name="txtStart" >
                                     <span class="input-group-btn">
                                     <button class="btn default" type="button"><i class="fa fa-clock-o"></i></button>
                                     </span>
@@ -80,7 +80,7 @@ $readonly = '';
                             </div>
                             <div class="col-md-2">
                                 <div class="input-group">
-                                    <input type="text" class="form-control timepicker timepicker-24" id="txtEnd">
+                                    <input type="text" class="form-control timepicker timepicker-24" id="txtEnd" name="txtEnd">
                                     <span class="input-group-btn">
                                     <button class="btn default" type="button"><i class="fa fa-clock-o"></i></button>
                                     </span>
@@ -114,6 +114,25 @@ $readonly = '';
                           </div>
                         </div>
                     </div>
+                    <div class="form-group" id="divDept">
+                          <label class="control-label col-md-3">Department <span class="required">
+                          * </span>
+                          </label>
+                          <div class="col-md-4">
+                              <select id="drplstDept" class="form-control" name="drplstDept" onchange="drpdeptChange();">
+                                  <option value="">Select...</option>
+                                  <option value="1">Dept 1</option>
+                                  <option value="2">Dept 2</option>
+                                  <option value="3">Dept 5</option>
+                                  <option value="4">Dept 4</option>
+                                  <option value="5">Dept 2</option>
+                                  <option value="6">Dept 5</option>
+                                  <option value="7">Dept 4</option>
+                                  <option value="8">Dept 5</option>
+                                  <option value="9">Dept 4</option>
+                              </select>
+                          </div>
+                      </div>
                     <div class="form-group" id="divUser">
                         <label class="control-label col-md-3">Staff<span class="required">
                           * </span></label>
@@ -121,7 +140,8 @@ $readonly = '';
                         <span class="help-block">
                                     Select one staff  at least </span>
                             <select multiple="multiple" class="multi-select" id="my_multi_select1" name="my_multi_select1[]">
-                               <?php
+                            
+                            <?php /*?>   <?php
                                  foreach($staffList as $staff_row)
 								  {
 									 
@@ -129,7 +149,7 @@ $readonly = '';
 									  
 								  }
 								  
-								?>
+								?><?php */?>
                             </select>
                         </div>
                     </div>  
@@ -190,7 +210,10 @@ $readonly = '';
 											 Staff
 										</th>
 										<th>
-											 Date
+											 Start Date
+										</th>
+                                        <th>
+											 End Date
 										</th>
 										<th>
 											Start Time
@@ -224,6 +247,7 @@ $readonly = '';
 												 echo '<td>'.$i++.'</td>';
 												 echo '<td id="tdstaff'.$row->id.'">'.$row->Staff_name.'</td>';
 												 echo '<td id="tdstart_date'.$row->id.'">'. $row->start_date.'</td>';
+												 echo '<td id="tdend_date'.$row->id.'">'. $row->end_date.'</td>';
 												 echo '<td id="tdstart_Time'.$row->id.'">'. $row->start_time.'</td>';
 												 echo '<td id="tdend_Time'.$row->id.'">'. $row->end_time.'</td>';
 												 echo '<td id="tdlocation'.$row->id.'" data-loid="'.$row->locationId.'">'. $row->location_desc.'</td>';
