@@ -150,7 +150,33 @@ function clearShiftForm()
 				
 	 //Metronic.scrollTo($('#timeOffForm'), +1000);
 }
-
+function drpdeptChange()
+{
+	    
+		if($("#drpUsertypeperm").val() == '')
+		{
+			$("#dvMenue").css("display","none");
+			return;
+		}
+		
+		$.ajax({
+			url: baseURL+"Usertypeperm/getmenue",
+			type: "POST",
+			data:  {user_type_id : $("#drpUsertypeperm").val()},
+			error: function(xhr, status, error) {
+  				//var err = eval("(" + xhr.responseText + ")");
+  				alert(xhr.responseText);
+			},
+			beforeSend: function(){},
+			complete: function(){},
+			success: function(returndb){
+				$("#dvMenue").css("display","block");
+				$("#my_multi_select2").html(returndb);
+				$("#my_multi_select2").multiSelect('refresh');
+			}
+		});//END $.ajax
+    
+}
 //****************timeoff Validation
 var ShiftFormValidation = function () {
  var handleValidation = function() {
