@@ -84,6 +84,12 @@ class Timeoffcont extends CI_Controller
 										
 		
 	}
+	function deletetimeoff()
+	{
+		$this->load->model('timeoffmodel');
+		$this->timeoffmodel->delete_timeoff();
+		$this->drawTimeoffTable();
+	}
 /*function getstaffList()
 	{
 		$this->load->model('constantmodel');

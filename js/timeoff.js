@@ -4,7 +4,7 @@ var staffList="";
 function edittimeoff() {							
 		//event.preventDefault();
 		var action = $("#hdnaction").val();
-		alert(action);
+		//alert(action);
 			var formData = new FormData();
 	
 				formData.append('hdnshiftId'		 , $("#hdnshiftId").val());
@@ -29,9 +29,9 @@ function edittimeoff() {
 			beforeSend: function(){},
 			complete: function(){},
 			success: function(returndb){
-				alert("success");
+				
 				clearfimeoffForm();
-				alert("success2");
+				
 				//$('#tbLocations').html(returndb);
 				var success = $('.alert-success', $("#timeOffForm"));
 				success.show();
@@ -43,8 +43,44 @@ function edittimeoff() {
 		});//END $.ajax
 	} // END function edittimeoff
 	
-function deletetimeoff()
+function deletetimeoff(i)
 {
+	var x='';
+	var r = confirm('This record will be deleted. Do you want to continue?');
+	
+	
+	if (r == true) {
+		x =1;
+	} else {
+		x = 0;
+	}
+	if(x==1)
+	{
+	var timeoffId=i;
+	$.ajax({
+			url: baseURL+"Timeoffcont/deletetimeoff",
+			type: "POST",
+			data: {timeoffId:timeoffId},
+			error: function(xhr, status, error) {
+  				//var err = eval("(" + xhr.responseText + ")");
+  				alert(xhr.responseText);
+			},
+			beforeSend: function(){},
+			complete: function(){},
+			success: function(returndb){
+			
+				clearfimeoffForm();
+			
+				//$('#tbLocations').html(returndb);
+				var success = $('.alert-success', $("#timeOffForm"));
+				success.show();
+			//	Metronic.scrollTo(success, -200);
+				
+				$("#timeoff_body").html(returndb);
+				
+			}
+		});//END $.ajax
+	}
 }
 
 function updatetimeoff(i)
@@ -91,7 +127,7 @@ $("#txtstaffName").val($("#tdstaff"+i).html());
 
 function clearfimeoffForm()
 {
-	alert("clear");
+	
 	
 	$("#hdnshiftId").val("");
 	$("#hdnaction").val('addtimeoff');
@@ -140,10 +176,10 @@ var TimeOffFormValidation = function () {
 	                txtEnd: {
                         required: true
                     },
-				/*	my_multi_select1: {
+					my_multi_select1: {
                         required: true,
 						//greaterThanSixty : true
-                    }*/
+                    }
 				},
 
                messages: { // custom messages for radio buttons and checkboxes
@@ -161,10 +197,10 @@ var TimeOffFormValidation = function () {
                     txtEnd: {
                         required: "Please enter start time of timeoff"
                     },
-					/*my_multi_select1: {
+					my_multi_select1: {
                         required: "Please select at least one staff"
 						
-                    }*/
+                    }
 				},
                 errorPlacement: function (error, element) { // render error placement for each input type
                     if (element.attr("data-error-container")) { 

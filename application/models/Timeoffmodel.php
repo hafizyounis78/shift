@@ -50,6 +50,13 @@ class Timeoffmodel extends CI_Model
 		$this->db->update('dusseldorf_v3_shifts',$data);
 	}
 	
+	function delete_timeoff()
+	{
+		extract($_POST);
+		$this->db->where('id',$timeoffId);
+		$this->db->delete('dusseldorf_v3_shifts');
+	}
+	
 }
 
 ?>

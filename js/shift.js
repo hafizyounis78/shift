@@ -1,20 +1,13 @@
 // JavaScript Document
 var staffList="";
-$(document).ready(function(){
-	$('#btnSaveShift').click(function(event) {							
-		event.preventDefault();
-		
-		//if ($("#hdnId").val() == '')
-			var action = "addShift";
-	/*	else
-			var action = "updateTimeoff";*/
-			/*if (document.getElementById('rdStatus').checked) {
-				  var status_value = document.getElementById('rdStatus').value;
-				}
-				alert(status_value);*/
+function editshift(){
+	$
+			var action = $("#hdnaction").val();
+		//alert(action);
+	
 			var formData = new FormData();
 	
-	
+				formData.append('hdnshiftId'		 , $("#hdnshiftId").val());
 				formData.append('drpLocation'		, $("#drpLocation").val());
 				formData.append('drpFromdate'		, $("#drpFromdate").val());
 				formData.append('drpTodate'		, $("#drpFromdate").val());
@@ -25,7 +18,7 @@ $(document).ready(function(){
 				formData.append('staffList'		    ,  staffList);
 	
 	$.ajax({
-		url: baseURL+"Shiftscont/addShift",
+		url: baseURL+"Shiftscont/"+action ,
 			//url: baseURL+"Shiftcont/"+action,
 			type: "POST",
 			data: formData,
@@ -43,30 +36,33 @@ $(document).ready(function(){
 				var success = $('.alert-success', $("#shiftForm"));
 				success.show();
 				Metronic.scrollTo(success, -200);
-				clearForm();
+				clearShiftForm();
 				$("#shift_body").html(returndb);
 				
 			}
 		});//END $.ajax
-	}); // END CLICK
-	
-	
-});
+		
+}
 
-function order(id,varOrderOpr)
+
+function deleteShift(i)
 {
-	/*if($('.order').attr('data-operation') == "up")
-		var varOrderOpr = '-1';
-	else if($('.order').attr('data-operation') == "down")
-		var varOrderOpr = '+1';*/
+	var x='';
+	var r = confirm('This record will be deleted. Do you want to continue?');
 	
-	//alert(varOrderOpr);return;
-	var varOrder = $("#tdOrder"+id).html();
 	
+	if (r == true) {
+		x =1;
+	} else {
+		x = 0;
+	}
+	if(x==1)
+	{
+	var timeoffId=i;
 	$.ajax({
-			url: baseURL+"Locationscont/orderLocation",
+			url: baseURL+"Shiftscont/deleteShift",
 			type: "POST",
-			data:  {varId:id, varOrder:varOrder, varOrderOpr:varOrderOpr},
+			data: {timeoffId:timeoffId},
 			error: function(xhr, status, error) {
   				//var err = eval("(" + xhr.responseText + ")");
   				alert(xhr.responseText);
@@ -74,30 +70,198 @@ function order(id,varOrderOpr)
 			beforeSend: function(){},
 			complete: function(){},
 			success: function(returndb){
+			
+				clearShiftForm();
+			
+				//$('#tbLocations').html(returndb);
+				var success = $('.alert-success', $("#timeOffForm"));
+				success.show();
+			//	Metronic.scrollTo(success, -200);
 				
-				$('#tbLocations').html(returndb);
+				$("#shift_body").html(returndb);
 				
-								
 			}
 		});//END $.ajax
+	}
 }
-function selectRow(i)
+
+function updateShift(i)
 {
-	$("#hdnId").val(i);
-	$("#txtName").val($("#tdName"+i).html());
-	$("#txtDescription").val($("#tdDescription"+i).html());
-	$("#txtColor").val($('#tdColor'+i).attr("data-color"));
-	$("#dvColor").colorpicker('setValue', $('#tdColor'+i).attr("data-color"));
-	 Metronic.scrollTo($('#locationForm'), -100);
-}
-function clearForm()
+	
+	//$("#hdnId").val(i);
+	$("#hdnshiftId").val(i);
+	$("#hdnaction").val('updateShift');
+	var locationId=$("#tdlocation"+i).attr('data-loid');
+
+	$("#drpLocation").val(locationId);
+	
+	
+	$("#drpFromdate").val($("#tdstart_date"+i).html());
+	$("#txtStart").val($("#tdstart_Time"+i).html());
+	$("#txtEnd").val($("#tdend_Time"+i).html());
+	$("#rdStatus").val($("#tdlocation"+i).html());
+	
+	var statusId=$("#tdrdStatus"+i).attr('data-stid');
+		//alert(statusId);
+	if (statusId==1)
 {
-	$("#hdnId").val('');
-	$("#txtName").val('');
-	$("#txtDescription").val('');
-	$("#txtColor").val("#ffffff");
-	$("#dvColor").colorpicker('setValue', "#ffffff");
+
+		$("#rdStatus1").parent().addClass('checked');
+		$("#rdStatus2").parent().removeClass('checked');
 }
+	 else
+{
+
+			$("#rdStatus2").parent().addClass('checked');
+		$("#rdStatus1").parent().removeClass('checked');
+}
+
+            //alert("shift");
+$("#txtstaffName").val($("#tdstaff"+i).html());
+			document.getElementById("divUser").style.display = "None";	
+			document.getElementById("dvstaffname").style.display = "block";	
+				
+	//$("#tdstaff").val($("#tdstaff"+i).html());
+	//$("#my_multi_select2").html(returndb);
+	//$("#my_multi_select2").multiSelect('refresh');
+	 Metronic.scrollTo($('#timeOffForm'), -100);
+}
+
+function clearShiftForm()
+{
+	
+	
+	$("#hdnshiftId").val("");
+	$("#hdnaction").val('addtimeoff');
+	$("#drpLocation").val("");
+	
+	
+	$("#drpFromdate").val("");
+	$("#txtStart").val("");
+	$("#txtEnd").val("");
+	
+
+	//	$("#rdStatus1").parent().addClass('checked');
+	//	$("#rdStatus2").parent().removeClass('checked');
+            //alert("shift");
+	$("#txtstaffName").val("");
+	document.getElementById("divUser").style.display = "block";
+	document.getElementById("dvstaffname").style.display = "None";		
+				
+	 //Metronic.scrollTo($('#timeOffForm'), +1000);
+}
+
+//****************timeoff Validation
+var ShiftFormValidation = function () {
+ var handleValidation = function() {
+        
+            var form = $('#timeOffForm');
+            var errormsg = $('.alert-danger', form);
+            var successmsg = $('.alert-success', form);
+			
+            form.validate({
+                errorElement: 'span', //default input error message container
+                errorClass: 'help-block help-block-error', // default input error message class
+                focusInvalid: false, // do not focus the last invalid input
+                ignore: "", // validate all fields including form hidden input
+                rules: {
+					
+					drpLocation: {
+                        required: true
+                    },
+	                drpFromdate: {
+                        required: true
+                    },
+					txtStart: {
+                        required: true
+                    },
+	                txtEnd: {
+                        required: true
+                    },
+					my_multi_select1: {
+                        required: true,
+						//greaterThanSixty : true
+                    }
+				},
+
+               messages: { // custom messages for radio buttons and checkboxes
+                drpLocation: {
+                        required: "Please enter the location"
+                    },
+                    drpFromdate: {
+                        required: "Please enter timeoff date"
+                    }
+					,
+                    txtStart: {
+                        required: "Please enter start time of timeoff"
+                    }
+					,
+                    txtEnd: {
+                        required: "Please enter start time of timeoff"
+                    },
+					my_multi_select1: {
+                        required: "Please select at least one staff"
+						
+                    }
+				},
+                errorPlacement: function (error, element) { // render error placement for each input type
+                    if (element.attr("data-error-container")) { 
+                        error.appendTo(element.attr("data-error-container"));
+                    } else if (element.parent(".input-group").size() > 0) {
+                        error.insertAfter(element.parent(".input-group"));
+                    } else if (element.parents('.radio-list').size() > 0) { 
+                        error.appendTo(element.parents('.radio-list').attr("data-error-container"));
+                    } else if (element.parents('.radio-inline').size() > 0) { 
+                        error.appendTo(element.parents('.radio-inline').attr("data-error-container"));
+                    } else if (element.parents('.checkbox-list').size() > 0) {
+                        error.appendTo(element.parents('.checkbox-list').attr("data-error-container"));
+                    } else if (element.parents('.checkbox-inline').size() > 0) { 
+                        error.appendTo(element.parents('.checkbox-inline').attr("data-error-container"));
+                    } else {
+                        error.insertAfter(element); // for other inputs, just perform default behavior
+                    }
+                },
+
+                invalidHandler: function (event, validator) { //display error alert on form submit   
+                    successmsg.hide();
+                    errormsg.show();
+					$('#spnMsg').text('Please check the entered fields ,there is some errors');
+                    Metronic.scrollTo(errormsg, -200);
+                },
+
+                highlight: function (element) { // hightlight error inputs
+                   $(element)
+                        .closest('.form-group').addClass('has-error'); // set error class to the control group
+                },
+
+                unhighlight: function (element) { // revert the change done by hightlight
+                    $(element)
+                        .closest('.form-group').removeClass('has-error'); // set error class to the control group
+                },
+
+                success: function (label) {
+                    label
+                        .closest('.form-group').removeClass('has-error'); // set success class to the control group
+                },
+
+                submitHandler: function (form) {
+                    errormsg.hide();
+					edittimeoff();
+                    //form[0].submit(); // submit the form
+                }
+
+            });
+    }
+return {
+        //main function to initiate the module
+        init: function () {
+            handleValidation();
+
+        }
+
+    };
+
+}();
 
 var ComponentsDropdowns = function () {
 

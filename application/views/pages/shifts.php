@@ -1,3 +1,8 @@
+<?php
+$action ="addshift";
+
+$readonly = '';
+?>
 <div class="row">
   <div class="col-md-12">
       <!-- BEGIN VALIDATION STATES-->
@@ -21,6 +26,8 @@
                           <button class="close" data-close="alert"></button>
                           Your form validation is successful!
                       </div>
+                      <input type="hidden" name="hdnaction" id="hdnaction" value="<?php echo $action; ?>" />
+                      <input type="hidden" name="hdnshiftId" id="hdnshiftId" value="<?php echo $action; ?>" />
                       <div class="form-group">
                             <label class="control-label col-md-3">Location</label>
                             <div class="col-md-4">
@@ -135,7 +142,7 @@
                   <div class="form-actions">
                       <div class="row">
                           <div class="col-md-offset-3 col-md-9">
-                              <button id="btnSaveShift" type="submit" class="btn green">Save</button>
+                              <button type="submit" class="btn green">Save</button>
                               <button type="button" class="btn default">Cancel</button>
                           </div>
                       </div>
