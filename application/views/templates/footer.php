@@ -80,8 +80,10 @@
 		
 		  /*******Forms Validation *******************/
 		 TimeOffFormValidation.init();
- 
-		  Calendar.init();
+		 ShiftFormValidation.init();
+		 
+		 //***********component intialization*******//
+		 Calendar.init();
 		 ComponentsPickers.init();
 		 
          ComponentsDropdowns.init();

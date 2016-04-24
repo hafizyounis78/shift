@@ -58,11 +58,11 @@ function deleteShift(i)
 	}
 	if(x==1)
 	{
-	var timeoffId=i;
+	var shiftId=i;
 	$.ajax({
 			url: baseURL+"Shiftscont/deleteShift",
 			type: "POST",
-			data: {timeoffId:timeoffId},
+			data: {shiftId:shiftId},
 			error: function(xhr, status, error) {
   				//var err = eval("(" + xhr.responseText + ")");
   				alert(xhr.responseText);
@@ -74,7 +74,7 @@ function deleteShift(i)
 				clearShiftForm();
 			
 				//$('#tbLocations').html(returndb);
-				var success = $('.alert-success', $("#timeOffForm"));
+				var success = $('.alert-success', $("#shiftForm"));
 				success.show();
 			//	Metronic.scrollTo(success, -200);
 				
@@ -104,27 +104,27 @@ function updateShift(i)
 	var statusId=$("#tdrdStatus"+i).attr('data-stid');
 		//alert(statusId);
 	if (statusId==1)
-{
+	{
 
 		$("#rdStatus1").parent().addClass('checked');
 		$("#rdStatus2").parent().removeClass('checked');
-}
+	}
 	 else
-{
+	 {
 
-			$("#rdStatus2").parent().addClass('checked');
+		$("#rdStatus2").parent().addClass('checked');
 		$("#rdStatus1").parent().removeClass('checked');
-}
+     }
 
             //alert("shift");
-$("#txtstaffName").val($("#tdstaff"+i).html());
+		$("#txtstaffName").val($("#tdstaff"+i).html());
 			document.getElementById("divUser").style.display = "None";	
 			document.getElementById("dvstaffname").style.display = "block";	
 				
 	//$("#tdstaff").val($("#tdstaff"+i).html());
 	//$("#my_multi_select2").html(returndb);
 	//$("#my_multi_select2").multiSelect('refresh');
-	 Metronic.scrollTo($('#timeOffForm'), -100);
+	 Metronic.scrollTo($('#shiftForm'), -100);
 }
 
 function clearShiftForm()
@@ -132,7 +132,7 @@ function clearShiftForm()
 	
 	
 	$("#hdnshiftId").val("");
-	$("#hdnaction").val('addtimeoff');
+	$("#hdnaction").val('addshift');
 	$("#drpLocation").val("");
 	
 	
@@ -155,7 +155,7 @@ function clearShiftForm()
 var ShiftFormValidation = function () {
  var handleValidation = function() {
         
-            var form = $('#timeOffForm');
+            var form = $('#shiftForm');
             var errormsg = $('.alert-danger', form);
             var successmsg = $('.alert-success', form);
 			
@@ -178,6 +178,9 @@ var ShiftFormValidation = function () {
 	                txtEnd: {
                         required: true
                     },
+					drplstBreak: {
+                        required:true
+                    },
 					my_multi_select1: {
                         required: true,
 						//greaterThanSixty : true
@@ -189,15 +192,18 @@ var ShiftFormValidation = function () {
                         required: "Please enter the location"
                     },
                     drpFromdate: {
-                        required: "Please enter timeoff date"
+                        required: "Please enter shift date"
                     }
 					,
                     txtStart: {
-                        required: "Please enter start time of timeoff"
+                        required: "Please enter start time of shift"
                     }
 					,
                     txtEnd: {
-                        required: "Please enter start time of timeoff"
+                        required: "Please enter start time of shift"
+                    },
+					drplstBreak: {
+                        required: "Please select break time of shift"
                     },
 					my_multi_select1: {
                         required: "Please select at least one staff"
@@ -246,7 +252,7 @@ var ShiftFormValidation = function () {
 
                 submitHandler: function (form) {
                     errormsg.hide();
-					edittimeoff();
+					editshift();
                     //form[0].submit(); // submit the form
                 }
 

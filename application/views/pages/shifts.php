@@ -29,9 +29,10 @@ $readonly = '';
                       <input type="hidden" name="hdnaction" id="hdnaction" value="<?php echo $action; ?>" />
                       <input type="hidden" name="hdnshiftId" id="hdnshiftId" value="<?php echo $action; ?>" />
                       <div class="form-group">
-                            <label class="control-label col-md-3">Location</label>
+                            <label class="control-label col-md-3">Location<span class="required">
+                          * </span></label>
                             <div class="col-md-4">
-                                <select class="form-control input-large select2me" data-placeholder="Select..." id="drpLocation" name="drpLocation">
+                                <select class="form-control input-large " data-placeholder="Select..." id="drpLocation" name="drpLocation">
                                   <option value="">Select..</option>
                                      <?php 
 								  foreach ($location as $location_row)
@@ -52,7 +53,8 @@ $readonly = '';
                             </div>
                         </div>
                       <div class="form-group">
-                                <label class="control-label col-md-3">Dates</label>
+                                <label class="control-label col-md-3">Dates<span class="required">
+                          * </span></label>
                                 <div class="col-md-3">
                                     <div class="input-group input-medium date date-picker" data-date-format="yyyy-mm-dd" data-date-start-date="+0d">
                                         <input type="text" class="form-control" readonly id="drpFromdate">
@@ -66,7 +68,8 @@ $readonly = '';
                                 </div>
                             </div>
                       <div class="form-group">
-                            <label class="control-label col-md-3">Time</label>
+                            <label class="control-label col-md-3">Time<span class="required">
+                          * </span></label>
                             <div class="col-md-2">
                                 <div class="input-group">
                                     <input type="text" class="form-control timepicker timepicker-24" id="txtStart" >
@@ -90,7 +93,7 @@ $readonly = '';
                           * </span>
                           </label>
                           <div class="col-md-4">
-                              <select class="form-control"  name="drplstBreak">
+                              <select class="form-control"  name="drplstBreak" id="drplstBreak">
                                   <?php
 									  for($i=0; $i<=240; $i=$i+5)
 									  	echo '<option value="'.$i.'">'.$i.' min</option>';
@@ -99,7 +102,8 @@ $readonly = '';
                           </div>
                       </div>
                       <div class="form-group">
-                        <label class="control-label col-md-3">Status</label>
+                        <label class="control-label col-md-3">Status<span class="required">
+                          * </span></label>
                         <div class="col-md-4">
                           <div class="radio-list">
                               <label class="radio-inline">
@@ -110,9 +114,12 @@ $readonly = '';
                           </div>
                         </div>
                     </div>
-                    <div class="form-group">
-                        <label class="control-label col-md-3">Staff</label>
+                    <div class="form-group" id="divUser">
+                        <label class="control-label col-md-3">Staff<span class="required">
+                          * </span></label>
                         <div class="col-md-9">
+                        <span class="help-block">
+                                    Select one staff  at least </span>
                             <select multiple="multiple" class="multi-select" id="my_multi_select1" name="my_multi_select1[]">
                                <?php
                                  foreach($staffList as $staff_row)
@@ -126,6 +133,12 @@ $readonly = '';
                             </select>
                         </div>
                     </div>  
+                    <div class="form-group" id="dvstaffname" style="display:none">
+                            <label class="control-label col-md-3">Staff name</label>
+                            <div class="col-md-4">
+                                <input id="txtstaffName" name="txtstaffName" type="text" class="form-control form-filter input-sm"  disabled="disabled">
+                            </div>
+                    </div>
                     <div class="form-group">
                         <label class="col-md-3 control-label"></label>
                         <div class="col-md-4">
@@ -143,7 +156,7 @@ $readonly = '';
                       <div class="row">
                           <div class="col-md-offset-3 col-md-9">
                               <button type="submit" class="btn green">Save</button>
-                              <button type="button" class="btn default">Cancel</button>
+                              <button type="button" class="btn default" onclick="clearShiftForm();">Cancel</button>
                           </div>
                       </div>
                   </div>
@@ -189,6 +202,9 @@ $readonly = '';
 											 Location
 										</th>
                                         <th>
+											 Status
+										</th>
+                                        <th>
 											 Action
 										</th>
 									</tr>
@@ -197,15 +213,22 @@ $readonly = '';
 			
 						            <?php
 									$i=1;
+									$statusrow='';
 										foreach($shiftrec as $row)
 											{
+												if($row->status==1)
+												 $statusrow='Draft';
+												 else
+												 $statusrow='Active';
 												 echo '<tr>';		
 												 echo '<td>'.$i++.'</td>';
 												 echo '<td id="tdstaff'.$row->id.'">'.$row->Staff_name.'</td>';
 												 echo '<td id="tdstart_date'.$row->id.'">'. $row->start_date.'</td>';
 												 echo '<td id="tdstart_Time'.$row->id.'">'. $row->start_time.'</td>';
 												 echo '<td id="tdend_Time'.$row->id.'">'. $row->end_time.'</td>';
-												 echo '<td id="tdlocation'.$row->id.'">'. $row->location_desc.'</td>';
+												 echo '<td id="tdlocation'.$row->id.'" data-loid="'.$row->locationId.'">'. $row->location_desc.'</td>';
+												// echo '<td id="tdrdStatus'.$row->id.'">'. $statusrow.'</td>';
+												 echo '<td id="tdrdStatus'.$row->id.'" data-stid="'.$row->status.'">'.$statusrow.'</td>';		 
 												 echo '<td>
 													  <button id="btnupdateShift" name="btnupdateShift" type="button" class="btn default btn-xs blue" onclick="updateShift('.$row->id.')">
 													  <i class="fa fa-edit"></i> Update </button>

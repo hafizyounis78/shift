@@ -55,13 +55,13 @@ function addShift()
 function updateShift()
 {
 	$this->load->model('Shiftmodel');
-	$this->timeoffmodel->update_shift();
+	$this->Shiftmodel->update_shift();
 	$this->drawShiftsTable();
 }
 function deleteShift()
 {
 	$this->load->model('Shiftmodel');
-	$this->timeoffmodel->delete_shift();
+	$this->Shiftmodel->delete_shift();
 	$this->drawShiftsTable();
 }	
 function drawShiftsTable()
@@ -72,19 +72,26 @@ function drawShiftsTable()
 	
 	
 	$i=1;
+	$statusrow='';
 	foreach($shiftrec as $row)
 	{
+		if($row->status==1)
+		 $statusrow='Draft';
+		 else
+		 $statusrow='Active';
 		 echo '<tr>';		
 		 echo '<td>'.$i++.'</td>';
 		 echo '<td id="tdstaff'.$row->id.'">'.$row->Staff_name.'</td>';
 		 echo '<td id="tdstart_date'.$row->id.'">'. $row->start_date.'</td>';
 		 echo '<td id="tdstart_Time'.$row->id.'">'. $row->start_time.'</td>';
 		 echo '<td id="tdend_Time'.$row->id.'">'. $row->end_time.'</td>';
-		 echo '<td id="tdend_Time'.$row->id.'">'. $row->location_desc.'</td>';
+		 echo '<td id="tdlocation'.$row->id.'" data-loid="'.$row->locationId.'">'. $row->location_desc.'</td>';
+		// echo '<td id="tdrdStatus'.$row->id.'">'. $statusrow.'</td>';
+		 echo '<td id="tdrdStatus'.$row->id.'" data-stid="'.$row->status.'">'.$statusrow.'</td>';		 
 		 echo '<td>
-			  <button id="btnupdateShift" name="btnupdateShift" type="button" class="btn default btn-xs blue" onclick="updatetimeoff('.$row->id.')">
+			  <button id="btnupdateShift" name="btnupdateShift" type="button" class="btn default btn-xs blue" onclick="updateShift('.$row->id.')">
 			  <i class="fa fa-edit"></i> Update </button>
-			  <button id="btndelShift" name="btndelShift" type="submit" value="Delete" class="btn default btn-xs red" onclick="deletetimeoff('.$row->id.')"><i class="fa fa-trash-o"></i> delete</button>';
+			  <button id="btndelShift" name="btndelShift" type="submit" value="Delete" class="btn default btn-xs red" onclick="deleteShift('.$row->id.')"><i class="fa fa-trash-o"></i> delete</button>';
 		 echo '</td>';  
 		
 		 echo '<tr/>';
