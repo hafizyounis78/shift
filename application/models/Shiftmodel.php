@@ -59,7 +59,7 @@ function update_shift()
 function getUser_byDept()
 {
 	extract($_POST);
-
+print_r($_POST);
 	$myquery = "SELECT id, CONCAT(first_name,' ',last_name) as name 
 				FROM dusseldorf_users 
 				where type=2 
@@ -68,8 +68,8 @@ function getUser_byDept()
 				               from   dusseldorf_v3_shifts
 							   where  start_date=".$drpFromdate."
 							   and    end_date=".$drpTodate."
-							   and    start_time=".txtStart." 
-							   and    end_time=".txtEnd.")";
+							   and    start_time=".$txtStart." 
+							   and    end_time=".$txtEnd.")";
 		
 		$res = $this->db->query($myquery);
 		return $res->result();

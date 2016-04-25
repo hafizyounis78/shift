@@ -56,7 +56,8 @@ $readonly = '';
                             </div>
                         </div>
                       <div class="form-group">
-                        <label class="control-label col-md-3">Date</label>
+                        <label class="control-label col-md-3">Date<span class="required">
+                          * </span></label>
                         <div class="col-md-6">
                             <div class="input-group input-medium date-picker input-daterange" data-date="10/11/2012" data-date-format="yyyy-mm-dd">
                                 <input type="text" id="drpFromdate" class="form-control" name="drpFromdate">

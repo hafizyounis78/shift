@@ -173,7 +173,7 @@ function drpdeptChange()
 				
 				//formData.append('drpLocation'		, $("#drpLocation").val());
 				formData.append('drpFromdate'	, $("#drpFromdate").val());
-				formData.append('drpTodate'		, $("#drpFromdate").val());
+				formData.append('drpTodate'		, $("#drpTodate").val());
 				formData.append('txtStart'	    , $("#txtStart").val());
 				formData.append('txtEnd'	    , $("#txtEnd").val());
 				formData.append('deptNo'        , $("#drplstDept").val()),
