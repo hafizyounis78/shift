@@ -29,9 +29,12 @@ extract($_POST);
 				and depart_id=".$deptNo."
 				and id not in (select user_id 
 				               from   dusseldorf_v3_shifts
-							   where  start_date='".$drpFromdate."'
-							   and    end_date='".$drpTodate."'
-							   AND (   (start_time<='".$txtStart."' and end_time>='".$txtEnd."')
+							   where  ((start_date<='".$drpFromdate."' and end_date>='".$drpTodate."')
+							   OR      (start_date>='".$drpFromdate."' and start_date<='".$drpTodate."' AND end_date>='".$drpTodate."')
+							   OR      (start_date<='".$drpFromdate."' and end_date>='".$drpFromdate."' AND end_date<='".$drpTodate."')
+							   OR      (start_date>='".$drpFromdate."' and end_date<='".$drpTodate."'))
+							   
+							   AND   ((start_time<='".$txtStart."' and end_time>='".$txtEnd."')
 							   or     ( start_time>='".$txtStart."' and start_time<='".$txtEnd."' AND end_time>='".$txtEnd."')
 							   or     ( start_time<='".$txtStart."' and end_time>='".$txtStart."' and end_time<='".$txtEnd."')
 							   or     ( start_time>='".$txtStart."' and end_time<='".$txtEnd."')))";
