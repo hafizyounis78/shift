@@ -56,24 +56,7 @@ function update_shift()
 	$this->db->where('id',$hdnshiftId);
 	$this->db->update('dusseldorf_v3_shifts',$data);
 }
-function getUser_byDept()
-{
-	extract($_POST);
-print_r($_POST);
-	$myquery = "SELECT id, CONCAT(first_name,' ',last_name) as name 
-				FROM dusseldorf_users 
-				where type=2 
-				and depart_id=".$deptNo."
-				and id not in (select user_id 
-				               from   dusseldorf_v3_shifts
-							   where  start_date=".$drpFromdate."
-							   and    end_date=".$drpTodate."
-							   and    start_time=".$txtStart." 
-							   and    end_time=".$txtEnd.")";
-		
-		$res = $this->db->query($myquery);
-		return $res->result();
-}
+
 function delete_shift()
 {
 	extract($_POST);
