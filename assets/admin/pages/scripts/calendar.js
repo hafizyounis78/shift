@@ -90,6 +90,15 @@ var Calendar = function() {
                 var title = $('#event_title').val();
                 addEvent(title);
             });
+			
+			var i =0;
+					$('.fc-slats > table > tbody  > tr').each(function() {
+							
+							alert(i++);
+							//alert($('.fc-slats > table > tbody  > tr').closest('td').html());
+															 
+					});
+					
 
             //predefined events
             $('#event_box').html("");
@@ -129,6 +138,8 @@ var Calendar = function() {
             addEvent("My Event 4");
             addEvent("My Event 5");
             addEvent("My Event 6");*/
+			
+			
 			
             $('#calendar').fullCalendar('destroy'); // destroy the calendar
             $('#calendar').fullCalendar({ //re-initialize the calendar
@@ -222,6 +233,33 @@ var Calendar = function() {
 				            html:true,
 				            content: event.msg
                         });
+				},
+				viewRender: function(view, element) 
+				{
+					
+					if(view.name === 'agendaWeek' || view.name === 'agendaDay')
+					{
+						var i=1;
+						$('.fc-slats > table > tbody  > tr').each(function() {
+							
+							if(i <= 16)
+								$(this).css('background-color', '#e6ffcc');
+							else if(i > 16 && i <= 32)
+								$(this).css('background-color', '#ffffcc');
+							else if(i > 32)
+								$(this).css('background-color', '#ffe6e6');
+								
+							i++;
+															 
+						});
+					}
+					
+					/*$('tr').closest('span').each( function(){
+						 var timeSlot = $(this).text();
+						 alert(timeSlot);
+						 if(timeSlot> 13 && timeSlot < 18)    //Change 13 and 18 according to what you need
+							$(this).closest('tr').css('background-color', '#000');
+					  });*/
 				},
 				/*eventClick: function(event, jsEvent, view) {
 					$this = $(this);
