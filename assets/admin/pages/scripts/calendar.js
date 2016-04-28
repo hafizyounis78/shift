@@ -242,6 +242,15 @@ var Calendar = function() {
 						var i=1;
 						$('.fc-slats > table > tbody  > tr').each(function() {
 							
+							//alert($(this).children().text());
+							//if($(this).children().text().substring(2) == '11pm')
+							
+							/*if($(this).children().text() == '11pm' || 
+							   $(this).children().text() == '12am' ||
+							   $(this).children().text() == '1am' ||
+							   $(this).children().text() == '2am' ||
+							   $(this).children().text() == '3am')
+								$(this).css('background-color', '#ffffcc');*/
 							if(i <= 16)
 								$(this).css('background-color', '#e6ffcc');
 							else if(i > 16 && i <= 32)
