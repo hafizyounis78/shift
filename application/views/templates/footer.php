@@ -51,8 +51,6 @@
 <script type="text/javascript" src="<?php echo base_url();?>assets/global/plugins/jquery-multi-select/js/jquery.multi-select.js"></script>
 
 
-<!-- END PAGE LEVEL PLUGINS -->
-
 <!-- CORE SCRIPTS -->
 <script src="<?php echo base_url();?>assets/global/scripts/metronic.js" type="text/javascript"></script>
 <script src="<?php echo base_url();?>assets/admin/layout2/scripts/layout.js" type="text/javascript"></script>
@@ -70,6 +68,7 @@
 <script src="<?php echo base_url();?>js/timeoff.js"></script>
 <script src="<?php echo base_url();?>js/fullschedule.js"></script>
 <script src="<?php echo base_url();?>js/shift.js"></script>
+<script src="<?php echo base_url();?>js/setting.js"></script>
 <!-- END OUR SCRIPTS -->
 
 <script>
@@ -87,6 +86,7 @@
 		 ComponentsPickers.init();
 		 
          ComponentsDropdowns.init();
+	     ComponentsTimeSliders.init();
 		
       });
    </script>

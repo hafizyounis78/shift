@@ -190,7 +190,7 @@ function clearShiftForm()
 	$("#hdnshiftId").val("");
 	$("#hdnaction").val('addshift');
 	$("#drpLocation").val("");
-	
+	$("#drplstBreak").val("");
 	
 	$("#drpFromdate").val("");
 	$("#txtStart").val("");
@@ -202,20 +202,25 @@ function clearShiftForm()
             //alert("shift");
 	$("#txtstaffName").val("");
 	document.getElementById("divUser").style.display = "block";
-;	document.getElementById("divDept").style.display = "block";	
+	document.getElementById("divDept").style.display = "block";	
 	document.getElementById("divSelect").style.display = "block";	
 	document.getElementById("dvstaffname").style.display = "None";		
     document.getElementById("divJobtitle").style.display = "None";	
 	document.getElementById("divSpec").style.display = "None";	
-				
+	$("#my_multi_select1").html('');
+	$("#my_multi_select1").multiSelect('refresh');
+					
 	 //Metronic.scrollTo($('#timeOffForm'), +1000);
 }
 function drpdeptChange()
 {
-	    
+	    	$("#my_multi_select1").html('');
+			$("#my_multi_select1").multiSelect('refresh');
 		
 		if (!validateShift())
 		 return;
+		if ($("#drplstDept").val()!='')
+		 {
 		var formData = new FormData();
 	
 				
@@ -246,7 +251,7 @@ function drpdeptChange()
 				$("#my_multi_select1").multiSelect('refresh');
 			}
 		});//END $.ajax
-    
+		 }
 }
 function drpJobtitleChange()
 {
@@ -254,6 +259,8 @@ function drpJobtitleChange()
 		
 		if (!validateShift())
 		 return;
+		if ($("#drplstJobtitle").val()!='')
+		 {
 		var formData = new FormData();
 	
 				
@@ -284,7 +291,7 @@ function drpJobtitleChange()
 				$("#my_multi_select1").multiSelect('refresh');
 			}
 		});//END $.ajax
-    
+}
 }
 function drpSpecChange()
 {
@@ -292,6 +299,8 @@ function drpSpecChange()
 		
 		if (!validateShift())
 		 return;
+	if ($("#drplstSpec").val()!='' ||$("#drplstJobtitle").val()!='' )
+		 {
 		var formData = new FormData();
 	
 				
@@ -323,7 +332,7 @@ function drpSpecChange()
 				$("#my_multi_select1").multiSelect('refresh');
 			}
 		});//END $.ajax
-    
+}
 }
 //****************timeoff Validation
 var ShiftFormValidation = function () {
@@ -332,7 +341,12 @@ var ShiftFormValidation = function () {
             var form = $('#shiftForm');
             var errormsg = $('.alert-danger', form);
             var successmsg = $('.alert-success', form);
-			
+			jQuery.validator.addMethod("greaterThanStartdate", function(value, element) {
+    			return Date.parse($('#drpTodate').val())>=Date.parse($('#drpFromdate').val()) ;
+			}, "* End date must be greater than Start date");
+			jQuery.validator.addMethod("greaterThanStarttime", function(value, element) {
+    			return Date.parse($('#drpTodate').val())>=Date.parse($('#drpFromdate').val()) ;
+			}, "* End date must be greater than Start date");
             form.validate({
                 errorElement: 'span', //default input error message container
                 errorClass: 'help-block help-block-error', // default input error message class
@@ -344,11 +358,17 @@ var ShiftFormValidation = function () {
                         required: true
                     },
 	                drpFromdate: {
-                        required: true
+                        required: true,
+						date:{
+								max: 'drpTodate',
+							  }
                     },
 	                drpTodate: {
-                        required: true
-                    },
+                        required:true,
+						greaterThanStartdate:true
+                    
+					},
+
 					txtStart: {
                         required: true
                     },
@@ -369,17 +389,21 @@ var ShiftFormValidation = function () {
                         required: "Please enter the location"
                     },
                     drpFromdate: {
-                        required: "Please enter shift start date"
+                        required: "Please enter valid start date"
                     },
 	                drpTodate: {
-						required: "Please enter shift end date"
+						required: "Please enter valid end date",
+						greaterThanStartdate:"Please enter valid start time"
                     },
                     txtStart: {
-                        required: "Please enter shift start time"
+                        required: "Please enter valid start time",
+						
+						//date: "The end date is not valid"
                     }
 					,
                     txtEnd: {
-                        required: "Please enter shift end time"
+                        required: "Please enter valid end time",
+						
                     },
 					drplstBreak: {
                         required: "Please select break time of shift"

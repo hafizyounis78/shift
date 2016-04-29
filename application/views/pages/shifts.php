@@ -146,6 +146,7 @@ $readonly = '';
                           </label>
                           <div class="col-md-4">
                               <select id="drplstDept" class="form-control" name="drplstDept" onchange="drpdeptChange();">
+                              <option value="">select...</option>
                                    <?php 
 								  foreach ($deptList as $dept_row)
 								  {
@@ -154,8 +155,8 @@ $readonly = '';
 									  if ($patient_row->status_id == $location_row->sub_constant_id)
 									  	$selected = 'selected="selected"';
 									  */
-									  echo ' <option value="'.$dept_row->dept_id.'" '.$selected.'>'
-									  						 .$dept_row->dept_name.'</option>';
+									  echo ' <option value="'.$dept_row->dep_id.'" '.$selected.'>'
+									  						 .$dept_row->dep_name.'</option>';
 								  }
 								  ?>
 
@@ -168,7 +169,8 @@ $readonly = '';
                           </label>
                           <div class="col-md-4">
                               <select id="drplstJobtitle" class="form-control" name="drplstJobtitle" onchange="drpJobtitleChange();">
-                                   <?php 
+                                  <option value="">select...</option>
+								   <?php 
 								  foreach ($jobtitleList as $jobtitle_row)
 								  {
 									  $selected = '';
@@ -190,6 +192,7 @@ $readonly = '';
                           </label>
                           <div class="col-md-4">
                               <select id="drplstSpec" class="form-control" name="drplstSpec" onchange="drpSpecChange();">
+                                  <option value="">select...</option>
                                    <?php 
 								  foreach ($specList as $spec_row)
 								  {

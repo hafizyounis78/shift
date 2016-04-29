@@ -99,22 +99,85 @@ $readonly = '';
                           </div>
                         </div>
                     </div>
-                    <div class="form-group">
+                    <div class="form-group" id="divSelect">
+                        <label class="control-label col-md-3">Filter staff by<span class="required">
+                          * </span></label>
+                        <div class="col-md-4">
+                          <div class="radio-list">
+                              <label class="radio-inline">
+                              <input type="radio" name="rdSelection" id="rdSelection1" value="1" checked onchange="selectionchange()">Department</label>
+                              <label class="radio-inline">
+                              <input type="radio" name="rdSelection" id="rdSelection2" value="2" onchange="selectionchange()">Job title</label>
+                              
+                          </div>
+                        </div>
+                    </div>
+                    <div class="form-group" id="divDept">
                           <label class="control-label col-md-3">Department <span class="required">
                           * </span>
                           </label>
                           <div class="col-md-4">
-                              <select id="drplstDept" class="form-control" name="drplstDept">
-                                  <option value="">Select...</option>
-                                  <option value="1">Dept 1</option>
-                                  <option value="2">Dept 2</option>
-                                  <option value="3">Dept 5</option>
-                                  <option value="4">Dept 4</option>
-                                  <option value="5">Dept 2</option>
-                                  <option value="6">Dept 5</option>
-                                  <option value="7">Dept 4</option>
-                                  <option value="8">Dept 5</option>
-                                  <option value="9">Dept 4</option>
+                              <select id="drplstDept" class="form-control" name="drplstDept" onchange="drpdeptChange();">
+                                  <option value="">select...</option>
+                                   <?php 
+								  foreach ($deptList as $dept_row)
+								  {
+									  $selected = '';
+									  /*
+									  if ($patient_row->status_id == $location_row->sub_constant_id)
+									  	$selected = 'selected="selected"';
+									  */
+									  echo ' <option value="'.$dept_row->dep_id.'" '.$selected.'>'
+									  						 .$dept_row->dep_name.'</option>';
+								  }
+								  ?>
+
+                              </select>
+                          </div>
+                      </div>
+                      <div class="form-group" id="divJobtitle"  style="display:none">
+                          <label class="control-label col-md-3">Job title <span class="required">
+                          * </span>
+                          </label>
+                          <div class="col-md-4">
+                              <select id="drplstJobtitle" class="form-control" name="drplstJobtitle" onchange="drpJobtitleChange();">
+                              <option value="">select...</option>                        
+                                   <?php 
+								  foreach ($jobtitleList as $jobtitle_row)
+								  {
+									  $selected = '';
+									  /*
+									  if ($patient_row->status_id == $location_row->sub_constant_id)
+									  	$selected = 'selected="selected"';
+									  */
+									  echo ' <option value="'.$jobtitle_row->id.'" '.$selected.'>'
+									  						 .$jobtitle_row->name.'</option>';
+								  }
+								  ?>
+
+                              </select>
+                          </div>
+                      </div>
+                      <div class="form-group" id="divSpec" style="display:none">
+                          <label class="control-label col-md-3">Specialization <span class="required">
+                          * </span>
+                          </label>
+                          <div class="col-md-4">
+                              <select id="drplstSpec" class="form-control" name="drplstSpec" onchange="drpSpecChange();">
+                              <option value="">select...</option>
+                                   <?php 
+								  foreach ($specList as $spec_row)
+								  {
+									  $selected = '';
+									  /*
+									  if ($patient_row->status_id == $location_row->sub_constant_id)
+									  	$selected = 'selected="selected"';
+									  */
+									  echo ' <option value="'.$spec_row->id.'" '.$selected.'>'
+									  						 .$spec_row->name.'</option>';
+								  }
+								  ?>
+
                               </select>
                           </div>
                       </div>

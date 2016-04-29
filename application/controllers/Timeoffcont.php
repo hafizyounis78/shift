@@ -104,6 +104,32 @@ function getUserByDept()
 	  
 	
 }
+function getUserByJobtitle()
+{
+	$this->load->model('constantmodel');
+	$staffList=$this->constantmodel->getUser_Jobtitel();
+	 foreach($staffList as $staff_row)
+	  {
+		 
+		  echo '<option  value='.$staff_row->id.'>'.$staff_row->name.'</option>';
+		  
+	  }
+	  
+	
+}
+function getUserBySpec()
+{
+	$this->load->model('constantmodel');
+	$staffList=$this->constantmodel->getUser_specialization();
+	 foreach($staffList as $staff_row)
+	  {
+		 
+		  echo '<option  value='.$staff_row->id.'>'.$staff_row->name.'</option>';
+		  
+	  }
+	  
+	
+}
 
 /*function getstaffList()
 	{

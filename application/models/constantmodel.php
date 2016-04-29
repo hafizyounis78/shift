@@ -23,7 +23,7 @@ class Constantmodel extends CI_Model
 function get_dept_list()
 	{	
 	
-		$query = $this->db->get('dusseldorf_department');
+		$query = $this->db->get('dusseldorf_departments');
 		return $query->result();
 		
 	}
@@ -48,7 +48,7 @@ extract($_POST);
    $myquery = "SELECT id, CONCAT(first_name,' ',last_name) as name 
 				FROM dusseldorf_users 
 				where type=2 
-				and depart_id=".$deptNo."
+				and dep_id=".$deptNo."
 				and id not in (select user_id 
 				               from   dusseldorf_v3_shifts
 							   where  ((start_date<='".$drpFromdate."' and end_date>='".$drpTodate."')

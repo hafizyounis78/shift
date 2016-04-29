@@ -1,6 +1,33 @@
 // JavaScript Document
 var staffList="";
-
+$(document).ready(function () {
+	var slectionId='';
+    $("input[name=rdSelection]:radio").change(function () {
+        $("#my_multi_select1").html('');
+	$("#my_multi_select1").multiSelect('refresh');
+	
+		if ($("#rdSelection1").attr("checked")) {
+			slectionId=$("#rdSelection1").val();
+			//alert(slectionId);
+        //document.getElementById("divUser").style.display = "None";	
+		document.getElementById("divDept").style.display = "block";	
+		//document.getElementById("dvstaffname").style.display = "block";	
+        document.getElementById("divJobtitle").style.display = "None";	
+		document.getElementById("divSpec").style.display = "None";	
+		//document.getElementById("dvstaffname").style.display = "block";	
+        }
+        else {
+            slectionId=$("#rdSelection2").val();
+			//alert(slectionId);
+			document.getElementById("divDept").style.display = "None";	
+		//document.getElementById("dvstaffname").style.display = "block";	
+        document.getElementById("divJobtitle").style.display = "block";	
+		document.getElementById("divSpec").style.display = "block";	
+		
+        }
+        //$('#log').val($('#log').val()+ $(this).val() + '|');
+    })
+});
 function edittimeoff() {							
 		//event.preventDefault();
 		var action = $("#hdnaction").val();
@@ -116,9 +143,14 @@ function updatetimeoff(i)
 
             //alert("shift");
 $("#txtstaffName").val($("#tdstaff"+i).html());
-			document.getElementById("divUser").style.display = "None";	
-			document.getElementById("dvstaffname").style.display = "block";	
-				
+		document.getElementById("divSelect").style.display = "None";	
+		document.getElementById("divUser").style.display = "None";	
+		document.getElementById("divDept").style.display = "None";	
+        document.getElementById("divJobtitle").style.display = "None";	
+		document.getElementById("divSpec").style.display = "None";	
+
+		document.getElementById("dvstaffname").style.display = "block";	
+		
 	//$("#tdstaff").val($("#tdstaff"+i).html());
 	//$("#my_multi_select2").html(returndb);
 	//$("#my_multi_select2").multiSelect('refresh');
@@ -143,12 +175,142 @@ function clearfimeoffForm()
 	//	$("#rdStatus2").parent().removeClass('checked');
             //alert("shift");
 	$("#txtstaffName").val("");
-	document.getElementById("divUser").style.display = "block";
+		document.getElementById("divUser").style.display = "block";
+	document.getElementById("divDept").style.display = "block";	
+	document.getElementById("divSelect").style.display = "block";	
 	document.getElementById("dvstaffname").style.display = "None";		
+    document.getElementById("divJobtitle").style.display = "None";	
+	document.getElementById("divSpec").style.display = "None";	
+	$("#my_multi_select1").html('');
+	$("#my_multi_select1").multiSelect('refresh');
+	
 				
 	 //Metronic.scrollTo($('#timeOffForm'), +1000);
 }
 
+function drpdeptChange()
+{
+	    $("#my_multi_select1").html('');
+		$("#my_multi_select1").multiSelect('refresh');
+		
+		
+		if (!validateShift())
+		 return;
+		 if ($("#drplstDept").val()!='')
+		 {
+		var formData = new FormData();
+	
+				
+				//formData.append('drpLocation'		, $("#drpLocation").val());
+				formData.append('drpFromdate'	, $("#drpFromdate").val());
+				formData.append('drpTodate'		, $("#drpTodate").val());
+				formData.append('txtStart'	    , $("#txtStart").val());
+				formData.append('txtEnd'	    , $("#txtEnd").val());
+				formData.append('deptNo'        , $("#drplstDept").val()),
+		
+		$.ajax({
+			url: baseURL+"Timeoffcont/getUserByDept",
+			type: "POST",
+			data: formData,
+			 processData: false,
+			 contentType: false,
+			error: function(xhr, status, error) {
+  				//var err = eval("(" + xhr.responseText + ")");
+  				alert(xhr.responseText);
+			},
+			beforeSend: function(){},
+			complete: function(){},
+			success: function(returndb){
+				
+				document.getElementById("divUser").style.display = "block";
+				document.getElementById("dvstaffname").style.display = "None";
+				$("#my_multi_select1").html(returndb);
+				$("#my_multi_select1").multiSelect('refresh');
+			}
+		});//END $.ajax
+		 }
+}
+function drpJobtitleChange()
+{
+	    
+		
+		if (!validateShift())
+		 return;
+		 if ($("#drplstJobtitle").val()!='')
+		 {
+		var formData = new FormData();
+	
+				
+				//formData.append('drpLocation'		, $("#drpLocation").val());
+				formData.append('drpFromdate'	, $("#drpFromdate").val());
+				formData.append('drpTodate'		, $("#drpTodate").val());
+				formData.append('txtStart'	    , $("#txtStart").val());
+				formData.append('txtEnd'	    , $("#txtEnd").val());
+				formData.append('JobTitelId'        , $("#drplstJobtitle").val());
+		
+		$.ajax({
+			url: baseURL+"Timeoffcont/getUserByJobtitle",
+			type: "POST",
+			data: formData,
+			 processData: false,
+			 contentType: false,
+			error: function(xhr, status, error) {
+  				//var err = eval("(" + xhr.responseText + ")");
+  				alert(xhr.responseText);
+			},
+			beforeSend: function(){},
+			complete: function(){},
+			success: function(returndb){
+				
+				document.getElementById("divUser").style.display = "block";
+				document.getElementById("dvstaffname").style.display = "None";
+				$("#my_multi_select1").html(returndb);
+				$("#my_multi_select1").multiSelect('refresh');
+			}
+		});//END $.ajax
+	}
+}
+function drpSpecChange()
+{
+	    
+		
+		if (!validateShift())
+		 return;
+		 if ($("#drplstSpec").val()!='' ||$("#drplstJobtitle").val()!='' )
+		 {
+		var formData = new FormData();
+	
+				
+				//formData.append('drpLocation'		, $("#drpLocation").val());
+				formData.append('drpFromdate'	, $("#drpFromdate").val());
+				formData.append('drpTodate'		, $("#drpTodate").val());
+				formData.append('txtStart'	    , $("#txtStart").val());
+				formData.append('txtEnd'	    , $("#txtEnd").val());
+				formData.append('JobTitelId'        , $("#drplstJobtitle").val());
+				formData.append('specId'        , $("#drplstSpec").val());
+		
+		$.ajax({
+			url: baseURL+"Timeoffcont/getUserBySpec",
+			type: "POST",
+			data: formData,
+			 processData: false,
+			 contentType: false,
+			error: function(xhr, status, error) {
+  				//var err = eval("(" + xhr.responseText + ")");
+  				alert(xhr.responseText);
+			},
+			beforeSend: function(){},
+			complete: function(){},
+			success: function(returndb){
+				
+				document.getElementById("divUser").style.display = "block";
+				document.getElementById("dvstaffname").style.display = "None";
+				$("#my_multi_select1").html(returndb);
+				$("#my_multi_select1").multiSelect('refresh');
+			}
+		});//END $.ajax
+	}
+}
 //****************timeoff Validation
 var TimeOffFormValidation = function () {
  var handleValidation = function() {
