@@ -1,10 +1,12 @@
 // JavaScript Document
+ $("#my_multi_select1").html('');
+$("#my_multi_select1").multiSelect('refresh');
 var staffList="";
 $(document).ready(function () {
 	var slectionId='';
     $("input[name=rdSelection]:radio").change(function () {
         $("#my_multi_select1").html('');
-	$("#my_multi_select1").multiSelect('refresh');
+		$("#my_multi_select1").multiSelect('refresh');
 	
 		if ($("#rdSelection1").attr("checked")) {
 			slectionId=$("#rdSelection1").val();
@@ -37,7 +39,7 @@ function edittimeoff() {
 				formData.append('hdnshiftId'		 , $("#hdnshiftId").val());
 				formData.append('drpLocation'		 , $("#drpLocation").val());
 				formData.append('drpFromdate'		 , $("#drpFromdate").val());
-				formData.append('drpTodate'		, $("#drpFromdate").val());
+				formData.append('drpTodate'		, $("#drpTodate").val());
 				formData.append('txtStart'	    ,  $("#txtStart").val());
 				formData.append('txtEnd'	        ,  $("#txtEnd").val());
 				formData.append('rdStatus'          ,  $("input[name=rdStatus]:checked").val());
@@ -122,6 +124,7 @@ function updatetimeoff(i)
 	
 	
 	$("#drpFromdate").val($("#tdstart_date"+i).html());
+	$("#drpTodate").val($("#tdend_date"+i).html());
 	$("#txtStart").val($("#tdstart_Time"+i).html());
 	$("#txtEnd").val($("#tdend_Time"+i).html());
 	$("#rdStatus").val($("#tdlocation"+i).html());
@@ -156,7 +159,17 @@ $("#txtstaffName").val($("#tdstaff"+i).html());
 	//$("#my_multi_select2").multiSelect('refresh');
 	 Metronic.scrollTo($('#timeOffForm'), -100);
 }
-
+function clearStaffSelect()
+{
+		$("#my_multi_select1").html('');
+		$("#my_multi_select1").multiSelect('refresh');
+		var ddldept=document.getElementById('drplstDept');
+		 ddldept.options[0].selected = true;
+		var ddlJobtitle=document.getElementById('drplstJobtitle');
+		 ddlJobtitle.options[0].selected = true; 
+		 var ddlSpec=document.getElementById('drplstSpec');
+		 ddlSpec.options[0].selected = true; 
+}
 function clearfimeoffForm()
 {
 	
@@ -167,6 +180,7 @@ function clearfimeoffForm()
 	
 	
 	$("#drpFromdate").val("");
+	$("#drpTodate").val("");
 	$("#txtStart").val("");
 	$("#txtEnd").val("");
 	
@@ -184,7 +198,12 @@ function clearfimeoffForm()
 	$("#my_multi_select1").html('');
 	$("#my_multi_select1").multiSelect('refresh');
 	
-				
+	var ddldept=document.getElementById('drplstDept');
+	 ddldept.options[0].selected = true;
+	 var ddlJobtitle=document.getElementById('drplstJobtitle');
+	 ddlJobtitle.options[0].selected = true; 
+	 var ddlSpec=document.getElementById('drplstSpec');
+	 ddlSpec.options[0].selected = true; 
 	 //Metronic.scrollTo($('#timeOffForm'), +1000);
 }
 
@@ -229,6 +248,43 @@ function drpdeptChange()
 			}
 		});//END $.ajax
 		 }
+}
+function validateShift()
+{
+	/*var form = $('#submit_form');
+    var error = $('.alert-danger', form);*/
+
+			
+	var error = $('#dvDeptMsg');
+	
+	var valid = true;
+	
+	
+	
+	if ( !$("#drpFromdate").valid() )
+		valid = false;
+		if ( !$("#drpTodate").valid() )
+		valid = false;
+	if ( !$("#txtStart").valid() )
+		valid = false;
+	if ( !$("#txtEnd").valid() )
+		valid = false;
+
+	if ( !$("#drpLocation").valid() )
+		valid = false;
+	
+	if(!valid)
+	{
+		
+		error.show();
+        Metronic.scrollTo(error, -200);
+	}
+	else
+	{
+		error.hide();
+	}
+		
+	return valid;
 }
 function drpJobtitleChange()
 {
@@ -318,6 +374,20 @@ var TimeOffFormValidation = function () {
             var form = $('#timeOffForm');
             var errormsg = $('.alert-danger', form);
             var successmsg = $('.alert-success', form);
+			jQuery.validator.addMethod("greaterThanStartdate", function(value, element) {
+    			return Date.parse($('#drpTodate').val())>=Date.parse($('#drpFromdate').val()) ;
+			}, "* End date must be greater than Start date");
+			jQuery.validator.addMethod("greaterThanStarttime", function(value, element) {
+				var start_time = $("#txtStart").val();
+				var end_time = $("#txtEnd").val();
+				//convert both time into timestamp
+				var stt = new Date("November 13, 2015 " + start_time);
+				stt = stt.getTime();
+				var endt = new Date("November 13, 2015 " + end_time);
+				endt = endt.getTime();
+					
+				return endt>stt ;
+			}, "* End time must be greater than Start time");
 			
             form.validate({
                 errorElement: 'span', //default input error message container
@@ -332,11 +402,17 @@ var TimeOffFormValidation = function () {
 	                drpFromdate: {
                         required: true
                     },
+	                drpTodate: {
+                        required:true,
+						greaterThanStartdate:true
+                    
+					},
 					txtStart: {
                         required: true
                     },
 	                txtEnd: {
-                        required: true
+                        required: true,
+						greaterThanStarttime:true
                     },
 					my_multi_select1: {
                         required: true,
@@ -350,14 +426,18 @@ var TimeOffFormValidation = function () {
                     },
                     drpFromdate: {
                         required: "Please enter timeoff date"
-                    }
-					,
+                    },
+					drpTodate: {
+						required: "Please enter valid end date",
+						greaterThanStartdate:"Please enter valid end date"
+                    },
                     txtStart: {
                         required: "Please enter start time of timeoff"
                     }
 					,
                     txtEnd: {
-                        required: "Please enter start time of timeoff"
+                        required: "Please enter start time of timeoff",
+						greaterThanStarttime:"Please enter valid end time"
                     },
 					my_multi_select1: {
                         required: "Please select at least one staff"
@@ -424,7 +504,7 @@ return {
 }();
 
 
-var ComponentsDropdowns = function () {
+var TimeoffComponentsDropdowns = function () {
 
  var handleMultiSelect = function () {
         $('#my_multi_select1').multiSelect({

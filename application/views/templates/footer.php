@@ -85,7 +85,8 @@
 		 Calendar.init();
 		 ComponentsPickers.init();
 		 
-         ComponentsDropdowns.init();
+         ShiftComponentsDropdowns.init();
+		 TimeoffComponentsDropdowns.init();
 	     ComponentsTimeSliders.init();
 		
       });

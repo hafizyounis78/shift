@@ -38,7 +38,10 @@ class Timeoffcont extends CI_Controller
 	function timeoff()
 	{   $this->load->model('constantmodel');
 		$this->data['location']= $this->constantmodel->get_location_list();
-		$this->data['staffList']= $this->constantmodel->get_staff_list();
+		//$this->data['staffList']= $this->constantmodel->get_staff_list();
+		$this->data['deptList']= $this->constantmodel->get_dept_list();
+		$this->data['specList']= $this->constantmodel->get_spec_list();
+		$this->data['jobtitleList']= $this->constantmodel->get_jobtitle_list();
 		$this->load->model('timeoffmodel');
 		$this->data['timeoffrec'] = $this->timeoffmodel->get_all_timeoff();
 		
@@ -70,6 +73,7 @@ class Timeoffcont extends CI_Controller
 			 echo '<td>'.$i++.'</td>';
 			 echo '<td id="tdstaff'.$row->id.'">'.$row->Staff_name.'</td>';
 			 echo '<td id="tdstart_date'.$row->id.'">'. $row->start_date.'</td>';
+	         echo '<td id="tdend_date'.$row->id.'">'. $row->end_date.'</td>';
 			 echo '<td id="tdstart_Time'.$row->id.'">'. $row->start_time.'</td>';
 			 echo '<td id="tdend_Time'.$row->id.'">'. $row->end_time.'</td>';
 			 echo '<td id="tdend_Time'.$row->id.'">'. $row->location_desc.'</td>';
@@ -94,7 +98,7 @@ class Timeoffcont extends CI_Controller
 function getUserByDept()
 {
 	$this->load->model('constantmodel');
-	$staffList=$this->constantmodel->getUser_byDept();
+	$staffList=$this->constantmodel->getUser_byDeptTimeoff();
 	 foreach($staffList as $staff_row)
 	  {
 		 
@@ -107,7 +111,7 @@ function getUserByDept()
 function getUserByJobtitle()
 {
 	$this->load->model('constantmodel');
-	$staffList=$this->constantmodel->getUser_Jobtitel();
+	$staffList=$this->constantmodel->getUser_JobtitelTimeoff();
 	 foreach($staffList as $staff_row)
 	  {
 		 
@@ -120,7 +124,7 @@ function getUserByJobtitle()
 function getUserBySpec()
 {
 	$this->load->model('constantmodel');
-	$staffList=$this->constantmodel->getUser_specialization();
+	$staffList=$this->constantmodel->getUser_specializationTimeoff();
 	 foreach($staffList as $staff_row)
 	  {
 		 

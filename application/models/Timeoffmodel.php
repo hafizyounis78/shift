@@ -26,7 +26,7 @@ class Timeoffmodel extends CI_Model
 	}
 	function get_all_timeoff()
 	{	
-	 	$myquery = "SELECT  dusseldorf_v3_shifts.id, start_date,start_time,end_time,dusseldorf_v3_shifts.status,dusseldorf_v3_locations.id as locationId,name as location_desc,CONCAT(first_name,' ',last_name) as Staff_name
+	 	$myquery = "SELECT  dusseldorf_v3_shifts.id, start_date,end_date,start_time,end_time,dusseldorf_v3_shifts.status,dusseldorf_v3_locations.id as locationId,name as location_desc,CONCAT(first_name,' ',last_name) as Staff_name
 					FROM    dusseldorf_v3_shifts,dusseldorf_v3_locations,dusseldorf_users
 					WHERE   start_date > 2016-04-01 and dusseldorf_v3_shifts.type=2
 					AND     location_id=dusseldorf_v3_locations.id

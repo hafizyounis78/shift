@@ -182,6 +182,17 @@ function updateShift(i)
 	//$("#my_multi_select2").multiSelect('refresh');
 	 Metronic.scrollTo($('#shiftForm'), -100);
 }
+function clearStaffSelect()
+{
+		$("#my_multi_select1").html('');
+		$("#my_multi_select1").multiSelect('refresh');
+		var ddldept=document.getElementById('drplstDept');
+		 ddldept.options[0].selected = true;
+		var ddlJobtitle=document.getElementById('drplstJobtitle');
+		 ddlJobtitle.options[0].selected = true; 
+		 var ddlSpec=document.getElementById('drplstSpec');
+		 ddlSpec.options[0].selected = true; 
+}
 
 function clearShiftForm()
 {
@@ -209,7 +220,15 @@ function clearShiftForm()
 	document.getElementById("divSpec").style.display = "None";	
 	$("#my_multi_select1").html('');
 	$("#my_multi_select1").multiSelect('refresh');
-					
+	var ddldept=document.getElementById('drplstDept');
+	ddldept.options[0].selected = true;
+	var ddlbreak=document.getElementById('drplstBreak');
+	ddlbreak.options[0].selected = true;
+	var ddlJobtitle=document.getElementById('drplstJobtitle');
+	ddlJobtitle.options[0].selected = true; 
+	var ddlSpec=document.getElementById('drplstSpec');
+	ddlSpec.options[0].selected = true; 
+				
 	 //Metronic.scrollTo($('#timeOffForm'), +1000);
 }
 function drpdeptChange()
@@ -345,8 +364,16 @@ var ShiftFormValidation = function () {
     			return Date.parse($('#drpTodate').val())>=Date.parse($('#drpFromdate').val()) ;
 			}, "* End date must be greater than Start date");
 			jQuery.validator.addMethod("greaterThanStarttime", function(value, element) {
-    			return Date.parse($('#drpTodate').val())>=Date.parse($('#drpFromdate').val()) ;
-			}, "* End date must be greater than Start date");
+				var start_time = $("#txtStart").val();
+				var end_time = $("#txtEnd").val();
+				//convert both time into timestamp
+				var stt = new Date("November 13, 2015 " + start_time);
+				stt = stt.getTime();
+				var endt = new Date("November 13, 2015 " + end_time);
+				endt = endt.getTime();
+					
+				return endt>stt ;
+			}, "* End time must be greater than Start time");
             form.validate({
                 errorElement: 'span', //default input error message container
                 errorClass: 'help-block help-block-error', // default input error message class
@@ -373,7 +400,8 @@ var ShiftFormValidation = function () {
                         required: true
                     },
 	                txtEnd: {
-                        required: true
+                        required: true,
+						greaterThanStarttime:true
                     },
 					drplstBreak: {
                         required:true
@@ -393,7 +421,7 @@ var ShiftFormValidation = function () {
                     },
 	                drpTodate: {
 						required: "Please enter valid end date",
-						greaterThanStartdate:"Please enter valid start time"
+						greaterThanStartdate:"Please enter valid end date"
                     },
                     txtStart: {
                         required: "Please enter valid start time",
@@ -403,6 +431,7 @@ var ShiftFormValidation = function () {
 					,
                     txtEnd: {
                         required: "Please enter valid end time",
+						greaterThanStarttime:"Please enter valid end time"
 						
                     },
 					drplstBreak: {
@@ -489,6 +518,8 @@ function validateShift()
 		valid = false;
 	if ( !$("#txtStart").valid() )
 		valid = false;
+	if ( !$("#txtEnd").valid() )
+		valid = false;
 
 	if ( !$("#drpLocation").valid() )
 		valid = false;
@@ -506,7 +537,7 @@ function validateShift()
 		
 	return valid;
 }
-var ComponentsDropdowns = function () {
+var ShiftComponentsDropdowns = function () {
 
  var handleMultiSelect = function () {
         $('#my_multi_select1').multiSelect({

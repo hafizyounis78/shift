@@ -41,7 +41,7 @@ function get_spec_list()
 		return $query->result();
 		
 	}
-
+//***********Shift Conflict***********//
 function getUser_byDept()
 {
 extract($_POST);
@@ -101,6 +101,82 @@ extract($_POST);
 				and   u.id not in (select user_id 
 				               from   dusseldorf_v3_shifts
 							   where  ((start_date<='".$drpFromdate."' and end_date>='".$drpTodate."')
+							   OR      (start_date>='".$drpFromdate."' and start_date<='".$drpTodate."' AND end_date>='".$drpTodate."')
+							   OR      (start_date<='".$drpFromdate."' and end_date>='".$drpFromdate."' AND end_date<='".$drpTodate."')
+							   OR      (start_date>='".$drpFromdate."' and end_date<='".$drpTodate."'))
+							   
+							   AND   ((start_time<='".$txtStart."' and end_time>='".$txtEnd."')
+							   or     ( start_time>='".$txtStart."' and start_time<='".$txtEnd."' AND end_time>='".$txtEnd."')
+							   or     ( start_time<='".$txtStart."' and end_time>='".$txtStart."' and end_time<='".$txtEnd."')
+							   or     ( start_time>='".$txtStart."' and end_time<='".$txtEnd."')))";
+
+
+		$res = $this->db->query($myquery);
+		return $res->result();
+}
+//**************timeOff Shift conflict*****//
+function getUser_byDeptTimeoff()
+{
+extract($_POST);
+   $myquery = "SELECT id, CONCAT(first_name,' ',last_name) as name 
+				FROM dusseldorf_users 
+				where type=2 
+				and dep_id=".$deptNo."
+				and id not in (select user_id 
+				               from   dusseldorf_v3_shifts
+							   where  type=2
+							   and     ((start_date<='".$drpFromdate."' and end_date>='".$drpTodate."')
+							   OR      (start_date>='".$drpFromdate."' and start_date<='".$drpTodate."' AND end_date>='".$drpTodate."')
+							   OR      (start_date<='".$drpFromdate."' and end_date>='".$drpFromdate."' AND end_date<='".$drpTodate."')
+							   OR      (start_date>='".$drpFromdate."' and end_date<='".$drpTodate."'))
+							   
+							   AND   ((start_time<='".$txtStart."' and end_time>='".$txtEnd."')
+							   or     ( start_time>='".$txtStart."' and start_time<='".$txtEnd."' AND end_time>='".$txtEnd."')
+							   or     ( start_time<='".$txtStart."' and end_time>='".$txtStart."' and end_time<='".$txtEnd."')
+							   or     ( start_time>='".$txtStart."' and end_time<='".$txtEnd."')))";
+
+
+		$res = $this->db->query($myquery);
+		return $res->result();
+}
+
+function getUser_JobtitelTimeoff()
+{
+extract($_POST);
+   $myquery = "SELECT id, CONCAT(first_name,' ',last_name) as name 
+				FROM dusseldorf_users 
+				where type=2 
+				and jobtitle_id=".$JobTitelId."
+				and id not in (select user_id 
+				               from   dusseldorf_v3_shifts
+							   where  type=2
+							   and     ((start_date<='".$drpFromdate."' and end_date>='".$drpTodate."')
+							   OR      (start_date>='".$drpFromdate."' and start_date<='".$drpTodate."' AND end_date>='".$drpTodate."')
+							   OR      (start_date<='".$drpFromdate."' and end_date>='".$drpFromdate."' AND end_date<='".$drpTodate."')
+							   OR      (start_date>='".$drpFromdate."' and end_date<='".$drpTodate."'))
+							   
+							   AND   ((start_time<='".$txtStart."' and end_time>='".$txtEnd."')
+							   or     ( start_time>='".$txtStart."' and start_time<='".$txtEnd."' AND end_time>='".$txtEnd."')
+							   or     ( start_time<='".$txtStart."' and end_time>='".$txtStart."' and end_time<='".$txtEnd."')
+							   or     ( start_time>='".$txtStart."' and end_time<='".$txtEnd."')))";
+
+
+		$res = $this->db->query($myquery);
+		return $res->result();
+}
+function getUser_specializationTimeOff()
+{
+extract($_POST);
+   $myquery = "SELECT u.id, CONCAT(first_name,' ',last_name) as name 
+				FROM dusseldorf_users u ,dusseldorf_specialization_users sp
+				where type=2 
+				and   u.id=sp.users_id
+				and   jobtitle_id=".$JobTitelId."
+				and   specialization_id=".$specId."
+				and   u.id not in (select user_id 
+				               from   dusseldorf_v3_shifts
+							   where  type=2
+							   and     ((start_date<='".$drpFromdate."' and end_date>='".$drpTodate."')
 							   OR      (start_date>='".$drpFromdate."' and start_date<='".$drpTodate."' AND end_date>='".$drpTodate."')
 							   OR      (start_date<='".$drpFromdate."' and end_date>='".$drpFromdate."' AND end_date<='".$drpTodate."')
 							   OR      (start_date>='".$drpFromdate."' and end_date<='".$drpTodate."'))
