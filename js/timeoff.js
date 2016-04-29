@@ -1,6 +1,5 @@
 // JavaScript Document
- $("#my_multi_select1").html('');
-$("#my_multi_select1").multiSelect('refresh');
+
 var staffList="";
 $(document).ready(function () {
 	var slectionId='';
