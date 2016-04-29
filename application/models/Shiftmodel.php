@@ -23,6 +23,8 @@ class Shiftmodel extends CI_Model
 		$data['start_time'] = $txtStart;
 		$data['end_time'] = $txtEnd;
 		$data['status'] = $rdStatus;
+		$data['Special_shift'] = $chbxIsspecial;
+		
 		$data['lunch_break'] = $drplstBreak;
 		$data['user_id'] = $element;
 		
@@ -33,7 +35,7 @@ class Shiftmodel extends CI_Model
 	}
 function get_all_shifts()
 	{	
-	 	$myquery = "SELECT  dusseldorf_v3_shifts.id, start_date,end_date,start_time,end_time,dusseldorf_v3_shifts.status,dusseldorf_v3_locations.id as locationId,name as location_desc,CONCAT(first_name,' ',last_name) as Staff_name
+	 	$myquery = "SELECT  dusseldorf_v3_shifts.id, start_date,end_date,start_time,end_time,dusseldorf_v3_shifts.status,dusseldorf_v3_locations.id as locationId,Special_shift,name as location_desc,CONCAT(first_name,' ',last_name) as Staff_name
 					FROM    dusseldorf_v3_shifts,dusseldorf_v3_locations,dusseldorf_users
 					WHERE   start_date > 2016-04-01 and dusseldorf_v3_shifts.type=1
 					AND     location_id=dusseldorf_v3_locations.id
@@ -52,6 +54,7 @@ function update_shift()
 	$data['start_time'] = $txtStart;
 	$data['end_time'] = $txtEnd;
 	$data['status'] = $rdStatus;
+	$data['Special_shift'] = $chbxIsspecial;
 	//$data['type'] = 2;
 	$this->db->where('id',$hdnshiftId);
 	$this->db->update('dusseldorf_v3_shifts',$data);

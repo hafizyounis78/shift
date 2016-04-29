@@ -39,9 +39,12 @@ function shifts()
 {
 			$this->load->model('constantmodel');
 		$this->data['location']= $this->constantmodel->get_location_list();
-		//$this->data['staffList']= $this->constantmodel->get_staff_list();
+		$this->data['deptList']= $this->constantmodel->get_dept_list();
+		$this->data['specList']= $this->constantmodel->get_spec_list();
+		$this->data['jobtitleList']= $this->constantmodel->get_jobtitle_list();
 		$this->load->model('Shiftmodel');
 		$this->data['shiftrec']= $this->Shiftmodel->get_all_shifts();
+		
 
 }
 
@@ -77,6 +80,33 @@ function getUserByDept()
 	  
 	
 }
+function getUserByJobtitle()
+{
+	$this->load->model('constantmodel');
+	$staffList=$this->constantmodel->getUser_Jobtitel();
+	 foreach($staffList as $staff_row)
+	  {
+		 
+		  echo '<option  value='.$staff_row->id.'>'.$staff_row->name.'</option>';
+		  
+	  }
+	  
+	
+}
+function getUserBySpec()
+{
+	$this->load->model('constantmodel');
+	$staffList=$this->constantmodel->getUser_specialization();
+	 foreach($staffList as $staff_row)
+	  {
+		 
+		  echo '<option  value='.$staff_row->id.'>'.$staff_row->name.'</option>';
+		  
+	  }
+	  
+	
+}
+
 function drawShiftsTable()
 {
 	
@@ -101,7 +131,8 @@ function drawShiftsTable()
 		 echo '<td id="tdend_Time'.$row->id.'">'. $row->end_time.'</td>';
 		 echo '<td id="tdlocation'.$row->id.'" data-loid="'.$row->locationId.'">'. $row->location_desc.'</td>';
 		// echo '<td id="tdrdStatus'.$row->id.'">'. $statusrow.'</td>';
-		 echo '<td id="tdrdStatus'.$row->id.'" data-stid="'.$row->status.'">'.$statusrow.'</td>';		 
+		 echo '<td id="tdrdStatus'.$row->id.'" data-stid="'.$row->status.'">'.$statusrow.'</td>';	
+		 echo '<td id="tdSpecial_shift'.$row->id.'">'. $row->Special_shift.'</td>';	 
 		 echo '<td>
 			  <button id="btnupdateShift" name="btnupdateShift" type="button" class="btn default btn-xs blue" onclick="updateShift('.$row->id.')">
 			  <i class="fa fa-edit"></i> Update </button>

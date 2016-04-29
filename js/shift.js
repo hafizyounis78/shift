@@ -1,5 +1,47 @@
 // JavaScript Document
 var staffList="";
+$(document).ready(function () {
+	var slectionId='';
+    $("input[name=rdSelection]:radio").change(function () {
+        if ($("#rdSelection1").attr("checked")) {
+			slectionId=$("#rdSelection1").val();
+			//alert(slectionId);
+        //document.getElementById("divUser").style.display = "None";	
+		document.getElementById("divDept").style.display = "block";	
+		//document.getElementById("dvstaffname").style.display = "block";	
+        document.getElementById("divJobtitle").style.display = "None";	
+		document.getElementById("divSpec").style.display = "None";	
+		//document.getElementById("dvstaffname").style.display = "block";	
+        }
+        else {
+            slectionId=$("#rdSelection2").val();
+			//alert(slectionId);
+			document.getElementById("divDept").style.display = "None";	
+		//document.getElementById("dvstaffname").style.display = "block";	
+        document.getElementById("divJobtitle").style.display = "block";	
+		document.getElementById("divSpec").style.display = "block";	
+        }
+        //$('#log').val($('#log').val()+ $(this).val() + '|');
+    })
+});
+function selectionchange()
+{
+	
+	/*var slectionId=$(this).val();
+		alert(slectionId);*/
+/*	if (statusId==1)
+	{
+
+		$("#rdStatus1").parent().addClass('checked');
+		$("#rdStatus2").parent().removeClass('checked');
+	}
+	 else
+	 {
+
+		$("#rdStatus2").parent().addClass('checked');
+		$("#rdStatus1").parent().removeClass('checked');
+     }*/
+}
 function editshift(){
 	$
 			var action = $("#hdnaction").val();
@@ -15,6 +57,7 @@ function editshift(){
 				formData.append('txtEnd'	        ,  $("#txtEnd").val());
 				formData.append('rdStatus'          ,  $("input[name=rdStatus]:checked").val());
 				formData.append('drplstBreak'		, $("#drplstBreak").val());
+				formData.append('chbxIsspecial'		, $("#chbxIsspecial").val());
 				formData.append('staffList'		    ,  staffList);
 	
 	$.ajax({
@@ -103,7 +146,13 @@ function updateShift(i)
 	$("#rdStatus").val($("#tdlocation"+i).html());
 	
 	var statusId=$("#tdrdStatus"+i).attr('data-stid');
-		//alert(statusId);
+	var Isspecial=$("#tdSpecial_shift"+i).html();
+//		alert(Isspecial);
+	if 	(Isspecial==1)
+ 	  $("#chbxIsspecial").prop('checked', true);
+	else
+	  $("#chbxIsspecial").prop('checked', false);
+	
 	if (statusId==1)
 	{
 
@@ -119,9 +168,14 @@ function updateShift(i)
 
             //alert("shift");
 		$("#txtstaffName").val($("#tdstaff"+i).html());
+			document.getElementById("divSelect").style.display = "None";	
 		document.getElementById("divUser").style.display = "None";	
 		document.getElementById("divDept").style.display = "None";	
+        document.getElementById("divJobtitle").style.display = "None";	
+		document.getElementById("divSpec").style.display = "None";	
+
 		document.getElementById("dvstaffname").style.display = "block";	
+		
 				
 	//$("#tdstaff").val($("#tdstaff"+i).html());
 	//$("#my_multi_select2").html(returndb);
@@ -148,24 +202,18 @@ function clearShiftForm()
             //alert("shift");
 	$("#txtstaffName").val("");
 	document.getElementById("divUser").style.display = "block";
-	document.getElementById("divDept").style.display = "block";	
+;	document.getElementById("divDept").style.display = "block";	
+	document.getElementById("divSelect").style.display = "block";	
 	document.getElementById("dvstaffname").style.display = "None";		
+    document.getElementById("divJobtitle").style.display = "None";	
+	document.getElementById("divSpec").style.display = "None";	
 				
 	 //Metronic.scrollTo($('#timeOffForm'), +1000);
 }
 function drpdeptChange()
 {
 	    
-		/*if( $("#drpLocation").val() == ''||$("#drpFromdate").val() == '' || $("#txtStart").val() == '' || $("#txtEnd").val() == '')
-		{
-			
-			document.getElementById("divUser").style.display ="block";	
-			document.getElementById("dvstaffname").style.display =  "None";	
-			var errormsg = $('.alert-danger', $("#shiftForm"));
-				errormsg.show();
-					 Metronic.scrollTo($('#shiftForm'), -100);
-			return;
-		}*/
+		
 		if (!validateShift())
 		 return;
 		var formData = new FormData();
@@ -180,6 +228,83 @@ function drpdeptChange()
 		
 		$.ajax({
 			url: baseURL+"Shiftscont/getUserByDept",
+			type: "POST",
+			data: formData,
+			 processData: false,
+			 contentType: false,
+			error: function(xhr, status, error) {
+  				//var err = eval("(" + xhr.responseText + ")");
+  				alert(xhr.responseText);
+			},
+			beforeSend: function(){},
+			complete: function(){},
+			success: function(returndb){
+				
+				document.getElementById("divUser").style.display = "block";
+				document.getElementById("dvstaffname").style.display = "None";
+				$("#my_multi_select1").html(returndb);
+				$("#my_multi_select1").multiSelect('refresh');
+			}
+		});//END $.ajax
+    
+}
+function drpJobtitleChange()
+{
+	    
+		
+		if (!validateShift())
+		 return;
+		var formData = new FormData();
+	
+				
+				//formData.append('drpLocation'		, $("#drpLocation").val());
+				formData.append('drpFromdate'	, $("#drpFromdate").val());
+				formData.append('drpTodate'		, $("#drpTodate").val());
+				formData.append('txtStart'	    , $("#txtStart").val());
+				formData.append('txtEnd'	    , $("#txtEnd").val());
+				formData.append('JobTitelId'        , $("#drplstJobtitle").val());
+		
+		$.ajax({
+			url: baseURL+"Shiftscont/getUserByJobtitle",
+			type: "POST",
+			data: formData,
+			 processData: false,
+			 contentType: false,
+			error: function(xhr, status, error) {
+  				//var err = eval("(" + xhr.responseText + ")");
+  				alert(xhr.responseText);
+			},
+			beforeSend: function(){},
+			complete: function(){},
+			success: function(returndb){
+				
+				document.getElementById("divUser").style.display = "block";
+				document.getElementById("dvstaffname").style.display = "None";
+				$("#my_multi_select1").html(returndb);
+				$("#my_multi_select1").multiSelect('refresh');
+			}
+		});//END $.ajax
+    
+}
+function drpSpecChange()
+{
+	    
+		
+		if (!validateShift())
+		 return;
+		var formData = new FormData();
+	
+				
+				//formData.append('drpLocation'		, $("#drpLocation").val());
+				formData.append('drpFromdate'	, $("#drpFromdate").val());
+				formData.append('drpTodate'		, $("#drpTodate").val());
+				formData.append('txtStart'	    , $("#txtStart").val());
+				formData.append('txtEnd'	    , $("#txtEnd").val());
+				formData.append('JobTitelId'        , $("#drplstJobtitle").val());
+				formData.append('specId'        , $("#drplstSpec").val());
+		
+		$.ajax({
+			url: baseURL+"Shiftscont/getUserBySpec",
 			type: "POST",
 			data: formData,
 			 processData: false,

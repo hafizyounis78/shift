@@ -32,6 +32,18 @@ $readonly = '';
                       <input type="hidden" name="hdnaction" id="hdnaction" value="<?php echo $action; ?>" />
                       <input type="hidden" name="hdnshiftId" id="hdnshiftId" value="<?php echo $action; ?>" />
                       <div class="form-group">
+                          <label class="control-label col-md-3">Is special Shift
+                          </label>
+                          <div class="col-md-4">
+                              <div class="checkbox-list" data-error-container="#form_2_services_error">
+                                  <label>
+                                  <input type="checkbox" value="1" id="chbxIsspecial" name="chbxIsspecial"/></label>
+                              </div>
+                              <div id="form_2_services_error">
+                              </div>
+                          </div>
+                      </div>
+                      <div class="form-group">
                             <label class="control-label col-md-3">Location<span class="required">
                           * </span></label>
                             <div class="col-md-4">
@@ -115,22 +127,82 @@ $readonly = '';
                           </div>
                         </div>
                     </div>
+                   <div class="form-group" id="divSelect">
+                        <label class="control-label col-md-3">Filter staff by<span class="required">
+                          * </span></label>
+                        <div class="col-md-4">
+                          <div class="radio-list">
+                              <label class="radio-inline">
+                              <input type="radio" name="rdSelection" id="rdSelection1" value="1" checked onchange="selectionchange()">Department</label>
+                              <label class="radio-inline">
+                              <input type="radio" name="rdSelection" id="rdSelection2" value="2" onchange="selectionchange()">Job title</label>
+                              
+                          </div>
+                        </div>
+                    </div>
                     <div class="form-group" id="divDept">
                           <label class="control-label col-md-3">Department <span class="required">
                           * </span>
                           </label>
                           <div class="col-md-4">
                               <select id="drplstDept" class="form-control" name="drplstDept" onchange="drpdeptChange();">
-                                  <option value="">Select...</option>
-                                  <option value="1">Dept 1</option>
-                                  <option value="2">Dept 2</option>
-                                  <option value="3">Dept 5</option>
-                                  <option value="4">Dept 4</option>
-                                  <option value="5">Dept 2</option>
-                                  <option value="6">Dept 5</option>
-                                  <option value="7">Dept 4</option>
-                                  <option value="8">Dept 5</option>
-                                  <option value="9">Dept 4</option>
+                                   <?php 
+								  foreach ($deptList as $dept_row)
+								  {
+									  $selected = '';
+									  /*
+									  if ($patient_row->status_id == $location_row->sub_constant_id)
+									  	$selected = 'selected="selected"';
+									  */
+									  echo ' <option value="'.$dept_row->dept_id.'" '.$selected.'>'
+									  						 .$dept_row->dept_name.'</option>';
+								  }
+								  ?>
+
+                              </select>
+                          </div>
+                      </div>
+                      <div class="form-group" id="divJobtitle"  style="display:none">
+                          <label class="control-label col-md-3">Job title <span class="required">
+                          * </span>
+                          </label>
+                          <div class="col-md-4">
+                              <select id="drplstJobtitle" class="form-control" name="drplstJobtitle" onchange="drpJobtitleChange();">
+                                   <?php 
+								  foreach ($jobtitleList as $jobtitle_row)
+								  {
+									  $selected = '';
+									  /*
+									  if ($patient_row->status_id == $location_row->sub_constant_id)
+									  	$selected = 'selected="selected"';
+									  */
+									  echo ' <option value="'.$jobtitle_row->id.'" '.$selected.'>'
+									  						 .$jobtitle_row->name.'</option>';
+								  }
+								  ?>
+
+                              </select>
+                          </div>
+                      </div>
+                      <div class="form-group" id="divSpec" style="display:none">
+                          <label class="control-label col-md-3">Specialization <span class="required">
+                          * </span>
+                          </label>
+                          <div class="col-md-4">
+                              <select id="drplstSpec" class="form-control" name="drplstSpec" onchange="drpSpecChange();">
+                                   <?php 
+								  foreach ($specList as $spec_row)
+								  {
+									  $selected = '';
+									  /*
+									  if ($patient_row->status_id == $location_row->sub_constant_id)
+									  	$selected = 'selected="selected"';
+									  */
+									  echo ' <option value="'.$spec_row->id.'" '.$selected.'>'
+									  						 .$spec_row->name.'</option>';
+								  }
+								  ?>
+
                               </select>
                           </div>
                       </div>
@@ -228,6 +300,9 @@ $readonly = '';
                                         <th>
 											 Status
 										</th>
+                                         <th>
+											 Is Special
+										</th>
                                         <th>
 											 Action
 										</th>
@@ -254,6 +329,7 @@ $readonly = '';
 												 echo '<td id="tdlocation'.$row->id.'" data-loid="'.$row->locationId.'">'. $row->location_desc.'</td>';
 												// echo '<td id="tdrdStatus'.$row->id.'">'. $statusrow.'</td>';
 												 echo '<td id="tdrdStatus'.$row->id.'" data-stid="'.$row->status.'">'.$statusrow.'</td>';		 
+ 												 echo '<td id="tdSpecial_shift'.$row->id.'">'. $row->Special_shift.'</td>';
 												 echo '<td>
 													  <button id="btnupdateShift" name="btnupdateShift" type="button" class="btn default btn-xs blue" onclick="updateShift('.$row->id.')">
 													  <i class="fa fa-edit"></i> Update </button>
