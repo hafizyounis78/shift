@@ -4,6 +4,11 @@ var endtime0='';
 var endtime1='';
 var endtime='';
 
+var str = '';
+var val0='';
+var val1='';
+var end='';
+
 var ComponentsTimeSliders = function () {
 
     return {
@@ -13,31 +18,7 @@ var ComponentsTimeSliders = function () {
             $(".slider-basic").slider(); // basic sliders
 			 var leftWidth =  Math.floor(((1440 - 600) / 1440) *100);
 			 
-			 $.ajax({
-				url: baseURL+"Settingcont/get_colorsetting" ,
-				type: "POST",
-			    error: function(xhr, status, error) {
-  				//var err = eval("(" + xhr.responseText + ")");
-  				alert(xhr.responseText);
-				},
-				beforeSend: function(){},
-				complete: function(){},
-				success: function(returndb){
-				
-//					alert(returndb.length);
-					returndb[0].close_from
-					returndb[0].close_to
-					returndb[0].open_emp_from
-					returndb[0].open_emp_to
-					returndb[0].open_from
-					returndb[0].open_to
-				var success = $('.alert-success', $("#SettingColorForm"));
-				success.show();
-				Metronic.scrollTo(success, -200);
-				
-								
-			}
-		});//END $.ajax
+			 
 			 
             // range slider
             $("#slider-range").slider({
@@ -80,6 +61,43 @@ var ComponentsTimeSliders = function () {
                 }
             }).append('<div id="YourDiv" style="width: '+leftWidth+'%"></div>');
 			
+			$.ajax({
+				url: baseURL+"Settingcont/get_colorsetting" ,
+				type: "POST",
+			    error: function(xhr, status, error) {
+  				//var err = eval("(" + xhr.responseText + ")");
+  				alert(xhr.responseText);
+				},
+				beforeSend: function(){},
+				complete: function(){},
+				success: function(returndb){
+				
+					//$('#txtStartSldr').val(returndb[0]['close_from']);
+					str=returndb[0]['close_from'].split(':')[0] *60;
+					val0 = returndb[0]['close_to'].split(':')[0] *60 ;
+					if (str > val0)
+					{
+						alert('hi1');
+						val0= val0 + str + (1440-str);
+					}
+					//returndb[0]['open_emp_from'];
+					val1= returndb[0]['open_emp_to'].split(':')[0] *60 ;
+					if (str > val1)
+					{
+						alert('hi2');
+						val1= val1 + str + (1440-str);
+					}
+					//returndb[0]['open_from'];
+					//=returndb[0]['open_to']
+					end=str+ 1440; 
+					$('#txtStartSldr').timepicker('setTime', new Date(00,00,00,returndb[0]['close_from'].split(':')[0],returndb[0]['close_from'].split(':')[1],00));
+					
+				
+				
+								
+			}
+		});//END $.ajax
+			
 			var minStart = parseInt($("#slider-range").slider('option', 'min') % 60);
 			var hoursStart = parseInt($("#slider-range").slider('option', 'min') / 60 % 24);
 			
@@ -111,9 +129,17 @@ var ComponentsTimeSliders = function () {
 $(document).ready(function(){
 							
     $('#txtStartSldr').change(function() {
+						
 	  		$("#slider-range").slider('option', 'min', ($('#txtStartSldr').val().split(":")[0] * 60))
                .slider('option', 'max', (($('#txtStartSldr').val().split(":")[0] * 60) + 1440));
-			   
+			
+			$("#slider-range").slider("values", 0, val0);
+			$("#slider-range").slider("values", 1, val1);
+			alert("str"+str);
+			alert("val0"+val0);
+			alert("val1"+val1);
+			alert("end"+end);
+			
 			var leftWidth = Math.floor( ( ( (($('#txtStartSldr').val().split(":")[0] * 60) + 1440) - $("#slider-range").slider("values", 1)) / 1440)* 100);
 			
 			$('#YourDiv').css('width', leftWidth +'%');
