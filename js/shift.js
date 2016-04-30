@@ -46,6 +46,9 @@ function editshift(){
 	$
 			var action = $("#hdnaction").val();
 		//alert(action);
+	if (!validateStaffselect())
+	 return;
+		 
 	
 			var formData = new FormData();
 	
@@ -84,7 +87,7 @@ function editshift(){
 				
 			}
 		});//END $.ajax
-		
+
 }
 
 
@@ -149,10 +152,15 @@ function updateShift(i)
 	var Isspecial=$("#tdSpecial_shift"+i).html();
 //		alert(Isspecial);
 	if 	(Isspecial==1)
- 	  $("#chbxIsspecial").prop('checked', true);
+ 	  //$("#chbxIsspecial").prop('checked', true);
+{
+	  $('#chbxIsspecial').attr('checked', true); 
+	  $("#chbxIsspecial").parent().addClass('checked');
+}
 	else
-	  $("#chbxIsspecial").prop('checked', false);
-	
+	{ $('#chbxIsspecial').attr('checked', false); 
+	  $("#chbxIsspecial").parent().removeClass('checked');
+	}
 	if (statusId==1)
 	{
 
@@ -204,6 +212,7 @@ function clearShiftForm()
 	$("#drplstBreak").val("");
 	
 	$("#drpFromdate").val("");
+	$("#drpTodate").val("");
 	$("#txtStart").val("");
 	$("#txtEnd").val("");
 	
@@ -360,6 +369,10 @@ var ShiftFormValidation = function () {
             var form = $('#shiftForm');
             var errormsg = $('.alert-danger', form);
             var successmsg = $('.alert-success', form);
+			jQuery.validator.addMethod("multiSelectRequired", function(value, element) {
+    			  var count = $(element).find('option:selected').length;
+                return count > 0;
+			}, "* must select at least one staff");
 			jQuery.validator.addMethod("greaterThanStartdate", function(value, element) {
     			return Date.parse($('#drpTodate').val())>=Date.parse($('#drpFromdate').val()) ;
 			}, "* End date must be greater than Start date");
@@ -405,11 +418,11 @@ var ShiftFormValidation = function () {
                     },
 					drplstBreak: {
                         required:true
-                    }/*,
+                    },
 					my_multi_select1: {
-                        required: true,
-						//greaterThanSixty : true
-                    }*/
+                        multiSelectRequired: true,
+						
+                    }
 				},
 
                messages: { // custom messages for radio buttons and checkboxes
@@ -426,7 +439,7 @@ var ShiftFormValidation = function () {
                     txtStart: {
                         required: "Please enter valid start time",
 						
-						//date: "The end date is not valid"
+						
                     }
 					,
                     txtEnd: {
@@ -436,11 +449,11 @@ var ShiftFormValidation = function () {
                     },
 					drplstBreak: {
                         required: "Please select break time of shift"
-                    }/*,
+                    },
 					my_multi_select1: {
-                        required: "Please select at least one staff"
+                        multiSelectRequired: "Please select at least one staff"
 						
-                    }*/
+                    }
 				},
                 errorPlacement: function (error, element) { // render error placement for each input type
                     if (element.attr("data-error-container")) { 
@@ -500,6 +513,28 @@ return {
     };
 
 }();
+function validateStaffselect()
+{
+	var error = $('#dvStaffMsg');
+	var valid = true;
+	if ( staffList=='' )
+	 valid = false;
+	
+	else
+	 valid = true;
+	
+	if(!valid)
+	{
+		
+		error.show();
+        Metronic.scrollTo(error, -200);
+	}
+	else
+	{
+		error.hide();
+	}
+	return valid;
+}
 function validateShift()
 {
 	/*var form = $('#submit_form');

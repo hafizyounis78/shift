@@ -76,7 +76,8 @@
          Metronic.init(); // init metronic core components
 		 Layout.init(); // init current layout
 		 Demo.init(); // init demo features
-		
+		ShiftComponentsDropdowns.init();
+		 TimeoffComponentsDropdowns.init();
 		  /*******Forms Validation *******************/
 		 TimeOffFormValidation.init();
 		 ShiftFormValidation.init();
@@ -85,8 +86,7 @@
 		 Calendar.init();
 		 ComponentsPickers.init();
 		 
-         ShiftComponentsDropdowns.init();
-		 TimeoffComponentsDropdowns.init();
+         
 	     ComponentsTimeSliders.init();
 		
       });
