@@ -17,6 +17,10 @@ $readonly = '';
               <!-- BEGIN FORM-->
               <form action="#" id="timeOffForm" class="form-horizontal">
                   <div class="form-body">
+                  	  <div id="dvStaffMsg" class="alert alert-danger display-none">
+                         <button class="close" data-dismiss="alert"></button>
+                         You should select at least one staff.
+                      </div>
                        <div id="dvDeptMsg" class="alert alert-danger display-none">
                          <button class="close" data-dismiss="alert"></button>
                          You should select Location ,date ,start time and end time before selecting department. Please check below.

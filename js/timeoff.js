@@ -9,30 +9,28 @@ $(document).ready(function () {
 	
 		if ($("#rdSelection1").attr("checked")) {
 			slectionId=$("#rdSelection1").val();
-			//alert(slectionId);
-        //document.getElementById("divUser").style.display = "None";	
-		document.getElementById("divDept").style.display = "block";	
-		//document.getElementById("dvstaffname").style.display = "block";	
-        document.getElementById("divJobtitle").style.display = "None";	
-		document.getElementById("divSpec").style.display = "None";	
-		//document.getElementById("dvstaffname").style.display = "block";	
+			document.getElementById("divDept").style.display = "block";	
+			document.getElementById("divJobtitle").style.display = "None";	
+			document.getElementById("divSpec").style.display = "None";	
+		
         }
         else {
             slectionId=$("#rdSelection2").val();
-			//alert(slectionId);
 			document.getElementById("divDept").style.display = "None";	
-		//document.getElementById("dvstaffname").style.display = "block";	
-        document.getElementById("divJobtitle").style.display = "block";	
-		document.getElementById("divSpec").style.display = "block";	
+			document.getElementById("divJobtitle").style.display = "block";	
+			document.getElementById("divSpec").style.display = "block";	
 		
         }
-        //$('#log').val($('#log').val()+ $(this).val() + '|');
+       
     })
 });
 function edittimeoff() {							
-		//event.preventDefault();
+		
 		var action = $("#hdnaction").val();
-		//alert(action);
+		
+		if (!validateStaffselect())
+		 return;
+		
 			var formData = new FormData();
 	
 				formData.append('hdnshiftId'		 , $("#hdnshiftId").val());
@@ -131,32 +129,27 @@ function updatetimeoff(i)
 	var statusId=$("#tdrdStatus"+i).attr('data-stid');
 		//alert(statusId);
 	if (statusId==1)
-{
+	{
 
 		$("#rdStatus1").parent().addClass('checked');
 		$("#rdStatus2").parent().removeClass('checked');
-}
-	 else
-{
+	}
+	else
+	{
 
-			$("#rdStatus2").parent().addClass('checked');
+		$("#rdStatus2").parent().addClass('checked');
 		$("#rdStatus1").parent().removeClass('checked');
-}
+	}
 
             //alert("shift");
-$("#txtstaffName").val($("#tdstaff"+i).html());
+		$("#txtstaffName").val($("#tdstaff"+i).html());
 		document.getElementById("divSelect").style.display = "None";	
 		document.getElementById("divUser").style.display = "None";	
 		document.getElementById("divDept").style.display = "None";	
         document.getElementById("divJobtitle").style.display = "None";	
 		document.getElementById("divSpec").style.display = "None";	
-
 		document.getElementById("dvstaffname").style.display = "block";	
-		
-	//$("#tdstaff").val($("#tdstaff"+i).html());
-	//$("#my_multi_select2").html(returndb);
-	//$("#my_multi_select2").multiSelect('refresh');
-	 Metronic.scrollTo($('#timeOffForm'), -100);
+		Metronic.scrollTo($('#timeOffForm'), -100);
 }
 function clearStaffSelect()
 {
@@ -171,8 +164,6 @@ function clearStaffSelect()
 }
 function clearfimeoffForm()
 {
-	
-	
 	$("#hdnshiftId").val("");
 	$("#hdnaction").val('addtimeoff');
 	$("#drpLocation").val("");
@@ -184,11 +175,8 @@ function clearfimeoffForm()
 	$("#txtEnd").val("");
 	
 
-	//	$("#rdStatus1").parent().addClass('checked');
-	//	$("#rdStatus2").parent().removeClass('checked');
-            //alert("shift");
 	$("#txtstaffName").val("");
-		document.getElementById("divUser").style.display = "block";
+	document.getElementById("divUser").style.display = "block";
 	document.getElementById("divDept").style.display = "block";	
 	document.getElementById("divSelect").style.display = "block";	
 	document.getElementById("dvstaffname").style.display = "None";		
@@ -206,6 +194,8 @@ function clearfimeoffForm()
 	 //Metronic.scrollTo($('#timeOffForm'), +1000);
 }
 
+
+//****************List change
 function drpdeptChange()
 {
 	    $("#my_multi_select1").html('');
@@ -247,43 +237,6 @@ function drpdeptChange()
 			}
 		});//END $.ajax
 		 }
-}
-function validateShift()
-{
-	/*var form = $('#submit_form');
-    var error = $('.alert-danger', form);*/
-
-			
-	var error = $('#dvDeptMsg');
-	
-	var valid = true;
-	
-	
-	
-	if ( !$("#drpFromdate").valid() )
-		valid = false;
-		if ( !$("#drpTodate").valid() )
-		valid = false;
-	if ( !$("#txtStart").valid() )
-		valid = false;
-	if ( !$("#txtEnd").valid() )
-		valid = false;
-
-	if ( !$("#drpLocation").valid() )
-		valid = false;
-	
-	if(!valid)
-	{
-		
-		error.show();
-        Metronic.scrollTo(error, -200);
-	}
-	else
-	{
-		error.hide();
-	}
-		
-	return valid;
 }
 function drpJobtitleChange()
 {
@@ -367,6 +320,65 @@ function drpSpecChange()
 	}
 }
 //****************timeoff Validation
+function validateStaffselect()
+{
+	var error = $('#dvStaffMsg');
+	var valid = true;
+	if ( staffList=='' )
+	 valid = false;
+	
+	else
+	 valid = true;
+	
+	if(!valid)
+	{
+		
+		error.show();
+        Metronic.scrollTo(error, -200);
+	}
+	else
+	{
+		error.hide();
+	}
+	return valid;
+}
+function validateShift()
+{
+	/*var form = $('#submit_form');
+    var error = $('.alert-danger', form);*/
+
+			
+	var error = $('#dvDeptMsg');
+	
+	var valid = true;
+	
+	
+	
+	if ( !$("#drpFromdate").valid() )
+		valid = false;
+		if ( !$("#drpTodate").valid() )
+		valid = false;
+	if ( !$("#txtStart").valid() )
+		valid = false;
+	if ( !$("#txtEnd").valid() )
+		valid = false;
+
+	if ( !$("#drpLocation").valid() )
+		valid = false;
+	
+	if(!valid)
+	{
+		
+		error.show();
+        Metronic.scrollTo(error, -200);
+	}
+	else
+	{
+		error.hide();
+	}
+		
+	return valid;
+}
 var TimeOffFormValidation = function () {
  var handleValidation = function() {
         
@@ -412,10 +424,6 @@ var TimeOffFormValidation = function () {
 	                txtEnd: {
                         required: true,
 						greaterThanStarttime:true
-                    },
-					my_multi_select1: {
-                        required: true,
-						//greaterThanSixty : true
                     }
 				},
 
@@ -437,10 +445,6 @@ var TimeOffFormValidation = function () {
                     txtEnd: {
                         required: "Please enter start time of timeoff",
 						greaterThanStarttime:"Please enter valid end time"
-                    },
-					my_multi_select1: {
-                        required: "Please select at least one staff"
-						
                     }
 				},
                 errorPlacement: function (error, element) { // render error placement for each input type

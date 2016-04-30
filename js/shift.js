@@ -418,12 +418,8 @@ var ShiftFormValidation = function () {
                     },
 					drplstBreak: {
                         required:true
-                    },
-					my_multi_select1: {
-                        multiSelectRequired: true,
-						
                     }
-				},
+					},
 
                messages: { // custom messages for radio buttons and checkboxes
                 drpLocation: {
@@ -449,10 +445,6 @@ var ShiftFormValidation = function () {
                     },
 					drplstBreak: {
                         required: "Please select break time of shift"
-                    },
-					my_multi_select1: {
-                        multiSelectRequired: "Please select at least one staff"
-						
                     }
 				},
                 errorPlacement: function (error, element) { // render error placement for each input type
