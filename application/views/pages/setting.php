@@ -28,16 +28,39 @@ $readonly = '';
                       </div>
                       <input type="hidden" name="hdnaction" id="hdnaction" value="<?php echo $action; ?>" />
                       <input type="hidden" name="hdnshiftId" id="hdnshiftId" value="<?php echo $action; ?>" />
-                      
+                      <div class="form-group">
+                            <label class="control-label col-md-3">Slider Time Start At<span class="required">
+                          * </span></label>
+                            <div class="col-md-4">
+                                <div class="input-group">
+                                    <input type="text" class="form-control timepicker timepicker-24" data-minute-step="30" id="txtStartSldr"  name="txtStartSldr" >
+                                    <span class="input-group-btn">
+                                    <button class="btn default" type="button"><i class="fa fa-clock-o"></i></button>
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
                       
                       <div class="form-group">
                             <label class="col-md-3 control-label">Time Range</label>
-                            <div class="col-md-4">
-                                <div id="slider-range" class="slider  bg-red">
+                            <div class="col-md-6">
+                                <div id="slider-range" class="slider">
                                 </div>
                                 <div>
-                                     Value: <span id="slider-range-amount">
+                                     Open/Close:
+                                     <br/>
+                                     <span id="spnClose" style="background-color: #FF6F6F">
+                                     
                                     </span>
+                                    <br/>
+                                    <span id="spnEmp" style="background-color: #FFFF62">
+                                     
+                                    </span>
+                                    <br/>
+                                    <span id="spnOpen" style="background-color: #A3EE57">
+                                     
+                                    </span>
+                                    
                                 </div>
                             </div>
                         </div>

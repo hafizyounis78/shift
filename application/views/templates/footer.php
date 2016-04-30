@@ -68,7 +68,7 @@
 <script src="<?php echo base_url();?>js/timeoff.js"></script>
 <script src="<?php echo base_url();?>js/fullschedule.js"></script>
 <script src="<?php echo base_url();?>js/shift.js"></script>
-<script src="<?php echo base_url();?>js/setting.js"></script>
+<!--<script src="<?php echo base_url();?>js/setting.js"></script>-->
 <!-- END OUR SCRIPTS -->
 
 <script>
@@ -91,6 +91,7 @@
 		
       });
    </script>
+<script src="<?php echo base_url();?>js/setting.js"></script>
 <!-- END JAVASCRIPTS -->
 </body>
 <!-- END BODY -->

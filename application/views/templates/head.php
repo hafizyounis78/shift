@@ -55,6 +55,23 @@ License: You must have a valid license purchased only from themeforest(the above
 <!-- END THEME STYLES -->
 <link rel="shortcut icon" href="favicon.ico"/>
 
+<!-- SLIDER STYLE-->
+<style>
+.ui-slider {
+background: #FF6F6F;
+}
+.ui-slider-range {
+    background: #FFFF62;
+}
+#YourDiv {
+    float: right;
+    height: 100%;
+    background: #A3EE57;
+    border-radius: 0 4px 4px 0;
+}
+</style>
+<!-- END SLIDER STYLE-->
+
 <script type="text/javascript">
 var baseURL = "<?php echo base_url(); ?>";
 </script>
