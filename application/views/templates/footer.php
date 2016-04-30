@@ -81,7 +81,7 @@
 		  /*******Forms Validation *******************/
 		 TimeOffFormValidation.init();
 		 ShiftFormValidation.init();
-		 FullSchedulFormValidation.init();
+		// FullSchedulFormValidation.init();
 		 //***********component intialization*******//
 		 Calendar.init();
 		 ComponentsPickers.init();

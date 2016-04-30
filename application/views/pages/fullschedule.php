@@ -101,7 +101,7 @@
                   </div>
                   <div id="dvDeptMsg" class="alert alert-danger display-none">
                      <button class="close" data-dismiss="alert"></button>
-                     You should select Location ,date ,start time and end time before selecting department. Please check below.
+                     You should select Location ,date ,start time and end time. Please check below.
                   </div>
                  <div class="alert alert-danger display-hide">
                       <button class="close" data-close="alert"></button>
@@ -141,7 +141,7 @@
                     <div class="form-group">
                         <label class="control-label col-md-3">Location</label>
                         <div class="col-md-4">
-                            <select id="drpLocation" name="drpLocation" class="form-control input-large select2me" data-placeholder="Select...">
+                            <select id="drpLocation" name="drpLocation" class="form-control input-large select2me" data-placeholder="Select..." required>
                                 <option value="">Select..</option>
                                 <?php 
 								foreach ($location as $location_row)
@@ -159,10 +159,10 @@
                         <label class="control-label col-md-3">Date</label>
                         <div class="col-md-6">
                             <div class="input-group input-medium date-picker input-daterange" data-date="10/11/2012" data-date-format="yyyy-mm-dd">
-                                <input type="text" id="drpFromdate" class="form-control" name="from">
+                                <input type="text" id="drpFromdate" class="form-control" name="drpFromdate" required>
                                 <span class="input-group-addon">
                                 to </span>
-                                <input type="text" id="drpTodate" class="form-control" name="to">
+                                <input type="text" id="drpTodate" class="form-control" name="drpTodate" required>
                             </div>
                             <!-- /input-group -->
                         </div>
@@ -172,7 +172,7 @@
                         <label class="control-label col-md-3">Time</label>
                         <div class="col-md-3">
                             <div class="input-group">
-                                <input id="txtStart" name="txtStart" type="text" class="form-control timepicker timepicker-24">
+                                <input id="txtStart" name="txtStart" type="text" class="form-control timepicker timepicker-24" required>
                                 <span class="input-group-btn">
                                 <button class="btn default" type="button"><i class="fa fa-clock-o"></i></button>
                                 </span>
@@ -180,7 +180,7 @@
                         </div>
                     <div class="col-md-3">
                         <div class="input-group">
-                            <input id="txtEnd" name="txtEnd" type="text" class="form-control timepicker timepicker-24">
+                            <input id="txtEnd" name="txtEnd" type="text" class="form-control timepicker timepicker-24" required>
                             <span class="input-group-btn">
                             <button class="btn default" type="button"><i class="fa fa-clock-o"></i></button>
                             </span>
@@ -215,13 +215,25 @@
                           </div>
                         </div>
                     </div>
-
+					<div class="form-group" id="divSelect">
+                        <label class="control-label col-md-3">Filter staff by<span class="required">
+                          * </span></label>
+                        <div class="col-md-6">
+                          <div class="radio-list">
+                              <label class="radio-inline">
+                              <input type="radio" name="rdSelection" id="rdSelection1" value="1" checked>Department</label>
+                              <label class="radio-inline">
+                              <input type="radio" name="rdSelection" id="rdSelection2" value="2">Job title</label>
+                              
+                          </div>
+                        </div>
+                    </div>
                     <div class="form-group" id="divDept">
                           <label class="control-label col-md-3">Department <span class="required">
                           * </span>
                           </label>
                           <div class="col-md-4">
-                              <select id="drplstDept" class="form-control" name="drplstDept" onchange="drpdeptChange();">
+                              <select id="drplstDept" class="form-control" name="drplstDept" onchange="drpdeptFullChange();">
                               <option value="">select...</option>
                                    <?php 
 								  foreach ($deptList as $dept_row)
@@ -244,7 +256,7 @@
                           * </span>
                           </label>
                           <div class="col-md-4">
-                              <select id="drplstJobtitle" class="form-control" name="drplstJobtitle" onchange="drpJobtitleChange();">
+                              <select id="drplstJobtitle" class="form-control" name="drplstJobtitle" onchange="drpJobtitleFullChange();">
                                   <option value="">select...</option>
 								   <?php 
 								  foreach ($jobtitleList as $jobtitle_row)
@@ -267,7 +279,7 @@
                           * </span>
                           </label>
                           <div class="col-md-4">
-                              <select id="drplstSpec" class="form-control" name="drplstSpec" onchange="drpSpecChange();">
+                              <select id="drplstSpec" class="form-control" name="drplstSpec" onchange="drpSpecFullChange();">
                                   <option value="">select...</option>
                                    <?php 
 								  foreach ($specList as $spec_row)
@@ -317,7 +329,7 @@
             </div>
             <div class="modal-footer">
                 <button   type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                <button  id="btnShiftSave" type="button" class="btn btn-primary">Save </button>
+                <button  id="btnShiftSave" type="button" class="btn btn-primary" onclick="addshift();">Save </button>
             </div>
         </div>
         <!-- /.modal-content -->
