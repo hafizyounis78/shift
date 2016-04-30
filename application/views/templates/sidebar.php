@@ -48,10 +48,16 @@
 						<span class="title">Shift Template</span>
 						</a>
 					</li>-->
-                    <li class="last " <?php if($title == 'timeoff') echo 'class="active open"';?>>
+                    <li  <?php if($title == 'timeoff') echo 'class="active open"';?>>
 						<a href="<?php echo base_url();?>timeoffcont/timeoff">
 						<i class="icon-speedometer"></i>
 						<span class="title">Timeoff Request</span>
+						</a>
+					</li>
+                    <li class="last " <?php if($title == 'setting') echo 'class="active open"';?>>
+						<a href="<?php echo base_url();?>settingcont/setting">
+						<i class="icon-settings"></i>
+						<span class="title">Setting</span>
 						</a>
 					</li>
 					<!--<li class="active open">

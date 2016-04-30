@@ -1,8 +1,27 @@
 <?php
 class Constantmodel extends CI_Model
 {
+	function get_ColorSetting()
+	{	
 	
+		$query = $this->db->get('dusseldorf_v3_colortime_setting');
+		return $query->result();
+		
+	}
+	function update_ColorSetting()
+	{	
+		extract($_POST);
+		$data['close_from'] = $txtclose_from;
+		$data['close_to'] = $txtclose_to;
+		$data['open_emp_from'] = $txtopen_emp_from;
+		$data['open_emp_to'] = $txtopen_emp_to;
+		$data['open_from'] = $txtopen_from;
+		$data['open_to'] = $txtopen_to;
 	
+		
+		$this->db->update('dusseldorf_v3_colortime_setting',$data);
+		
+	}	
 	//************* get Location*********//
 	function get_location_list()
 	{	

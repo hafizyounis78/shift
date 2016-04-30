@@ -1,8 +1,4 @@
-<?php
-$action ="addtimeoff";
 
-$readonly = '';
-?>
 <div class="row">
   <div class="col-md-12">
       <!-- BEGIN VALIDATION STATES-->
@@ -15,7 +11,7 @@ $readonly = '';
           </div>
           <div class="portlet-body form">
               <!-- BEGIN FORM-->
-              <form action="#" id="timeOffForm" class="form-horizontal">
+              <form action="#" id="SettingColorForm" class="form-horizontal">
                   <div class="form-body">
                       
                       <div class="alert alert-danger display-hide">
@@ -26,14 +22,14 @@ $readonly = '';
                           <button class="close" data-close="alert"></button>
                           Your form validation is successful!
                       </div>
-                      <input type="hidden" name="hdnaction" id="hdnaction" value="<?php echo $action; ?>" />
-                      <input type="hidden" name="hdnshiftId" id="hdnshiftId" value="<?php echo $action; ?>" />
+                      
+                      
                       <div class="form-group">
                             <label class="control-label col-md-3">Slider Time Start At<span class="required">
                           * </span></label>
                             <div class="col-md-4">
                                 <div class="input-group">
-                                    <input type="text" class="form-control timepicker timepicker-24" data-minute-step="30" id="txtStartSldr"  name="txtStartSldr" >
+                                    <input type="text" class="form-control timepicker timepicker-24" data-minute-step="30" id="txtStartSldr"  name="txtStartSldr"  >
                                     <span class="input-group-btn">
                                     <button class="btn default" type="button"><i class="fa fa-clock-o"></i></button>
                                     </span>
@@ -49,15 +45,15 @@ $readonly = '';
                                 <div>
                                      Open/Close:
                                      <br/>
-                                     <span id="spnClose" style="background-color: #FF6F6F">
+                                     <span id="spnClose" style="background-color: #FF6F6F" data-starttime="" data-endtime="">
                                      
                                     </span>
                                     <br/>
-                                    <span id="spnEmp" style="background-color: #FFFF62">
+                                    <span id="spnEmp" style="background-color: #FFFF62" data-starttime="" data-endtime="">
                                      
                                     </span>
                                     <br/>
-                                    <span id="spnOpen" style="background-color: #A3EE57">
+                                    <span id="spnOpen" style="background-color: #A3EE57" data-starttime="" data-endtime="">
                                      
                                     </span>
                                     
@@ -68,8 +64,8 @@ $readonly = '';
                   <div class="form-actions">
                       <div class="row">
                           <div class="col-md-offset-3 col-md-9">
-                              <button type="submit" class="btn green">Save</button>
-                              <button type="button" class="btn default" onclick="clearfimeoffForm()">Cancel</button>
+                              <button type="button" class="btn green" onclick="editColorSetting()">Save</button>
+                              <button type="button" class="btn default" >Cancel</button>
                           </div>
                       </div>
                   </div>
