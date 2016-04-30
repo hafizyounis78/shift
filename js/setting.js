@@ -1,8 +1,12 @@
 // JavaScript Document
-var starttime='';
-var endtime0='';
-var endtime1='';
-var endtime='';
+var closestarttime='';
+var closeendtime='';
+var empstarttime='';
+var empendtime='';
+var openstarttime='';
+var openendtime='';
+var loaded=false;
+
 
 var str = '';
 var val0='';
@@ -45,7 +49,14 @@ var ComponentsTimeSliders = function () {
 					$("#spnClose").text(" Close (" + hoursStart + ':' + minStart+ " - " + hours0 + ':' + minutes0+") ");
                     $("#spnEmp").text(" Open for Employee (" + hours0 + ':' + minutes0+ " - " + hours1 + ':' + minutes1+") ");
 					$("#spnOpen").text(" Open for Customers (" + hours1 + ':' + minutes1+ " - " + hoursEnd + ':' + minEnd+") ");
+					$("#spnClose").attr("data-starttime", hoursStart  + ':' + minStart);
+					$("#spnClose").attr("data-endtime", hours0 + ':' + minutes0);
 					
+					$("#spnEmp").attr("data-starttime",  hours0 + ':' + minutes0);
+					$("#spnEmp").attr("data-endtime", hours1 + ':' + minutes1);
+					
+					$("#spnOpen").attr("data-starttime",hours1 + ':' + minutes1);
+					$("#spnOpen").attr("data-endtime", hoursEnd + ':' + minEnd);		
 				/*	$("#spnClose").attr("data-starttime", hoursStart  + ':' + minStart);
 					$("#spnClose").attr("data-endtime", hours0 + ':' + minutes0);
 					
@@ -77,14 +88,14 @@ var ComponentsTimeSliders = function () {
 					val0 = returndb[0]['close_to'].split(':')[0] *60 ;
 					if (str > val0)
 					{
-						alert('hi1');
+						//alert('hi1');
 						val0= val0 + str + (1440-str);
 					}
 					//returndb[0]['open_emp_from'];
 					val1= returndb[0]['open_emp_to'].split(':')[0] *60 ;
 					if (str > val1)
 					{
-						alert('hi2');
+						//alert('hi2');
 						val1= val1 + str + (1440-str);
 					}
 					//returndb[0]['open_from'];
@@ -132,13 +143,16 @@ $(document).ready(function(){
 						
 	  		$("#slider-range").slider('option', 'min', ($('#txtStartSldr').val().split(":")[0] * 60))
                .slider('option', 'max', (($('#txtStartSldr').val().split(":")[0] * 60) + 1440));
-			
+			if(!loaded)
+			{
 			$("#slider-range").slider("values", 0, val0);
 			$("#slider-range").slider("values", 1, val1);
-			alert("str"+str);
+			loaded=true;
+			}
+			/*alert("str"+str);
 			alert("val0"+val0);
 			alert("val1"+val1);
-			alert("end"+end);
+			alert("end"+end);*/
 			
 			var leftWidth = Math.floor( ( ( (($('#txtStartSldr').val().split(":")[0] * 60) + 1440) - $("#slider-range").slider("values", 1)) / 1440)* 100);
 			
@@ -158,7 +172,8 @@ $(document).ready(function(){
 			$("#spnClose").text(" Close  (" + hoursStart + ':' + minStart+ " - " + hours0 + ':' + minutes0+") ");
             $("#spnEmp").text(" Open for Employee (" + hours0 + ':' + minutes0+ " - " + hours1 + ':' + minutes1+") ");
 			$("#spnOpen").text(" Open for Customers (" + hours1 + ':' + minutes1+ " - " + hoursEnd + ':' + minEnd+") ");
-			
+			/*alert("spnClose : "+hoursStart  + ':' + minStart)
+			alert("spnClose : "+hours0  + ':' + minutes0)*/
 			$("#spnClose").attr("data-starttime", hoursStart  + ':' + minStart);
 			$("#spnClose").attr("data-endtime", hours0 + ':' + minutes0);
 			
@@ -177,24 +192,30 @@ $(document).ready(function(){
 });
 function editColorSetting()
 {
-	starttime=$("#spnClose").attr("data-starttime");
-	endtime0=$("#spnClose").attr("data-endtime");
-	
+
+
+	closestarttime=$("#spnClose").attr("data-starttime");
+	closeendtime=$("#spnClose").attr("data-endtime");
+	empstarttime=$("#spnEmp").attr("data-starttime");
+	empendtime=$("#spnEmp").attr("data-endtime");
+	openstarttime=$("#spnOpen").attr("data-starttime");
+	openendtime=$("#spnOpen").attr("data-endtime");
+//	alert(endtime0);
 	//$("#spnEmp").attr("data-starttime");
 	endtime1=$("#spnEmp").attr("data-endtime");
 	
 	//$("#spnOpen").attr("data-starttime");
 	endtime=$("#spnOpen").attr("data-endtime");
 	
-	alert("starttime : "+starttime+" endtime0 : "+endtime0+"\n starttime1 : "+endtime0+" endtime1 : "+endtime1+"\n starttime2 : "+endtime1+" endtime: "+endtime);
+	//alert("closestarttime : "+closestarttime+" endtime0 : "+closeendtime+"\n empstarttime : "+empstarttime+" empendtime : "+empendtime+"\n openstarttime : "+openstarttime+" openendtime: "+openendtime);
 			
 var formData = new FormData();
-				formData.append('txtclose_from'        , starttime);
-				formData.append('txtclose_to'		 , endtime0);
-				formData.append('txtopen_emp_from'		,endtime0);
-				formData.append('txtopen_emp_to'		, endtime1);
-				formData.append('txtopen_from'		, endtime1);
-				formData.append('txtopen_to'	    ,  endtime);
+				formData.append('txtclose_from'        , closestarttime);
+				formData.append('txtclose_to'		 , closeendtime);
+				formData.append('txtopen_emp_from'		,empstarttime);
+				formData.append('txtopen_emp_to'		, empendtime);
+				formData.append('txtopen_from'		, openstarttime);
+				formData.append('txtopen_to'	    ,  openendtime);
 				
 	
 	$.ajax({

@@ -1,6 +1,7 @@
 <?php
 class Constantmodel extends CI_Model
 {
+	//**********time color setting
 	function get_ColorSetting()
 	{	
 	
@@ -41,7 +42,7 @@ class Constantmodel extends CI_Model
 	}
 function get_dept_list()
 	{	
-	
+		$query = $this->db->where("parent_id",315);
 		$query = $this->db->get('dusseldorf_departments');
 		return $query->result();
 		
