@@ -245,7 +245,7 @@ $readonly = '';
                             <div class="input-group">
                                 <div class="icheck-inline">
                                     <label>
-                                    <input type="checkbox" class="icheck"> Skip Notification Email</label>
+                                    <input type="checkbox" class="icheck" id="ckbNotification" name="ckbNotification"> Skip Notification Email</label>
                                     
                                 </div>
                             </div>

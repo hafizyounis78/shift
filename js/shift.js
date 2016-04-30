@@ -24,34 +24,17 @@ $(document).ready(function () {
         //$('#log').val($('#log').val()+ $(this).val() + '|');
     })
 });
-function selectionchange()
-{
-	
-	/*var slectionId=$(this).val();
-		alert(slectionId);*/
-/*	if (statusId==1)
-	{
 
-		$("#rdStatus1").parent().addClass('checked');
-		$("#rdStatus2").parent().removeClass('checked');
-	}
-	 else
-	 {
-
-		$("#rdStatus2").parent().addClass('checked');
-		$("#rdStatus1").parent().removeClass('checked');
-     }*/
-}
 function editshift(){
-	$
+
 			var action = $("#hdnaction").val();
-		//alert(action);
-	if (!validateStaffselect())
-	 return;
-		 
+		
+			if (!validateStaffselect())
+			 return;
+				 
 	
 			var formData = new FormData();
-	
+				formData.append('rdShifttype'        , 1);
 				formData.append('hdnshiftId'		 , $("#hdnshiftId").val());
 				formData.append('drpLocation'		, $("#drpLocation").val());
 				formData.append('drpFromdate'		, $("#drpFromdate").val());
@@ -61,6 +44,7 @@ function editshift(){
 				formData.append('rdStatus'          ,  $("input[name=rdStatus]:checked").val());
 				formData.append('drplstBreak'		, $("#drplstBreak").val());
 				formData.append('chbxIsspecial'		, $("#chbxIsspecial").val());
+				formData.append('ckbNotification'		, $("#ckbNotification").val());
 				formData.append('staffList'		    ,  staffList);
 	
 	$.ajax({

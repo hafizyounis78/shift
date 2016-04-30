@@ -24,6 +24,7 @@ class Shiftmodel extends CI_Model
 		$data['end_time'] = $txtEnd;
 		$data['status'] = $rdStatus;
 		$data['Special_shift'] = $chbxIsspecial;
+		$data['Notification_req'] = $ckbNotification;
 		
 		$data['lunch_break'] = $drplstBreak;
 		$data['user_id'] = $element;
@@ -55,7 +56,7 @@ function update_shift()
 	$data['end_time'] = $txtEnd;
 	$data['status'] = $rdStatus;
 	$data['Special_shift'] = $chbxIsspecial;
-	//$data['type'] = 2;
+	$data['Notification_req'] = $ckbNotification;
 	$this->db->where('id',$hdnshiftId);
 	$this->db->update('dusseldorf_v3_shifts',$data);
 }

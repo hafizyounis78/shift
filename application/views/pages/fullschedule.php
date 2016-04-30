@@ -95,6 +95,14 @@
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
                 <h4 class="modal-title">Add Shift</h4>
+                <div id="dvStaffMsg" class="alert alert-danger display-none">
+                     <button class="close" data-dismiss="alert"></button>
+                     You should select at least one staff.
+                  </div>
+                  <div id="dvDeptMsg" class="alert alert-danger display-none">
+                     <button class="close" data-dismiss="alert"></button>
+                     You should select Location ,date ,start time and end time before selecting department. Please check below.
+                  </div>
                  <div class="alert alert-danger display-hide">
                       <button class="close" data-close="alert"></button>
                       You have some form errors. Please check below.
@@ -118,6 +126,18 @@
                           </div>
                         </div>
                     </div>
+                    <div class="form-group">
+                          <label class="control-label col-md-3">Is special Shift
+                          </label>
+                          <div class="col-md-4">
+                              <div class="checkbox-list" data-error-container="#form_2_services_error">
+                                  <label>
+                                  <input type="checkbox" value="1" id="chbxIsspecial" name="chbxIsspecial"/></label>
+                              </div>
+                              <div id="form_2_services_error">
+                              </div>
+                          </div>
+                      </div>
                     <div class="form-group">
                         <label class="control-label col-md-3">Location</label>
                         <div class="col-md-4">
@@ -196,22 +216,72 @@
                         </div>
                     </div>
 
-                    <div class="form-group">
+                    <div class="form-group" id="divDept">
                           <label class="control-label col-md-3">Department <span class="required">
                           * </span>
                           </label>
                           <div class="col-md-4">
-                              <select id="drplstDept" class="form-control" name="drplstDept">
-                                  <option value="">Select...</option>
-                                  <option value="1">Dept 1</option>
-                                  <option value="2">Dept 2</option>
-                                  <option value="3">Dept 5</option>
-                                  <option value="4">Dept 4</option>
-                                  <option value="5">Dept 2</option>
-                                  <option value="6">Dept 5</option>
-                                  <option value="7">Dept 4</option>
-                                  <option value="8">Dept 5</option>
-                                  <option value="9">Dept 4</option>
+                              <select id="drplstDept" class="form-control" name="drplstDept" onchange="drpdeptChange();">
+                              <option value="">select...</option>
+                                   <?php 
+								  foreach ($deptList as $dept_row)
+								  {
+									  $selected = '';
+									  /*
+									  if ($patient_row->status_id == $location_row->sub_constant_id)
+									  	$selected = 'selected="selected"';
+									  */
+									  echo ' <option value="'.$dept_row->dep_id.'" '.$selected.'>'
+									  						 .$dept_row->dep_name.'</option>';
+								  }
+								  ?>
+
+                              </select>
+                          </div>
+                      </div>
+                      <div class="form-group" id="divJobtitle"  style="display:none">
+                          <label class="control-label col-md-3">Job title <span class="required">
+                          * </span>
+                          </label>
+                          <div class="col-md-4">
+                              <select id="drplstJobtitle" class="form-control" name="drplstJobtitle" onchange="drpJobtitleChange();">
+                                  <option value="">select...</option>
+								   <?php 
+								  foreach ($jobtitleList as $jobtitle_row)
+								  {
+									  $selected = '';
+									  /*
+									  if ($patient_row->status_id == $location_row->sub_constant_id)
+									  	$selected = 'selected="selected"';
+									  */
+									  echo ' <option value="'.$jobtitle_row->id.'" '.$selected.'>'
+									  						 .$jobtitle_row->name.'</option>';
+								  }
+								  ?>
+
+                              </select>
+                          </div>
+                      </div>
+                      <div class="form-group" id="divSpec" style="display:none">
+                          <label class="control-label col-md-3">Specialization <span class="required">
+                          * </span>
+                          </label>
+                          <div class="col-md-4">
+                              <select id="drplstSpec" class="form-control" name="drplstSpec" onchange="drpSpecChange();">
+                                  <option value="">select...</option>
+                                   <?php 
+								  foreach ($specList as $spec_row)
+								  {
+									  $selected = '';
+									  /*
+									  if ($patient_row->status_id == $location_row->sub_constant_id)
+									  	$selected = 'selected="selected"';
+									  */
+									  echo ' <option value="'.$spec_row->id.'" '.$selected.'>'
+									  						 .$spec_row->name.'</option>';
+								  }
+								  ?>
+
                               </select>
                           </div>
                       </div>
@@ -229,6 +299,18 @@
 								  
 								?>
                             </select>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-md-3 control-label"></label>
+                        <div class="col-md-6">
+                            <div class="input-group">
+                                <div class="icheck-inline">
+                                    <label>
+                                    <input type="checkbox" class="icheck" id="ckbNotification" name="ckbNotification"> Skip Notification Email</label>
+                                    
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </form>

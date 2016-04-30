@@ -48,7 +48,10 @@ class Fullschedulecont extends CI_Controller
 	{
 		$this->load->model('constantmodel');
 		$this->data['location']= $this->constantmodel->get_location_list();
-		$this->data['staffList']= $this->constantmodel->get_staff_list();
+		//$this->data['staffList']= $this->constantmodel->get_staff_list();
+		$this->data['deptList']= $this->constantmodel->get_dept_list();
+		$this->data['specList']= $this->constantmodel->get_spec_list();
+		$this->data['jobtitleList']= $this->constantmodel->get_jobtitle_list();
 	//	$this->getall_Shift_calender();
 	}
 	function getfullschedule()

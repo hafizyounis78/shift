@@ -284,7 +284,7 @@ function drpSpecChange()
 		
 		if (!validateShift())
 		 return;
-		 if ($("#drplstSpec").val()!='' ||$("#drplstJobtitle").val()!='' )
+		 if ($("#drplstSpec").val()!='' && $("#drplstJobtitle").val()!='' )
 		 {
 		var formData = new FormData();
 	
