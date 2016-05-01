@@ -67,11 +67,11 @@ function addShiftTemplate()
 	
 }
 //********************shift save**************//
-function addshift(){
+function addModalshift(){
 	
 		
 		
-			var action = "addShift";
+			alert("addModalshift");
 			if (!validateShifts())
 			 return;
 			 if (!validatStaff())
@@ -159,7 +159,6 @@ function clearFullShiftForm()
 	
 	
 	$("#hdnshiftId").val("");
-	$("#hdnaction").val('addshift');
 	$("#drpLocation").val("");
 	$("#drplstBreak").val("");
 	
@@ -169,9 +168,7 @@ function clearFullShiftForm()
 	$("#txtEnd").val("");
 	
 
-	//	$("#rdStatus1").parent().addClass('checked');
-	//	$("#rdStatus2").parent().removeClass('checked');
-            //alert("shift");
+	
 	$("#txtstaffName").val("");
 	//document.getElementById("divUser").style.display = "block";
 	document.getElementById("divDept").style.display = "block";	
@@ -338,26 +335,23 @@ function validatStaff()
 }
 function validateShifts()
 {
-	//alert("1");
-	var error = $('#dvDeptMsg');
-	var valid = true;
-	var start_time = $("#txtStart").val();
-	var end_time = $("#txtEnd").val();
-	//convert both time into timestamp
-	var stt = new Date("November 13, 2015 " + start_time);
-	stt = stt.getTime();
-	var endt = new Date("November 13, 2015 " + end_time);
-	endt = endt.getTime();
-	if( endt<=stt) 
-	  valid = false;
+		var error = $('#dvDeptMsg');
 	
-	if ($('#drpLocation').val()==''||$('#drpTodate').val()=='' ||$('#drpFromdate').val()==''||$('#drpTodate').val()==''||$("#txtEnd").val()==''||$("#txtStart").val()=='')	
+	var valid = true;
+	
+	
+	
+	if ( !$("#drpFromdate").valid() )
 		valid = false;
-	if( endt<stt) 
-	 	valid = false;
-		 
-	if(Date.parse($('#drpTodate').val())<Date.parse($('#drpFromdate').val()))
-	 valid = false;
+		if ( !$("#drpTodate").valid() )
+		valid = false;
+	if ( !$("#txtStart").valid() )
+		valid = false;
+	if ( !$("#txtEnd").valid() )
+		valid = false;
+
+	if ( !$("#drpLocation").valid() )
+		valid = false;
 	
 	if(!valid)
 	{
@@ -369,5 +363,148 @@ function validateShifts()
 	{
 		error.hide();
 	}
+		
 	return valid;
 }
+var ShiftModalFormValidation = function () {
+ var handleValidation = function() {
+        
+            var form = $('#shiftModalform');
+            var errormsg = $('.alert-danger', form);
+            var successmsg = $('.alert-success', form);
+			jQuery.validator.addMethod("multiSelectRequired", function(value, element) {
+    			  var count = $(element).find('option:selected').length;
+                return count > 0;
+			}, "* must select at least one staff");
+			jQuery.validator.addMethod("greaterThanStartdate", function(value, element) {
+    			return Date.parse($('#drpTodate').val())>=Date.parse($('#drpFromdate').val()) ;
+			}, "* End date must be greater than Start date");
+			jQuery.validator.addMethod("greaterThanStarttime", function(value, element) {
+				var start_time = $("#txtStart").val();
+				var end_time = $("#txtEnd").val();
+				//convert both time into timestamp
+				var stt = new Date("November 13, 2015 " + start_time);
+				stt = stt.getTime();
+				var endt = new Date("November 13, 2015 " + end_time);
+				endt = endt.getTime();
+					
+				return endt>stt ;
+			}, "* End time must be greater than Start time");
+            form.validate({
+                errorElement: 'span', //default input error message container
+                errorClass: 'help-block help-block-error', // default input error message class
+                focusInvalid: false, // do not focus the last invalid input
+                ignore: "", // validate all fields including form hidden input
+                rules: {
+					
+					drpLocation: {
+                        required: true
+                    },
+	                drpFromdate: {
+                        required: true,
+						date:{
+								max: 'drpTodate',
+							  }
+                    },
+	                drpTodate: {
+                        required:true,
+						greaterThanStartdate:true
+                    
+					},
+
+					txtStart: {
+                        required: true
+                    },
+	                txtEnd: {
+                        required: true,
+						greaterThanStarttime:true
+                    },
+					drplstBreak: {
+                        required:true
+                    }
+					},
+
+               messages: { // custom messages for radio buttons and checkboxes
+                drpLocation: {
+                        required: "Please enter the location"
+                    },
+                    drpFromdate: {
+                        required: "Please enter valid start date"
+                    },
+	                drpTodate: {
+						required: "Please enter valid end date",
+						greaterThanStartdate:"Please enter valid end date"
+                    },
+                    txtStart: {
+                        required: "Please enter valid start time",
+						
+						
+                    }
+					,
+                    txtEnd: {
+                        required: "Please enter valid end time",
+						greaterThanStarttime:"Please enter valid end time"
+						
+                    },
+					drplstBreak: {
+                        required: "Please select break time of shift"
+                    }
+				},
+                errorPlacement: function (error, element) { // render error placement for each input type
+                    if (element.attr("data-error-container")) { 
+                        error.appendTo(element.attr("data-error-container"));
+                    } else if (element.parent(".input-group").size() > 0) {
+                        error.insertAfter(element.parent(".input-group"));
+                    } else if (element.parents('.radio-list').size() > 0) { 
+                        error.appendTo(element.parents('.radio-list').attr("data-error-container"));
+                    } else if (element.parents('.radio-inline').size() > 0) { 
+                        error.appendTo(element.parents('.radio-inline').attr("data-error-container"));
+                    } else if (element.parents('.checkbox-list').size() > 0) {
+                        error.appendTo(element.parents('.checkbox-list').attr("data-error-container"));
+                    } else if (element.parents('.checkbox-inline').size() > 0) { 
+                        error.appendTo(element.parents('.checkbox-inline').attr("data-error-container"));
+                    } else {
+                        error.insertAfter(element); // for other inputs, just perform default behavior
+                    }
+                },
+
+                invalidHandler: function (event, validator) { //display error alert on form submit   
+                    successmsg.hide();
+                    errormsg.show();
+					$('#spnMsg').text('Please check the entered fields ,there is some errors');
+                    Metronic.scrollTo(errormsg, -200);
+                },
+
+                highlight: function (element) { // hightlight error inputs
+                   $(element)
+                        .closest('.form-group').addClass('has-error'); // set error class to the control group
+                },
+
+                unhighlight: function (element) { // revert the change done by hightlight
+                    $(element)
+                        .closest('.form-group').removeClass('has-error'); // set error class to the control group
+                },
+
+                success: function (label) {
+                    label
+                        .closest('.form-group').removeClass('has-error'); // set success class to the control group
+                },
+
+                submitHandler: function (form) {
+                    errormsg.hide();
+					addModalshift();
+                    //form[0].submit(); // submit the form
+                }
+
+            });
+    }
+return {
+        //main function to initiate the module
+        init: function () {
+            handleValidation();
+
+        }
+
+    };
+
+}();

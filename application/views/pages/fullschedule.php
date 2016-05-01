@@ -4,7 +4,18 @@
     max-height: calc(100vh - 210px);
     overflow-y: auto;
 }
-
+/*.modal-header {
+    padding:9px 15px;
+    border-bottom:1px solid #eee;
+    background-color: #F90;
+    -webkit-border-top-left-radius: 5px;
+    -webkit-border-top-right-radius: 5px;
+    -moz-border-radius-topleft: 5px;
+    -moz-border-radius-topright: 5px;
+     border-top-left-radius: 5px;
+     border-top-right-radius: 5px;
+ }
+*/
 </style>
 
 
@@ -91,8 +102,9 @@
           <div id="form_modal2" class="modal fade">
           			
     <div class="modal-dialog">
+     <form action="#" class="form-horizontal" id="shiftModalform" method="post" >
         <div class="modal-content">
-            <div class="modal-header">
+            <div class="modal-header bg-primary">
                 <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
                 <h4 class="modal-title">Add Shift</h4>
                 <div id="dvStaffMsg" class="alert alert-danger display-none">
@@ -112,8 +124,8 @@
                       Your form validation is successful!
                   </div>
             </div>
-            <div class="modal-body">
-               <form action="#" class="form-horizontal">
+            <div class="modal-body bgColorWhite">
+              
                <div class="form-group">
                         <label class="control-label col-md-3">Shift type</label>
                         <div class="col-md-4">
@@ -325,14 +337,15 @@
                             </div>
                         </div>
                     </div>
-                </form>
+               
             </div>
-            <div class="modal-footer">
+            <div class="modal-footer bg-info">
                 <button   type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                <button  id="btnShiftSave" type="button" class="btn btn-primary" onclick="addshift();">Save </button>
+                <button  type="submit" class="btn btn-primary" >Save </button>
             </div>
         </div>
         <!-- /.modal-content -->
+         </form>
     </div>
     <!-- /.modal-dialog -->
 </div>

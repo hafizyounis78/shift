@@ -79,11 +79,14 @@
 		ShiftComponentsDropdowns.init();
 		 TimeoffComponentsDropdowns.init();
 		  /*******Forms Validation *******************/
+		  
 		 TimeOffFormValidation.init();
 		 ShiftFormValidation.init();
+		 ShiftModalFormValidation.init();
 		// FullSchedulFormValidation.init();
 		 //***********component intialization*******//
 		 Calendar.init();
+		 
 		 ComponentsPickers.init();
 		 
          
