@@ -11,14 +11,7 @@ class Fullschedulecont extends CI_Controller
 		}
 			
 			
-		/*if ($page == 'login')
-		{
-			$data['title'] = $page;
-			$this->load->view('templates/header',$data);
-			$this->load->view('pages/'.$page,$data);
-		}
-		else if($this->session->userdata('logged_in'))
-		{*/
+
 			//$this->indata =$uid;
 			//print_r($this->indata);
 			//print_r($this->uri->segment(3));
@@ -99,25 +92,59 @@ function addShift()
 		$this->Shiftmodel->insert_shift();
 		//$this->drawTimeoffTable();
 	}
+function getmy_Shift_calender()
+{
+	
+	
+	
+	$this->load->model('fullschedulemodel');
+	$rec = $this->fullschedulemodel->get_my_shift();
+	
+	
+	$rec = $rec->result();
+	
+	$output = array();
+	foreach($rec as $row)
+	{
+		unset($temp); // Release the contained value of the variable from the last loop
+		$temp = array();
+
+		// It guess your client side will need the id to extract, and distinguish the ScoreCH data
+//		$temp['url'] = 'addbooking/'.$row->booking_code;
+		//$temp['url'] = ' ';
+		$temp['title'] = $row->name."\n";
+//			"\n".$row->org_desc.
+		$temp['start_date'] = $row->start_date;
+		$temp['start_time'] = $row->start_time;
+		$temp['end_date'] = $row->end_date;
+		$temp['end_time'] = $row->end_time;
+		$temp['location_name'] = $row->name;
+		$temp['event_details'] = $row->emp_name;
+		$temp['color'] = $row->color;
+		//$temp['textColor'] = '#666666';
+		/*if($row->w_code == 1) $temp['backgroundColor'] = 'red';
+		if($row->w_code == 2) $temp['backgroundColor'] = 'blue';
+		if($row->w_code == 3) $temp['backgroundColor'] = 'green';*/
+		/*else
+		$temp['backgroundColor'] = 'yellow';
+*/
+		array_push($output,$temp);
+	}
+	
+	header('Access-Control-Allow-Origin: *');
+	header("Content-Type: application/json");
+	echo json_encode($output);
+	
+}
 function getall_Shift_calender()
 {
 	
 	
 	
 	$this->load->model('fullschedulemodel');
-	
-	if ($this->uri->segment(3))
-	{
-		die($this->uri->segment(3));
-	  $rec = $this->fullschedulemodel->get_my_shift($this->uri->segment(3));
-		
-	}
-	else
-		{
-		//	die($this->uri->segment(2));
-			$rec = $this->fullschedulemodel->get_all_shift();
+	$rec = $this->fullschedulemodel->get_all_shift();
 			
-		}
+	
 	
 	
 	$rec = $rec->result();

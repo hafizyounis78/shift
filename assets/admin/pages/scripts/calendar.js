@@ -108,7 +108,7 @@ var Calendar = function() {
 
             //predefined events
             $('#event_box').html("");
-            
+
 			$.ajax({
 					  url: baseURL+"Fullschedulecont/getfullschedule",
 					  type: "POST",
@@ -309,10 +309,26 @@ var Calendar = function() {
                 events: function(start, end, timezone, callback){
 						//var hall = document.getElementById('w_code').value;
 //						var baseurl = "<?php echo base_url(); ?>";
+					//************ read segment value *********//
+					var segment_4 ='';
+					var action="getall_Shift_calender";;
+					var newURL = window.location.protocol + "://" + window.location.host + "/" + window.location.pathname;
+
+
+					var pathArray = window.location.pathname.split( '/' );
+					// alert(pathArray[4]);
+					if (pathArray[4]!=null)
+					  {
+					  	segment_4 =pathArray[4] ;
+						action="getmy_Shift_calender";
+					  }
+					   
+					//alert(segment_4)
+		            
 						$.ajax({
-    						url: baseURL+"Fullschedulecont/getall_Shift_calender",
+    						url: baseURL+"Fullschedulecont/"+action,
     						type: "POST",
-							data:{ },
+							data:{segment_4:segment_4 },
 //							data: {hall:hall},
     						success:function(retrieved_data){
          					// Your code here.. use something like this
@@ -351,7 +367,7 @@ var Calendar = function() {
     					} //END SUCCESS
 						
 					});//END AJAX
-						
+					
 					
 					
 				},//END FUN EVENT
