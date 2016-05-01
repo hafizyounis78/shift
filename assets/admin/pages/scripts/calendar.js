@@ -164,9 +164,18 @@ var Calendar = function() {
  				 $("#drpTodate").val('');
 				 var endstr = end.format().toString();
 				 var dateParts = endstr.split("-");
+				//alert(dateParts[2]);
+				if (dateParts[2].length>2)
+				{	dateParts[2]=dateParts[2].substring(0, 2)
 				
-				 var dateOfEnd = new Date(dateParts[0], (dateParts[1] - 1), dateParts[2]);
-				 var endDay = dateOfEnd.getDate() - 1;
+				 	var dateOfEnd = new Date(dateParts[0], (dateParts[1] - 1), dateParts[2]);
+				 	var endDay = dateOfEnd.getDate();
+				}
+				 else
+				 {
+					 var dateOfEnd = new Date(dateParts[0], (dateParts[1] - 1), dateParts[2]);
+					 var endDay = dateOfEnd.getDate() - 1;
+				 }
 				 if(endDay >=1 && endDay<=9)
 				 	endDay = "0"+endDay;
 					
