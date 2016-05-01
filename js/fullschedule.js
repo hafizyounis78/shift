@@ -447,7 +447,7 @@ var ShiftModalFormValidation = function () {
 						
                     },
 					drplstBreak: {
-                        required: "Please select break time of shift"
+                        required: "Please select break time"
                     }
 				},
                 errorPlacement: function (error, element) { // render error placement for each input type

@@ -1,3 +1,9 @@
+
+var str = '';
+var val0='';
+var val1='';
+var end='';
+
 var Calendar = function() {
 
 
@@ -239,36 +245,46 @@ var Calendar = function() {
 					
 					if(view.name === 'agendaWeek' || view.name === 'agendaDay')
 					{
-						var i=1;
+						$.ajax({
+							url: baseURL+"Settingcont/get_colorsetting" ,
+							type: "POST",
+							error: function(xhr, status, error) {
+							//var err = eval("(" + xhr.responseText + ")");
+							alert(xhr.responseText);
+							},
+							beforeSend: function(){},
+							complete: function(){},
+							success: function(returndb){
+								str=parseInt(returndb[0]['close_from'].split(':')[0]);
+								val0 =parseInt( returndb[0]['close_to'].split(':')[0]) ;
+								val1= parseInt(returndb[0]['open_emp_to'].split(':')[0]);
+								end=parseInt(returndb[0]['open_to'].split(':')[0]); 
+							}
+						});//END $.ajax
+			
+						var masterrec='';
+						setTimeout(function(){ 
 						$('.fc-slats > table > tbody  > tr').each(function() {
 							
-							//alert($(this).children().text());
-							//if($(this).children().text().substring(2) == '11pm')
-							
-							/*if($(this).children().text() == '11pm' || 
-							   $(this).children().text() == '12am' ||
-							   $(this).children().text() == '1am' ||
-							   $(this).children().text() == '2am' ||
-							   $(this).children().text() == '3am')
-								$(this).css('background-color', '#ffffcc');*/
-							if(i <= 16)
-								$(this).css('background-color', '#e6ffcc');
-							else if(i > 16 && i <= 32)
-								$(this).css('background-color', '#ffffcc');
-							else if(i > 32)
-								$(this).css('background-color', '#ffe6e6');
-								
-							i++;
-															 
+						
+								if(convertTime($(this).children().text())!=0)
+									masterrec=convertTime($(this).children().text());
+								else	
+								 {
+								 }
+
+								if(masterrec>= str || masterrec<= val0)
+									$(this).css('background-color', '#e6ffcc');
+								else if(masterrec > val0 && masterrec<= val1)
+									$(this).css('background-color', '#ffffcc');
+								else if(masterrec >val1 && masterrec <= end)
+									$(this).css('background-color', '#ffe6e6');
+																					 
 						});
+					 }, 200);
 					}
 					
-					/*$('tr').closest('span').each( function(){
-						 var timeSlot = $(this).text();
-						 alert(timeSlot);
-						 if(timeSlot> 13 && timeSlot < 18)    //Change 13 and 18 according to what you need
-							$(this).closest('tr').css('background-color', '#000');
-					  });*/
+					
 				},
 				/*eventClick: function(event, jsEvent, view) {
 					$this = $(this);
@@ -337,3 +353,33 @@ var Calendar = function() {
     };
 
 }();
+function convertTime(timeParam)
+{
+	var time = timeParam;
+	var hours='';
+	var AMPM='';
+	if (time.length==4)
+	{	 AMPM = time.substring(2, 4);
+	//alert("time.length= " + time.length);
+		hours =time.substring(0, 2);
+	}
+	else if (time.length==3)
+	{	AMPM = time.substring(1, 3);
+	//alert("time.length= " + time.length);
+		hours =time.substring(0, 1);
+	}
+//alert("hours  "+hours);
+//var minutes = Number(time.match(/:(\d+)/)[1]);
+//;2var AMPM = time.match(/\s(.*)$/)[1];
+
+
+//alert(AMPM);
+if(AMPM == "pm" && hours<12) hours =  parseInt(hours)+12;
+if(AMPM == "am" && hours==12) hours = parseInt(hours)-12;
+var sHours = hours.toString();
+//var sMinutes = minutes.toString();
+if(hours<10) sHours = "0" + sHours;
+//if(minutes<10) sMinutes = "0" + sMinutes;
+//alert(sHours);
+return parseInt(sHours);
+}
