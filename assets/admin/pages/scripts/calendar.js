@@ -282,15 +282,16 @@ var Calendar = function() {
 								 {
 								 }
 
-								if(masterrec>= str || masterrec<= val0)
-									$(this).css('background-color', '#e6ffcc');
-								else if(masterrec > val0 && masterrec<= val1)
+								if(masterrec>= str || masterrec< val0)
+									$(this).css('background-color', '#ffe6e6');									
+								else if(masterrec >= val0 && masterrec< val1)
 									$(this).css('background-color', '#ffffcc');
-								else if(masterrec >val1 && masterrec <= end)
-									$(this).css('background-color', '#ffe6e6');
+								else if(masterrec >=val1 && masterrec <= end)
+								$(this).css('background-color', '#e6ffcc');
+
 																					 
 						});
-					 }, 300);
+					 }, 400);
 					}
 					
 					
