@@ -290,7 +290,7 @@ var Calendar = function() {
 									$(this).css('background-color', '#ffe6e6');
 																					 
 						});
-					 }, 200);
+					 }, 300);
 					}
 					
 					
