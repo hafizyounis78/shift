@@ -71,7 +71,7 @@ function addModalshift(){
 	
 		
 		
-			alert("addModalshift");
+			//alert("addModalshift");
 			if (!validateShifts())
 			 return;
 			 if (!validatStaff())

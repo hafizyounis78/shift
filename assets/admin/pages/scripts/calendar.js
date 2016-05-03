@@ -147,7 +147,7 @@ var Calendar = function() {
 			
 			
 			
-            $('#calendar').fullCalendar('destroy'); // destroy the calendar
+           $('#calendar').fullCalendar('destroy'); // destroy the calendar
             $('#calendar').fullCalendar({ //re-initialize the calendar
                 header: h,
                 defaultView: 'month', // change default view with available options from http://arshaw.com/fullcalendar/docs/views/Available_Views/ 
@@ -308,16 +308,18 @@ var Calendar = function() {
 					return false;            
 				}, */
                 events: function(start, end, timezone, callback){
-						//var hall = document.getElementById('w_code').value;
-//						var baseurl = "<?php echo base_url(); ?>";
+						
 					//************ read segment value *********//
 					var segment_4 ='';
+					var dept_id=0;
 					var action="getall_Shift_calender";;
 					var newURL = window.location.protocol + "://" + window.location.host + "/" + window.location.pathname;
-
+					
 
 					var pathArray = window.location.pathname.split( '/' );
 					// alert(pathArray[4]);
+					dept_id=$("#drplstfilterByDept").val();
+					
 					if (pathArray[4]!=null)
 					  {
 					  	segment_4 =pathArray[4] ;
@@ -329,7 +331,7 @@ var Calendar = function() {
 						$.ajax({
     						url: baseURL+"Fullschedulecont/"+action,
     						type: "POST",
-							data:{segment_4:segment_4 },
+							data:{segment_4:segment_4,dept_id:dept_id },
 //							data: {hall:hall},
     						success:function(retrieved_data){
          					// Your code here.. use something like this
@@ -409,3 +411,14 @@ if(hours<10) sHours = "0" + sHours;
 //alert(sHours);
 return parseInt(sHours);
 }
+//----
+$(document).ready(function(){
+	
+	$('#drplstfilterByDept').change(function(event) {							
+		event.preventDefault();
+		
+		Calendar.initCalendar();
+	
+	}); // END ON CHANGE
+
+})// END DOCUMENT

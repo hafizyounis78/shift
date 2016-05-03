@@ -76,17 +76,49 @@
                                   Add Shift Template </a>
                                   
                               </form>
+                              
                           <hr/>
                           <div id="event_box">
                           </div>
+                          
                           <!--<label for="drop-remove">
                           <input type="checkbox" id="drop-remove"/>remove after drop </label>
                           <hr class="visible-xs"/>
 -->                      </div>   
-											</div>
-										</div>
-									</div>
-                       </div>
+                    </div>
+                </div>
+			</div>
+         </div>
+         <div class="col-md-14">
+									<!-- BEGIN DRAGGABLE EVENTS PORTLET-->
+            <label id="errLable" style="color:#F00;display:none"> الرجاء اختر الصالة</label>
+            <h3 class="event-form-title">Department</h3>
+            <div id="external-events">
+                <form class="inline-form">
+                    <select  class="form-control select2me" id="drplstfilterByDept" name="drplstfilterByDept" >
+                              <option value="">All departments...</option>
+                                   <?php 
+								  foreach ($deptList as $dept_row)
+								  {
+									  $selected = '';
+									  /*
+									  if ($patient_row->status_id == $location_row->sub_constant_id)
+									  	$selected = 'selected="selected"';
+									  */
+									  echo ' <option value="'.$dept_row->dep_id.'" '.$selected.'>'
+									  						 .$dept_row->dep_name.'</option>';
+								  }
+								  ?>
+
+                              </select>
+                </form>
+                <hr/>
+                <div id="event_box">
+                </div>
+                <hr class="visible-xs"/>
+            </div>
+            <!-- END DRAGGABLE EVENTS PORTLET-->
+        </div>
 <!--                      <h3 class="event-form-title">Shift Template</h3>-->
   						
                       <!-- END DRAGGABLE EVENTS PORTLET-->

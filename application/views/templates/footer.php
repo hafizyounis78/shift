@@ -85,12 +85,19 @@
 		 ShiftModalFormValidation.init();
 		// FullSchedulFormValidation.init();
 		 //***********component intialization*******//
+
 		 Calendar.init();
 		 
 		 ComponentsPickers.init();
-		 
-         
-	     ComponentsTimeSliders.init();
+		
+			var newURL = window.location.protocol + "://" + window.location.host + "/" + window.location.pathname;
+			var pathArray = window.location.pathname.split( '/' );
+			// alert(pathArray[3]);
+		
+			if (pathArray[3]=="setting")
+				ComponentsTimeSliders.init();
+			else if(pathArray[3]=="fullschedule")
+			   Calendar.init();
 		
       });
    </script>
