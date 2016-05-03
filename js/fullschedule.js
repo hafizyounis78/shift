@@ -1,7 +1,9 @@
 // JavaScript Document
 $(document).ready(function () {
 	var slectionId='';
-    $("input[name=rdSelection]:radio").change(function () {
+	var shiftypeId='';
+  //*****************select filer by dept or jobtitel********//  
+	$("input[name=rdSelection]:radio").change(function () {
         if ($("#rdSelection1").attr("checked")) {
 			slectionId=$("#rdSelection1").val();
 			document.getElementById("divDept").style.display = "block";	
@@ -24,6 +26,9 @@ $(document).ready(function () {
 		
         //$('#log').val($('#log').val()+ $(this).val() + '|');
     })
+//*****************select shift or time of*************//
+
+   
 });
 function addShiftTemplate()
 {
@@ -130,13 +135,14 @@ $(document).ready(function() {
         if (this.value == '1') {
             //alert("shift");
 			document.getElementById("divBreak").style.display = "block";	
-			
+			clearFullStaffSelect();
 			/*var input = document.getElementById('rdStatus1');
 			alert(input);
 			input.innerHTML  = 'New Text';*/
         }
         else if (this.value == '2') {
 			document.getElementById("divBreak").style.display = "none";
+			clearFullStaffSelect();
           //  alert("time off");
         }
     });
@@ -145,6 +151,7 @@ $(document).ready(function() {
 
 function clearFullStaffSelect()
 {
+	
 		$("#my_multi_select1").html('');
 		$("#my_multi_select1").multiSelect('refresh');
 		var ddldept=document.getElementById('drplstDept');
