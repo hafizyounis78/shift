@@ -97,14 +97,14 @@ var Calendar = function() {
                 addEvent(title);
             });
 			
-			var i =0;
-					$('.fc-slats > table > tbody  > tr').each(function() {
+		//	var i =0;
+					/*$('.fc-slats > table > tbody  > tr').each(function() {
 							
 							alert(i++);
 							//alert($('.fc-slats > table > tbody  > tr').closest('td').html());
 															 
 					});
-					
+					*/
 
             //predefined events
             $('#event_box').html("");

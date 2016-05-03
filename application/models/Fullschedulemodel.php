@@ -32,7 +32,7 @@ class Fullschedulemodel extends CI_Model
 				if($dept_id!='')
 		{
 			 
-		 $myquery = " SELECT  sft.start_date, sft.start_time, sft.end_time, sft.end_date, sft.location_id, loc.name, loc.color, loc.id,CONCAT( b.first_name, ' ', b.last_name ) as emp_name
+		 $myquery = " SELECT  sft.start_date, sft.start_time, sft.end_time, sft.end_date, sft.location_id,sft.type, loc.name, loc.color, loc.id,CONCAT( b.first_name, ' ', b.last_name ) as emp_name
 					  FROM    dusseldorf_v3_shifts sft, dusseldorf_v3_locations loc,dusseldorf_users b
 					  where   sft.location_id = loc.id
 					  AND     start_date >2016 -04 -01 
@@ -42,7 +42,7 @@ class Fullschedulemodel extends CI_Model
 		}
 		else
 		{
-			$myquery = " SELECT  sft.start_date, sft.start_time, sft.end_time, sft.end_date, sft.location_id, loc.name, loc.color, loc.id,CONCAT( b.first_name, ' ', b.last_name ) as emp_name
+			$myquery = " SELECT  sft.start_date, sft.start_time, sft.end_time, sft.end_date, sft.location_id, sft.type,loc.name, loc.color, loc.id,CONCAT( b.first_name, ' ', b.last_name ) as emp_name
 					  FROM    dusseldorf_v3_shifts sft, dusseldorf_v3_locations loc,dusseldorf_users b
 					  where   sft.location_id = loc.id
 					  AND     start_date >2016 -04 -01 
@@ -61,7 +61,7 @@ class Fullschedulemodel extends CI_Model
 		extract($_POST);
 		if($dept_id!='')
 		{
-		$myquery = " SELECT sft.start_date, sft.start_time, sft.end_time, sft.end_date, sft.location_id, loc.name, loc.color, loc.id, (
+		$myquery = " SELECT sft.start_date, sft.start_time, sft.end_time, sft.end_date, sft.location_id,sft.type ,loc.name, loc.color, loc.id, (
 
 						SELECT GROUP_CONCAT( CONCAT( b.first_name, ' ', b.last_name )
 						SEPARATOR ', ' )
@@ -83,7 +83,7 @@ class Fullschedulemodel extends CI_Model
 		}
 		else
 		{
-		 $myquery = " SELECT sft.start_date, sft.start_time, sft.end_time, sft.end_date, sft.location_id, loc.name, loc.color, loc.id, (
+		 $myquery = " SELECT sft.start_date, sft.start_time, sft.end_time, sft.end_date, sft.location_id,sft.type, loc.name, loc.color, loc.id, (
 
 						SELECT GROUP_CONCAT( CONCAT( b.first_name, ' ', b.last_name )
 						SEPARATOR ', ' )

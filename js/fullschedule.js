@@ -192,7 +192,12 @@ function drpdeptFullChange()
 {
 	    	$("#my_multi_select1").html('');
 			$("#my_multi_select1").multiSelect('refresh');
-		
+		var shifttype= $("input[name=rdShifttype]:checked").val();
+		var shiftcont='';
+		if (shifttype==1)
+			shiftcont="Shiftscont";
+		else if(shifttype==2)	
+			shiftcont="Timeoffcont";
 		if (!validateShifts())
 		 return;
 		if ($("#drplstDept").val()!='')
@@ -208,7 +213,7 @@ function drpdeptFullChange()
 				formData.append('deptNo'        , $("#drplstDept").val()),
 		
 		$.ajax({
-			url: baseURL+"Shiftscont/getUserByDept",
+			url: baseURL+shiftcont+"/getUserByDept",
 			type: "POST",
 			data: formData,
 			 processData: false,
@@ -232,7 +237,13 @@ function drpdeptFullChange()
 function drpJobtitleFullChange()
 {
 	    
-		
+		var shifttype= $("input[name=rdShifttype]:checked").val();
+		var shiftcont='';
+		if (shifttype==1)
+			shiftcont="Shiftscont";
+		else if(shifttype==2)	
+			shiftcont="Timeoffcont";
+			
 		if (!validateShifts())
 		 return;
 		if ($("#drplstJobtitle").val()!='')
@@ -248,7 +259,7 @@ function drpJobtitleFullChange()
 				formData.append('JobTitelId'        , $("#drplstJobtitle").val());
 		
 		$.ajax({
-			url: baseURL+"Shiftscont/getUserByJobtitle",
+			url: baseURL+shiftcont+"/getUserByJobtitle",
 			type: "POST",
 			data: formData,
 			 processData: false,
@@ -272,7 +283,13 @@ function drpJobtitleFullChange()
 function drpSpecFullChange()
 {
 	    
-		
+		var shifttype= $("input[name=rdShifttype]:checked").val();
+		var shiftcont='';
+		if (shifttype==1)
+			shiftcont="Shiftscont";
+		else if(shifttype==2)	
+			shiftcont="Timeoffcont";
+			
 		if (!validateShifts())
 		 return;
 	if ($("#drplstSpec").val()!='' && $("#drplstJobtitle").val()!='' )
@@ -289,7 +306,7 @@ function drpSpecFullChange()
 				formData.append('specId'        , $("#drplstSpec").val());
 		
 		$.ajax({
-			url: baseURL+"Shiftscont/getUserBySpec",
+			url: baseURL+shiftcont+"/getUserBySpec",
 			type: "POST",
 			data: formData,
 			 processData: false,

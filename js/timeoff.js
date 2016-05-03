@@ -27,7 +27,7 @@ $(document).ready(function () {
 function edittimeoff() {							
 		
 		var action = $("#hdnaction").val();
-		
+	if (action!="updateTimeoff")	
 		if (!validateStaffselect())
 		 return;
 		

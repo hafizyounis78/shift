@@ -28,7 +28,7 @@ $(document).ready(function () {
 function editshift(){
 
 			var action = $("#hdnaction").val();
-		
+		if (action!="updateShift")
 			if (!validateStaffselect())
 			 return;
 				 

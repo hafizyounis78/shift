@@ -112,7 +112,11 @@ function getmy_Shift_calender()
 		// It guess your client side will need the id to extract, and distinguish the ScoreCH data
 //		$temp['url'] = 'addbooking/'.$row->booking_code;
 		//$temp['url'] = ' ';
-		$temp['title'] = $row->name."\n";
+		if ( $row->type==1)
+			$temp['title'] ="Shift-".$row->name."\n";
+		else
+			$temp['title'] ="TimeOff-".$row->name."\n";
+
 //			"\n".$row->org_desc.
 		$temp['start_date'] = $row->start_date;
 		$temp['start_time'] = $row->start_time;
@@ -158,7 +162,10 @@ function getall_Shift_calender()
 		// It guess your client side will need the id to extract, and distinguish the ScoreCH data
 //		$temp['url'] = 'addbooking/'.$row->booking_code;
 		//$temp['url'] = ' ';
-		$temp['title'] = $row->name."\n";
+		if ( $row->type==1)
+			$temp['title'] ="Shift-".$row->name."\n";
+		else
+			$temp['title'] ="TimeOff-".$row->name."\n";
 //			"\n".$row->org_desc.
 		$temp['start_date'] = $row->start_date;
 		$temp['start_time'] = $row->start_time;
