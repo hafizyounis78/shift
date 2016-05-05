@@ -49,6 +49,9 @@
 <script type="text/javascript" src="<?php echo base_url();?>assets/global/plugins/bootstrap-select/bootstrap-select.min.js"></script>
 <script type="text/javascript" src="<?php echo base_url();?>assets/global/plugins/select2/select2.min.js"></script>
 <script type="text/javascript" src="<?php echo base_url();?>assets/global/plugins/jquery-multi-select/js/jquery.multi-select.js"></script>
+<script type="text/javascript" src="<?php echo base_url();?>assets/global/plugins/datatables/media/js/jquery.dataTables.min.js"></script>
+<script type="text/javascript" src="<?php echo base_url();?>assets/global/plugins/datatables/plugins/bootstrap/dataTables.bootstrap.js"></script>
+
 
 
 <!-- CORE SCRIPTS -->
@@ -61,6 +64,8 @@
 <script src="<?php echo base_url();?>assets/admin/pages/scripts/calendar.js"></script>
 <script src="<?php echo base_url();?>assets/admin/pages/scripts/components-pickers.js"></script>
 <script src="<?php echo base_url();?>assets/admin/pages/scripts/components-dropdowns.js"></script>
+<script src="<?php echo base_url();?>assets/admin/pages/scripts/table-managed.js"></script>
+<script src="<?php echo base_url();?>assets/global/scripts/datatable.js"></script>
 <!-- END PAGE LEVEL SCRIPS -->
 
 <!-- OUR SCRIPTS -->
@@ -75,7 +80,9 @@
       jQuery(document).ready(function() {    
          Metronic.init(); // init metronic core components
 		 Layout.init(); // init current layout
+		
 		 Demo.init(); // init demo features
+		
 		ShiftComponentsDropdowns.init();
 		 TimeoffComponentsDropdowns.init();
 		  /*******Forms Validation *******************/
@@ -89,7 +96,7 @@
 		 Calendar.init();
 		 
 		 ComponentsPickers.init();
-		
+		 TimeOffTableManaged.init();
 			var newURL = window.location.protocol + "://" + window.location.host + "/" + window.location.pathname;
 			var pathArray = window.location.pathname.split( '/' );
 			// alert(pathArray[3]);

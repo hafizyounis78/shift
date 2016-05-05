@@ -91,7 +91,7 @@
          </div>
          <div class="col-md-14">
 									<!-- BEGIN DRAGGABLE EVENTS PORTLET-->
-            <label id="errLable" style="color:#F00;display:none"> الرجاء اختر الصالة</label>
+            <label id="errLable" style="color:#F00;display:none"></label>
             <h3 class="event-form-title">Department</h3>
             <div id="external-events">
                 <form class="inline-form">
@@ -163,9 +163,9 @@
                         <div class="col-md-4">
                           <div class="radio-list">
                               <label class="radio-inline">
-                              <input type="radio" name="rdShifttype" id="rdShifttype1" value="1" checked>Shift</label>
+                              <input class ="classConflict" type="radio" name="rdShifttype" id="rdShifttype1" value="1" checked>Shift</label>
                               <label class="radio-inline">
-                              <input type="radio" name="rdShifttype" id="rdShifttype2" value="2">Time Off</label>
+                              <input class ="classConflict" type="radio" name="rdShifttype" id="rdShifttype2" value="2">Time Off</label>
                               
                           </div>
                         </div>
@@ -203,10 +203,10 @@
                         <label class="control-label col-md-3">Date</label>
                         <div class="col-md-6">
                             <div class="input-group input-medium date-picker input-daterange" data-date="10/11/2012" data-date-format="yyyy-mm-dd">
-                                <input type="text" id="drpFromdate" class="form-control" name="drpFromdate" required>
+                                <input type="text" id="drpFromdate" class="form-control classConflict" name="drpFromdate" required>
                                 <span class="input-group-addon">
                                 to </span>
-                                <input type="text" id="drpTodate" class="form-control" name="drpTodate" required>
+                                <input type="text" id="drpTodate" class="form-control classConflict" name="drpTodate" required>
                             </div>
                             <!-- /input-group -->
                         </div>
@@ -216,7 +216,7 @@
                         <label class="control-label col-md-3">Time</label>
                         <div class="col-md-3">
                             <div class="input-group">
-                                <input id="txtStart" name="txtStart" type="text" class="form-control timepicker timepicker-24" required>
+                                <input id="txtStart" name="txtStart" type="text" class="form-control timepicker timepicker-24 classConflict" required>
                                 <span class="input-group-btn">
                                 <button class="btn default" type="button"><i class="fa fa-clock-o"></i></button>
                                 </span>
@@ -224,7 +224,7 @@
                         </div>
                     <div class="col-md-3">
                         <div class="input-group">
-                            <input id="txtEnd" name="txtEnd" type="text" class="form-control timepicker timepicker-24" required>
+                            <input id="txtEnd" name="txtEnd" type="text" class="form-control timepicker timepicker-24 classConflict" required>
                             <span class="input-group-btn">
                             <button class="btn default" type="button"><i class="fa fa-clock-o"></i></button>
                             </span>
@@ -279,6 +279,7 @@
                           <div class="col-md-4">
                               <select id="drplstDept" class="form-control" name="drplstDept" onchange="drpdeptFullChange();">
                               <option value="">select...</option>
+                              <option value="0">All Departments</option>
                                    <?php 
 								  foreach ($deptList as $dept_row)
 								  {

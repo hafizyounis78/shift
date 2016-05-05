@@ -63,10 +63,10 @@ $readonly = '';
                           * </span></label>
                         <div class="col-md-6">
                             <div class="input-group input-medium date-picker input-daterange" data-date="10/11/2012" data-date-format="yyyy-mm-dd">
-                                <input type="text" id="drpFromdate" class="form-control" name="drpFromdate" onchange="clearStaffSelect()">
+                                <input type="text" id="drpFromdate" class="form-control classConflict" name="drpFromdate" onchange="clearStaffSelect()">
                                 <span class="input-group-addon">
                                 to </span>
-                                <input type="text" id="drpTodate" class="form-control" name="drpTodate" onchange="clearStaffSelect()">
+                                <input type="text" id="drpTodate" class="form-control classConflict" name="drpTodate" onchange="clearStaffSelect()">
                             </div>
                             <!-- /input-group -->
                         </div>
@@ -76,7 +76,7 @@ $readonly = '';
                           * </span></label>
                             <div class="col-md-2">
                                 <div class="input-group">
-                                    <input type="text" class="form-control timepicker timepicker-24" id="txtStart" name="txtStart" onchange="clearStaffSelect()">
+                                    <input type="text" class="form-control timepicker timepicker-24 classConflict" id="txtStart" name="txtStart" onchange="clearStaffSelect()">
                                     <span class="input-group-btn">
                                     <button class="btn default" type="button"><i class="fa fa-clock-o"></i></button>
                                     </span>
@@ -84,7 +84,7 @@ $readonly = '';
                             </div>
                             <div class="col-md-2">
                                 <div class="input-group">
-                                    <input type="text" class="form-control timepicker timepicker-24" id="txtEnd" name="txtEnd" onchange="clearStaffSelect()">
+                                    <input type="text" class="form-control timepicker timepicker-24 classConflict" id="txtEnd" name="txtEnd" onchange="clearStaffSelect()">
                                     <span class="input-group-btn">
                                     <button class="btn default" type="button"><i class="fa fa-clock-o"></i></button>
                                     </span>
@@ -122,8 +122,10 @@ $readonly = '';
                           * </span>
                           </label>
                           <div class="col-md-4">
-                              <select id="drplstDept" class="form-control" name="drplstDept" onchange="drpdeptChange();">
+                              <select id="drplstDept" class="form-control" name="drplstDept" onchange="drptimeoffdeptChange();">
                                   <option value="">select...</option>
+                                  <option value="0">All Departments</option>
+                                  
                                    <?php 
 								  foreach ($deptList as $dept_row)
 								  {
@@ -193,6 +195,7 @@ $readonly = '';
                         <span class="help-block">
                                     Select one staff  at least </span>
                             <select multiple="multiple" class="multi-select" id="my_multi_select1" name="my_multi_select1[]">
+                               
                                 <?php /*?><?php
                                  foreach($staffList as $staff_row)
 								  {
@@ -229,86 +232,90 @@ $readonly = '';
       </div>
   </div>
 </div>
-<div class="row">
-					<div class="col-md-12">
-						<!-- BEGIN SAMPLE TABLE PORTLET-->
-						<div class="portlet box purple">
-							<div class="portlet-title">
-								<div class="caption">
-									<i class="fa fa-clock-o"></i>Timeoff Table
-								</div>
-								
-							</div>
-							<div class="portlet-body">
-								<div class="table-scrollable">
-									<table class="table table-striped table-hover">
-									<thead>
-									<tr>
-										<th>
-											 #
-										</th>
-                                        <th>
-											 Staff
-										</th>
-										<th>
-											 Start Date
-										</th>
-                                        <th>
-											 End Date
-										</th>
-										<th>
-											Start Time
-										</th>
-										<th>
-											 End Time
-										</th>
-										<th>
-											 Location
-										</th>
-                                        <th>
-											 Action
-										</th>
-                                         <th>
-											 Status
-										</th>
-									</tr>
-									</thead>
-									<tbody id="timeoff_body">
-			
-						            <?php
-									$i=1;
-									$statusrow='';
-										foreach($timeoffrec as $row)
-											{
-												if($row->status==1)
-												 $statusrow='Pending';
-												 else
-												 $statusrow='Active';
-												 echo '<tr>';		
-												 echo '<td>'.$i++.'</td>';
-												 echo '<td id="tdstaff'.$row->id.'">'.$row->Staff_name.'</td>';
-												 echo '<td id="tdstart_date'.$row->id.'">'. $row->start_date.'</td>';
-												 echo '<td id="tdend_date'.$row->id.'">'. $row->end_date.'</td>';
-												 echo '<td id="tdstart_Time'.$row->id.'">'. $row->start_time.'</td>';
-												 echo '<td id="tdend_Time'.$row->id.'">'. $row->end_time.'</td>';
-												 echo '<td id="tdlocation'.$row->id.'" data-loid="'.$row->locationId.'">'. $row->location_desc.'</td>';
-												// echo '<td id="tdrdStatus'.$row->id.'">'. $statusrow.'</td>';
-												 echo '<td id="tdrdStatus'.$row->id.'" data-stid="'.$row->status.'">'.$statusrow.'</td>';		 
-												 echo '<td>
-													  <button id="btnupdateShift" name="btnupdateShift" type="button" class="btn default btn-xs blue" onclick="updatetimeoff('.$row->id.')">
-													  <i class="fa fa-edit"></i> Update </button>
-													  <button id="btndelShift" name="btndelShift" type="submit" value="Delete" class="btn default btn-xs red" onclick="deletetimeoff('.$row->id.')"><i class="fa fa-trash-o"></i> delete</button>';
-												 echo '</td>';  
-												
-												 echo '<tr/>';
-											}
-									?>
-									</tbody>
-									</table>
-								</div>
-							</div>
-						</div>
-						<!-- END SAMPLE TABLE PORTLET-->
-					</div>
-					
-				</div>
+<!--<div class="row">
+    <div class="col-md-12">-->
+        <!-- BEGIN SAMPLE TABLE PORTLET-->
+        <div class="portlet box purple">
+            <div class="portlet-title">
+                <div class="caption">
+                    <i class="fa fa-clock-o"></i>Timeoff Table
+                </div>
+                
+                
+            </div>
+            <div class="portlet-body">
+                <div class="table-scrollable">
+                    <table class="table table-striped table-hover" id="timeOffTable">
+                    <thead>
+                    <tr>
+                        <th>
+                             #
+                        </th>
+                        <th>
+                             Staff
+                        </th>
+                        <th>
+                             Start Date
+                        </th>
+                        <th>
+                             End Date
+                        </th>
+                        <th>
+                            Start Time
+                        </th>
+                        <th>
+                             End Time
+                        </th>
+                        <th>
+                             Location
+                        </th>
+                        <th>
+                             Action
+                        </th>
+                         <th>
+                             Status
+                        </th>
+                    </tr>
+                    </thead>
+                    <tbody id="timeoff_body">
+
+                    <?php
+                    $i=1;
+                    $statusrow='';
+                        foreach($timeoffrec as $row)
+                            {
+                                if($row->status==1)
+                                 $statusrow='Pending';
+                                 else
+                                 $statusrow='Active';
+                                 echo '<tr>';		
+                                 echo '<td>'.$i++.'</td>';
+                                 echo '<td id="tdstaff'.$row->id.'">'.$row->Staff_name.'</td>';
+                                 echo '<td id="tdstart_date'.$row->id.'">'. $row->start_date.'</td>';
+                                 echo '<td id="tdend_date'.$row->id.'">'. $row->end_date.'</td>';
+                                 echo '<td id="tdstart_Time'.$row->id.'">'. $row->start_time.'</td>';
+                                 echo '<td id="tdend_Time'.$row->id.'">'. $row->end_time.'</td>';
+                                 echo '<td id="tdlocation'.$row->id.'" data-loid="'.$row->locationId.'">'. $row->location_desc.'</td>';
+                                 if ($row->status == 1)
+                                    echo '<td id="tdrdStatus'.$row->id.'" data-stid="'.$row->status.'"><span class="label label-sm label-warning">'.$statusrow.'</span></td>';		 
+                                 else
+                                    echo '<td id="tdrdStatus'.$row->id.'" data-stid="'.$row->status.'"><span class="label label-sm label-success">'.$statusrow.'</span></td>';		 
+                                    
+                                 echo '<td>
+                                      <button id="btnupdateShift" name="btnupdateShift" type="button" class="btn default btn-xs blue" onclick="updatetimeoff('.$row->id.')">
+                                      <i class="fa fa-edit"></i> Update </button>
+                                      <button id="btndelShift" name="btndelShift" type="submit" value="Delete" class="btn default btn-xs red" onclick="deletetimeoff('.$row->id.')"><i class="fa fa-trash-o"></i> delete</button>';
+                                 echo '</td>';  
+                                
+                                 echo '<tr/>';
+                            }
+                    ?>
+                    </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+        <!-- END SAMPLE TABLE PORTLET-->
+   <!-- </div>
+    
+</div>-->

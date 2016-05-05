@@ -76,10 +76,10 @@ $readonly = '';
                           * </span></label>
                         <div class="col-md-6">
                             <div class="input-group input-medium date-picker input-daterange" data-date="10/11/2012" data-date-format="yyyy-mm-dd">
-                                <input type="text" id="drpFromdate" class="form-control" name="drpFromdate" onchange="clearStaffSelect()">
+                                <input type="text" id="drpFromdate" class="form-control classConflict" name="drpFromdate" onchange="clearStaffSelect()">
                                 <span class="input-group-addon">
                                 to </span>
-                                <input type="text" id="drpTodate" class="form-control" name="drpTodate" onchange="clearStaffSelect()">
+                                <input type="text" id="drpTodate" class="form-control classConflict" name="drpTodate" onchange="clearStaffSelect()">
                             </div>
                             <!-- /input-group -->
                         </div>
@@ -89,7 +89,7 @@ $readonly = '';
                           * </span></label>
                             <div class="col-md-2">
                                 <div class="input-group">
-                                    <input type="text" class="form-control timepicker timepicker-24" id="txtStart"  name="txtStart" onchange="clearStaffSelect()">
+                                    <input type="text" class="form-control timepicker timepicker-24 classConflict" id="txtStart"  name="txtStart" onchange="clearStaffSelect()">
                                     <span class="input-group-btn">
                                     <button class="btn default" type="button"><i class="fa fa-clock-o"></i></button>
                                     </span>
@@ -97,7 +97,7 @@ $readonly = '';
                             </div>
                             <div class="col-md-2">
                                 <div class="input-group">
-                                    <input type="text" class="form-control timepicker timepicker-24" id="txtEnd" name="txtEnd" onchange="clearStaffSelect()">
+                                    <input type="text" class="form-control timepicker timepicker-24 classConflict" id="txtEnd" name="txtEnd" onchange="clearStaffSelect()">
                                     <span class="input-group-btn">
                                     <button class="btn default" type="button"><i class="fa fa-clock-o"></i></button>
                                     </span>
@@ -151,6 +151,7 @@ $readonly = '';
                           <div class="col-md-4">
                               <select id="drplstDept" class="form-control" name="drplstDept" onchange="drpdeptChange();">
                               <option value="">select...</option>
+                              <option value="0">All Departments</option>
                                    <?php 
 								  foreach ($deptList as $dept_row)
 								  {
@@ -279,8 +280,8 @@ $readonly = '';
 								
 							</div>
 							<div class="portlet-body">
-								<div class="table-scrollable">
-									<table class="table table-striped table-hover">
+								<!--<div class="table-scrollable">
+-->									<table class="table table-striped table-bordered table-hover">
 									<thead>
 									<tr>
 										<th>
@@ -335,8 +336,11 @@ $readonly = '';
 												 echo '<td id="tdend_Time'.$row->id.'">'. $row->end_time.'</td>';
 												 echo '<td id="tdlocation'.$row->id.'" data-loid="'.$row->locationId.'">'. $row->location_desc.'</td>';
 												// echo '<td id="tdrdStatus'.$row->id.'">'. $statusrow.'</td>';
-												 echo '<td id="tdrdStatus'.$row->id.'" data-stid="'.$row->status.'">'.$statusrow.'</td>';		 
- 												 echo '<td id="tdSpecial_shift'.$row->id.'">'. $row->Special_shift.'</td>';
+												if ($row->status == 1)
+												 echo '<td id="tdrdStatus'.$row->id.'" data-stid="'.$row->status.'"><span class="label label-sm label-warning">'.$statusrow.'</span></td>';		 
+ 												else
+												 echo '<td id="tdrdStatus'.$row->id.'" data-stid="'.$row->status.'"><span class="label label-sm label-success">'.$statusrow.'</span></td>';		 
+												 echo '<td id="tdSpecial_shift'.$row->id.'">'. $row->Special_shift.'</td>';
 												 echo '<td>
 													  <button id="btnupdateShift" name="btnupdateShift" type="button" class="btn default btn-xs blue" onclick="updateShift('.$row->id.')">
 													  <i class="fa fa-edit"></i> Update </button>
@@ -348,7 +352,7 @@ $readonly = '';
 									?>
 									</tbody>
 									</table>
-								</div>
+							<!--	</div>-->
 							</div>
 						</div>
 						<!-- END SAMPLE TABLE PORTLET-->

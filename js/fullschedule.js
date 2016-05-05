@@ -23,12 +23,14 @@ $(document).ready(function () {
 			var ddlSpec=document.getElementById('drplstSpec');
 			ddlSpec.options[0].selected = true;
         }
-		
-        //$('#log').val($('#log').val()+ $(this).val() + '|');
+        
     })
-//*****************select shift or time of*************//
-
-   
+//*****************change date or time*************//
+	$(".classConflict").change(function () {
+	
+		clearFullStaffSelect();
+	})		
+	
 });
 function addShiftTemplate()
 {
@@ -73,29 +75,25 @@ function addShiftTemplate()
 }
 //********************shift save**************//
 function addModalshift(){
-	
-		
-		
-			//alert("addModalshift");
-			if (!validateShifts())
-			 return;
-			 if (!validatStaff())
-			 return;
-		
-			var formData = new FormData();
-	
-				formData.append('rdShifttype'        ,  $("input[name=rdShifttype]:checked").val());
-				formData.append('drpLocation'		 ,  $("#drpLocation").val());
-				formData.append('drpFromdate'		 ,  $("#drpFromdate").val());
-				formData.append('drpTodate'	         ,  $("#drpTodate").val());
-				formData.append('txtStart'	         ,  $("#txtStart").val());
-				formData.append('txtEnd'	         ,  $("#txtEnd").val());
-				formData.append('drplstBreak'	     ,  $("#drplstBreak").val());
-				formData.append('rdStatus'           ,  $("input[name=rdStatus]:checked").val());
-				formData.append('chbxIsspecial'		, $("#chbxIsspecial").val());
-				formData.append('ckbNotification'		, $("#ckbNotification").val());
-				formData.append('staffList'		     ,  staffList);
-	
+	if (!validateShifts())
+	 return;
+	 if (!validatStaff())
+	 return;
+
+	var formData = new FormData();
+
+		formData.append('rdShifttype'        ,  $("input[name=rdShifttype]:checked").val());
+		formData.append('drpLocation'		 ,  $("#drpLocation").val());
+		formData.append('drpFromdate'		 ,  $("#drpFromdate").val());
+		formData.append('drpTodate'	         ,  $("#drpTodate").val());
+		formData.append('txtStart'	         ,  $("#txtStart").val());
+		formData.append('txtEnd'	         ,  $("#txtEnd").val());
+		formData.append('drplstBreak'	     ,  $("#drplstBreak").val());
+		formData.append('rdStatus'           ,  $("input[name=rdStatus]:checked").val());
+		formData.append('chbxIsspecial'		, $("#chbxIsspecial").val());
+		formData.append('ckbNotification'		, $("#ckbNotification").val());
+		formData.append('staffList'		     ,  staffList);
+
 	$.ajax({
 			url: baseURL+"Fullschedulecont/addShift",
 			type: "POST",
@@ -113,18 +111,8 @@ function addModalshift(){
 				$(".alert-success").fadeTo(2000, 500).slideUp(500, function(){
 					$(".alert-success").alert('close');
 				});
-								//$('#tbLocations').html(returndb);
-				/*var success = $('.alert-success');
-				success.show();*/
-				//Metronic.scrollTo(success, -200);
 				clearFullShiftForm();
-				 //$('#calendar').fullCalendar('initCalendar');
 				 location.reload();
-				//success.hide();
-				/*$('#dvConstSuccessMsg').attr('class', 'alert alert-success');
-				$('#tbLocations').html(returndb);
-				if (action == 'addconstants')
-					$('#txtConstantName').val('');*/
 			}
 		});//END $.ajax
 }
@@ -133,12 +121,8 @@ function addModalshift(){
 $(document).ready(function() {
     $('input[type=radio][name=rdShifttype]').change(function() {
         if (this.value == '1') {
-            //alert("shift");
 			document.getElementById("divBreak").style.display = "block";	
 			clearFullStaffSelect();
-			/*var input = document.getElementById('rdStatus1');
-			alert(input);
-			input.innerHTML  = 'New Text';*/
         }
         else if (this.value == '2') {
 			document.getElementById("divBreak").style.display = "none";
@@ -154,6 +138,7 @@ function clearFullStaffSelect()
 	
 		$("#my_multi_select1").html('');
 		$("#my_multi_select1").multiSelect('refresh');
+		staffList="";
 		var ddldept=document.getElementById('drplstDept');
 		 ddldept.options[0].selected = true;
 		var ddlJobtitle=document.getElementById('drplstJobtitle');
@@ -163,42 +148,28 @@ function clearFullStaffSelect()
 }
 function clearFullShiftForm()
 {
-	
-	
 	$("#hdnshiftId").val("");
 	$("#drpLocation").val("");
 	$("#drplstBreak").val("");
-	
 	$("#drpFromdate").val("");
 	$("#drpTodate").val("");
 	$("#txtStart").val("");
 	$("#txtEnd").val("");
-	
-
-	
 	$("#txtstaffName").val("");
-	//document.getElementById("divUser").style.display = "block";
+	
 	document.getElementById("divDept").style.display = "block";	
 	document.getElementById("divSelect").style.display = "block";	
     document.getElementById("divJobtitle").style.display = "None";	
 	document.getElementById("divSpec").style.display = "None";	
-	$("#my_multi_select1").html('');
-	$("#my_multi_select1").multiSelect('refresh');
-	var ddldept=document.getElementById('drplstDept');
-	ddldept.options[0].selected = true;
 	var ddlbreak=document.getElementById('drplstBreak');
 	ddlbreak.options[0].selected = true;
-	var ddlJobtitle=document.getElementById('drplstJobtitle');
-	ddlJobtitle.options[0].selected = true; 
-	var ddlSpec=document.getElementById('drplstSpec');
-	ddlSpec.options[0].selected = true; 
-				
-	 //Metronic.scrollTo($('#timeOffForm'), +1000);
+	clearFullStaffSelect();			
+
 }
 function drpdeptFullChange()
 {
-	    	$("#my_multi_select1").html('');
-			$("#my_multi_select1").multiSelect('refresh');
+		$("#my_multi_select1").html('');
+		$("#my_multi_select1").multiSelect('refresh');
 		var shifttype= $("input[name=rdShifttype]:checked").val();
 		var shiftcont='';
 		if (shifttype==1)
@@ -206,18 +177,18 @@ function drpdeptFullChange()
 		else if(shifttype==2)	
 			shiftcont="Timeoffcont";
 		if (!validateShifts())
-		 return;
+		{
+			clearFullStaffSelect()
+			 return;
+		}
 		if ($("#drplstDept").val()!='')
 		 {
 		var formData = new FormData();
-	
-				
-				//formData.append('drpLocation'		, $("#drpLocation").val());
-				formData.append('drpFromdate'	, $("#drpFromdate").val());
-				formData.append('drpTodate'		, $("#drpTodate").val());
-				formData.append('txtStart'	    , $("#txtStart").val());
-				formData.append('txtEnd'	    , $("#txtEnd").val());
-				formData.append('deptNo'        , $("#drplstDept").val()),
+			formData.append('drpFromdate'	, $("#drpFromdate").val());
+			formData.append('drpTodate'		, $("#drpTodate").val());
+			formData.append('txtStart'	    , $("#txtStart").val());
+			formData.append('txtEnd'	    , $("#txtEnd").val());
+			formData.append('deptNo'        , $("#drplstDept").val()),
 		
 		$.ajax({
 			url: baseURL+shiftcont+"/getUserByDept",
@@ -232,9 +203,6 @@ function drpdeptFullChange()
 			beforeSend: function(){},
 			complete: function(){},
 			success: function(returndb){
-				
-				//document.getElementById("divUser").style.display = "block";
-				//document.getElementById("dvstaffname").style.display = "None";
 				$("#my_multi_select1").html(returndb);
 				$("#my_multi_select1").multiSelect('refresh');
 			}
@@ -252,19 +220,19 @@ function drpJobtitleFullChange()
 			shiftcont="Timeoffcont";
 			
 		if (!validateShifts())
-		 return;
+		{
+			clearFullStaffSelect()
+		 	return;
+		}
 		if ($("#drplstJobtitle").val()!='')
 		 {
 		var formData = new FormData();
+			formData.append('drpFromdate'	, $("#drpFromdate").val());
+			formData.append('drpTodate'		, $("#drpTodate").val());
+			formData.append('txtStart'	    , $("#txtStart").val());
+			formData.append('txtEnd'	    , $("#txtEnd").val());
+			formData.append('JobTitelId'        , $("#drplstJobtitle").val());
 	
-				
-				//formData.append('drpLocation'		, $("#drpLocation").val());
-				formData.append('drpFromdate'	, $("#drpFromdate").val());
-				formData.append('drpTodate'		, $("#drpTodate").val());
-				formData.append('txtStart'	    , $("#txtStart").val());
-				formData.append('txtEnd'	    , $("#txtEnd").val());
-				formData.append('JobTitelId'        , $("#drplstJobtitle").val());
-		
 		$.ajax({
 			url: baseURL+shiftcont+"/getUserByJobtitle",
 			type: "POST",
@@ -272,15 +240,11 @@ function drpJobtitleFullChange()
 			 processData: false,
 			 contentType: false,
 			error: function(xhr, status, error) {
-  				//var err = eval("(" + xhr.responseText + ")");
   				alert(xhr.responseText);
 			},
 			beforeSend: function(){},
 			complete: function(){},
 			success: function(returndb){
-				
-				//document.getElementById("divUser").style.display = "block";
-				//document.getElementById("dvstaffname").style.display = "None";
 				$("#my_multi_select1").html(returndb);
 				$("#my_multi_select1").multiSelect('refresh');
 			}
@@ -298,19 +262,19 @@ function drpSpecFullChange()
 			shiftcont="Timeoffcont";
 			
 		if (!validateShifts())
-		 return;
+		 {
+			 clearFullStaffSelect()
+			 return;
+		 }
 	if ($("#drplstSpec").val()!='' && $("#drplstJobtitle").val()!='' )
 		 {
 		var formData = new FormData();
-	
-				
-				//formData.append('drpLocation'		, $("#drpLocation").val());
-				formData.append('drpFromdate'	, $("#drpFromdate").val());
-				formData.append('drpTodate'		, $("#drpTodate").val());
-				formData.append('txtStart'	    , $("#txtStart").val());
-				formData.append('txtEnd'	    , $("#txtEnd").val());
-				formData.append('JobTitelId'        , $("#drplstJobtitle").val());
-				formData.append('specId'        , $("#drplstSpec").val());
+			formData.append('drpFromdate'	, $("#drpFromdate").val());
+			formData.append('drpTodate'		, $("#drpTodate").val());
+			formData.append('txtStart'	    , $("#txtStart").val());
+			formData.append('txtEnd'	    , $("#txtEnd").val());
+			formData.append('JobTitelId'        , $("#drplstJobtitle").val());
+			formData.append('specId'        , $("#drplstSpec").val());
 		
 		$.ajax({
 			url: baseURL+shiftcont+"/getUserBySpec",
@@ -325,9 +289,6 @@ function drpSpecFullChange()
 			beforeSend: function(){},
 			complete: function(){},
 			success: function(returndb){
-				
-				//document.getElementById("divUser").style.display = "block";
-			//	document.getElementById("dvstaffname").style.display = "None";
 				$("#my_multi_select1").html(returndb);
 				$("#my_multi_select1").multiSelect('refresh');
 			}
@@ -517,7 +478,7 @@ var ShiftModalFormValidation = function () {
                 submitHandler: function (form) {
                     errormsg.hide();
 					addModalshift();
-                    //form[0].submit(); // submit the form
+                    
                 }
 
             });

@@ -23,6 +23,29 @@ $(document).ready(function () {
         }
        
     })
+	//*****************change date or time*************//
+	$(".classConflict").change(function () {
+	
+		clearStaffSelect();
+	})	
+/*	$('#timeoffTable').dataTable( {
+		"bPaginate": true,
+		"sPaginationType": "full_numbers",
+		"bProcessing": true,
+		"bServerSide": true,
+		"sAjaxSource": "{{=URL('MIS','get_serverside')}}",
+	} )  */  	
+		/*.columnFilter({sPlaceHolder: "head:before",
+      	aoColumns: [{type: "text" },{type: "text" },{type: "text" },{type: "text" },{type: "text" },{type: "text" }]
+    });	*/
+		
+	 /*$('#timeoffTable').dataTable({
+		 "bPaginate": true,
+      	"sPaginationType": "full_numbers"
+      })
+    	.columnFilter({sPlaceHolder: "head:before",
+      	aoColumns: [{type: "text" },{type: "text" },{type: "text" },{type: "text" },{type: "text" },{type: "text" }]
+    });*/
 });
 function edittimeoff() {							
 		
@@ -55,10 +78,7 @@ function edittimeoff() {
 			beforeSend: function(){},
 			complete: function(){},
 			success: function(returndb){
-				
 				clearfimeoffForm();
-				
-				//$('#tbLocations').html(returndb);
 				var success = $('.alert-success', $("#timeOffForm"));
 				success.show();
 				Metronic.scrollTo(success, -200);
@@ -94,14 +114,9 @@ function deletetimeoff(i)
 			beforeSend: function(){},
 			complete: function(){},
 			success: function(returndb){
-			
 				clearfimeoffForm();
-			
-				//$('#tbLocations').html(returndb);
 				var success = $('.alert-success', $("#timeOffForm"));
 				success.show();
-			//	Metronic.scrollTo(success, -200);
-				
 				$("#timeoff_body").html(returndb);
 				
 			}
@@ -111,15 +126,10 @@ function deletetimeoff(i)
 
 function updatetimeoff(i)
 {
-	
-	//$("#hdnId").val(i);
 	$("#hdnshiftId").val(i);
 	$("#hdnaction").val('updateTimeoff');
 	var locationId=$("#tdlocation"+i).attr('data-loid');
-
 	$("#drpLocation").val(locationId);
-	
-	
 	$("#drpFromdate").val($("#tdstart_date"+i).html());
 	$("#drpTodate").val($("#tdend_date"+i).html());
 	$("#txtStart").val($("#tdstart_Time"+i).html());
@@ -127,7 +137,7 @@ function updatetimeoff(i)
 	$("#rdStatus").val($("#tdlocation"+i).html());
 	
 	var statusId=$("#tdrdStatus"+i).attr('data-stid');
-		//alert(statusId);
+	
 	if (statusId==1)
 	{
 
@@ -141,7 +151,7 @@ function updatetimeoff(i)
 		$("#rdStatus1").parent().removeClass('checked');
 	}
 
-            //alert("shift");
+    
 		$("#txtstaffName").val($("#tdstaff"+i).html());
 		document.getElementById("divSelect").style.display = "None";	
 		document.getElementById("divUser").style.display = "None";	
@@ -155,6 +165,7 @@ function clearStaffSelect()
 {
 		$("#my_multi_select1").html('');
 		$("#my_multi_select1").multiSelect('refresh');
+		staffList="";
 		var ddldept=document.getElementById('drplstDept');
 		 ddldept.options[0].selected = true;
 		var ddlJobtitle=document.getElementById('drplstJobtitle');
@@ -167,14 +178,10 @@ function clearfimeoffForm()
 	$("#hdnshiftId").val("");
 	$("#hdnaction").val('addtimeoff');
 	$("#drpLocation").val("");
-	
-	
 	$("#drpFromdate").val("");
 	$("#drpTodate").val("");
 	$("#txtStart").val("");
 	$("#txtEnd").val("");
-	
-
 	$("#txtstaffName").val("");
 	document.getElementById("divUser").style.display = "block";
 	document.getElementById("divDept").style.display = "block";	
@@ -182,40 +189,32 @@ function clearfimeoffForm()
 	document.getElementById("dvstaffname").style.display = "None";		
     document.getElementById("divJobtitle").style.display = "None";	
 	document.getElementById("divSpec").style.display = "None";	
-	$("#my_multi_select1").html('');
-	$("#my_multi_select1").multiSelect('refresh');
-	
-	var ddldept=document.getElementById('drplstDept');
-	 ddldept.options[0].selected = true;
-	 var ddlJobtitle=document.getElementById('drplstJobtitle');
-	 ddlJobtitle.options[0].selected = true; 
-	 var ddlSpec=document.getElementById('drplstSpec');
-	 ddlSpec.options[0].selected = true; 
-	 //Metronic.scrollTo($('#timeOffForm'), +1000);
+	clearStaffSelect();
+
 }
 
 
 //****************List change
-function drpdeptChange()
+function drptimeoffdeptChange()
 {
 	    $("#my_multi_select1").html('');
 		$("#my_multi_select1").multiSelect('refresh');
 		
 		
 		if (!validateShift())
-		 return;
+		{
+			clearStaffSelect()
+			return;
+		}
 		 if ($("#drplstDept").val()!='')
 		 {
 		var formData = new FormData();
+			formData.append('drpFromdate'	, $("#drpFromdate").val());
+			formData.append('drpTodate'		, $("#drpTodate").val());
+			formData.append('txtStart'	    , $("#txtStart").val());
+			formData.append('txtEnd'	    , $("#txtEnd").val());
+			formData.append('deptNo'        , $("#drplstDept").val()),
 	
-				
-				//formData.append('drpLocation'		, $("#drpLocation").val());
-				formData.append('drpFromdate'	, $("#drpFromdate").val());
-				formData.append('drpTodate'		, $("#drpTodate").val());
-				formData.append('txtStart'	    , $("#txtStart").val());
-				formData.append('txtEnd'	    , $("#txtEnd").val());
-				formData.append('deptNo'        , $("#drplstDept").val()),
-		
 		$.ajax({
 			url: baseURL+"Timeoffcont/getUserByDept",
 			type: "POST",
@@ -243,19 +242,19 @@ function drpJobtitleChange()
 	    
 		
 		if (!validateShift())
-		 return;
+		{
+			clearStaffSelect()
+			return;
+		}
 		 if ($("#drplstJobtitle").val()!='')
 		 {
 		var formData = new FormData();
+			formData.append('drpFromdate'	, $("#drpFromdate").val());
+			formData.append('drpTodate'		, $("#drpTodate").val());
+			formData.append('txtStart'	    , $("#txtStart").val());
+			formData.append('txtEnd'	    , $("#txtEnd").val());
+			formData.append('JobTitelId'        , $("#drplstJobtitle").val());
 	
-				
-				//formData.append('drpLocation'		, $("#drpLocation").val());
-				formData.append('drpFromdate'	, $("#drpFromdate").val());
-				formData.append('drpTodate'		, $("#drpTodate").val());
-				formData.append('txtStart'	    , $("#txtStart").val());
-				formData.append('txtEnd'	    , $("#txtEnd").val());
-				formData.append('JobTitelId'        , $("#drplstJobtitle").val());
-		
 		$.ajax({
 			url: baseURL+"Timeoffcont/getUserByJobtitle",
 			type: "POST",
@@ -263,7 +262,7 @@ function drpJobtitleChange()
 			 processData: false,
 			 contentType: false,
 			error: function(xhr, status, error) {
-  				//var err = eval("(" + xhr.responseText + ")");
+
   				alert(xhr.responseText);
 			},
 			beforeSend: function(){},
@@ -283,19 +282,19 @@ function drpSpecChange()
 	    
 		
 		if (!validateShift())
-		 return;
+		 {
+			clearStaffSelect()
+			return;
+		}
 		 if ($("#drplstSpec").val()!='' && $("#drplstJobtitle").val()!='' )
 		 {
 		var formData = new FormData();
-	
-				
-				//formData.append('drpLocation'		, $("#drpLocation").val());
-				formData.append('drpFromdate'	, $("#drpFromdate").val());
-				formData.append('drpTodate'		, $("#drpTodate").val());
-				formData.append('txtStart'	    , $("#txtStart").val());
-				formData.append('txtEnd'	    , $("#txtEnd").val());
-				formData.append('JobTitelId'        , $("#drplstJobtitle").val());
-				formData.append('specId'        , $("#drplstSpec").val());
+			formData.append('drpFromdate'	, $("#drpFromdate").val());
+			formData.append('drpTodate'		, $("#drpTodate").val());
+			formData.append('txtStart'	    , $("#txtStart").val());
+			formData.append('txtEnd'	    , $("#txtEnd").val());
+			formData.append('JobTitelId'        , $("#drplstJobtitle").val());
+			formData.append('specId'        , $("#drplstSpec").val());
 		
 		$.ajax({
 			url: baseURL+"Timeoffcont/getUserBySpec",
@@ -343,17 +342,9 @@ function validateStaffselect()
 	return valid;
 }
 function validateShift()
-{
-	/*var form = $('#submit_form');
-    var error = $('.alert-danger', form);*/
-
-			
+{		
 	var error = $('#dvDeptMsg');
-	
 	var valid = true;
-	
-	
-	
 	if ( !$("#drpFromdate").valid() )
 		valid = false;
 		if ( !$("#drpTodate").valid() )
@@ -490,7 +481,7 @@ var TimeOffFormValidation = function () {
                 submitHandler: function (form) {
                     errormsg.hide();
 					edittimeoff();
-                    //form[0].submit(); // submit the form
+
                 }
 
             });
@@ -525,8 +516,7 @@ var TimeoffComponentsDropdowns = function () {
 			   var staffID =staffList.split(',');
 			   var newstafflist="";
 			   for ( var i = 0; i < staffID.length; i++ )
-				{//alert("i="+i);
-					//staffID[i] =staffList.split(',');
+				{
 					if (staffID[i]==values)
 					{
 					//	alert("staffID["+i+"]"+staffID[i])
@@ -540,13 +530,7 @@ var TimeoffComponentsDropdowns = function () {
 					}
 				}
 				staffList=newstafflist;
-				// alert("new staffList "+staffList);
-//			   staffList.split(",");
-//				if (staffID=values)
-				 
-				 
-
-			  //alert(values);
+				
 			},
 			
 			selectableHeader: "<div class='btn-danger' align='center'><b> Available </b></div>",
@@ -560,6 +544,258 @@ var TimeoffComponentsDropdowns = function () {
         init: function () {            
            handleMultiSelect();
         }
+    };
+
+}();
+var TimeOffTableManaged = function () {
+
+    var initTable1 = function () {
+
+        var table = $('#timeOffTable');
+
+        // begin first table
+        table.dataTable({
+
+            // Internationalisation. For more info refer to http://datatables.net/manual/i18n
+            "language": {
+                "aria": {
+                    "sortAscending": ": activate to sort column ascending",
+                    "sortDescending": ": activate to sort column descending"
+                },
+                "emptyTable": "No data available in table",
+                "info": "Showing _START_ to _END_ of _TOTAL_ entries",
+                "infoEmpty": "No entries found",
+                "infoFiltered": "(filtered1 from _MAX_ total entries)",
+                "lengthMenu": "Show _MENU_ entries",
+                "search": "Search:",
+                "zeroRecords": "No matching records found"
+            },
+
+            // Uncomment below line("dom" parameter) to fix the dropdown overflow issue in the datatable cells. The default datatable layout
+            // setup uses scrollable div(table-scrollable) with overflow:auto to enable vertical scroll(see: assets/global/plugins/datatables/plugins/bootstrap/dataTables.bootstrap.js). 
+            // So when dropdowns used the scrollable div should be removed. 
+            //"dom": "<'row'<'col-md-6 col-sm-12'l><'col-md-6 col-sm-12'f>r>t<'row'<'col-md-5 col-sm-12'i><'col-md-7 col-sm-12'p>>",
+
+            "bStateSave": true, // save datatable state(pagination, sort, etc) in cookie.
+
+            "columns": [{
+                "orderable": false
+            }, {
+                "orderable": true
+            }, {
+                "orderable": false
+            }, {
+                "orderable": false
+            }, {
+                "orderable": true
+            }, {
+                "orderable": false
+            }],
+            "lengthMenu": [
+                [5, 15, 20, -1],
+                [5, 15, 20, "All"] // change per page values here
+            ],
+            // set the initial value
+            "pageLength": 5,            
+            "pagingType": "bootstrap_full_number",
+            "language": {
+                "search": "My search: ",
+                "lengthMenu": "  _MENU_ records",
+                "paginate": {
+                    "previous":"Prev",
+                    "next": "Next",
+                    "last": "Last",
+                    "first": "First"
+                }
+            },
+            "columnDefs": [{  // set default column settings
+                'orderable': false,
+                'targets': [0]
+            }, {
+                "searchable": false,
+                "targets": [0]
+            }],
+            "order": [
+                [1, "asc"]
+            ] // set first column as a default sort by asc
+        });
+
+        var tableWrapper = jQuery('#sample_1_wrapper');
+
+        table.find('.group-checkable').change(function () {
+            var set = jQuery(this).attr("data-set");
+            var checked = jQuery(this).is(":checked");
+            jQuery(set).each(function () {
+                if (checked) {
+                    $(this).attr("checked", true);
+                    $(this).parents('tr').addClass("active");
+                } else {
+                    $(this).attr("checked", false);
+                    $(this).parents('tr').removeClass("active");
+                }
+            });
+            jQuery.uniform.update(set);
+        });
+
+        table.on('change', 'tbody tr .checkboxes', function () {
+            $(this).parents('tr').toggleClass("active");
+        });
+
+        tableWrapper.find('.dataTables_length select').addClass("form-control input-xsmall input-inline"); // modify table per page dropdown
+    }
+
+   /* var initTable2 = function () {
+
+        var table = $('#sample_2');
+
+        table.dataTable({
+
+            // Internationalisation. For more info refer to http://datatables.net/manual/i18n
+            "language": {
+                "aria": {
+                    "sortAscending": ": activate to sort column ascending",
+                    "sortDescending": ": activate to sort column descending"
+                },
+                "emptyTable": "No data available in table",
+                "info": "Showing _START_ to _END_ of _TOTAL_ entries",
+                "infoEmpty": "No entries found",
+                "infoFiltered": "(filtered1 from _MAX_ total entries)",
+                "lengthMenu": "Show _MENU_ entries",
+                "search": "Search:",
+                "zeroRecords": "No matching records found"
+            },
+
+            // Uncomment below line("dom" parameter) to fix the dropdown overflow issue in the datatable cells. The default datatable layout
+            // setup uses scrollable div(table-scrollable) with overflow:auto to enable vertical scroll(see: assets/global/plugins/datatables/plugins/bootstrap/dataTables.bootstrap.js). 
+            // So when dropdowns used the scrollable div should be removed. 
+            //"dom": "<'row'<'col-md-6 col-sm-12'l><'col-md-6 col-sm-12'f>r>t<'row'<'col-md-5 col-sm-12'i><'col-md-7 col-sm-12'p>>",
+
+            "bStateSave": true, // save datatable state(pagination, sort, etc) in cookie.
+
+            "lengthMenu": [
+                [5, 15, 20, -1],
+                [5, 15, 20, "All"] // change per page values here
+            ],
+            // set the initial value
+            "pageLength": 5,
+            "language": {
+                "lengthMenu": " _MENU_ records",
+                "paging": {
+                    "previous": "Prev",
+                    "next": "Next"
+                }
+            },
+            "columnDefs": [{  // set default column settings
+                'orderable': false,
+                'targets': [0]
+            }, {
+                "searchable": false,
+                "targets": [0]
+            }],
+            "order": [
+                [1, "asc"]
+            ] // set first column as a default sort by asc
+        });
+
+        var tableWrapper = jQuery('#sample_2_wrapper');
+
+        table.find('.group-checkable').change(function () {
+            var set = jQuery(this).attr("data-set");
+            var checked = jQuery(this).is(":checked");
+            jQuery(set).each(function () {
+                if (checked) {
+                    $(this).attr("checked", true);
+                } else {
+                    $(this).attr("checked", false);
+                }
+            });
+            jQuery.uniform.update(set);
+        });
+
+        tableWrapper.find('.dataTables_length select').select2(); // initialize select2 dropdown
+    }
+
+    var initTable3 = function () {
+
+        var table = $('#sample_3');
+
+        // begin: third table
+        table.dataTable({
+
+            // Internationalisation. For more info refer to http://datatables.net/manual/i18n
+            "language": {
+                "aria": {
+                    "sortAscending": ": activate to sort column ascending",
+                    "sortDescending": ": activate to sort column descending"
+                },
+                "emptyTable": "No data available in table",
+                "info": "Showing _START_ to _END_ of _TOTAL_ entries",
+                "infoEmpty": "No entries found",
+                "infoFiltered": "(filtered1 from _MAX_ total entries)",
+                "lengthMenu": "Show _MENU_ entries",
+                "search": "Search:",
+                "zeroRecords": "No matching records found"
+            },
+            
+            // Uncomment below line("dom" parameter) to fix the dropdown overflow issue in the datatable cells. The default datatable layout
+            // setup uses scrollable div(table-scrollable) with overflow:auto to enable vertical scroll(see: assets/global/plugins/datatables/plugins/bootstrap/dataTables.bootstrap.js). 
+            // So when dropdowns used the scrollable div should be removed. 
+            //"dom": "<'row'<'col-md-6 col-sm-12'l><'col-md-6 col-sm-12'f>r>t<'row'<'col-md-5 col-sm-12'i><'col-md-7 col-sm-12'p>>",
+
+            "bStateSave": true, // save datatable state(pagination, sort, etc) in cookie.
+            
+            "lengthMenu": [
+                [5, 15, 20, -1],
+                [5, 15, 20, "All"] // change per page values here
+            ],
+            // set the initial value
+            "pageLength": 5,
+            "language": {
+                "lengthMenu": " _MENU_ records"
+            },
+            "columnDefs": [{  // set default column settings
+                'orderable': false,
+                'targets': [0]
+            }, {
+                "searchable": false,
+                "targets": [0]
+            }],
+            "order": [
+                [1, "asc"]
+            ] // set first column as a default sort by asc
+        });
+
+        var tableWrapper = jQuery('#sample_3_wrapper');
+
+        table.find('.group-checkable').change(function () {
+            var set = jQuery(this).attr("data-set");
+            var checked = jQuery(this).is(":checked");
+            jQuery(set).each(function () {
+                if (checked) {
+                    $(this).attr("checked", true);
+                } else {
+                    $(this).attr("checked", false);
+                }
+            });
+            jQuery.uniform.update(set);
+        });
+
+        tableWrapper.find('.dataTables_length select').select2(); // initialize select2 dropdown
+    }
+*/
+    return {
+
+        //main function to initiate the module
+        init: function () {
+            if (!jQuery().dataTable) {
+                return;
+            }
+
+            initTable1();
+    //        initTable2();
+     //       initTable3();
+        }
+
     };
 
 }();

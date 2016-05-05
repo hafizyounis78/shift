@@ -2,7 +2,6 @@
 class Fullschedulecont extends CI_Controller 
 {
 	public $data;
-	public $indata;
 	function view ( $page = 'home', $uid = '' )
 	{
 		if( ! file_exists('application/views/pages/'.$page.'.php'))
@@ -10,13 +9,7 @@ class Fullschedulecont extends CI_Controller
 			show_404();
 		}
 			
-			
-
-			//$this->indata =$uid;
-			//print_r($this->indata);
-			//print_r($this->uri->segment(3));
-	//		exit();
-		//	return;
+		
 			$this->data['title'] = $page;
 			
 			$this->$page();
@@ -29,12 +22,7 @@ class Fullschedulecont extends CI_Controller
 			$this->load->view('pages/'.$page,$this->data);
 			$this->load->view('templates/footer');
 			
-		/*}
-		else
-   		{
-     		//If no session, redirect to login page
-     		redirect('login', 'refresh');
-   		}*/
+		
 		
 	}
 	function fullschedule()
@@ -86,123 +74,91 @@ class Fullschedulecont extends CI_Controller
 	}
 
 
-function addShift()
+	function addShift()
 	{
-		$this->load->model('Shiftmodel');
-		$this->Shiftmodel->insert_shift();
-		//$this->drawTimeoffTable();
+			$this->load->model('Shiftmodel');
+			$this->Shiftmodel->insert_shift();
 	}
-function getmy_Shift_calender()
-{
-	
-	
-	
-	$this->load->model('fullschedulemodel');
-	$rec = $this->fullschedulemodel->get_my_shift();
-	
-	
-	$rec = $rec->result();
-	
-	$output = array();
-	foreach($rec as $row)
+	function getmy_Shift_calender()
 	{
-		unset($temp); // Release the contained value of the variable from the last loop
-		$temp = array();
-
-		// It guess your client side will need the id to extract, and distinguish the ScoreCH data
-//		$temp['url'] = 'addbooking/'.$row->booking_code;
-		//$temp['url'] = ' ';
-		if ( $row->type==1)
-			$temp['title'] ="Shift-".$row->name."\n";
-		else
-			$temp['title'] ="TimeOff-".$row->name."\n";
-
-//			"\n".$row->org_desc.
-		$temp['start_date'] = $row->start_date;
-		$temp['start_time'] = $row->start_time;
-		$temp['end_date'] = $row->end_date;
-		$temp['end_time'] = $row->end_time;
-		$temp['location_name'] = $row->name;
-		$temp['event_details'] = $row->emp_name;
-		$temp['color'] = $row->color;
-		//$temp['textColor'] = '#666666';
-		/*if($row->w_code == 1) $temp['backgroundColor'] = 'red';
-		if($row->w_code == 2) $temp['backgroundColor'] = 'blue';
-		if($row->w_code == 3) $temp['backgroundColor'] = 'green';*/
-		/*else
-		$temp['backgroundColor'] = 'yellow';
-*/
-		array_push($output,$temp);
-	}
+		
+		
+		
+		$this->load->model('fullschedulemodel');
+		$rec = $this->fullschedulemodel->get_my_shift();
+		
+		
+		$rec = $rec->result();
+		
+		$output = array();
+		foreach($rec as $row)
+		{
+			unset($temp); // Release the contained value of the variable from the last loop
+			$temp = array();
 	
-	header('Access-Control-Allow-Origin: *');
-	header("Content-Type: application/json");
-	echo json_encode($output);
-	
-}
-function getall_Shift_calender()
-{
+			if ( $row->type==1)
+				$temp['title'] ="Shift-".$row->name."\n";
+			else
+				$temp['title'] ="TimeOff-".$row->name."\n";
 	
 	
-	
-	$this->load->model('fullschedulemodel');
-	$rec = $this->fullschedulemodel->get_all_shift();
+			$temp['start_date'] = $row->start_date;
+			$temp['start_time'] = $row->start_time;
+			$temp['end_date'] = $row->end_date;
+			$temp['end_time'] = $row->end_time;
+			$temp['location_name'] = $row->name;
+			$temp['event_details'] = $row->emp_name;
+			$temp['color'] = $row->color;
 			
-	
-	
-	
-	$rec = $rec->result();
-	
-	$output = array();
-	foreach($rec as $row)
+			array_push($output,$temp);
+		}
+		
+		header('Access-Control-Allow-Origin: *');
+		header("Content-Type: application/json");
+		echo json_encode($output);
+		
+	}
+	function getall_Shift_calender()
 	{
-		unset($temp); // Release the contained value of the variable from the last loop
-		$temp = array();
+		
+		
+		
+		$this->load->model('fullschedulemodel');
+		$rec = $this->fullschedulemodel->get_all_shift();
+				
+		
+		
+		
+		$rec = $rec->result();
+		
+		$output = array();
+		foreach($rec as $row)
+		{
+			unset($temp); // Release the contained value of the variable from the last loop
+			$temp = array();
+	
+			if ( $row->type==1)
+				$temp['title'] ="Shift-".$row->name."\n";
+			else
+				$temp['title'] ="TimeOff-".$row->name."\n";
 
-		// It guess your client side will need the id to extract, and distinguish the ScoreCH data
-//		$temp['url'] = 'addbooking/'.$row->booking_code;
-		//$temp['url'] = ' ';
-		if ( $row->type==1)
-			$temp['title'] ="Shift-".$row->name."\n";
-		else
-			$temp['title'] ="TimeOff-".$row->name."\n";
-//			"\n".$row->org_desc.
-		$temp['start_date'] = $row->start_date;
-		$temp['start_time'] = $row->start_time;
-		$temp['end_date'] = $row->end_date;
-		$temp['end_time'] = $row->end_time;
-		$temp['location_name'] = $row->name;
-		$temp['event_details'] = $row->emp_name;
-		$temp['color'] = $row->color;
-		//$temp['textColor'] = '#666666';
-		/*if($row->w_code == 1) $temp['backgroundColor'] = 'red';
-		if($row->w_code == 2) $temp['backgroundColor'] = 'blue';
-		if($row->w_code == 3) $temp['backgroundColor'] = 'green';*/
-		/*else
-		$temp['backgroundColor'] = 'yellow';
-*/
-		array_push($output,$temp);
+			$temp['start_date'] = $row->start_date;
+			$temp['start_time'] = $row->start_time;
+			$temp['end_date'] = $row->end_date;
+			$temp['end_time'] = $row->end_time;
+			$temp['location_name'] = $row->name;
+			$temp['event_details'] = $row->emp_name;
+			$temp['color'] = $row->color;
+	
+			array_push($output,$temp);
+		}
+		
+		header('Access-Control-Allow-Origin: *');
+		header("Content-Type: application/json");
+		echo json_encode($output);
+		
 	}
 	
-	header('Access-Control-Allow-Origin: *');
-	header("Content-Type: application/json");
-	echo json_encode($output);
-	
-}
-function getUserByDept()
-{
-	$this->load->model('constantmodel');
-	$staffList=$this->constantmodel->getUser_byDept();
-	 foreach($staffList as $staff_row)
-	  {
-		 
-		  echo '<option  value='.$staff_row->id.'>'.$staff_row->name.'</option>';
-		  
-	  }
-	  
-	
-}
-
 	}
 	
 ?>

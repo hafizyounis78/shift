@@ -79,13 +79,7 @@ var Calendar = function() {
 
             var addEvent = function(title) {
 				
-               /* title = title.length === 0 ? "Untitled Event" : title;
-                var html = $('<div class="external-event label label-default">' + title + '</div>');
-                jQuery('#event_box').append(html);
-                initDrag(html);*/
-				
-				
-				
+        		
             };
 
             $('#external-events div.external-event').each(function() {
@@ -97,15 +91,7 @@ var Calendar = function() {
                 addEvent(title);
             });
 			
-		//	var i =0;
-					/*$('.fc-slats > table > tbody  > tr').each(function() {
-							
-							alert(i++);
-							//alert($('.fc-slats > table > tbody  > tr').closest('td').html());
-															 
-					});
-					*/
-
+		
             //predefined events
             $('#event_box').html("");
 
@@ -139,13 +125,7 @@ var Calendar = function() {
 				});//END $.ajax
 			
 			addEvent("My Event 1");
-           /* addEvent("My Event 2");
-            addEvent("My Event 3");
-            addEvent("My Event 4");
-            addEvent("My Event 5");
-            addEvent("My Event 6");*/
-			
-			
+
 			
            $('#calendar').fullCalendar('destroy'); // destroy the calendar
             $('#calendar').fullCalendar({ //re-initialize the calendar
@@ -164,7 +144,6 @@ var Calendar = function() {
  				 $("#drpTodate").val('');
 				 var endstr = end.format().toString();
 				 var dateParts = endstr.split("-");
-				//alert(dateParts[2]);
 				if (dateParts[2].length>2)
 				{	dateParts[2]=dateParts[2].substring(0, 2)
 				
@@ -182,17 +161,9 @@ var Calendar = function() {
 				
 				 $("#drpTodate").val(dateParts[0]+'-'+dateParts[1]+'-'+endDay);
 				 $("#drpFromdate").val(start.format());
+				 $("#my_multi_select1").html('');
+				 $("#my_multi_select1").multiSelect('refresh');
 				
-				/*var title = prompt('Event Title:');
-				var eventData;
-				if (title) {
-					eventData = {
-						title: title,
-						start: start,
-						end: end
-					};
-					$('#calendar').fullCalendar('renderEvent', eventData, true); // stick? = true
-				}*/
 				$('#calendar').fullCalendar('unselect');
 			},
 				drop: function(date, allDay) { // this function is called when something is dropped
@@ -238,8 +209,6 @@ var Calendar = function() {
 			
 				},
 				eventRender: function (event, element) {
-					/*element.find('.fc-title').append('<div class="hr-line-solid-no-margin"></div><span style="font-size: 10px;background-color: red">'+event.description+'</span></div>');
-					element.find('.fc-title').append('<div class="hr-line-solid-no-margin"></div><span style="font-size: 10px;background-color: red">'+event.description+'</span></div>');*/
 					$('.popover').popover('hide');
 					element.popover({
 				            title: "Employee",
@@ -296,17 +265,7 @@ var Calendar = function() {
 					
 					
 				},
-				/*eventClick: function(event, jsEvent, view) {
-					$this = $(this);
-					$this.popover({
-				            title: "My Title",
-				            placement:'top',
-							container:'body',
-							html:true,
-				            content: event.msg
-                        });
-					return false;            
-				}, */
+			
                 events: function(start, end, timezone, callback){
 						
 					//************ read segment value *********//
@@ -314,10 +273,8 @@ var Calendar = function() {
 					var dept_id=0;
 					var action="getall_Shift_calender";;
 					var newURL = window.location.protocol + "://" + window.location.host + "/" + window.location.pathname;
-					
-
 					var pathArray = window.location.pathname.split( '/' );
-					// alert(pathArray[4]);
+					
 					dept_id=$("#drplstfilterByDept").val();
 					
 					if (pathArray[4]!=null)
@@ -325,30 +282,22 @@ var Calendar = function() {
 					  	segment_4 =pathArray[4] ;
 						action="getmy_Shift_calender";
 					  }
-					   
-					//alert(segment_4)
-		            
+			
 						$.ajax({
     						url: baseURL+"Fullschedulecont/"+action,
     						type: "POST",
 							data:{segment_4:segment_4,dept_id:dept_id },
-//							data: {hall:hall},
     						success:function(retrieved_data){
          					// Your code here.. use something like this
-							//alert(retrieved_data.length);
-         					//var Obj = JSON.parse(retrieved_data);
-//							alert(retrieved_data[0]['start_time']);
 							var arr = [{title: 'All Day Event',
                     		 start: new Date(y, m, 1),
                     			backgroundColor: Metronic.getBrandColor('yellow')
                 			}];
-							//alert(arr[0]['start']);
-							
-         					// Since your controller produce array of object you can access the value by using this one :
+							// Since your controller produce array of object you can access the value by using this one :
          					var events = [];
 							for(var a=0; a< retrieved_data.length; a++)
 								{
-									//alert(retrieved_data[a]['start_date'])
+
 									var startdateParts = retrieved_data[a]['start_date'].split("-");
 									var enddateParts = retrieved_data[a]['end_date'].split("-");
 									var starttimeParts = retrieved_data[a]['start_time'].split(":");
@@ -387,29 +336,22 @@ function convertTime(timeParam)
 	var hours='';
 	var AMPM='';
 	if (time.length==4)
-	{	 AMPM = time.substring(2, 4);
-	//alert("time.length= " + time.length);
+	{	 
+		AMPM = time.substring(2, 4);
 		hours =time.substring(0, 2);
 	}
 	else if (time.length==3)
-	{	AMPM = time.substring(1, 3);
-	//alert("time.length= " + time.length);
+	{	
+		AMPM = time.substring(1, 3);
 		hours =time.substring(0, 1);
 	}
-//alert("hours  "+hours);
-//var minutes = Number(time.match(/:(\d+)/)[1]);
-//;2var AMPM = time.match(/\s(.*)$/)[1];
-
-
-//alert(AMPM);
-if(AMPM == "pm" && hours<12) hours =  parseInt(hours)+12;
-if(AMPM == "am" && hours==12) hours = parseInt(hours)-12;
-var sHours = hours.toString();
-//var sMinutes = minutes.toString();
-if(hours<10) sHours = "0" + sHours;
-//if(minutes<10) sMinutes = "0" + sMinutes;
-//alert(sHours);
-return parseInt(sHours);
+	if(AMPM == "pm" && hours<12) hours =  parseInt(hours)+12;
+	if(AMPM == "am" && hours==12) hours = parseInt(hours)-12;
+	var sHours = hours.toString();
+	
+	if(hours<10) sHours = "0" + sHours;
+	
+	return parseInt(sHours);
 }
 //----
 $(document).ready(function(){

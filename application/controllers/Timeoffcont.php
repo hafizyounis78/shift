@@ -67,25 +67,34 @@ class Timeoffcont extends CI_Controller
 		
 		
 		$i=1;
-		foreach($timeoffrec as $row)
-		{
-			 echo '<tr>';		
-			 echo '<td>'.$i++.'</td>';
-			 echo '<td id="tdstaff'.$row->id.'">'.$row->Staff_name.'</td>';
-			 echo '<td id="tdstart_date'.$row->id.'">'. $row->start_date.'</td>';
-	         echo '<td id="tdend_date'.$row->id.'">'. $row->end_date.'</td>';
-			 echo '<td id="tdstart_Time'.$row->id.'">'. $row->start_time.'</td>';
-			 echo '<td id="tdend_Time'.$row->id.'">'. $row->end_time.'</td>';
-			 echo '<td id="tdend_Time'.$row->id.'">'. $row->location_desc.'</td>';
-			 echo '<td>
-				  <button id="btnupdateShift" name="btnupdateShift" type="button" class="btn default btn-xs blue" onclick="updatetimeoff('.$row->id.')">
-				  <i class="fa fa-edit"></i> Update </button>
-				  <button id="btndelShift" name="btndelShift" type="submit" value="Delete" class="btn default btn-xs red" onclick="deletetimeoff('.$row->id.')"><i class="fa fa-trash-o"></i> delete</button>';
-			 echo '</td>';  
-			
-			 echo '<tr/>';
-		}
-										
+		$statusrow='';
+			foreach($timeoffrec as $row)
+				{
+					if($row->status==1)
+					 $statusrow='Pending';
+					 else
+					 $statusrow='Active';
+					 echo '<tr>';		
+					 echo '<td>'.$i++.'</td>';
+					 echo '<td id="tdstaff'.$row->id.'">'.$row->Staff_name.'</td>';
+					 echo '<td id="tdstart_date'.$row->id.'">'. $row->start_date.'</td>';
+					 echo '<td id="tdend_date'.$row->id.'">'. $row->end_date.'</td>';
+					 echo '<td id="tdstart_Time'.$row->id.'">'. $row->start_time.'</td>';
+					 echo '<td id="tdend_Time'.$row->id.'">'. $row->end_time.'</td>';
+					 echo '<td id="tdlocation'.$row->id.'" data-loid="'.$row->locationId.'">'. $row->location_desc.'</td>';
+					 if ($row->status == 1)
+						echo '<td id="tdrdStatus'.$row->id.'" data-stid="'.$row->status.'"><span class="label label-sm label-warning">'.$statusrow.'</span></td>';		 
+					 else
+						echo '<td id="tdrdStatus'.$row->id.'" data-stid="'.$row->status.'"><span class="label label-sm label-success">'.$statusrow.'</span></td>';		 
+						
+					 echo '<td>
+						  <button id="btnupdateShift" name="btnupdateShift" type="button" class="btn default btn-xs blue" onclick="updatetimeoff('.$row->id.')">
+						  <i class="fa fa-edit"></i> Update </button>
+						  <button id="btndelShift" name="btndelShift" type="submit" value="Delete" class="btn default btn-xs red" onclick="deletetimeoff('.$row->id.')"><i class="fa fa-trash-o"></i> delete</button>';
+					 echo '</td>';  
+					
+					 echo '<tr/>';
+				}								
 		
 	}
 	function deletetimeoff()
@@ -98,24 +107,38 @@ class Timeoffcont extends CI_Controller
 function getUserByDept()
 {
 	$this->load->model('constantmodel');
-	$staffList=$this->constantmodel->getUser_byDeptTimeoff();
+	$staffList=$this->constantmodel->getAvailUser_byDeptTimeoff();
+	$notAvailableList=$this->constantmodel->getNotAvailUser_byDeptTimeoff();
 	 foreach($staffList as $staff_row)
 	  {
-		 
-		  echo '<option  value='.$staff_row->id.'>'.$staff_row->name.'</option>';
+//		 
+		  echo '<option  value='.$staff_row->id.'>'.$staff_row->id.'|'.$staff_row->name.'</option>';
 		  
 	  }
 	  
-	
+	foreach($notAvailableList as $staff_row)
+	  {
+
+		  echo '<option disabled="disabled" value='.$staff_row->id.'>'.$staff_row->id.'|'.$staff_row->name.'</option>';
+		  
+	  }
+	  
 }
 function getUserByJobtitle()
 {
 	$this->load->model('constantmodel');
-	$staffList=$this->constantmodel->getUser_JobtitelTimeoff();
+	$staffList=$this->constantmodel->getAvailUser_JobtitelTimeoff();
+	$notAvailableList=$this->constantmodel->getNotAvailUser_JobtitelTimeoff();
 	 foreach($staffList as $staff_row)
 	  {
 		 
-		  echo '<option  value='.$staff_row->id.'>'.$staff_row->name.'</option>';
+		  echo '<option  value='.$staff_row->id.'  >'.$staff_row->name.'</option>';
+		  
+	  }
+	foreach($notAvailableList as $staff_row)
+	  {
+
+		  echo '<option disabled="disabled" value='.$staff_row->id.'>'.$staff_row->id.'|'.$staff_row->name.'</option>';
 		  
 	  }
 	  
@@ -124,11 +147,18 @@ function getUserByJobtitle()
 function getUserBySpec()
 {
 	$this->load->model('constantmodel');
-	$staffList=$this->constantmodel->getUser_specializationTimeoff();
+	$staffList=$this->constantmodel->getAvailUser_specializationTimeoff();
+	$notAvailableList=$this->constantmodel->getNotAvailUser_specializationTimeoff();
 	 foreach($staffList as $staff_row)
 	  {
 		 
 		  echo '<option  value='.$staff_row->id.'>'.$staff_row->name.'</option>';
+		  
+	  }
+	foreach($notAvailableList as $staff_row)
+	  {
+
+		  echo '<option disabled="disabled" value='.$staff_row->id.'>'.$staff_row->id.'|'.$staff_row->name.'</option>';
 		  
 	  }
 	  
