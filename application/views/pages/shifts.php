@@ -281,7 +281,7 @@ $readonly = '';
 							</div>
 							<div class="portlet-body">
 								<!--<div class="table-scrollable">
--->									<table class="table table-striped table-bordered table-hover">
+-->									<table class="table table-striped table-bordered table-hover" id="sample_3">
 									<thead>
 									<tr>
 										<th>
@@ -347,7 +347,7 @@ $readonly = '';
 													  <button id="btndelShift" name="btndelShift" type="submit" value="Delete" class="btn default btn-xs red" onclick="deleteShift('.$row->id.')"><i class="fa fa-trash-o"></i> delete</button>';
 												 echo '</td>';  
 												
-												 echo '<tr/>';
+												 echo '</tr>';
 											}
 									?>
 									</tbody>

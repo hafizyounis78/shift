@@ -147,7 +147,7 @@ class Shiftscont extends CI_Controller
 				  <button id="btndelShift" name="btndelShift" type="submit" value="Delete" class="btn default btn-xs red" onclick="deleteShift('.$row->id.')"><i class="fa fa-trash-o"></i> delete</button>';
 			 echo '</td>';  
 			
-			 echo '<tr/>';
+			 echo '</tr>';
 		}
 										
 		

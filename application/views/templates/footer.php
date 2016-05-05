@@ -80,7 +80,7 @@
       jQuery(document).ready(function() {    
          Metronic.init(); // init metronic core components
 		 Layout.init(); // init current layout
-		
+		 TableManaged.init();
 		 Demo.init(); // init demo features
 		
 		ShiftComponentsDropdowns.init();
@@ -96,7 +96,7 @@
 		 Calendar.init();
 		 
 		 ComponentsPickers.init();
-		 TimeOffTableManaged.init();
+		
 			var newURL = window.location.protocol + "://" + window.location.host + "/" + window.location.pathname;
 			var pathArray = window.location.pathname.split( '/' );
 			// alert(pathArray[3]);
