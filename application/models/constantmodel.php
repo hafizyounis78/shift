@@ -67,22 +67,28 @@ function getAvailUser_byDept()
 {
 	extract($_POST);
 	if ($deptNo!=0)
-	{
-	   $myquery = "SELECT id, CONCAT(first_name,' ',last_name) as name 
-					FROM dusseldorf_users 
-					where type=2 
-					and dep_id=".$deptNo."
-					and id not in (select user_id 
-								   from   dusseldorf_v3_shifts
-								   where  ((start_date<='".$drpFromdate."' and end_date>='".$drpTodate."')
-								   OR      (start_date>='".$drpFromdate."' and start_date<='".$drpTodate."' AND end_date>='".$drpTodate."')
-								   OR      (start_date<='".$drpFromdate."' and end_date>='".$drpFromdate."' AND end_date<='".$drpTodate."')
-								   OR      (start_date>='".$drpFromdate."' and end_date<='".$drpTodate."'))
-								   
-								   AND   ((start_time<='".$txtStart."' and end_time>='".$txtEnd."')
-								   or     ( start_time>='".$txtStart."' and start_time<='".$txtEnd."' AND end_time>='".$txtEnd."')
-								   or     ( start_time<='".$txtStart."' and end_time>='".$txtStart."' and end_time<='".$txtEnd."')
-								   or     ( start_time>='".$txtStart."' and end_time<='".$txtEnd."')))";
+	{//example:start_date=09-05-2016
+	//		   end date=  15-05-2016	
+	   $myquery = "SELECT  DISTINCT outusertb.id, (SELECT sum( TIME_TO_SEC( end_time ) - TIME_TO_SEC( start_time ) ) AS totaltime
+		      	   						 FROM dusseldorf_v3_shifts inshiftstb
+						                 WHERE WEEKOFYEAR( start_date ) = WEEKOFYEAR( ".$drpFromdate." )
+									     AND inshiftstb.user_id = outusertb.id
+						 		         GROUP BY id) AS totaltime, 
+						  CONCAT( first_name, ' ', last_name ) AS name, hoursPerWeek, pricePerHour
+				   FROM    dusseldorf_users outusertb, dusseldorf_v3_shifts
+				   WHERE   outusertb.type =2
+				   AND     outusertb.id = dusseldorf_v3_shifts.user_id
+				   AND     dep_id=".$deptNo."
+				   AND     outusertb.id not in (select  user_id 
+														from   dusseldorf_v3_shifts
+														where  ((start_date<='".$drpFromdate."' and end_date>='".$drpTodate."')
+														OR      (start_date>='".$drpFromdate."' and start_date<='".$drpTodate."' AND end_date>='".$drpTodate."')
+														OR      (start_date<='".$drpFromdate."' and end_date>='".$drpFromdate."' AND end_date<='".$drpTodate."')
+														OR      (start_date>='".$drpFromdate."' and end_date<='".$drpTodate."'))
+														AND   ((start_time<='".$txtStart."' and end_time>='".$txtEnd."')
+														or     ( start_time>='".$txtStart."' and start_time<='".$txtEnd."' AND end_time>='".$txtEnd."')
+														or     ( start_time<='".$txtStart."' and end_time>='".$txtStart."' and end_time<='".$txtEnd."')
+														or     ( start_time>='".$txtStart."' and end_time<='".$txtEnd."')))";
 
 	}
 	else

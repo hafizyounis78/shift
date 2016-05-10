@@ -56,10 +56,12 @@ class Shiftscont extends CI_Controller
 		$this->load->model('constantmodel');
 		$staffList=$this->constantmodel->getAvailUser_byDept();
 		$notAvailableList=$this->constantmodel->getNotAvailUser_byDept();
+		$totalTime='';
 		 foreach($staffList as $staff_row)
 		  {
+			 $totalTime=$staff_row->hoursPerWeek-(($staff_row->totaltime)/36009);
 			 
-			  echo '<option  value='.$staff_row->id.'>'.$staff_row->id.'|'.$staff_row->name.'</option>';
+			  echo '<option  value='.$staff_row->id.'>'.$totalTime.'|'.$staff_row->name.'|'.$staff_row->pricePerHour.'</option>';
 			  
 		  }
 		 foreach($notAvailableList as $staff_row)
