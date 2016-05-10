@@ -109,19 +109,30 @@ function getUserByDept()
 	$this->load->model('constantmodel');
 	$staffList=$this->constantmodel->getAvailUser_byDeptTimeoff();
 	$notAvailableList=$this->constantmodel->getNotAvailUser_byDeptTimeoff();
-	 foreach($staffList as $staff_row)
-	  {
-//		 
-		  echo '<option  value='.$staff_row->id.'>'.$staff_row->id.'|'.$staff_row->name.'</option>';
-		  
-	  }
-	  
-	foreach($notAvailableList as $staff_row)
-	  {
-
-		  echo '<option disabled="disabled" value='.$staff_row->id.'>'.$staff_row->id.'|'.$staff_row->name.'</option>';
-		  
-	  }
+	$totalTime='';
+		 foreach($staffList as $staff_row)
+		  {
+			 
+			// $totalTime=$staff_row->hoursPerWeek-(($staff_row->totaltime)/3600);
+			if ($staff_row->worktime =='')
+				$totalTime=-45;
+			else
+			 $totalTime=(($staff_row->worktime)/3600)-$staff_row->hoursPerWeek;
+			 
+			  echo '<option  value='.$staff_row->id.'>'.$totalTime.'|'.$staff_row->name.'|'.$staff_row->pricePerHour.'</option>';
+			  
+		  }
+		 foreach($notAvailableList as $staff_row)
+		  {
+			  	if ($staff_row->worktime =='')
+				$totalTime=-45;
+			else
+			 $totalTime=(($staff_row->worktime)/3600)-$staff_row->hoursPerWeek;
+	
+	
+			  echo '<option title="Unavailable" disabled="disabled" value='.$staff_row->id.'>'.$totalTime.'|'.$staff_row->name.'</option>';
+			  
+		  }
 	  
 }
 function getUserByJobtitle()
@@ -129,18 +140,30 @@ function getUserByJobtitle()
 	$this->load->model('constantmodel');
 	$staffList=$this->constantmodel->getAvailUser_JobtitelTimeoff();
 	$notAvailableList=$this->constantmodel->getNotAvailUser_JobtitelTimeoff();
-	 foreach($staffList as $staff_row)
-	  {
-		 
-		  echo '<option  value='.$staff_row->id.'  >'.$staff_row->name.'</option>';
-		  
-	  }
-	foreach($notAvailableList as $staff_row)
-	  {
-
-		  echo '<option disabled="disabled" value='.$staff_row->id.'>'.$staff_row->id.'|'.$staff_row->name.'</option>';
-		  
-	  }
+	$totalTime='';
+		 foreach($staffList as $staff_row)
+		  {
+			 
+			// $totalTime=$staff_row->hoursPerWeek-(($staff_row->totaltime)/3600);
+			if ($staff_row->worktime =='')
+				$totalTime=-45;
+			else
+			 $totalTime=(($staff_row->worktime)/3600)-$staff_row->hoursPerWeek;
+			 
+			  echo '<option  value='.$staff_row->id.'>'.$totalTime.'|'.$staff_row->name.'|'.$staff_row->pricePerHour.'</option>';
+			  
+		  }
+		 foreach($notAvailableList as $staff_row)
+		  {
+			  	if ($staff_row->worktime =='')
+				$totalTime=-45;
+			else
+			 $totalTime=(($staff_row->worktime)/3600)-$staff_row->hoursPerWeek;
+	
+	
+			  echo '<option title="Unavailable" disabled="disabled" value='.$staff_row->id.'>'.$totalTime.'|'.$staff_row->name.'</option>';
+			  
+		  }
 	  
 	
 }
@@ -149,38 +172,34 @@ function getUserBySpec()
 	$this->load->model('constantmodel');
 	$staffList=$this->constantmodel->getAvailUser_specializationTimeoff();
 	$notAvailableList=$this->constantmodel->getNotAvailUser_specializationTimeoff();
-	 foreach($staffList as $staff_row)
-	  {
-		 
-		  echo '<option  value='.$staff_row->id.'>'.$staff_row->name.'</option>';
-		  
-	  }
-	foreach($notAvailableList as $staff_row)
-	  {
-
-		  echo '<option disabled="disabled" value='.$staff_row->id.'>'.$staff_row->id.'|'.$staff_row->name.'</option>';
-		  
-	  }
+	$totalTime='';
+		 foreach($staffList as $staff_row)
+		  {
+			 
+			// $totalTime=$staff_row->hoursPerWeek-(($staff_row->totaltime)/3600);
+			if ($staff_row->worktime =='')
+				$totalTime=-45;
+			else
+			 $totalTime=(($staff_row->worktime)/3600)-$staff_row->hoursPerWeek;
+			 
+			  echo '<option  value='.$staff_row->id.'>'.$totalTime.'|'.$staff_row->name.'|'.$staff_row->pricePerHour.'</option>';
+			  
+		  }
+		 foreach($notAvailableList as $staff_row)
+		  {
+			  	if ($staff_row->worktime =='')
+				$totalTime=-45;
+			else
+			 $totalTime=(($staff_row->worktime)/3600)-$staff_row->hoursPerWeek;
+	
+	
+			  echo '<option title="Unavailable" disabled="disabled" value='.$staff_row->id.'>'.$totalTime.'|'.$staff_row->name.'</option>';
+			  
+		  }
 	  
+  
 	
 }
 
-/*function getstaffList()
-	{
-		$this->load->model('constantmodel');
-		//$rec = $this->constantmodel->get_staff_list();
-		$this->data['staffList']= $this->constantmodel->get_staff_list();
-		//echo '<select multiple="multiple" class="multi-select" id="my_multi_select2" name="my_multi_select2[]">';
-			  $menue_id = '';
-			  foreach($rec as $staff_row)
-			  {
-				  $selected = '';
-					  echo '</optgroup>';
-
-					  echo '<option  value='.$staff_row->id.'>'.$staff_row->name.'</option>';
-				  
-			  }
-			  echo '</optgroup>';
-	}
-*/}
+}
 ?>

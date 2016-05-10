@@ -59,10 +59,10 @@ class Shiftscont extends CI_Controller
 		$totalTime='';
 		 foreach($staffList as $staff_row)
 		  {
-			  print_r($staff_row);
+			 
 			// $totalTime=$staff_row->hoursPerWeek-(($staff_row->totaltime)/3600);
 			if ($staff_row->worktime =='')
-				$totalTime=0;
+				$totalTime=-45;
 			else
 			 $totalTime=(($staff_row->worktime)/3600)-$staff_row->hoursPerWeek;
 			 
@@ -71,8 +71,13 @@ class Shiftscont extends CI_Controller
 		  }
 		 foreach($notAvailableList as $staff_row)
 		  {
+			  	if ($staff_row->worktime =='')
+				$totalTime=-45;
+			else
+			 $totalTime=(($staff_row->worktime)/3600)-$staff_row->hoursPerWeek;
 	
-			  echo '<option title="Tooltip" disabled="disabled" value='.$staff_row->id.'>'.$staff_row->id.'|'.$staff_row->name.'</option>';
+	
+			  echo '<option title="Unavailable" disabled="disabled" value='.$staff_row->id.'>'.$totalTime.'|'.$staff_row->name.'</option>';
 			  
 		  }  
 		
@@ -82,40 +87,61 @@ class Shiftscont extends CI_Controller
 		$this->load->model('constantmodel');
 		$staffList=$this->constantmodel->getAvailUser_Jobtitel();
 		$notAvailableList=$this->constantmodel->getNotAvailUser_Jobtitel();
+		 $totalTime='';
 		 foreach($staffList as $staff_row)
 		  {
 			 
-			  echo '<option  value='.$staff_row->id.'>'.$staff_row->id.'|'.$staff_row->name.'</option>';
+			// $totalTime=$staff_row->hoursPerWeek-(($staff_row->totaltime)/3600);
+			if ($staff_row->worktime =='')
+				$totalTime=-45;
+			else
+			 $totalTime=(($staff_row->worktime)/3600)-$staff_row->hoursPerWeek;
+			 
+			  echo '<option  value='.$staff_row->id.'>'.$totalTime.'|'.$staff_row->name.'|'.$staff_row->pricePerHour.'</option>';
 			  
 		  }
-		foreach($notAvailableList as $staff_row)
+		 foreach($notAvailableList as $staff_row)
 		  {
+			  	if ($staff_row->worktime =='')
+				$totalTime=-45;
+			else
+			 $totalTime=(($staff_row->worktime)/3600)-$staff_row->hoursPerWeek;
 	
-			  echo '<option disabled="disabled" value='.$staff_row->id.'>'.$staff_row->id.'|'.$staff_row->name.'</option>';
+	
+			  echo '<option title="Unavailable" disabled="disabled" value='.$staff_row->id.'>'.$totalTime.'|'.$staff_row->name.'</option>';
 			  
-		  }  
-		  
+		  } 
 		
 	}
 	function getUserBySpec()
 	{
 		$this->load->model('constantmodel');
 		$staffList=$this->constantmodel->getAvailUser_specialization();
-			$notAvailableList=$this->constantmodel->getNotAvailUser_specialization();
+		$notAvailableList=$this->constantmodel->getNotAvailUser_specialization();
+		$totalTime='';
 		 foreach($staffList as $staff_row)
 		  {
 			 
-			  echo '<option  value='.$staff_row->id.'>'.$staff_row->id.'|'.$staff_row->name.'</option>';
+			// $totalTime=$staff_row->hoursPerWeek-(($staff_row->totaltime)/3600);
+			if ($staff_row->worktime =='')
+				$totalTime=45;
+			else
+			 $totalTime=(($staff_row->worktime)/3600)-$staff_row->hoursPerWeek;
+			 
+			  echo '<option  value='.$staff_row->id.'>'.$totalTime.'|'.$staff_row->name.'|'.$staff_row->pricePerHour.'</option>';
 			  
 		  }
-		  
-		foreach($notAvailableList as $staff_row)
+		 foreach($notAvailableList as $staff_row)
 		  {
+			  	if ($staff_row->worktime =='')
+				$totalTime=45;
+			else
+			 $totalTime=(($staff_row->worktime)/3600)-$staff_row->hoursPerWeek;
 	
-			  echo '<option disabled="disabled" value='.$staff_row->id.'>'.$staff_row->id.'|'.$staff_row->name.'</option>';
+	
+			  echo '<option title="Unavailable" disabled="disabled" value='.$staff_row->id.'>'.$totalTime.'|'.$staff_row->name.'</option>';
 			  
-		  }  
-		
+		  }		
 	}
 	
 	function drawShiftsTable()
