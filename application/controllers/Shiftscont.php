@@ -59,7 +59,12 @@ class Shiftscont extends CI_Controller
 		$totalTime='';
 		 foreach($staffList as $staff_row)
 		  {
-			 $totalTime=$staff_row->hoursPerWeek-(($staff_row->totaltime)/36009);
+			  print_r($staff_row);
+			// $totalTime=$staff_row->hoursPerWeek-(($staff_row->totaltime)/3600);
+			if ($staff_row->worktime =='')
+				$totalTime=0;
+			else
+			 $totalTime=(($staff_row->worktime)/3600)-$staff_row->hoursPerWeek;
 			 
 			  echo '<option  value='.$staff_row->id.'>'.$totalTime.'|'.$staff_row->name.'|'.$staff_row->pricePerHour.'</option>';
 			  
