@@ -252,10 +252,11 @@ extract($_POST);
 												   GROUP BY user_id) AS worktime, 
 						  CONCAT( first_name, ' ', last_name ) AS name, hoursPerWeek, pricePerHour
 				  FROM    dusseldorf_users outusertb
-				  LEFT OUTER JOIN dusseldorf_v3_shifts outshifttb on outusertb.id= outshifttb.user_id
+				  LEFT OUTER JOIN dusseldorf_v3_shifts outshifttb on outusertb.id= outshifttb.user_id,dusseldorf_specialization_users spe
 				  WHERE   outusertb.type =2
 				  and     jobtitle_id=".$JobTitelId."
-  				  and     specialization_id=".$specId."
+				  and     spe.users_id=outusertb.id
+  				  and     spe.specialization_id=".$specId."
 				  AND     outusertb.id not in (select  user_id 
 											   from   dusseldorf_v3_shifts
 											   where  ((start_date<='".$drpFromdate."' and end_date>='".$drpTodate."')
@@ -282,10 +283,11 @@ extract($_POST);
 												   GROUP BY user_id) AS worktime, 
 						  CONCAT( first_name, ' ', last_name ) AS name, hoursPerWeek, pricePerHour
 				  FROM    dusseldorf_users outusertb
-				  LEFT OUTER JOIN dusseldorf_v3_shifts outshifttb on outusertb.id= outshifttb.user_id
+				  LEFT OUTER JOIN dusseldorf_v3_shifts outshifttb on outusertb.id= outshifttb.user_id,dusseldorf_specialization_users spe
 				  WHERE   outusertb.type =2
 				  and     jobtitle_id=".$JobTitelId."
-  				  and     specialization_id=".$specId."
+  				  and     spe.users_id=outusertb.id
+  				  and     spe.specialization_id=".$specId."
 				  AND     outusertb.id in (select  user_id 
 											   from   dusseldorf_v3_shifts
 											   where  ((start_date<='".$drpFromdate."' and end_date>='".$drpTodate."')
@@ -495,11 +497,12 @@ extract($_POST);
 														   GROUP BY user_id) AS worktime, 
 								  CONCAT( first_name, ' ', last_name ) AS name, hoursPerWeek, pricePerHour
 						  FROM    dusseldorf_users outusertb
-						  LEFT OUTER JOIN dusseldorf_v3_shifts outshifttb on outusertb.id= outshifttb.user_id
+						  LEFT OUTER JOIN dusseldorf_v3_shifts outshifttb on outusertb.id= outshifttb.user_id,dusseldorf_specialization_users spe
 						  WHERE   outusertb.type =2
 						  AND     outshifttb.type=2
 						  and     jobtitle_id=".$JobTitelId."
-						  	and   specialization_id=".$specId."
+						  and     spe.users_id=outusertb.id
+		  				  and     spe.specialization_id=".$specId."
 						  AND     outusertb.id not in (select  user_id 
 													   from   dusseldorf_v3_shifts
 													   where  ((start_date<='".$drpFromdate."' and end_date>='".$drpTodate."')
@@ -528,11 +531,12 @@ extract($_POST);
 														   GROUP BY user_id) AS worktime, 
 								  CONCAT( first_name, ' ', last_name ) AS name, hoursPerWeek, pricePerHour
 						  FROM    dusseldorf_users outusertb
-						  LEFT OUTER JOIN dusseldorf_v3_shifts outshifttb on outusertb.id= outshifttb.user_id
+						  LEFT OUTER JOIN dusseldorf_v3_shifts outshifttb on outusertb.id= outshifttb.user_id,dusseldorf_specialization_users spe
 						  WHERE   outusertb.type =2
 						  AND     outshifttb.type=2
 						  and     jobtitle_id=".$JobTitelId."
-						  and     specialization_id=".$specId."
+						  and     spe.users_id=outusertb.id
+  						  and     spe.specialization_id=".$specId."
 						  AND     outusertb.id in (select  user_id 
 													   from    dusseldorf_v3_shifts
 													   where   ((start_date<='".$drpFromdate."' and end_date>='".$drpTodate."')

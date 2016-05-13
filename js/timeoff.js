@@ -370,12 +370,76 @@ function validateShift()
 		
 	return valid;
 }
+function y2k(number) { return (number < 1000) ? number + 1900 : number; }
+function getweekNumber(stratdate,enddate) {
+	
+	var date1 = new Date(stratdate);
+	var date2 = new Date(enddate);
+	var timeDiff = Math.abs(date2.getTime() - date1.getTime());
+	var diffDays = Math.ceil(timeDiff / (1000 * 3600 * 24)) +1; 
+	//alert("diffDays "+diffDays);
+	if (diffDays > 7)
+		return false;
+	else
+	{
+		if (date1.getDay() == 2 && diffDays > 6) 	// Tuseday
+			return false;
+		else if (date1.getDay() == 3 && diffDays > 5)	// Wednesday
+			return false;
+		else if (date1.getDay() == 4 && diffDays > 4)	// Thersday
+			return false;
+		else if (date1.getDay() == 5 && diffDays > 3)	// Friday
+			return false;
+		else if (date1.getDay() == 6 && diffDays > 2)	// Saterday
+			return false;
+		else if (date1.getDay() == 0 && diffDays > 1)	// Sunday
+			return false;	
+			
+	}
+		return true;
+	/*var dateParts = date.split("-");
+	 var year=	dateParts[0];
+	 var month=dateParts[1] ;
+	 var day=dateParts[2];
+alert("day :"+day+"  month: "+month+ "  year :"+year); 
+*/
+/*	 var when = new Date(year,month,day);
+    var newYear = new Date(year,0,1);
+    var offset = 7 + 1 - newYear.getDay();
+    if (offset == 8) offset = 1;
+    var daynum = ((Date.UTC(y2k(year),when.getMonth(),when.getDate(),0,0,0) - Date.UTC(y2k(year),0,1,0,0,0)) /1000/60/60/24) + 1;
+    var weeknum = Math.floor((daynum-offset+7)/7);
+    if (weeknum == 0) {
+        year--;
+        var prevNewYear = new Date(year,0,1);
+        var prevOffset = 7 + 1 - prevNewYear.getDay();
+        if (prevOffset == 2 || prevOffset == 8) weeknum = 53; else weeknum = 52;
+    }
+*/    //return weeknum;
+	/* var dateParts = date.split("-");
+	 var year=	dateParts[0];
+	 var month=dateParts[1] ;
+	 var day=dateParts[2];
+	 //var dateOfEnd = new Date(dateParts[0], (dateParts[1] - 1), dateParts[2]);
+	alert("day :"+day+"  month: "+month+ "  year :"+year);
+    function serial(days) { return 86400000*days; }
+    function dateserial(year,month,day) { return (new Date(year,month-1,day).valueOf()); }
+    function weekday(date) { return (new Date(date)).getDay()+1; }
+    function yearserial(date) { return (new Date(date)).getFullYear(); }
+    var date = year instanceof Date ? year.valueOf() : typeof year === "string" ? new Date(year).valueOf() : dateserial(year,month,day), 
+        date2 = dateserial(yearserial(date - serial(weekday(date-serial(1))) + serial(4)),1,3);
+    return ~~((date - date2 + serial(weekday(date2) + 5))/ serial(7));*/
+}
 var TimeOffFormValidation = function () {
  var handleValidation = function() {
         
             var form = $('#timeOffForm');
             var errormsg = $('.alert-danger', form);
             var successmsg = $('.alert-success', form);
+			jQuery.validator.addMethod("checkWeekNumber", function(value, element) {
+				
+    			return getweekNumber($("#drpFromdate").val(),$("#drpTodate").val());
+			}, "* must select one week duration ");
 			jQuery.validator.addMethod("greaterThanStartdate", function(value, element) {
     			return Date.parse($('#drpTodate').val())>=Date.parse($('#drpFromdate').val()) ;
 			}, "* End date must be greater than Start date");
@@ -406,7 +470,8 @@ var TimeOffFormValidation = function () {
                     },
 	                drpTodate: {
                         required:true,
-						greaterThanStartdate:true
+						greaterThanStartdate:true,
+						checkWeekNumber:true
                     
 					},
 					txtStart: {
@@ -427,7 +492,8 @@ var TimeOffFormValidation = function () {
                     },
 					drpTodate: {
 						required: "Please enter valid end date",
-						greaterThanStartdate:"Please enter valid end date"
+						greaterThanStartdate:"Please enter valid end date",
+						checkWeekNumber:"End date should be at same week duration"
                     },
                     txtStart: {
                         required: "Please enter start time of timeoff"

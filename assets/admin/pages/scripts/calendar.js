@@ -204,9 +204,9 @@ var Calendar = function() {
 					
                 },
 				dayClick: function(date, jsEvent, view, resourceObj) {
-					alert('Date: ' + date.format());
+				/*	alert('Date: ' + date.format());
 					alert('Resource ID: ' + resourceObj.id);
-			
+			*/
 				},
 				eventRender: function (event, element) {
 					$('.popover').popover('hide');
@@ -260,7 +260,7 @@ var Calendar = function() {
 
 																					 
 						});
-					 }, 400);
+					 }, 500);
 					}
 					
 					
