@@ -35,12 +35,16 @@
 						<span class="title">Locations</span>
 						</a>
 					</li>
+                    <?php if ($this->session->userdata('itemname') != "emp")
+					{
+						?>
                     <li <?php if($title == 'shifts') echo 'class="active open"';?>>
 						<a href="<?php echo base_url();?>shiftscont/shifts">
 						<i class="icon-list"></i>
 						<span class="title">Shifts</span>
 						</a>
 					</li>
+                   <?php  }?>
 
                     <!--<li <?php if($title == 'shifttemplate') echo 'class="active open"';?>>
 						<a href="<?php echo base_url();?>shifttemplatecont/shifttemplate">

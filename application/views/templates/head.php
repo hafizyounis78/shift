@@ -78,6 +78,7 @@ background: #FF6F6F;
 
 <script type="text/javascript">
 var baseURL = "<?php echo base_url(); ?>";
+
 </script>
 
 </head>

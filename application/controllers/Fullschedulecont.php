@@ -14,7 +14,7 @@ class Fullschedulecont extends CI_Controller
 		$this->session->unset_userdata('dep_id');
 
 		$this->session->set_userdata('user_id',  $this->uri->segment(3));
-		echo $this->session->userdata('user_id');
+		//echo $this->session->userdata('user_id');
 		
 		$this->load->model('constantmodel');
 		$rec=$this->constantmodel->get_user_permissions();

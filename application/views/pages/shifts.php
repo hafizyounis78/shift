@@ -151,8 +151,10 @@ $readonly = '';
                           <div class="col-md-4">
                               <select id="drplstDept" class="form-control" name="drplstDept" onchange="drpdeptChange();">
                               <option value="">select...</option>
-                              <option value="0">All Departments</option>
-                                   <?php 
+                                <?php 
+								   if ($this->session->userdata('itemname') == "gm" ||$this->session->userdata('itemname') == "admin")	   
+							 		echo '<option value="0">All departments...</option>';
+							
 								  foreach ($deptList as $dept_row)
 								  {
 									  $selected = '';

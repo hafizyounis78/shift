@@ -359,6 +359,8 @@ extract($_POST);
 function getAvailUser_byDeptTimeoff()
 {
 	extract($_POST);
+	if ($this->session->userdata('itemname')=="emp")
+		$user_filter = "AND user_id=".$this->session->userdata('user_id');
 	if ($deptNo!=0)
 	{
 
@@ -368,12 +370,14 @@ function getAvailUser_byDeptTimeoff()
 												   WHERE WEEKOFYEAR( start_date ) = WEEKOFYEAR('".$drpFromdate."')
 												   AND inshiftstb.user_id = outusertb.id
 												   and inshiftstb.type=1
+												   ".$user_filter."
 												   GROUP BY user_id) AS worktime, 
 						  CONCAT( first_name, ' ', last_name ) AS name, hoursPerWeek, pricePerHour
 				  FROM    dusseldorf_users outusertb
 				  LEFT OUTER JOIN dusseldorf_v3_shifts outshifttb on outusertb.id= outshifttb.user_id
 				  WHERE   outusertb.type =2
-				  AND     outshifttb.type=2
+				  AND     outshifttb.type=1
+				  ".$user_filter."
 				  AND     dep_id=".$deptNo."
 				  AND     outusertb.id not in (select  user_id 
 											   from   dusseldorf_v3_shifts

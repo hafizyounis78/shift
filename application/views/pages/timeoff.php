@@ -124,19 +124,21 @@ $readonly = '';
                           <div class="col-md-4">
                               <select id="drplstDept" class="form-control" name="drplstDept" onchange="drptimeoffdeptChange();">
                                   <option value="">select...</option>
-                                  <option value="0">All Departments</option>
-                                  
+                                                                   
                                    <?php 
-								  foreach ($deptList as $dept_row)
-								  {
-									  $selected = '';
-									  /*
-									  if ($patient_row->status_id == $location_row->sub_constant_id)
-									  	$selected = 'selected="selected"';
-									  */
-									  echo ' <option value="'.$dept_row->dep_id.'" '.$selected.'>'
-									  						 .$dept_row->dep_name.'</option>';
-								  }
+									  if ($this->session->userdata('itemname') == "gm" ||$this->session->userdata('itemname') == "admin")	   
+										 echo '<option value="0">All departments...</option>';
+								
+									  foreach ($deptList as $dept_row)
+									  {
+										  $selected = '';
+										  /*
+										  if ($patient_row->status_id == $location_row->sub_constant_id)
+											$selected = 'selected="selected"';
+										  */
+										  echo ' <option value="'.$dept_row->dep_id.'" '.$selected.'>'
+																 .$dept_row->dep_name.'</option>';
+									  }
 								  ?>
 
                               </select>

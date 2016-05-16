@@ -1,4 +1,9 @@
 <!-- BEGIN PAGE CONTENT-->
+<script type="text/javascript">
+
+var sessionValue = "<?php echo $this->session->userdata('itemname'); ?>";
+</script>
+
 <style>
 .modal-body {
     max-height: calc(100vh - 210px);
@@ -99,7 +104,7 @@
                              
                                    <?php 
 							if ($this->session->userdata('itemname') == "gm" ||$this->session->userdata('itemname') == "admin")	   
-							 echo '<option value="">All departments...</option>';
+							 echo '<option value="0">All departments...</option>';
 								  foreach ($deptList as $dept_row)
 								  {
 									  $selected = '';
@@ -284,7 +289,7 @@
                               
                                    <?php 
 								   if ($this->session->userdata('itemname') == "gm" ||$this->session->userdata('itemname') == "admin")	   
-									 echo '<option value="">All departments...</option>';
+									 echo '<option value="0">All departments...</option>';
 							
 								  foreach ($deptList as $dept_row)
 								  {
