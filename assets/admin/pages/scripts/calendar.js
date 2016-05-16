@@ -142,32 +142,56 @@ var Calendar = function() {
 				 $("#form_modal2").modal();	
 				 $("#drpFromdate").val('');
  				 $("#drpTodate").val('');
+				
+				  var startdate = start.format().toString();
+				 var startdateParts = startdate.split("-");
+				
+				 if (startdateParts[2].toString().length>2)
+				 {	//alert(startdateParts[2].toString());	
+					 var strattime=startdateParts[2].substring(3,8);
+				 	//alert(strattime);	
+					  startdateParts[2]=startdateParts[2].substring(0, 2);
+					 $("#drpFromdate").val(startdateParts[0]+'-'+startdateParts[1]+'-'+startdateParts[2]); 
+					 //*****start time*********//
+					$('#txtStart').timepicker('setTime', strattime);
+					
+				 }
+				 else
+				  $("#drpFromdate").val(start.format());
+				  				 
 				 var endstr = end.format().toString();
 				 var dateParts = endstr.split("-");
 				if (dateParts[2].length>2)
-				{	dateParts[2]=dateParts[2].substring(0, 2)
-				
-				 	var dateOfEnd = new Date(dateParts[0], (dateParts[1] - 1), dateParts[2]);
+				{	
+					
+					var enddate=dateParts[2].substring(0, 2)
+				 	var dateOfEnd = new Date(dateParts[0], (dateParts[1] - 1), enddate);
 				 	var endDay = dateOfEnd.getDate();
+					 var endtime=dateParts[2].substring(3,8);
+				 
+					 $('#txtEnd').timepicker('setTime', endtime);
+				
 				}
 				 else
 				 {
 					 var dateOfEnd = new Date(dateParts[0], (dateParts[1] - 1), dateParts[2]);
 					 var endDay = dateOfEnd.getDate() - 1;
 				 }
+				
 				 if(endDay >=1 && endDay<=9)
 				 	endDay = "0"+endDay;
 					
-				
+			
 				 $("#drpTodate").val(dateParts[0]+'-'+dateParts[1]+'-'+endDay);
-				 $("#drpFromdate").val(start.format());
+				 
+				
 				 $("#my_multi_select1").html('');
 				 $("#my_multi_select1").multiSelect('refresh');
 				
 				$('#calendar').fullCalendar('unselect');
 			},
 				drop: function(date, allDay) { // this function is called when something is dropped
-						
+				
                     // retrieve the dropped element's stored Event Object
                     var originalEventObject = $(this).data('eventObject');
                     // we need to copy it, so that multiple events don't have a reference to the same object
@@ -195,10 +219,10 @@ var Calendar = function() {
 					var day = d.getDate();
 					var month = d.getMonth()+1;
 					var year = d.getFullYear();
-					
 					$( "#txtStart" ).timepicker( "setTime", $(this).find("#dvStart").text() );
 					$( "#txtEnd" ).timepicker( "setTime", $(this).find("#dvEnd").text() );
 					$( "#drplstBreak" ).val( $(this).find("#dvBreak").text() );
+
 					$( "#drpFromdate" ).datepicker( "setDate", year+"-"+month+"-"+day );
 					$( "#drpTodate" ).datepicker( "setDate", year+"-"+month+"-"+day );
 					
@@ -271,18 +295,18 @@ var Calendar = function() {
 					//************ read segment value *********//
 					var segment_4 ='';
 					var dept_id=0;
-					var action="getall_Shift_calender";;
-					var newURL = window.location.protocol + "://" + window.location.host + "/" + window.location.pathname;
+					var action="getall_Shift_calender";
+					/*var newURL = window.location.protocol + "://" + window.location.host + "/" + window.location.pathname;
 					var pathArray = window.location.pathname.split( '/' );
-					
+					*/
 					dept_id=$("#drplstfilterByDept").val();
 					
-					if (pathArray[4]!=null)
+					/*if (pathArray[4]!=null)
 					  {
 					  	segment_4 =pathArray[4] ;
 						action="getmy_Shift_calender";
 					  }
-			
+			*/
 						$.ajax({
     						url: baseURL+"Fullschedulecont/"+action,
     						type: "POST",

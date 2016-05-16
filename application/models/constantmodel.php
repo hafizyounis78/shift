@@ -1,6 +1,20 @@
 <?php
 class Constantmodel extends CI_Model
 {
+	function get_user_permissions()
+	{
+		
+		$myquery ="SELECT itemname, dep_man.dep_id 
+									   FROM 	 dusseldorf_users
+									   LEFT JOIN dep_man ON dusseldorf_users.id = dep_man.usr_id,
+									   users,authassignment 
+									   WHERE 	users.usr_id=authassignment.userid
+									   and 		users.usr_id=dusseldorf_users.id 
+									   and 		users.usr_id=".$this->session->userdata('user_id');//by hafiz
+		$res = $this->db->query($myquery);
+		return $res->result();
+				
+	}
 	//**********time color setting
 	function get_ColorSetting()
 	{	
@@ -42,9 +56,43 @@ class Constantmodel extends CI_Model
 	}
 function get_dept_list()
 	{	
-		$query = $this->db->where("parent_id",315);
-		$query = $this->db->get('departments');
-		return $query->result();
+	/*echo $this->session->userdata('itemname');
+	exit();*/
+	if ($this->session->userdata('itemname')=="gm")
+		$myquery = "SELECT departments.dep_id,dep_name  
+					FROM   departments
+					where  parent_id != 0";
+					
+
+	else if ($this->session->userdata('itemname')=="admin")
+	
+		{
+			
+		$myquery = "SELECT departments.dep_id,dep_name  
+					FROM   departments,dep_man 
+					where  dep_man.dep_id=departments.parent_id
+					and    dep_man.usr_id=".$this->session->userdata('user_id');
+				
+		}
+	else if ($this->session->userdata('itemname')=="circle_man")
+	
+		{
+			
+		$myquery = "SELECT departments.dep_id,dep_name  
+					FROM   departments,dep_man 
+					where  dep_man.dep_id=departments.dep_id
+					and    dep_man.usr_id=".$this->session->userdata('user_id');
+				
+		}
+
+	else if ($this->session->userdata('itemname')=="emp")
+		$myquery = "SELECT departments.dep_id,dep_name  
+				FROM  departments,dusseldorf_users
+				where departments.dep_id=dusseldorf_users.dep_id
+				and   dusseldorf_users.id=".$this->session->userdata('user_id');
+		
+		$res = $this->db->query($myquery);
+		return $res->result();
 		
 	}
 function get_jobtitle_list()

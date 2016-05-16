@@ -1,4 +1,5 @@
 <?php
+
 class Fullschedulecont extends CI_Controller 
 {
 	public $data;
@@ -8,8 +9,29 @@ class Fullschedulecont extends CI_Controller
 		{
 			show_404();
 		}
+		$this->session->unset_userdata('user_id');
+		$this->session->unset_userdata('itemname');
+		$this->session->unset_userdata('dep_id');
+
+		$this->session->set_userdata('user_id',  $this->uri->segment(3));
+		echo $this->session->userdata('user_id');
+		
+		$this->load->model('constantmodel');
+		$rec=$this->constantmodel->get_user_permissions();
+		$this->session->unset_userdata('dep_id');
+		$this->session->unset_userdata('itemname');
+		
+		foreach($rec as $row)
+		{
+			$this->session->set_userdata('dep_id',$row->dep_id);
+			$this->session->set_userdata('itemname',$row->itemname);
 			
 		
+		}
+				//$this->session->set_userdata('user_per',  $this->uri->segment(4));
+		//echo $this->session->userdata('user_per');
+		//echo $_SESSION['user_id'];
+		//exit();
 			$this->data['title'] = $page;
 			
 			$this->$page();
