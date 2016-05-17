@@ -104,7 +104,7 @@ class Fullschedulemodel extends CI_Model
 //******************general manager***************//
 extract($_POST);
 		$dep_filter = '';		
-		if($dept_id!='')
+		if($dept_id!=0)
 		{
 			$dep_filter = "AND b.dep_id=".$dept_id;
 		}
