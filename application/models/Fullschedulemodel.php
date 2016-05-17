@@ -102,6 +102,8 @@ class Fullschedulemodel extends CI_Model
         return $this->db->query($myquery);
 */
 //******************general manager***************//
+if ($this->session->userdata('itemname')== null || $this->session->userdata('itemname') == '')
+		return;
 extract($_POST);
 		$dep_filter = '';		
 		if($dept_id!=0)

@@ -24,7 +24,7 @@
 						</a>
 					</li>
 					<li <?php if($title == 'fullschedule') echo 'class="active open"';?> >
-						<a href="<?php echo base_url();?>fullschedulecont/fullschedule">
+						<a href="<?php echo base_url()."fullschedulecont/fullschedule/".$this->session->userdata('user_id');?>">
 						<i class="icon-calendar"></i>
 						<span class="title">Full Schedule</span>
 						</a>

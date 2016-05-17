@@ -21,6 +21,7 @@ class Shiftscont extends CI_Controller
 	}
 	function shifts()
 	{
+		
 		$this->load->model('constantmodel');
 		$this->data['location']= $this->constantmodel->get_location_list();
 		$this->data['deptList']= $this->constantmodel->get_dept_list();
@@ -53,6 +54,12 @@ class Shiftscont extends CI_Controller
 	}	
 	function getUserByDept()
 	{
+		echo "permissions:".$this->session->userdata('itemname');
+		echo "user_id:".$this->session->userdata('user_id');
+		
+		/*if ($this->session->userdata('itemname')== null || $this->session->userdata('itemname') == '')
+		return;*/
+		
 		$this->load->model('constantmodel');
 		$staffList=$this->constantmodel->getAvailUser_byDept();
 		$notAvailableList=$this->constantmodel->getNotAvailUser_byDept();
@@ -84,6 +91,8 @@ class Shiftscont extends CI_Controller
 	}
 	function getUserByJobtitle()
 	{
+		if ($this->session->userdata('itemname')== null || $this->session->userdata('itemname') == '')
+		return;
 		$this->load->model('constantmodel');
 		$staffList=$this->constantmodel->getAvailUser_Jobtitel();
 		$notAvailableList=$this->constantmodel->getNotAvailUser_Jobtitel();
@@ -115,6 +124,8 @@ class Shiftscont extends CI_Controller
 	}
 	function getUserBySpec()
 	{
+		if ($this->session->userdata('itemname')== null || $this->session->userdata('itemname') == '')
+		return;
 		$this->load->model('constantmodel');
 		$staffList=$this->constantmodel->getAvailUser_specialization();
 		$notAvailableList=$this->constantmodel->getNotAvailUser_specialization();

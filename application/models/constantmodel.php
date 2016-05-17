@@ -7,8 +7,8 @@ class Constantmodel extends CI_Model
 		$myquery ="SELECT itemname, dep_man.dep_id 
 									   FROM 	 dusseldorf_users
 									   LEFT JOIN dep_man ON dusseldorf_users.id = dep_man.usr_id,
-									   users,authassignment 
-									   WHERE 	users.usr_id=authassignment.userid
+									   users,AuthAssignment 
+									   WHERE 	users.usr_id=AuthAssignment.userid
 									   and 		users.usr_id=dusseldorf_users.id 
 									   and 		users.usr_id=".$this->session->userdata('user_id');//by hafiz
 		$res = $this->db->query($myquery);
@@ -56,6 +56,8 @@ class Constantmodel extends CI_Model
 	}
 function get_dept_list()
 	{	
+	if ($this->session->userdata('itemname')== null || $this->session->userdata('itemname') == '')
+		return;
 	/*echo $this->session->userdata('itemname');
 	exit();*/
 	if ($this->session->userdata('itemname')=="gm")
@@ -113,7 +115,7 @@ function get_spec_list()
 //***************shift conflict******//
 //***************get user by dept************//
 function getAvailUser_byDept()
-{
+{$dep_filter ="";
 	if ($this->session->userdata('itemname')=='admin')
 	$dep_filter = "and   outusertb.dept_parent=".$this->session->userdata('dep_id');
 	extract($_POST);
@@ -174,7 +176,7 @@ function getAvailUser_byDept()
 }
 function getNotAvailUser_byDept()
 {
-	
+	$dep_filter ="";
 	extract($_POST);
 	if ($this->session->userdata('itemname')=='admin')
 	$dep_filter = "and   outusertb.dept_parent=".$this->session->userdata('dep_id');
@@ -658,7 +660,7 @@ $myquery = "SELECT  DISTINCT outusertb.id, (SELECT sum((TIME_TO_SEC( end_time ) 
 //**************timeOff Shift conflict*****//
 //***************get user by dept************//
 function getAvailUser_byDeptTimeoff()
-{
+{$user_filter ="";
 	extract($_POST);
 	if ($this->session->userdata('itemname')=="emp")
 		$user_filter = "AND user_id=".$this->session->userdata('user_id');
@@ -677,8 +679,7 @@ function getAvailUser_byDeptTimeoff()
 				  FROM    dusseldorf_users outusertb
 				  LEFT OUTER JOIN dusseldorf_v3_shifts outshifttb on outusertb.id= outshifttb.user_id
 				  WHERE   outusertb.type =2
-				  AND     outshifttb.type=1
-				  ".$user_filter."
+				   ".$user_filter."
 				  AND     dep_id=".$deptNo."
 				  AND     outusertb.id not in (select  user_id 
 											   from   dusseldorf_v3_shifts
@@ -704,7 +705,6 @@ function getAvailUser_byDeptTimeoff()
 				  FROM    dusseldorf_users outusertb
 				  LEFT OUTER JOIN dusseldorf_v3_shifts outshifttb on outusertb.id= outshifttb.user_id
 				  WHERE   outusertb.type =2
-				  AND     outshifttb.type=2
 				  AND     outusertb.id not in (select  user_id 
 											   from   dusseldorf_v3_shifts
 											   where  ((start_date<='".$drpFromdate."' and end_date>='".$drpTodate."')
@@ -735,7 +735,6 @@ function getNotAvailUser_byDeptTimeoff()
 						  FROM    dusseldorf_users outusertb
 						  LEFT OUTER JOIN dusseldorf_v3_shifts outshifttb on outusertb.id= outshifttb.user_id
 						  WHERE   outusertb.type =2
-						  AND     outshifttb.type=2
 						  AND     dep_id=".$deptNo."
 						  AND     outusertb.id in (select  user_id 
 													   from   dusseldorf_v3_shifts
@@ -760,7 +759,6 @@ function getNotAvailUser_byDeptTimeoff()
 						  FROM    dusseldorf_users outusertb
 						  LEFT OUTER JOIN dusseldorf_v3_shifts outshifttb on outusertb.id= outshifttb.user_id
 						  WHERE   outusertb.type =2
-						  AND     outshifttb.type=2
 						  AND     outusertb.id not in (select  user_id 
 													   from   dusseldorf_v3_shifts
 													   where  ((start_date<='".$drpFromdate."' and end_date>='".$drpTodate."')
@@ -792,7 +790,6 @@ extract($_POST);
 						  FROM    dusseldorf_users outusertb
 						  LEFT OUTER JOIN dusseldorf_v3_shifts outshifttb on outusertb.id= outshifttb.user_id
 						  WHERE   outusertb.type =2
-						  AND     outshifttb.type=2
 						  and     jobtitle_id=".$JobTitelId."
 						  AND     outusertb.id not in (select  user_id 
 													   from   dusseldorf_v3_shifts
@@ -821,7 +818,6 @@ extract($_POST);
 						  FROM    dusseldorf_users outusertb
 						  LEFT OUTER JOIN dusseldorf_v3_shifts outshifttb on outusertb.id= outshifttb.user_id
 						  WHERE   outusertb.type =2
-						  AND     outshifttb.type=2
 						  and     jobtitle_id=".$JobTitelId."
 						  AND     outusertb.id in (select  user_id 
 													   from   dusseldorf_v3_shifts
@@ -852,7 +848,6 @@ extract($_POST);
 						  FROM    dusseldorf_users outusertb
 						  LEFT OUTER JOIN dusseldorf_v3_shifts outshifttb on outusertb.id= outshifttb.user_id,dusseldorf_specialization_users spe
 						  WHERE   outusertb.type =2
-						  AND     outshifttb.type=2
 						  and     jobtitle_id=".$JobTitelId."
 						  and     spe.users_id=outusertb.id
 		  				  and     spe.specialization_id=".$specId."
@@ -886,7 +881,6 @@ extract($_POST);
 						  FROM    dusseldorf_users outusertb
 						  LEFT OUTER JOIN dusseldorf_v3_shifts outshifttb on outusertb.id= outshifttb.user_id,dusseldorf_specialization_users spe
 						  WHERE   outusertb.type =2
-						  AND     outshifttb.type=2
 						  and     jobtitle_id=".$JobTitelId."
 						  and     spe.users_id=outusertb.id
   						  and     spe.specialization_id=".$specId."

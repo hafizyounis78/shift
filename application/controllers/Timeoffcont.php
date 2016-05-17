@@ -106,6 +106,8 @@ class Timeoffcont extends CI_Controller
 	
 function getUserByDept()
 {
+	if ($this->session->userdata('itemname')== null || $this->session->userdata('itemname') == '')
+		return;
 	$this->load->model('constantmodel');
 	$staffList=$this->constantmodel->getAvailUser_byDeptTimeoff();
 	$notAvailableList=$this->constantmodel->getNotAvailUser_byDeptTimeoff();
@@ -137,6 +139,8 @@ function getUserByDept()
 }
 function getUserByJobtitle()
 {
+	if ($this->session->userdata('itemname')== null || $this->session->userdata('itemname') == '')
+		return;
 	$this->load->model('constantmodel');
 	$staffList=$this->constantmodel->getAvailUser_JobtitelTimeoff();
 	$notAvailableList=$this->constantmodel->getNotAvailUser_JobtitelTimeoff();
@@ -169,6 +173,8 @@ function getUserByJobtitle()
 }
 function getUserBySpec()
 {
+	if ($this->session->userdata('itemname')== null || $this->session->userdata('itemname') == '')
+		return;
 	$this->load->model('constantmodel');
 	$staffList=$this->constantmodel->getAvailUser_specializationTimeoff();
 	$notAvailableList=$this->constantmodel->getNotAvailUser_specializationTimeoff();
