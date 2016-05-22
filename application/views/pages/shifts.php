@@ -48,11 +48,11 @@ $readonly = '';
                           </div>
                       </div>
                       <div class="form-group">
-                            <label class="control-label col-md-3">Location<span class="required">
+                            <label class="control-label col-md-3"><?php echo $this->lang->line('Locatios'); ?><span class="required">
                           * </span></label>
                             <div class="col-md-4">
-                                <select class="form-control input-large " data-placeholder="Select..." id="drpLocation" name="drpLocation">
-                                  <option value="">Select..</option>
+                                <select class="form-control input-large " data-placeholder="<?php echo $this->lang->line('select');  ?>..." id="drpLocation" name="drpLocation">
+                                  <option value=""><?php echo $this->lang->line('select');  ?>..</option>
                                      <?php 
 								  foreach ($location as $location_row)
 								  {
@@ -72,7 +72,7 @@ $readonly = '';
                             </div>
                         </div>
                       <div class="form-group">
-                        <label class="control-label col-md-3">Date<span class="required">
+                        <label class="control-label col-md-3"><?php echo $this->lang->line('Date');  ?><span class="required">
                           * </span></label>
                         <div class="col-md-6">
                             <div class="input-group input-medium date-picker input-daterange" data-date="10/11/2012" data-date-format="yyyy-mm-dd">
@@ -85,7 +85,7 @@ $readonly = '';
                         </div>
                     </div>
                       <div class="form-group">
-                            <label class="control-label col-md-3">Time<span class="required">
+                            <label class="control-label col-md-3"><?php echo $this->lang->line('Time');  ?><span class="required">
                           * </span></label>
                             <div class="col-md-2">
                                 <div class="input-group">
@@ -126,34 +126,34 @@ $readonly = '';
                               <label class="radio-inline">
                               <input type="radio" name="rdStatus" id="rdStatus1" value="1" checked>Draft</label>
                               <label class="radio-inline">
-                              <input type="radio" name="rdStatus" id="rdStatus2" value="2">Active</label>
+                              <input type="radio" name="rdStatus" id="rdStatus2" value="2"><?php echo $this->lang->line('Active');  ?></label>
                               
                           </div>
                         </div>
                     </div>
                    <div class="form-group" id="divSelect">
-                        <label class="control-label col-md-3">Filter staff by<span class="required">
+                        <label class="control-label col-md-3"><?php echo $this->lang->line('Filter staff by');  ?><span class="required">
                           * </span></label>
                         <div class="col-md-4">
                           <div class="radio-list">
                               <label class="radio-inline">
-                              <input type="radio" name="rdSelection" id="rdSelection1" value="1" checked onchange="selectionchange()">Department</label>
+                              <input type="radio" name="rdSelection" id="rdSelection1" value="1" checked onchange="selectionchange()"><?php echo $this->lang->line('Department');  ?> </label>
                               <label class="radio-inline">
-                              <input type="radio" name="rdSelection" id="rdSelection2" value="2" onchange="selectionchange()">Job title</label>
+                              <input type="radio" name="rdSelection" id="rdSelection2" value="2" onchange="selectionchange()"><?php echo $this->lang->line('Job Title');  ?></label>
                               
                           </div>
                         </div>
                     </div>
                     <div class="form-group" id="divDept">
-                          <label class="control-label col-md-3">Department <span class="required">
+                          <label class="control-label col-md-3"><?php echo $this->lang->line('Department');  ?>  <span class="required">
                           * </span>
                           </label>
                           <div class="col-md-4">
                               <select id="drplstDept" class="form-control" name="drplstDept" onchange="drpdeptChange();">
-                              <option value="">select...</option>
+                              <option value=""><?php echo $this->lang->line('select');  ?>...</option>
                                 <?php 
 								   if ($this->session->userdata('itemname') == "gm" ||$this->session->userdata('itemname') == "admin")	   
-							 		echo '<option value="0">All departments...</option>';
+							 		echo '<option value="0">'.$this->lang->line('All Department').'</option>';
 							
 								  foreach ($deptList as $dept_row)
 								  {
@@ -171,12 +171,12 @@ $readonly = '';
                           </div>
                       </div>
                       <div class="form-group" id="divJobtitle"  style="display:none">
-                          <label class="control-label col-md-3">Job title <span class="required">
+                          <label class="control-label col-md-3"><?php echo $this->lang->line('Job Title');  ?><span class="required">
                           * </span>
                           </label>
                           <div class="col-md-4">
                               <select id="drplstJobtitle" class="form-control" name="drplstJobtitle" onchange="drpJobtitleChange();">
-                                  <option value="">select...</option>
+                                  <option value=""><?php echo $this->lang->line('select');  ?>...</option>
 								   <?php 
 								  foreach ($jobtitleList as $jobtitle_row)
 								  {
@@ -194,12 +194,12 @@ $readonly = '';
                           </div>
                       </div>
                       <div class="form-group" id="divSpec" style="display:none">
-                          <label class="control-label col-md-3">Specialization <span class="required">
+                          <label class="control-label col-md-3"><?php echo $this->lang->line('Specialization');  ?>  <span class="required">
                           * </span>
                           </label>
                           <div class="col-md-4">
                               <select id="drplstSpec" class="form-control" name="drplstSpec" onchange="drpSpecChange();">
-                                  <option value="">select...</option>
+                                  <option value=""><?php echo $this->lang->line('select');  ?>...</option>
                                    <?php 
 								  foreach ($specList as $spec_row)
 								  {
@@ -217,7 +217,7 @@ $readonly = '';
                           </div>
                       </div>
                     <div class="form-group" id="divUser">
-                        <label class="control-label col-md-3">Staff<span class="required">
+                        <label class="control-label col-md-3"><?php echo $this->lang->line('Staff');  ?> <span class="required">
                           * </span></label>
                         <div class="col-md-9">
                         <span class="help-block">
@@ -258,8 +258,8 @@ $readonly = '';
                   <div class="form-actions">
                       <div class="row">
                           <div class="col-md-offset-3 col-md-9">
-                              <button type="submit" class="btn green">Save</button>
-                              <button type="button" class="btn default" onclick="clearShiftForm();">Cancel</button>
+                              <button type="submit" class="btn green"><?php echo $this->lang->line('Save'); ?></button>
+                              <button type="button" class="btn default" onclick="clearShiftForm();"><?php echo $this->lang->line('Cancel'); ?></button>
                           </div>
                       </div>
                   </div>
@@ -290,7 +290,7 @@ $readonly = '';
 											 #
 										</th>
                                         <th>
-											 Staff
+											 <?php echo $this->lang->line('Staff'); ?>
 										</th>
 										<th>
 											 Start Date
@@ -305,7 +305,7 @@ $readonly = '';
 											 End Time
 										</th>
 										<th>
-											 Location
+											 <?php echo $this->lang->line('Locatios'); ?>
 										</th>
                                         <th>
 											 Status
@@ -314,7 +314,7 @@ $readonly = '';
 											 Is Special
 										</th>
                                         <th>
-											 Action
+											 <?php echo $this->lang->line('Action'); ?>
 										</th>
 									</tr>
 									</thead>

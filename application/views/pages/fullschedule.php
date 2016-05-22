@@ -1,7 +1,9 @@
 <!-- BEGIN PAGE CONTENT-->
+
 <script type="text/javascript">
 
 var sessionValue = "<?php echo $this->session->userdata('itemname'); ?>";
+
 </script>
 
 <style>
@@ -30,7 +32,7 @@ var sessionValue = "<?php echo $this->session->userdata('itemname'); ?>";
       <div class="portlet box green-meadow calendar">
           <div class="portlet-title">
               <div class="caption">
-                  <i class="fa fa-gift"></i>Schedule
+                  <i class="fa fa-gift"></i><?php echo $this->lang->line('Schedule');  ?>
               </div>
           </div>
           <div class="portlet-body">
@@ -43,7 +45,7 @@ var sessionValue = "<?php echo $this->session->userdata('itemname'); ?>";
                               <div class="panel-heading">
                                   <h4 class="panel-title">
                                   <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion1" href="#collapse_1">
-                                  Shfit Template </a>
+                                  <?php echo $this->lang->line('Shift Template');  ?> </a>
                                   </h4>
                               </div>
                               <div id="collapse_1" class="panel-collapse collapse">
@@ -54,7 +56,7 @@ var sessionValue = "<?php echo $this->session->userdata('itemname'); ?>";
                               <form id="shiftttemplateForm" class="inline-form">
                                      
                                   <input id="txtName" name="txtName" type="text" value="" class="form-control" placeholder="Name..." /><br/>
-                                  <label class="control-label">Time</label>
+                                  <label class="control-label"><?php echo $this->lang->line('Time');  ?></label>
                                   <div class="input-group">
                                         <input id="txtFrom" name="txtFrom" type="text" class="form-control timepicker timepicker-24" >
                                         <span class="input-group-btn">
@@ -71,7 +73,7 @@ var sessionValue = "<?php echo $this->session->userdata('itemname'); ?>";
                                     <br/>
                                     
                                     <select id="drpBreak" name="drpBreak" class="form-control" >
-                                      <option value="">Select Break Time...</option>
+                                      <option value=""><?php echo $this->lang->line('select');  ?> Break Time...</option>
                                       <?php
 									  for($i=0; $i<=240; $i=$i+5)
 									  	echo '<option value="'.$i.'">'.$i.' min</option>';
@@ -79,7 +81,7 @@ var sessionValue = "<?php echo $this->session->userdata('itemname'); ?>";
                                   </select> 
                                   <br/>
                                   <a href="javascript:;" id="event_add" class="btn default" onclick="addShiftTemplate()">
-                                  Add Shift Template </a>
+                                   <?php echo $this->lang->line('Add Shift Template');  ?> </a>
                                   
                               </form>
                               
@@ -98,14 +100,14 @@ var sessionValue = "<?php echo $this->session->userdata('itemname'); ?>";
          <div class="col-md-14">
 									<!-- BEGIN DRAGGABLE EVENTS PORTLET-->
             <label id="errLable" style="color:#F00;display:none"></label>
-            <h3 class="event-form-title">Department</h3>
+            <h3 class="event-form-title"> <?php echo $this->lang->line('Department');  ?> </h3>
             <div id="external-events">
                 <form class="inline-form">
                     <select  class="form-control select2me" id="drplstfilterByDept" name="drplstfilterByDept" >
                              
                                    <?php 
 							if ($this->session->userdata('itemname') == "gm" ||$this->session->userdata('itemname') == "admin")	   
-							 echo '<option value="0">All departments...</option>';
+							 echo '<option value="0">'.$this->lang->line('All Department').'</option>';
 								  foreach ($deptList as $dept_row)
 								  {
 									  $selected = '';
@@ -195,10 +197,10 @@ var sessionValue = "<?php echo $this->session->userdata('itemname'); ?>";
                           </div>
                       </div>
                     <div class="form-group">
-                        <label class="control-label col-md-3">Location</label>
+                        <label class="control-label col-md-3"><?php echo $this->lang->line('Locatios');  ?></label>
                         <div class="col-md-4">
                             <select id="drpLocation" name="drpLocation" class="form-control input-large select2me" data-placeholder="Select..." required>
-                                <option value="">Select..</option>
+                                <option value=""><?php echo $this->lang->line('select');  ?>..</option>
                                 <?php 
 								foreach ($location as $location_row)
 								{
@@ -212,7 +214,7 @@ var sessionValue = "<?php echo $this->session->userdata('itemname'); ?>";
                         </div>
                     </div>
                     <div class="form-group">
-                        <label class="control-label col-md-3">Date</label>
+                        <label class="control-label col-md-3"><?php echo $this->lang->line('Date');  ?></label>
                         <div class="col-md-6">
                             <div class="input-group input-medium date-picker input-daterange" data-date="10/11/2012" data-date-format="yyyy-mm-dd">
                                 <input type="text" id="drpFromdate" class="form-control classConflict" name="drpFromdate" required>
@@ -225,7 +227,7 @@ var sessionValue = "<?php echo $this->session->userdata('itemname'); ?>";
                     </div>
     
                     <div class="form-group">
-                        <label class="control-label col-md-3">Time</label>
+                        <label class="control-label col-md-3"><?php echo $this->lang->line('Time');  ?></label>
                         <div class="col-md-3">
                             <div class="input-group">
                                 <input id="txtStart" name="txtStart" type="text" class="form-control timepicker timepicker-24 classConflict" required>
@@ -251,7 +253,7 @@ var sessionValue = "<?php echo $this->session->userdata('itemname'); ?>";
                           </label>
                           <div class="col-md-4">
                               <select id="drplstBreak" class="form-control" name="drplstBreak">
-                                  <option value="">Select...</option>
+                                  <option value=""><?php echo $this->lang->line('select');  ?>...</option>
                                   <?php
 									  for($i=0; $i<=240; $i=$i+5)
 									  	echo '<option value="'.$i.'">'.$i.' min</option>';
@@ -261,40 +263,40 @@ var sessionValue = "<?php echo $this->session->userdata('itemname'); ?>";
                       </div>
                       <div class="form-group">
                         <label class="control-label col-md-3">Status</label>
-                        <div class="col-md-4">
+                        <div class="col-md-6">
                           <div class="radio-list">
                               <label class="radio-inline">
-                              <input type="radio" name="rdStatus" id="rdStatus1" value="1" checked>Draft</label>
+                              <input type="radio" name="rdStatus" id="rdStatus1" value="1" checked><?php echo $this->lang->line('Draft');  ?></label>
                               <label class="radio-inline">
-                              <input type="radio" name="rdStatus" id="rdStatus2" value="2">Active</label>
+                              <input type="radio" name="rdStatus" id="rdStatus2" value="2"><?php echo $this->lang->line('Active');  ?></label>
                               
                           </div>
                         </div>
                     </div>
 					<div class="form-group" id="divSelect">
-                        <label class="control-label col-md-3">Filter staff by<span class="required">
+                        <label class="control-label col-md-3"><?php echo $this->lang->line('Filter staff by');  ?><span class="required">
                           * </span></label>
-                        <div class="col-md-6">
+                        <div class="col-md-8">
                           <div class="radio-list">
                               <label class="radio-inline">
-                              <input type="radio" name="rdSelection" id="rdSelection1" value="1" checked>Department</label>
+                              <input type="radio" name="rdSelection" id="rdSelection1" value="1" checked><?php echo $this->lang->line('Department');  ?></label>
                               <label class="radio-inline">
-                              <input type="radio" name="rdSelection" id="rdSelection2" value="2">Job title</label>
+                              <input type="radio" name="rdSelection" id="rdSelection2" value="2"><?php echo $this->lang->line('Job Title');  ?></label>
                               
                           </div>
                         </div>
                     </div>
                     <div class="form-group" id="divDept">
-                          <label class="control-label col-md-3">Department <span class="required">
+                          <label class="control-label col-md-3"><?php echo $this->lang->line('Department');  ?> <span class="required">
                           * </span>
                           </label>
                           <div class="col-md-4">
                               <select id="drplstDept" class="form-control" name="drplstDept" onchange="drpdeptFullChange();">
-                              <option value="">select...</option>
+                              <option value=""><?php echo $this->lang->line('select');  ?>...</option>
                               
                                    <?php 
 								   if ($this->session->userdata('itemname') == "gm" ||$this->session->userdata('itemname') == "admin")	   
-									 echo '<option value="0">All departments...</option>';
+									 echo '<option value="0">'.$this->lang->line('All Department').'</option>';
 							
 								  foreach ($deptList as $dept_row)
 								  {
@@ -312,12 +314,12 @@ var sessionValue = "<?php echo $this->session->userdata('itemname'); ?>";
                           </div>
                       </div>
                       <div class="form-group" id="divJobtitle"  style="display:none">
-                          <label class="control-label col-md-3">Job title <span class="required">
+                          <label class="control-label col-md-4"><?php echo $this->lang->line('Job Title');  ?><span class="required">
                           * </span>
                           </label>
                           <div class="col-md-4">
                               <select id="drplstJobtitle" class="form-control" name="drplstJobtitle" onchange="drpJobtitleFullChange();">
-                                  <option value="">select...</option>
+                                  <option value=""><?php echo $this->lang->line('select');  ?>...</option>
 								   <?php 
 								  foreach ($jobtitleList as $jobtitle_row)
 								  {
@@ -335,12 +337,12 @@ var sessionValue = "<?php echo $this->session->userdata('itemname'); ?>";
                           </div>
                       </div>
                       <div class="form-group" id="divSpec" style="display:none">
-                          <label class="control-label col-md-3">Specialization <span class="required">
+                          <label class="control-label col-md-4"><?php echo $this->lang->line('Specialization');  ?> <span class="required">
                           * </span>
                           </label>
                           <div class="col-md-4">
                               <select id="drplstSpec" class="form-control" name="drplstSpec" onchange="drpSpecFullChange();">
-                                  <option value="">select...</option>
+                                  <option value=""><?php echo $this->lang->line('select');  ?>...</option>
                                    <?php 
 								  foreach ($specList as $spec_row)
 								  {
@@ -388,8 +390,8 @@ var sessionValue = "<?php echo $this->session->userdata('itemname'); ?>";
                
             </div>
             <div class="modal-footer bg-info">
-                <button   type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                <button  type="submit" class="btn btn-primary" >Save </button>
+                <button   type="button" class="btn btn-default" data-dismiss="modal"><?php echo $this->lang->line('Cancel'); ?></button>
+                <button  type="submit" class="btn btn-primary" ><?php echo $this->lang->line('Save');  ?> </button>
             </div>
         </div>
         <!-- /.modal-content -->

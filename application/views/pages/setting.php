@@ -5,7 +5,7 @@
       <div class="portlet box green">
           <div class="portlet-title">
               <div class="caption">
-                  <i class="fa fa-clock-o"></i>Time coloring 
+                  <i class="fa fa-clock-o"></i><?php echo $this->lang->line('Time Coloring'); ?> 
               </div>
               
           </div>
@@ -25,7 +25,7 @@
                       
                       
                       <div class="form-group">
-                            <label class="control-label col-md-3">Slider Time Start At<span class="required">
+                            <label class="control-label col-md-3">Slider <?php echo $this->lang->line('Time');  ?> Start At<span class="required">
                           * </span></label>
                             <div class="col-md-4">
                                 <div class="input-group">
@@ -38,12 +38,12 @@
                         </div>
                       
                       <div class="form-group">
-                            <label class="col-md-3 control-label">Time Range</label>
+                            <label class="col-md-3 control-label"><?php echo $this->lang->line('Time Range');  ?></label>
                             <div class="col-md-6">
                                 <div id="slider-range" class="slider">
                                 </div>
                                 <div>
-                                     Open/Close:
+                                     <?php echo $this->lang->line('Open/Close');?>:
                                      <br/>
                                      <span id="spnClose" style="background-color: #FF6F6F" data-starttime="" data-endtime="">
                                      
@@ -64,8 +64,8 @@
                   <div class="form-actions">
                       <div class="row">
                           <div class="col-md-offset-3 col-md-9">
-                              <button type="button" class="btn green" onclick="editColorSetting()">Save</button>
-                              <button type="button" class="btn default" >Cancel</button>
+                              <button type="button" class="btn green" onclick="editColorSetting()"><?php echo $this->lang->line('Save');  ?></button>
+                              <button type="button" class="btn default" ><?php echo $this->lang->line('Cancel');?></button>
                           </div>
                       </div>
                   </div>

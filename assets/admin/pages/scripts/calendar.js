@@ -262,24 +262,29 @@ var Calendar = function() {
 							beforeSend: function(){},
 							complete: function(){},
 							success: function(returndb){
+								
 								str=parseInt(returndb[0]['close_from'].split(':')[0]);
 								val0 =parseInt( returndb[0]['close_to'].split(':')[0]) ;
 								val1= parseInt(returndb[0]['open_emp_to'].split(':')[0]);
 								end=parseInt(returndb[0]['open_to'].split(':')[0]); 
+								
 							}
 						});//END $.ajax
 			
 						var masterrec='';
 						setTimeout(function(){ 
+						
 						$('.fc-slats > table > tbody  > tr').each(function() {
 							
 						
-								if(convertTime($(this).children().text())!=0)
-									masterrec=convertTime($(this).children().text());
+//								if(convertTime($(this).children().text())!=0)
+								if($(this).children().text()!=0)
+									//masterrec=convertTime($(this).children().text());
+									masterrec=$(this).children().text();
 								else	
 								 {
 								 }
-
+								
 								if(masterrec>= str || masterrec< val0)
 									$(this).css('background-color', '#ffe6e6');									
 								else if(masterrec >= val0 && masterrec< val1)

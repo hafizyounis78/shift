@@ -46,9 +46,9 @@ var ComponentsTimeSliders = function () {
 					var minEnd = parseInt($("#slider-range").slider('option', 'max') % 60);
 					var hoursEnd = parseInt($("#slider-range").slider('option', 'max') / 60 % 24);
 					
-					$("#spnClose").text(" Close (" + hoursStart + ':' + minStart+ " - " + hours0 + ':' + minutes0+") ");
-                    $("#spnEmp").text(" Open for Employee (" + hours0 + ':' + minutes0+ " - " + hours1 + ':' + minutes1+") ");
-					$("#spnOpen").text(" Open for Customers (" + hours1 + ':' + minutes1+ " - " + hoursEnd + ':' + minEnd+") ");
+					$("#spnClose").text(" Geschlossen (" + hoursStart + ':' + minStart+ " - " + hours0 + ':' + minutes0+") ");
+                    $("#spnEmp").text(" Offen für Mitarbeiter (" + hours0 + ':' + minutes0+ " - " + hours1 + ':' + minutes1+") ");
+					$("#spnOpen").text(" Offen für Kunden (" + hours1 + ':' + minutes1+ " - " + hoursEnd + ':' + minEnd+") ");
 					$("#spnClose").attr("data-starttime", hoursStart  + ':' + minStart);
 					$("#spnClose").attr("data-endtime", hours0 + ':' + minutes0);
 					
@@ -120,9 +120,9 @@ var ComponentsTimeSliders = function () {
 			var minEnd = parseInt($("#slider-range").slider('option', 'max') % 60);
 			var hoursEnd = parseInt($("#slider-range").slider('option', 'max') / 60 % 24);
 					
-			$("#spnClose").text(" Close  (" + hoursStart + ':' + minStart+ " - " + hours0 + ':' + minutes0+") ");
-            $("#spnEmp").text(" Open for Employee (" + hours0 + ':' + minutes0+ " - " + hours1 + ':' + minutes1+") ");
-			$("#spnOpen").text(" Open for Customers (" + hours1 + ':' + minutes1+ " - " + hoursEnd + ':' + minEnd+") ");
+			$("#spnClose").text(" Geschlossen  (" + hoursStart + ':' + minStart+ " - " + hours0 + ':' + minutes0+") ");
+            $("#spnEmp").text(" Offen für Mitarbeiter (" + hours0 + ':' + minutes0+ " - " + hours1 + ':' + minutes1+") ");
+			$("#spnOpen").text(" Offen für Kunden (" + hours1 + ':' + minutes1+ " - " + hoursEnd + ':' + minEnd+") ");
 			
 			$("#spnClose").attr("data-starttime", hoursStart  + ':' + minStart);
 			$("#spnClose").attr("data-endtime", hours0 + ':' + minutes0);
@@ -169,9 +169,9 @@ $(document).ready(function(){
 			var minEnd = parseInt($("#slider-range").slider('option', 'max') % 60);
 			var hoursEnd = parseInt($("#slider-range").slider('option', 'max') / 60 % 24);
 			
-			$("#spnClose").text(" Close  (" + hoursStart + ':' + minStart+ " - " + hours0 + ':' + minutes0+") ");
-            $("#spnEmp").text(" Open for Employee (" + hours0 + ':' + minutes0+ " - " + hours1 + ':' + minutes1+") ");
-			$("#spnOpen").text(" Open for Customers (" + hours1 + ':' + minutes1+ " - " + hoursEnd + ':' + minEnd+") ");
+			$("#spnClose").text(" Geschlossen  (" + hoursStart + ':' + minStart+ " - " + hours0 + ':' + minutes0+") ");
+            $("#spnEmp").text(" Offen für Mitarbeiter (" + hours0 + ':' + minutes0+ " - " + hours1 + ':' + minutes1+") ");
+			$("#spnOpen").text(" Offen für Kunden(" + hours1 + ':' + minutes1+ " - " + hoursEnd + ':' + minEnd+") ");
 			/*alert("spnClose : "+hoursStart  + ':' + minStart)
 			alert("spnClose : "+hours0  + ':' + minutes0)*/
 			$("#spnClose").attr("data-starttime", hoursStart  + ':' + minStart);

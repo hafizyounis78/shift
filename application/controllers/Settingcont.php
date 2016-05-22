@@ -9,7 +9,7 @@ class Settingcont extends CI_Controller
 		{
 			show_404();
 		}
-		
+		$this->lang->load('label_lang', 'german');//load german languge
 			$this->data['title'] = $page;
 			$this->$page();
 			$this->load->view('templates/head',$this->data);

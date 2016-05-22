@@ -26,13 +26,13 @@
 					<li <?php if($title == 'fullschedule') echo 'class="active open"';?> >
 						<a href="<?php echo base_url()."fullschedulecont/fullschedule/".$this->session->userdata('user_id');?>">
 						<i class="icon-calendar"></i>
-						<span class="title">Full Schedule</span>
+						<span class="title"><?php echo $this->lang->line('Full Schedule');  ?></span>
 						</a>
 					</li>
                     <li <?php if($title == 'locations') echo 'class="active open"';?>>
 						<a href="<?php echo base_url();?>locationscont/locations">
 						<i class="icon-pointer"></i>
-						<span class="title">Locations</span>
+						<span class="title"><?php echo $this->lang->line('Locatios');?></span>
 						</a>
 					</li>
                     <?php if ($this->session->userdata('itemname') != "emp")

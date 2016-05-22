@@ -4,7 +4,7 @@
       <div class="portlet box green">
           <div class="portlet-title">
               <div class="caption">
-                  <i class="fa fa-home"></i>Add New Locations
+                  <i class="fa fa-home"></i><?php echo $this->lang->line('Add new locations');  ?>
               </div>
               
           </div>
@@ -23,14 +23,14 @@
                       </div>
                       <input id="hdnId" name="hdnId" type="hidden" value="" />
                       <div class="form-group">
-                            <label class="control-label col-md-3">Location Name</label>
+                            <label class="control-label col-md-3"><?php echo $this->lang->line('Location Name');  ?></label>
                             <div class="col-md-4">
                                 <input id="txtName" name="txtName" type="text" class="form-control form-filter input-sm" >
                             </div>
                         </div>
                       
                       <div class="form-group">
-                          <label class="control-label col-md-3">Description</label>
+                          <label class="control-label col-md-3"><?php echo $this->lang->line('Description');  ?></label>
                           <div class="col-md-4">
                               <textarea id="txtDescription" name="txtDescription" class="form-control"  data-provide="markdown" rows="2" data-error-container="#editor_error"></textarea>
                               <div id="editor_error">
@@ -38,7 +38,7 @@
                           </div>
                       </div>
                       <div class="form-group">
-                          <label class="control-label col-md-3">Color</label>
+                          <label class="control-label col-md-3"><?php echo $this->lang->line('Color'); ?></label>
                           <div class="col-md-3"><!--#3865a8-->
                               <div id="dvColor" class="input-group color colorpicker-default" data-color="#ffffff" data-color-format="rgba">
                                   <input id="txtColor" name="txtColor" type="text" class="form-control" value="#ffffff">
@@ -54,8 +54,8 @@
                   <div class="form-actions">
                       <div class="row">
                           <div class="col-md-offset-3 col-md-9">
-                              <button id="btnSaveLocations" type="button" class="btn green">Save</button>
-                              <button type="button" class="btn default" onclick="clearForm()">Cancel</button>
+                              <button id="btnSaveLocations" type="button" class="btn green"><?php echo $this->lang->line('Save'); ?></button>
+                              <button type="button" class="btn default" onclick="clearForm()"><?php echo $this->lang->line('Cancel'); ?></button>
                           </div>
                       </div>
                   </div>
@@ -73,7 +73,7 @@
       <div class="portlet box blue">
           <div class="portlet-title">
               <div class="caption">
-                  <i class="fa fa-home"></i>Locations
+                  <i class="fa fa-home"></i> <?php echo $this->lang->line('Locatios');  ?>
               </div>
               
           </div>
@@ -86,10 +86,10 @@
                            #
                       </th>
                       <th width="20%"> 
-                          Location Name
+                          <?php echo $this->lang->line('Location Name');  ?>
                       </th>
                       <th width="60%">
-                           Description
+                          <?php echo $this->lang->line('Description');  ?>
                       </th>
                      
                       <th width="10%" >

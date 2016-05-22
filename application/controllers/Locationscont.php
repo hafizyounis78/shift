@@ -18,6 +18,7 @@ class Locationscont extends CI_Controller
 		}
 		else if($this->session->userdata('logged_in'))
 		{*/
+		$this->lang->load('label_lang', 'german');//load german languge
 			$this->data['title'] = $page;
 			$this->$page();
 			$this->load->view('templates/head',$this->data);
