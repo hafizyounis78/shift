@@ -106,8 +106,8 @@ class Timeoffcont extends CI_Controller
 	
 function getUserByDept()
 {
-	if ($this->session->userdata('itemname')== null || $this->session->userdata('itemname') == '')
-		return;
+/*	if ($this->session->userdata('itemname')== null || $this->session->userdata('itemname') == '')
+		return;*/
 	$this->load->model('constantmodel');
 	$staffList=$this->constantmodel->getAvailUser_byDeptTimeoff();
 	$notAvailableList=$this->constantmodel->getNotAvailUser_byDeptTimeoff();
@@ -139,8 +139,8 @@ function getUserByDept()
 }
 function getUserByJobtitle()
 {
-	if ($this->session->userdata('itemname')== null || $this->session->userdata('itemname') == '')
-		return;
+/*	if ($this->session->userdata('itemname')== null || $this->session->userdata('itemname') == '')
+		return;*/
 	$this->load->model('constantmodel');
 	$staffList=$this->constantmodel->getAvailUser_JobtitelTimeoff();
 	$notAvailableList=$this->constantmodel->getNotAvailUser_JobtitelTimeoff();
@@ -154,7 +154,7 @@ function getUserByJobtitle()
 			else
 			 $totalTime=(($staff_row->worktime)/3600)-$staff_row->hoursPerWeek;
 			 
-			  echo '<option  value='.$staff_row->id.'>'.$totalTime.'|'.$staff_row->name.'|'.$staff_row->pricePerHour.'</option>';
+			  echo '<option  value='.$staff_row->id.'>'.$totalTime.'|'.$staff_row->staff_name.'|'.$staff_row->pricePerHour.'</option>';
 			  
 		  }
 		 foreach($notAvailableList as $staff_row)
@@ -165,7 +165,7 @@ function getUserByJobtitle()
 			 $totalTime=(($staff_row->worktime)/3600)-$staff_row->hoursPerWeek;
 	
 	
-			  echo '<option title="Unavailable" disabled="disabled" value='.$staff_row->id.'>'.$totalTime.'|'.$staff_row->name.'</option>';
+			  echo '<option title="Unavailable" disabled="disabled" value='.$staff_row->id.'>'.$totalTime.'|'.$staff_row->staff_name.'</option>';
 			  
 		  }
 	  
@@ -173,8 +173,8 @@ function getUserByJobtitle()
 }
 function getUserBySpec()
 {
-	if ($this->session->userdata('itemname')== null || $this->session->userdata('itemname') == '')
-		return;
+	/*if ($this->session->userdata('itemname')== null || $this->session->userdata('itemname') == '')
+		return;*/
 	$this->load->model('constantmodel');
 	$staffList=$this->constantmodel->getAvailUser_specializationTimeoff();
 	$notAvailableList=$this->constantmodel->getNotAvailUser_specializationTimeoff();

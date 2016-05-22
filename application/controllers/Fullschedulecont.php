@@ -9,19 +9,18 @@ class Fullschedulecont extends CI_Controller
 		{
 			show_404();
 		}
-		$this->session->unset_userdata('user_id');
-		$this->session->unset_userdata('itemname');
-		$this->session->unset_userdata('dep_id');
-
+		/*if ($this->session->userdata('user_id')!= $this->uri->segment(3))
+		{
+			$this->session->unset_userdata('user_id');
+			$this->session->unset_userdata('itemname');
+			$this->session->unset_userdata('dep_id');
+		}*/
 		$this->session->set_userdata('user_id',  $this->uri->segment(3));
-			echo "$this->uri->segment(3):".$this->uri->segment(3);
-		//echo $this->session->userdata('user_id');
-		/*if ($this->session->userdata('user_id')== null || $this->session->userdata('user_id') == '')
-		return;*/
+		
 		$this->load->model('constantmodel');
 		$rec=$this->constantmodel->get_user_permissions();
-		$this->session->unset_userdata('dep_id');
-		$this->session->unset_userdata('itemname');
+		/*$this->session->unset_userdata('dep_id');
+		$this->session->unset_userdata('itemname');*/
 		
 		foreach($rec as $row)
 		{
@@ -30,8 +29,9 @@ class Fullschedulecont extends CI_Controller
 			
 		
 		}
-		echo "permissions:".$this->session->userdata('itemname');
+		/*echo "permissions:".$this->session->userdata('itemname');
 		echo "user_id:".$this->session->userdata('user_id');
+		exit();*/
 				//$this->session->set_userdata('user_per',  $this->uri->segment(4));
 		//echo $this->session->userdata('user_per');
 		//echo $_SESSION['user_id'];
@@ -147,8 +147,8 @@ class Fullschedulecont extends CI_Controller
 	function getall_Shift_calender()
 	{
 		
-		if ($this->session->userdata('itemname')== null || $this->session->userdata('itemname') == '')
-		return;
+		/*if ($this->session->userdata('itemname')== null || $this->session->userdata('itemname') == '')
+		return;*/
 		
 		$this->load->model('fullschedulemodel');
 		$rec = $this->fullschedulemodel->get_all_shift();

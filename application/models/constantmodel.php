@@ -56,8 +56,7 @@ class Constantmodel extends CI_Model
 	}
 function get_dept_list()
 	{	
-	if ($this->session->userdata('itemname')== null || $this->session->userdata('itemname') == '')
-		return;
+	
 	/*echo $this->session->userdata('itemname');
 	exit();*/
 	if ($this->session->userdata('itemname')=="gm")
@@ -250,10 +249,10 @@ extract($_POST);
 												   AND inshiftstb.user_id = outusertb.id
 												   and inshiftstb.type=1
 												   GROUP BY user_id) AS worktime, 
-						  CONCAT( first_name, ' ', last_name ) AS name, hoursPerWeek, pricePerHour
+						  CONCAT( first_name, ' ', last_name ) AS staff_name, hoursPerWeek, pricePerHour
 				  FROM    dusseldorf_users outusertb
 				  LEFT OUTER JOIN dusseldorf_v3_shifts outshifttb on outusertb.id= outshifttb.user_id
-				  WHERE   outusertb.type =2
+				  WHERE   outusertb.type=2
 				  and jobtitle_id=".$JobTitelId."
 				  AND     outusertb.id not in (select  user_id 
 											   from   dusseldorf_v3_shifts
@@ -272,7 +271,7 @@ else if ($this->session->userdata('itemname')=='admin')
 												   AND inshiftstb.user_id = outusertb.id
 												   and inshiftstb.type=1
 												   GROUP BY user_id) AS worktime, 
-						  CONCAT( first_name, ' ', last_name ) AS name, hoursPerWeek, pricePerHour
+						  CONCAT( first_name, ' ', last_name ) AS staff_name, hoursPerWeek, pricePerHour
 				  FROM    dusseldorf_users outusertb
 				  LEFT OUTER JOIN dusseldorf_v3_shifts outshifttb on outusertb.id= outshifttb.user_id
 				  WHERE   outusertb.type =2
@@ -295,7 +294,7 @@ else if ($this->session->userdata('itemname')=='circle_man')
 												   AND inshiftstb.user_id = outusertb.id
 												   and inshiftstb.type=1
 												   GROUP BY user_id) AS worktime, 
-						  CONCAT( first_name, ' ', last_name ) AS name, hoursPerWeek, pricePerHour
+						  CONCAT( first_name, ' ', last_name ) AS staff_name, hoursPerWeek, pricePerHour
 				  FROM    dusseldorf_users outusertb
 				  LEFT OUTER JOIN dusseldorf_v3_shifts outshifttb on outusertb.id= outshifttb.user_id
 				  WHERE   outusertb.type =2
@@ -318,7 +317,7 @@ $myquery = "SELECT  DISTINCT outusertb.id, (SELECT sum((TIME_TO_SEC( end_time ) 
 												   AND inshiftstb.user_id = outusertb.id
 												   and inshiftstb.type=1
 												   GROUP BY user_id) AS worktime, 
-						  CONCAT( first_name, ' ', last_name ) AS name, hoursPerWeek, pricePerHour
+						  CONCAT( first_name, ' ', last_name ) AS staff_name, hoursPerWeek, pricePerHour
 				  FROM    dusseldorf_users outusertb
 				  LEFT OUTER JOIN dusseldorf_v3_shifts outshifttb on outusertb.id= outshifttb.user_id
 				  WHERE   outusertb.type =2
@@ -348,7 +347,7 @@ extract($_POST);
 												   AND inshiftstb.user_id = outusertb.id
 												   and inshiftstb.type=1
 												   GROUP BY user_id) AS worktime, 
-						  CONCAT( first_name, ' ', last_name ) AS name, hoursPerWeek, pricePerHour
+						  CONCAT( first_name, ' ', last_name ) AS staff_name, hoursPerWeek, pricePerHour
 				  FROM    dusseldorf_users outusertb
 				  LEFT OUTER JOIN dusseldorf_v3_shifts outshifttb on outusertb.id= outshifttb.user_id
 				  WHERE   outusertb.type =2
@@ -370,7 +369,7 @@ else if ($this->session->userdata('itemname')=='admin')
 												   AND inshiftstb.user_id = outusertb.id
 												   and inshiftstb.type=1
 												   GROUP BY user_id) AS worktime, 
-						  CONCAT( first_name, ' ', last_name ) AS name, hoursPerWeek, pricePerHour
+						  CONCAT( first_name, ' ', last_name ) AS staff_name, hoursPerWeek, pricePerHour
 				  FROM    dusseldorf_users outusertb
 				  LEFT OUTER JOIN dusseldorf_v3_shifts outshifttb on outusertb.id= outshifttb.user_id
 				  WHERE   outusertb.type =2
@@ -393,7 +392,7 @@ else if ($this->session->userdata('itemname')=='circle_man')
 												   AND inshiftstb.user_id = outusertb.id
 												   and inshiftstb.type=1
 												   GROUP BY user_id) AS worktime, 
-						  CONCAT( first_name, ' ', last_name ) AS name, hoursPerWeek, pricePerHour
+						  CONCAT( first_name, ' ', last_name ) AS staff_name, hoursPerWeek, pricePerHour
 				  FROM    dusseldorf_users outusertb
 				  LEFT OUTER JOIN dusseldorf_v3_shifts outshifttb on outusertb.id= outshifttb.user_id
 				  WHERE   outusertb.type =2
@@ -416,7 +415,7 @@ $myquery = "SELECT  DISTINCT outusertb.id, (SELECT sum((TIME_TO_SEC( end_time ) 
 												   AND inshiftstb.user_id = outusertb.id
 												   and inshiftstb.type=1
 												   GROUP BY user_id) AS worktime, 
-						  CONCAT( first_name, ' ', last_name ) AS name, hoursPerWeek, pricePerHour
+						  CONCAT( first_name, ' ', last_name ) AS staff_name, hoursPerWeek, pricePerHour
 				  FROM    dusseldorf_users outusertb
 				  LEFT OUTER JOIN dusseldorf_v3_shifts outshifttb on outusertb.id= outshifttb.user_id
 				  WHERE   outusertb.type =2

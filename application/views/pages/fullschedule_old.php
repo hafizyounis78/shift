@@ -30,12 +30,11 @@ var sessionValue = "<?php echo $this->session->userdata('itemname'); ?>";
       <div class="portlet box green-meadow calendar">
           <div class="portlet-title">
               <div class="caption">
-                  <i class="fa fa-gift"></i>Schedule
+                  <i class="fa fa-gift"></i>Full Schedule
               </div>
           </div>
           <div class="portlet-body">
               <div class="row">
-              <?php if ($this->session->userdata('itemname') == "gm" ||$this->session->userdata('itemname') == "admin")	{ ?>
                   <div class="col-md-3 col-sm-12">
                       <!-- BEGIN DRAGGABLE EVENTS PORTLET-->
                       <div class="panel-group accordion" id="accordion1">
@@ -132,10 +131,6 @@ var sessionValue = "<?php echo $this->session->userdata('itemname'); ?>";
                       <!-- END DRAGGABLE EVENTS PORTLET-->
                   </div>
                   <div class="col-md-9 col-sm-12">
-                   <?php } else {?>
-                      <div class="col-md-12 col-sm-12">
-                       <?php } ?>
-                  
                       <div id="calendar" class="has-toolbar">
                       </div>
                   </div>

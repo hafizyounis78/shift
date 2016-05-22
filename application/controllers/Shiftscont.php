@@ -54,8 +54,8 @@ class Shiftscont extends CI_Controller
 	}	
 	function getUserByDept()
 	{
-		echo "permissions:".$this->session->userdata('itemname');
-		echo "user_id:".$this->session->userdata('user_id');
+		/*echo "permissions:".$this->session->userdata('itemname');
+		echo "user_id:".$this->session->userdata('user_id');*/
 		
 		/*if ($this->session->userdata('itemname')== null || $this->session->userdata('itemname') == '')
 		return;*/
@@ -91,8 +91,9 @@ class Shiftscont extends CI_Controller
 	}
 	function getUserByJobtitle()
 	{
-		if ($this->session->userdata('itemname')== null || $this->session->userdata('itemname') == '')
-		return;
+		/*if ($this->session->userdata('itemname')== null || $this->session->userdata('itemname') == '')
+		return;*/
+		
 		$this->load->model('constantmodel');
 		$staffList=$this->constantmodel->getAvailUser_Jobtitel();
 		$notAvailableList=$this->constantmodel->getNotAvailUser_Jobtitel();
@@ -106,7 +107,7 @@ class Shiftscont extends CI_Controller
 			else
 			 $totalTime=(($staff_row->worktime)/3600)-$staff_row->hoursPerWeek;
 			 
-			  echo '<option  value='.$staff_row->id.'>'.$totalTime.'|'.$staff_row->name.'|'.$staff_row->pricePerHour.'</option>';
+			  echo '<option  value='.$staff_row->id.'>'.$totalTime.'|'.$staff_row->staff_name.'|'.$staff_row->pricePerHour.'</option>';
 			  
 		  }
 		 foreach($notAvailableList as $staff_row)
@@ -117,15 +118,15 @@ class Shiftscont extends CI_Controller
 			 $totalTime=(($staff_row->worktime)/3600)-$staff_row->hoursPerWeek;
 	
 	
-			  echo '<option title="Unavailable" disabled="disabled" value='.$staff_row->id.'>'.$totalTime.'|'.$staff_row->name.'</option>';
+			  echo '<option title="Unavailable" disabled="disabled" value='.$staff_row->id.'>'.$totalTime.'|'.$staff_row->staff_name.'</option>';
 			  
 		  } 
 		
 	}
 	function getUserBySpec()
 	{
-		if ($this->session->userdata('itemname')== null || $this->session->userdata('itemname') == '')
-		return;
+		/*if ($this->session->userdata('itemname')== null || $this->session->userdata('itemname') == '')
+		return;*/
 		$this->load->model('constantmodel');
 		$staffList=$this->constantmodel->getAvailUser_specialization();
 		$notAvailableList=$this->constantmodel->getNotAvailUser_specialization();
