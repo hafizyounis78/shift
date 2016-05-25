@@ -59,13 +59,13 @@ function get_dept_list()
 	
 	/*echo $this->session->userdata('itemname');
 	exit();*/
-	if ($this->session->userdata('itemname')=="gm")
+	if ($this->session->userdata('itemname')=="admin")
 		$myquery = "SELECT departments.dep_id,dep_name  
 					FROM   departments
 					where  parent_id != 0";
 					
 
-	else if ($this->session->userdata('itemname')=="admin")
+	else if ($this->session->userdata('itemname')=="gm")
 	
 		{
 			
@@ -115,7 +115,7 @@ function get_spec_list()
 //***************get user by dept************//
 function getAvailUser_byDept()
 {$dep_filter ="";
-	if ($this->session->userdata('itemname')=='admin')
+	if ($this->session->userdata('itemname')=='gm')
 	$dep_filter = "and   outusertb.dept_parent=".$this->session->userdata('dep_id');
 	extract($_POST);
 	if ($deptNo!=0)//not all department
@@ -177,7 +177,7 @@ function getNotAvailUser_byDept()
 {
 	$dep_filter ="";
 	extract($_POST);
-	if ($this->session->userdata('itemname')=='admin')
+	if ($this->session->userdata('itemname')=='gm')
 	$dep_filter = "and   outusertb.dept_parent=".$this->session->userdata('dep_id');
 	if ($deptNo!=0)
 	{
@@ -241,7 +241,7 @@ function getNotAvailUser_byDept()
 function getAvailUser_Jobtitel()
 {	
 extract($_POST);
-  if ($this->session->userdata('itemname')=='gm')
+  if ($this->session->userdata('itemname')=='admin')
 
 	   $myquery = "SELECT  DISTINCT outusertb.id, (SELECT sum((TIME_TO_SEC( end_time ) - TIME_TO_SEC( start_time )) * ( end_date - start_date +1 ))		      	   						
 	   											   FROM dusseldorf_v3_shifts inshiftstb
@@ -264,7 +264,7 @@ extract($_POST);
 											   or     ( start_time>='".$txtStart."' and start_time<='".$txtEnd."' AND end_time>='".$txtEnd."')
 											   or     ( start_time<='".$txtStart."' and end_time>='".$txtStart."' and end_time<='".$txtEnd."')
 											   or     ( start_time>='".$txtStart."' and end_time<='".$txtEnd."')))";
-else if ($this->session->userdata('itemname')=='admin')
+else if ($this->session->userdata('itemname')=='gm')
 	   $myquery = "SELECT  DISTINCT outusertb.id, (SELECT sum((TIME_TO_SEC( end_time ) - TIME_TO_SEC( start_time )) * ( end_date - start_date +1 ))		      	   						
 	   											   FROM dusseldorf_v3_shifts inshiftstb
 												   WHERE WEEKOFYEAR( start_date ) = WEEKOFYEAR('".$drpFromdate."')
@@ -339,7 +339,7 @@ $myquery = "SELECT  DISTINCT outusertb.id, (SELECT sum((TIME_TO_SEC( end_time ) 
 function getNotAvailUser_Jobtitel()
 {
 extract($_POST);
-  if ($this->session->userdata('itemname')=='gm')
+  if ($this->session->userdata('itemname')=='admin')
 
 	   $myquery = "SELECT  DISTINCT outusertb.id, (SELECT sum((TIME_TO_SEC( end_time ) - TIME_TO_SEC( start_time )) * ( end_date - start_date +1 ))		      	   						
 	   											   FROM dusseldorf_v3_shifts inshiftstb
@@ -362,7 +362,7 @@ extract($_POST);
 											   or     ( start_time>='".$txtStart."' and start_time<='".$txtEnd."' AND end_time>='".$txtEnd."')
 											   or     ( start_time<='".$txtStart."' and end_time>='".$txtStart."' and end_time<='".$txtEnd."')
 											   or     ( start_time>='".$txtStart."' and end_time<='".$txtEnd."')))";
-else if ($this->session->userdata('itemname')=='admin')
+else if ($this->session->userdata('itemname')=='gm')
 	   $myquery = "SELECT  DISTINCT outusertb.id, (SELECT sum((TIME_TO_SEC( end_time ) - TIME_TO_SEC( start_time )) * ( end_date - start_date +1 ))		      	   						
 	   											   FROM dusseldorf_v3_shifts inshiftstb
 												   WHERE WEEKOFYEAR( start_date ) = WEEKOFYEAR('".$drpFromdate."')
@@ -441,7 +441,7 @@ $myquery = "SELECT  DISTINCT outusertb.id, (SELECT sum((TIME_TO_SEC( end_time ) 
 function getAvailUser_specialization()
 {
 extract($_POST);
-if ($this->session->userdata('itemname')=='gm')
+if ($this->session->userdata('itemname')=='admin')
 
 	   $myquery = "SELECT  DISTINCT outusertb.id, (SELECT sum((TIME_TO_SEC( end_time ) - TIME_TO_SEC( start_time )) * ( end_date - start_date +1 ))		      	   						
 	   											   FROM dusseldorf_v3_shifts inshiftstb
@@ -466,7 +466,7 @@ if ($this->session->userdata('itemname')=='gm')
 											   or     ( start_time>='".$txtStart."' and start_time<='".$txtEnd."' AND end_time>='".$txtEnd."')
 											   or     ( start_time<='".$txtStart."' and end_time>='".$txtStart."' and end_time<='".$txtEnd."')
 											   or     ( start_time>='".$txtStart."' and end_time<='".$txtEnd."')))";
-else if ($this->session->userdata('itemname')=='admin')
+else if ($this->session->userdata('itemname')=='gm')
 	   $myquery = "SELECT  DISTINCT outusertb.id, (SELECT sum((TIME_TO_SEC( end_time ) - TIME_TO_SEC( start_time )) * ( end_date - start_date +1 ))		      	   						
 	   											   FROM dusseldorf_v3_shifts inshiftstb
 												   WHERE WEEKOFYEAR( start_date ) = WEEKOFYEAR('".$drpFromdate."')
@@ -549,7 +549,7 @@ $myquery = "SELECT  DISTINCT outusertb.id, (SELECT sum((TIME_TO_SEC( end_time ) 
 function getNotAvailUser_specialization()
 {
 extract($_POST);
-if ($this->session->userdata('itemname')=='gm')
+if ($this->session->userdata('itemname')=='admin')
 
 	   $myquery = "SELECT  DISTINCT outusertb.id, (SELECT sum((TIME_TO_SEC( end_time ) - TIME_TO_SEC( start_time )) * ( end_date - start_date +1 ))		      	   						
 	   											   FROM dusseldorf_v3_shifts inshiftstb
@@ -574,7 +574,7 @@ if ($this->session->userdata('itemname')=='gm')
 											   or     ( start_time>='".$txtStart."' and start_time<='".$txtEnd."' AND end_time>='".$txtEnd."')
 											   or     ( start_time<='".$txtStart."' and end_time>='".$txtStart."' and end_time<='".$txtEnd."')
 											   or     ( start_time>='".$txtStart."' and end_time<='".$txtEnd."')))";
-else if ($this->session->userdata('itemname')=='admin')
+else if ($this->session->userdata('itemname')=='gm')
 	   $myquery = "SELECT  DISTINCT outusertb.id, (SELECT sum((TIME_TO_SEC( end_time ) - TIME_TO_SEC( start_time )) * ( end_date - start_date +1 ))		      	   						
 	   											   FROM dusseldorf_v3_shifts inshiftstb
 												   WHERE WEEKOFYEAR( start_date ) = WEEKOFYEAR('".$drpFromdate."')

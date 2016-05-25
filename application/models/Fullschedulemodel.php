@@ -110,7 +110,7 @@ extract($_POST);
 		{
 			$dep_filter = "AND b.dep_id=".$dept_id;
 		}
-if ($this->session->userdata('itemname')=='gm')
+if ($this->session->userdata('itemname')=='admin')
 
 $myquery = "SELECT sft.start_date, sft.start_time, sft.end_time, sft.end_date, sft.location_id,sft.type, loc.name, loc.color, loc.id, (
 
@@ -132,7 +132,7 @@ $myquery = "SELECT sft.start_date, sft.start_time, sft.end_time, sft.end_date, s
 						HAVING sft.location_id = loc.id
 						AND start_date >'2016-04-01'";
 						
-else if ($this->session->userdata('itemname')=='admin')
+else if ($this->session->userdata('itemname')=='gm')
 	$myquery = "SELECT sft.start_date, sft.start_time, sft.end_time, sft.end_date, sft.location_id,sft.type, loc.name, loc.color, loc.id, (
 
 						SELECT GROUP_CONCAT( CONCAT( b.first_name, ' ', b.last_name )
