@@ -113,6 +113,7 @@ function getUserByDept()
 	$staffList=$this->constantmodel->getAvailUser_byDeptTimeoff();
 	$notAvailableList=$this->constantmodel->getNotAvailUser_byDeptTimeoff();
 	$totalTime='';
+	$str='';
 		 foreach($staffList as $staff_row)
 		  {
 			 
@@ -122,8 +123,8 @@ function getUserByDept()
 			else
 			 $totalTime=(($staff_row->worktime)/3600)-$staff_row->hoursPerWeek;
 			 
-			  echo '<option  value='.$staff_row->id.'>'.$totalTime.'|'.$staff_row->name.'|'.$staff_row->pricePerHour.'</option>';
-			  
+			  //echo '<option  value='.$staff_row->id.'>'.$totalTime.'|'.$staff_row->name.'|'.$staff_row->pricePerHour.'</option>';
+			$str=$str.'<option  value='.$staff_row->id.'>'.$totalTime.'|'.$staff_row->name.'|'.$staff_row->pricePerHour.'</option>';  
 		  }
 		 foreach($notAvailableList as $staff_row)
 		  {
@@ -133,10 +134,48 @@ function getUserByDept()
 			 $totalTime=(($staff_row->worktime)/3600)-$staff_row->hoursPerWeek;
 	
 	
-			  echo '<option title="Unavailable" disabled="disabled" value='.$staff_row->id.'>'.$totalTime.'|'.$staff_row->name.'</option>';
-			  
+			  //echo '<option title="Unavailable" disabled="disabled" value='.$staff_row->id.'>'.$totalTime.'|'.$staff_row->name.'</option>';
+			  $str=$str.'<option title="Unavailable" disabled="disabled" value='.$staff_row->id.'>'.$totalTime.'|'.$staff_row->name.'</option>';
 		  }
+		  echo $str.'.'.$this->getLocationBydept();
 	  
+}
+function getLocationBydept()
+{
+	$this->load->model('constantmodel');
+	$location=$this->constantmodel->get_locationBydept();
+	
+	if (count($location) == 0)
+	{
+		echo 0;
+		return;
+	}
+	//$output = array();
+	/*foreach($rec as $row)
+	{*/$str='';
+		 foreach ($location as $location_row)
+		 {
+			$str=$str.' <option value="'.$location_row->id.'">'.$location_row->name.'::'.$location_row->dep_name.'</option>';
+		 }
+		 return $str;
+		//unset($temp); // Release the contained value of the variable from the last loop
+	//	$temp = array();
+
+		// It guess your client side will need the id to extract, and distinguish the ScoreCH data
+	
+	//$temp['id'] = $row->id;
+	//$temp['name'] = $row->dep_name ;
+	//$temp['dep_name'] = $row->dep_name ;
+	
+	//	array_push($output,$temp);
+		
+	//header('Access-Control-Allow-Origin: *');
+	//	header("Content-Type: application/json");
+	//	return json_encode($output);
+		
+		
+	
+//	}
 }
 function getUserByJobtitle()
 {

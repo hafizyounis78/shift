@@ -196,23 +196,7 @@ var sessionValue = "<?php echo $this->session->userdata('itemname'); ?>";
                               </div>
                           </div>
                       </div>
-                    <div class="form-group">
-                        <label class="control-label col-md-3"><?php echo $this->lang->line('Locatios');  ?></label>
-                        <div class="col-md-4">
-                            <select id="drpLocation" name="drpLocation" class="form-control input-large select2me" data-placeholder="Select..." required>
-                                <option value=""><?php echo $this->lang->line('select');  ?>..</option>
-                                <?php 
-								foreach ($location as $location_row)
-								{
-									
-									echo ' <option value="'.$location_row->id.'" '.$selected.'>'
-														   .$location_row->name.'</option>';
-								}
-								?>
-                            </select>
-                            
-                        </div>
-                    </div>
+                    
                     <div class="form-group">
                         <label class="control-label col-md-3"><?php echo $this->lang->line('Date');  ?></label>
                         <div class="col-md-6">
@@ -359,6 +343,23 @@ var sessionValue = "<?php echo $this->session->userdata('itemname'); ?>";
                               </select>
                           </div>
                       </div>
+                    <div class="form-group">
+                        <label class="control-label col-md-3"><?php echo $this->lang->line('Locatios');  ?></label>
+                        <div class="col-md-4">
+                            <select id="drpLocation" name="drpLocation" class="form-control input-large " data-placeholder="Select..." required>
+                               <!-- <option value=""><?php echo $this->lang->line('select');  ?>..</option>-->
+                                <?php /*
+								foreach ($location as $location_row)
+								{
+									
+									 echo ' <option value="'.$location_row->id.'" '.$selected.'>'
+									  						 .$location_row->name.'::'.$location_row->dep_name.'</option>';
+								}*/
+								?>
+                            </select>
+                            
+                        </div>
+                    </div>  
                     <div class="form-group">
                         <label class="control-label col-md-3">Staff</label>
                         <div class="col-md-9">

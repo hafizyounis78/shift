@@ -40,10 +40,70 @@ class Constantmodel extends CI_Model
 	//************* get Location*********//
 	function get_location_list()
 	{	
+		if ($this->session->userdata('itemname')=="admin")
+			$myquery = "SELECT map_id as id,map_name as name,dep_name  
+						FROM   task_map_dep,departments
+						where  departments.dep_id=task_map_dep.dep_child_id";
+						
 	
-		$query = $this->db->get('dusseldorf_v3_locations');
-		return $query->result();
+		else if ($this->session->userdata('itemname')=="gm")
 		
+			{
+				
+			$myquery = "SELECT map_id as id,map_name as name,dep_name    
+						FROM   task_map_dep,departments
+						where  departments.dep_id=task_map_dep.dep_child_id
+						and    task_map_dep.dep_id=".$this->session->userdata('dep_id');
+					
+			}
+		else if ($this->session->userdata('itemname')=="circle_man")
+		
+			{
+				
+			$myquery = "SELECT map_id as id,map_name as name,dep_name    
+						FROM   task_map_dep,departments
+						where  departments.dep_id=task_map_dep.dep_child_id
+						and    task_map_dep.dep_child_id=".$this->session->userdata('dep_id');
+					
+			}
+	
+		else if ($this->session->userdata('itemname')=="emp")
+			$myquery = "SELECT map_id as id,map_name as namem,dep_name   
+						FROM   task_map_dep,dusseldorf_users,departments
+						where  task_map_dep.dep_child_id=dusseldorf_users.dep_id
+						and    departments.dep_id=task_map_dep.dep_child_id
+						and    dusseldorf_users.id=".$this->session->userdata('user_id');
+						
+					
+			$res = $this->db->query($myquery);
+			return $res->result();
+		
+	/*	$query = $this->db->get('dusseldorf_v3_locations');
+		return $query->result();
+	*/	
+	}
+	function get_locationBydept()
+	{	
+			extract($_POST);
+		if ($deptNo!=0 && $deptNo!='')//not all department
+
+				
+			$myquery = "SELECT map_id as id,map_name as name,dep_name    
+						FROM   task_map_dep,departments
+						where  departments.dep_id=task_map_dep.dep_child_id
+						and    task_map_dep.dep_child_id=".$deptNo;
+		else
+			$myquery = "SELECT map_id as id,map_name as name,dep_name    
+						FROM   task_map_dep,departments
+						where  departments.dep_id=task_map_dep.dep_child_id
+						and    task_map_dep.dep_id=".$this->session->userdata('dep_id');
+					
+			$res = $this->db->query($myquery);
+			return $res->result();
+		
+	/*	$query = $this->db->get('dusseldorf_v3_locations');
+		return $query->result();
+	*/	
 	}
 	function get_staff_list()
 	{

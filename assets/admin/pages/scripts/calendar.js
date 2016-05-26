@@ -139,7 +139,7 @@ var Calendar = function() {
 				selectable: true,
 				selectHelper: true,
 				select: function(start, end) {
-				  if (sessionValue!='emp')
+				  if (sessionValue =='gm')
 				   {
 						 $("#form_modal2").modal();	
 						 $("#drpFromdate").val('');
@@ -195,7 +195,8 @@ var Calendar = function() {
 			},
 				drop: function(date, allDay) { // this function is called when something is dropped
 				//var sessionValue  =" <?php echo json_encode($this->session->userdata('itemname')); ?>"; 
-				if (sessionValue!='emp')
+				alert(sessionValue);
+				if (sessionValue=='gm')
 				{
                     // retrieve the dropped element's stored Event Object
                     var originalEventObject = $(this).data('eventObject');

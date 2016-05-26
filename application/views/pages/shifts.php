@@ -47,30 +47,7 @@ $readonly = '';
                               </div>
                           </div>
                       </div>
-                      <div class="form-group">
-                            <label class="control-label col-md-3"><?php echo $this->lang->line('Locatios'); ?><span class="required">
-                          * </span></label>
-                            <div class="col-md-4">
-                                <select class="form-control input-large " data-placeholder="<?php echo $this->lang->line('select');  ?>..." id="drpLocation" name="drpLocation">
-                                  <option value=""><?php echo $this->lang->line('select');  ?>..</option>
-                                     <?php 
-								  foreach ($location as $location_row)
-								  {
-									  $selected = '';
-									  /*
-									  if ($patient_row->status_id == $location_row->sub_constant_id)
-									  	$selected = 'selected="selected"';
-									  */
-									  echo ' <option value="'.$location_row->id.'" '.$selected.'>'
-									  						 .$location_row->name.'</option>';
-								  }
-								  ?>
-
-                                </select>
-                                <span class="help-block">
-                                .Select Location</span>
-                            </div>
-                        </div>
+                      
                       <div class="form-group">
                         <label class="control-label col-md-3"><?php echo $this->lang->line('Date');  ?><span class="required">
                           * </span></label>
@@ -137,9 +114,9 @@ $readonly = '';
                         <div class="col-md-4">
                           <div class="radio-list">
                               <label class="radio-inline">
-                              <input type="radio" name="rdSelection" id="rdSelection1" value="1" checked onchange="selectionchange()"><?php echo $this->lang->line('Department');  ?> </label>
+                              <input type="radio" name="rdSelection" id="rdSelection1" value="1" checked ><?php echo $this->lang->line('Department');  ?> </label>
                               <label class="radio-inline">
-                              <input type="radio" name="rdSelection" id="rdSelection2" value="2" onchange="selectionchange()"><?php echo $this->lang->line('Job Title');  ?></label>
+                              <input type="radio" name="rdSelection" id="rdSelection2" value="2" ><?php echo $this->lang->line('Job Title');  ?></label>
                               
                           </div>
                         </div>
@@ -216,6 +193,29 @@ $readonly = '';
                               </select>
                           </div>
                       </div>
+                      <div class="form-group">
+                            <label class="control-label col-md-3"><?php echo $this->lang->line('Locatios'); ?><span class="required">
+                          * </span></label>
+                            <div class="col-md-4">
+                                <select class="form-control input-large " data-placeholder="<?php echo $this->lang->line('select');  ?>..." id="drpLocation" name="drpLocation">
+                                  <option value=""><?php echo $this->lang->line('select');  ?>..</option>
+                                     <?php 
+								  /*foreach ($location as $location_row)
+								  {
+									  $selected = '';
+									  /*
+									  if ($patient_row->status_id == $location_row->sub_constant_id)
+									  	$selected = 'selected="selected"';
+									  */
+									/*  echo ' <option value="'.$location_row->id.'" '.$selected.'>'
+									  						 .$location_row->name.'::'.$location_row->dep_name.'</option>';
+								  }*/
+								  ?>
+
+                                </select>
+                                
+                            </div>
+                        </div>
                     <div class="form-group" id="divUser">
                         <label class="control-label col-md-3"><?php echo $this->lang->line('Staff');  ?> <span class="required">
                           * </span></label>

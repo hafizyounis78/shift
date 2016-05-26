@@ -12,17 +12,19 @@ $(document).ready(function () {
 			document.getElementById("divDept").style.display = "block";	
 			document.getElementById("divJobtitle").style.display = "None";	
 			document.getElementById("divSpec").style.display = "None";	
-		
+			$('#drpLocation').empty();
+			$('#drpLocation').val("");
         }
         else {
             slectionId=$("#rdSelection2").val();
 			document.getElementById("divDept").style.display = "None";	
 			document.getElementById("divJobtitle").style.display = "block";	
 			document.getElementById("divSpec").style.display = "block";	
-		
+			getAlllocation();
         }
        
     })
+	
 	//*****************change date or time*************//
 	$(".classConflict").change(function () {
 	
@@ -47,11 +49,38 @@ $(document).ready(function () {
       	aoColumns: [{type: "text" },{type: "text" },{type: "text" },{type: "text" },{type: "text" },{type: "text" }]
     });*/
 });
+function getAlllocation()
+	{
+		var formData = new FormData();
+			formData.append('deptNo'        , 0),
+	
+		$.ajax({
+		url: baseURL+"Shiftscont/getallLocation",
+		type: "POST",
+		data: formData,
+		processData: false,
+		contentType: false,
+		error: function(xhr, status, error) {
+			alert(xhr.responseText);
+		},
+		beforeSend: function(){},
+		complete: function(){},
+		success: function(returndb){
+			
+			$('#drpLocation').empty();
+			$("#drpLocation").html(returndb);
+	
+			}
+		});//END $.ajax
+		
+	}
 function edittimeoff() {							
 		
 		var action = $("#hdnaction").val();
 	if (action!="updateTimeoff")	
 		if (!validateStaffselect())
+	if ( !$("#drpLocation").valid() )
+		valid = false;
 		 return;
 		
 			var formData = new FormData();
@@ -177,7 +206,8 @@ function clearfimeoffForm()
 {
 	$("#hdnshiftId").val("");
 	$("#hdnaction").val('addtimeoff');
-	$("#drpLocation").val("");
+	$('#drpLocation').empty();
+	$('#drpLocation').val("");
 	$("#drpFromdate").val("");
 	$("#drpTodate").val("");
 	$("#txtStart").val("");
@@ -199,7 +229,8 @@ function drptimeoffdeptChange()
 {
 	    $("#my_multi_select1").html('');
 		$("#my_multi_select1").multiSelect('refresh');
-		
+		$('#drpLocation').empty();
+		$('#drpLocation').val("");
 		
 		if (!validateShift())
 		{
@@ -228,11 +259,16 @@ function drptimeoffdeptChange()
 			beforeSend: function(){},
 			complete: function(){},
 			success: function(returndb){
-				
+				var retdb=returndb.split('.');
+				var stafflist=retdb[0];
+				var location=retdb[1];
+
 				document.getElementById("divUser").style.display = "block";
 				document.getElementById("dvstaffname").style.display = "None";
-				$("#my_multi_select1").html(returndb);
+				$("#my_multi_select1").html(stafflist);
 				$("#my_multi_select1").multiSelect('refresh');
+				$('#drpLocation').empty();
+				$("#drpLocation").html(location);
 			}
 		});//END $.ajax
 		 }
@@ -354,8 +390,8 @@ function validateShift()
 	if ( !$("#txtEnd").valid() )
 		valid = false;
 
-	if ( !$("#drpLocation").valid() )
-		valid = false;
+	/*if ( !$("#drpLocation").valid() )
+		valid = false;*/
 	
 	if(!valid)
 	{

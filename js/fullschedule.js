@@ -11,6 +11,9 @@ $(document).ready(function () {
 			document.getElementById("divSpec").style.display = "None";	
 			var ddldept=document.getElementById('drplstDept');
 			ddldept.options[0].selected = true;
+			$('#drpLocation').empty();
+			$('#drpLocation').val('');
+			
 
         }
         else {
@@ -22,6 +25,7 @@ $(document).ready(function () {
 			ddlJobtitle.options[0].selected = true; 
 			var ddlSpec=document.getElementById('drplstSpec');
 			ddlSpec.options[0].selected = true;
+			getAlllocation();
         }
         
     })
@@ -32,6 +36,31 @@ $(document).ready(function () {
 	})		
 	
 });
+function getAlllocation()
+{
+				var formData = new FormData();
+			 	    formData.append('deptNo', 0),
+	
+				$.ajax({
+				url: baseURL+"Shiftscont/getallLocation",
+				type: "POST",
+				data: formData,
+				processData: false,
+				contentType: false,
+				error: function(xhr, status, error) {
+					alert(xhr.responseText);
+				},
+				beforeSend: function(){},
+				complete: function(){},
+				success: function(returndb){
+					
+					$('#drpLocation').empty();
+					$("#drpLocation").html(returndb);
+	
+					}
+				});//END $.ajax
+				
+			}
 function addShiftTemplate()
 {
 	
@@ -75,11 +104,13 @@ function addShiftTemplate()
 }
 //********************shift save**************//
 function addModalshift(){
-	if (!validateShifts())
-	 return;
+	 if (!validateShifts())
+	   return;
 	 if (!validatStaff())
-	 return;
-
+	   return;
+	 if (!$("#drpLocation").valid() )
+		valid = false;
+	
 	var formData = new FormData();
 
 		formData.append('rdShifttype'        ,  $("input[name=rdShifttype]:checked").val());
@@ -149,7 +180,8 @@ function clearFullStaffSelect()
 function clearFullShiftForm()
 {
 	$("#hdnshiftId").val("");
-	$("#drpLocation").val("");
+	$('#drpLocation').empty();
+	$('#drpLocation').val("");
 	$("#drplstBreak").val("");
 	$("#drpFromdate").val("");
 	$("#drpTodate").val("");
@@ -170,6 +202,8 @@ function drpdeptFullChange()
 {
 		$("#my_multi_select1").html('');
 		$("#my_multi_select1").multiSelect('refresh');
+		$('#drpLocation').empty();
+		$('#drpLocation').val("");
 		var shifttype= $("input[name=rdShifttype]:checked").val();
 		var shiftcont='';
 		if (shifttype==1)
@@ -203,8 +237,13 @@ function drpdeptFullChange()
 			beforeSend: function(){},
 			complete: function(){},
 			success: function(returndb){
-				$("#my_multi_select1").html(returndb);
+				var retdb=returndb.split('.');
+				var stafflist=retdb[0];
+				var location=retdb[1];
+				$("#my_multi_select1").html(stafflist);
 				$("#my_multi_select1").multiSelect('refresh');
+				$('#drpLocation').empty();
+				$("#drpLocation").html(location);
 			}
 		});//END $.ajax
 		 }
@@ -335,8 +374,6 @@ function validateShifts()
 	if ( !$("#txtEnd").valid() )
 		valid = false;
 
-	if ( !$("#drpLocation").valid() )
-		valid = false;
 	
 	if(!valid)
 	{

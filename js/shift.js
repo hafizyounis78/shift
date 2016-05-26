@@ -8,13 +8,16 @@ $(document).ready(function () {
 			document.getElementById("divDept").style.display = "block";	
 			document.getElementById("divJobtitle").style.display = "None";	
 			document.getElementById("divSpec").style.display = "None";	
+			$('#drpLocation').empty();
+			$('#drpLocation').val("");
         }
         else {
             slectionId=$("#rdSelection2").val();
 			document.getElementById("divDept").style.display = "None";	
 			document.getElementById("divJobtitle").style.display = "block";	
 			document.getElementById("divSpec").style.display = "block";	
-        }
+			getAlllocation();
+		}
 
     })
 
@@ -24,14 +27,40 @@ $(document).ready(function () {
 		clearStaffSelect();
 	})		
 });
-
+function getAlllocation()
+{
+				var formData = new FormData();
+			 	    formData.append('deptNo'        , 0),
+	
+				$.ajax({
+				url: baseURL+"Shiftscont/getallLocation",
+				type: "POST",
+				data: formData,
+				processData: false,
+				contentType: false,
+				error: function(xhr, status, error) {
+					alert(xhr.responseText);
+				},
+				beforeSend: function(){},
+				complete: function(){},
+				success: function(returndb){
+					
+					$('#drpLocation').empty();
+					$("#drpLocation").html(returndb);
+	
+					}
+				});//END $.ajax
+				
+			}
 function editshift(){
 
 			var action = $("#hdnaction").val();
 		if (action!="updateShift")
 			if (!validateStaffselect())
 			 return;
-				 
+		if ( !$("#drpLocation").valid() )
+		  valid = false;
+		 
 	
 			var formData = new FormData();
 				formData.append('rdShifttype'        , 1);
@@ -172,7 +201,8 @@ function clearShiftForm()
 {
 	$("#hdnshiftId").val("");
 	$("#hdnaction").val('addshift');
-	$("#drpLocation").val("");
+	$('#drpLocation').empty();
+	$('#drpLocation').val("");
 	$("#drplstBreak").val("");
 	
 	$("#drpFromdate").val("");
@@ -180,6 +210,7 @@ function clearShiftForm()
 	$("#txtStart").val("");
 	$("#txtEnd").val("");
 	$("#txtstaffName").val("");
+	
 	document.getElementById("divUser").style.display = "block";
 	document.getElementById("divDept").style.display = "block";	
 	document.getElementById("divSelect").style.display = "block";	
@@ -194,7 +225,8 @@ function drpdeptChange()
 {
 		$("#my_multi_select1").html('');
 		$("#my_multi_select1").multiSelect('refresh');
-		
+		$('#drpLocation').empty();
+		$('#drpLocation').val("");
 		if (!validateShift())
 		 {
 			 clearStaffSelect()
@@ -221,10 +253,19 @@ function drpdeptChange()
 			beforeSend: function(){},
 			complete: function(){},
 			success: function(returndb){
+				var retdb=returndb.split('.');
+				var stafflist=retdb[0];
+				var location=retdb[1];
 				document.getElementById("divUser").style.display = "block";
 				document.getElementById("dvstaffname").style.display = "None";
-				$("#my_multi_select1").html(returndb);
+				/*alert(stafflist);
+				alert(location);
+				*/
+				$("#my_multi_select1").html(stafflist);
 				$("#my_multi_select1").multiSelect('refresh');
+				$('#drpLocation').empty();
+				$("#drpLocation").html(location);
+
 			}
 		});//END $.ajax
 		 }
@@ -262,6 +303,9 @@ function drpJobtitleChange()
 				document.getElementById("dvstaffname").style.display = "None";
 				$("#my_multi_select1").html(returndb);
 				$("#my_multi_select1").multiSelect('refresh');
+			/*	$('#drpLocation').empty();
+				$("#drpLocation").html(location);*/
+
 			}
 		});//END $.ajax
 }
@@ -301,6 +345,9 @@ function drpSpecChange()
 				document.getElementById("dvstaffname").style.display = "None";
 				$("#my_multi_select1").html(returndb);
 				$("#my_multi_select1").multiSelect('refresh');
+			/*	$('#drpLocation').empty();
+				$("#drpLocation").html(location);*/
+
 			}
 		});//END $.ajax
 }
@@ -553,9 +600,9 @@ function validateShift()
 	if ( !$("#txtEnd").valid() )
 		valid = false;
 
-	if ( !$("#drpLocation").valid() )
+	/*if ( !$("#drpLocation").valid() )
 		valid = false;
-	
+	*/
 	if(!valid)
 	{
 	  error.show();
@@ -574,6 +621,13 @@ var ShiftComponentsDropdowns = function () {
         $('#my_multi_select1').multiSelect({
             selectableOptgroup: true,
 			afterSelect: function(values){
+				/*var txt = $("#my_multi_select1 option[value='"+values+"']").text();
+				$("#my_multi_select1 option[value='"+values+"']").html('6666');
+
+				//var selectedValue=$('#my_multi_select1').multiSelect('select', String);
+				alert(txt);
+				 var avlHr =txt.split('|');
+				 alert(avlHr);*/
 				if (staffList=='')
 				  	staffList=values;
 				else
