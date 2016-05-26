@@ -4,7 +4,7 @@ class Constantmodel extends CI_Model
 	function get_user_permissions()
 	{
 		
-		$myquery ="SELECT itemname, dep_man.dep_id 
+		$myquery ="SELECT itemname, IFNULL(dep_man.dep_id,dusseldorf_users.dep_id) as dep_id
 									   FROM 	 dusseldorf_users
 									   LEFT JOIN dep_man ON dusseldorf_users.id = dep_man.usr_id,
 									   users,AuthAssignment 
@@ -41,7 +41,7 @@ class Constantmodel extends CI_Model
 	function get_location_list()
 	{	
 		if ($this->session->userdata('itemname')=="admin")
-			$myquery = "SELECT map_id as id,map_name as name,dep_name  
+			$myquery = "SELECT map_id as id,map_name as Location_name,dep_name  
 						FROM   task_map_dep,departments
 						where  departments.dep_id=task_map_dep.dep_child_id";
 						
@@ -50,7 +50,7 @@ class Constantmodel extends CI_Model
 		
 			{
 				
-			$myquery = "SELECT map_id as id,map_name as name,dep_name    
+			$myquery = "SELECT map_id as id,map_name as Location_name,dep_name    
 						FROM   task_map_dep,departments
 						where  departments.dep_id=task_map_dep.dep_child_id
 						and    task_map_dep.dep_id=".$this->session->userdata('dep_id');
@@ -60,7 +60,7 @@ class Constantmodel extends CI_Model
 		
 			{
 				
-			$myquery = "SELECT map_id as id,map_name as name,dep_name    
+			$myquery = "SELECT map_id as id,map_name as Location_name,dep_name    
 						FROM   task_map_dep,departments
 						where  departments.dep_id=task_map_dep.dep_child_id
 						and    task_map_dep.dep_child_id=".$this->session->userdata('dep_id');
@@ -68,7 +68,7 @@ class Constantmodel extends CI_Model
 			}
 	
 		else if ($this->session->userdata('itemname')=="emp")
-			$myquery = "SELECT map_id as id,map_name as namem,dep_name   
+			$myquery = "SELECT map_id as id,map_name as Location_name,dep_name   
 						FROM   task_map_dep,dusseldorf_users,departments
 						where  task_map_dep.dep_child_id=dusseldorf_users.dep_id
 						and    departments.dep_id=task_map_dep.dep_child_id
@@ -85,18 +85,19 @@ class Constantmodel extends CI_Model
 	function get_locationBydept()
 	{	
 			extract($_POST);
-		if ($deptNo!=0 && $deptNo!='')//not all department
-
-				
-			$myquery = "SELECT map_id as id,map_name as name,dep_name    
-						FROM   task_map_dep,departments
-						where  departments.dep_id=task_map_dep.dep_child_id
-						and    task_map_dep.dep_child_id=".$deptNo;
-		else
-			$myquery = "SELECT map_id as id,map_name as name,dep_name    
+		if ($deptNo == 0)//all department
+			$myquery = "SELECT map_id as id,map_name as Location_name,dep_name    
 						FROM   task_map_dep,departments
 						where  departments.dep_id=task_map_dep.dep_child_id
 						and    task_map_dep.dep_id=".$this->session->userdata('dep_id');
+
+				
+			
+		else
+		$myquery = "SELECT map_id as id,map_name as Location_name,dep_name    
+						FROM   task_map_dep,departments
+						where  departments.dep_id=task_map_dep.dep_child_id
+						and    task_map_dep.dep_child_id=".$deptNo;
 					
 			$res = $this->db->query($myquery);
 			return $res->result();

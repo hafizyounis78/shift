@@ -155,7 +155,7 @@ function getLocationBydept()
 	{*/$str='';
 		 foreach ($location as $location_row)
 		 {
-			$str=$str.' <option value="'.$location_row->id.'">'.$location_row->name.'::'.$location_row->dep_name.'</option>';
+			$str=$str.' <option value="'.$location_row->id.'">'.$location_row->Location_name.'::'.$location_row->dep_name.'</option>';
 		 }
 		 return $str;
 		//unset($temp); // Release the contained value of the variable from the last loop

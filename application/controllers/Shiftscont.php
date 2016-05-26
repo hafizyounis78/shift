@@ -109,7 +109,7 @@ class Shiftscont extends CI_Controller
 		{*/$str='';
 			 foreach ($location as $location_row)
 			 {
-				$str=$str.' <option value="'.$location_row->id.'">'.$location_row->name.'::'.$location_row->dep_name.'</option>';
+				$str=$str.' <option value="'.$location_row->id.'">'.$location_row->Location_name.'::'.$location_row->dep_name.'</option>';
 			 }
 			 return $str;
 			//unset($temp); // Release the contained value of the variable from the last loop
@@ -134,7 +134,7 @@ class Shiftscont extends CI_Controller
 	function getallLocation()
 	{
 		$this->load->model('constantmodel');
-		$location=$this->constantmodel->get_locationBydept();
+		$location=$this->constantmodel->get_location_list();
 		
 		if (count($location) == 0)
 		{
@@ -144,7 +144,7 @@ class Shiftscont extends CI_Controller
 		$str='';
 			 foreach ($location as $location_row)
 			 {
-				$str=$str.' <option value="'.$location_row->id.'">'.$location_row->name.'::'.$location_row->dep_name.'</option>';
+				$str=$str.' <option value="'.$location_row->id.'">'.$location_row->Location_name.'::'.$location_row->dep_name.'</option>';
 			 }
 			 echo $str;
 

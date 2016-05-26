@@ -48,7 +48,7 @@ function getAlllocation()
 				processData: false,
 				contentType: false,
 				error: function(xhr, status, error) {
-					alert(xhr.responseText);
+					//alert(xhr.responseText);
 				},
 				beforeSend: function(){},
 				complete: function(){},
@@ -108,8 +108,8 @@ function addModalshift(){
 	   return;
 	 if (!validatStaff())
 	   return;
-	 if (!$("#drpLocation").valid() )
-		valid = false;
+	/* if (!$("#drpLocation").valid())
+		valid = false;*/
 	
 	var formData = new FormData();
 
@@ -170,6 +170,10 @@ function clearFullStaffSelect()
 		$("#my_multi_select1").html('');
 		$("#my_multi_select1").multiSelect('refresh');
 		staffList="";
+		if ($("#rdSelection1").attr("checked")) {
+		$('#drpLocation').empty();
+		$('#drpLocation').val("");
+		}
 		var ddldept=document.getElementById('drplstDept');
 		 ddldept.options[0].selected = true;
 		var ddlJobtitle=document.getElementById('drplstJobtitle');

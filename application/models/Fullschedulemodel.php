@@ -56,11 +56,12 @@ class Fullschedulemodel extends CI_Model
 		
 		
 		//******************general manager***************//
-		if ($this->session->userdata('itemname')== null || $this->session->userdata('itemname') == '')
-				return;
+		/*if ($this->session->userdata('itemname')== null || $this->session->userdata('itemname') == '')
+				return;*/
+				$dept_id='';
 		extract($_POST);
 				$dep_filter = '';		
-				if($dept_id!=0)
+				if($dept_id!= 0 && $dept_id!='')
 				{
 					$dep_filter = "AND b.dep_id=".$dept_id;
 				}
@@ -129,9 +130,9 @@ class Fullschedulemodel extends CI_Model
 									HAVING sft.location_id = loc.map_id
 									AND start_date >'2016-04-01'";
 		else if ($this->session->userdata('itemname')=='emp')
-			$myquery = " SELECT  sft.start_date, sft.start_time, sft.end_time, sft.end_date, sft.location_id,sft.type, loc.map_name as name, loc.color, loc.id,CONCAT( b.first_name, ' ', b.last_name ) as emp_name
-								  FROM    dusseldorf_v3_shifts sft, dusseldorf_v3_locations loc,dusseldorf_users b
-								  where   sft.location_id = loc.id
+			$myquery = " SELECT  sft.start_date, sft.start_time, sft.end_time, sft.end_date, sft.location_id,sft.type, loc.map_name as name, loc.color,loc.map_id,CONCAT( b.first_name, ' ', b.last_name ) as emp_name
+								  FROM    dusseldorf_v3_shifts sft, task_map_dep loc,dusseldorf_users b
+								  where   sft.location_id = loc.map_id
 								  AND     start_date >2016 -04 -01 
 								  and     b.id = sft.user_id
 								  and     sft.user_id=".$this->session->userdata('user_id');
