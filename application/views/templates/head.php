@@ -57,7 +57,7 @@ License: You must have a valid license purchased only from themeforest(the above
 <link href="<?php echo base_url();?>assets/admin/layout2/css/custom.css" rel="stylesheet" type="text/css"/>
 <link rel="stylesheet" type="text/css" href="<?php echo base_url();?>assets/global/plugins/jquery-multi-select/css/multi-select.css"/>
 <!-- END THEME STYLES -->
-<link rel="shortcut icon" href="favicon.ico"/>
+<!--<link rel="shortcut icon" href="favicon.ico"/>-->
 
 <!-- SLIDER STYLE-->
 <style>

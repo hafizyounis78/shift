@@ -20,6 +20,18 @@ class Welcome extends CI_Controller {
 	 */
 	public function index()
 	{
-		$this->load->view('welcome_message');
+		$this->session->set_userdata('user_id',  $this->uri->segment(3));
+		
+		$this->load->model('constantmodel');
+		$rec=$this->constantmodel->get_user_permissions();
+//		$this->session->set_userdata('itemname','');
+		foreach($rec as $row)
+		{
+			$this->session->set_userdata('dep_id',$row->dep_id);
+			$this->session->set_userdata('itemname',$row->itemname);
+			
+		
+		}
+		redirect("http://hireit4u.com/supermarket/index.php/dashboard/");
 	}
 }

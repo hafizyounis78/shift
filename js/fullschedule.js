@@ -75,16 +75,19 @@ function addShiftTemplate()
 			beforeSend: function(){},
 			complete: function(){},
 			success: function(returndb){
-				
+				alert(returndb);
+				alert(returndb[0]);
+				alert(returndb[0]['txtName']);
                 var el = $('<div class="external-event label label-default col-md-12"><span id="dvName">' 
-						  + returndb[a]['txtName'] + 
-						 '</span><br/><span id="dvStart">' + returndb[a]['txtStart'] + '</span> - <span id="dvEnd">'
-						  + returndb[a]['txtEnd'] +
+						  + returndb[0]['txtName'] + 
+						 '</span><br/><span id="dvStart">' + returndb[0]['txtStart'] + '</span> - <span id="dvEnd">'
+						  + returndb[0]['txtEnd'] +
 						  '</span><i class="fa fa-coffee" aria-hidden="true"></i> <span id="dvBreak">' 
-						  + returndb[a]['txtBreak'] +'</span> min</div>');
+						  + returndb[0]['txtBreak'] +'</span> min</div>');
                 jQuery('#event_box').append(el);
 				
 				//--initDrag;
+				alert('Add shift Templete success');
 				var eventObject = {
                     title: $.trim(el.text()) // use the element's text as the event title
                 };
@@ -241,13 +244,16 @@ function drpdeptFullChange()
 			beforeSend: function(){},
 			complete: function(){},
 			success: function(returndb){
-				var retdb=returndb.split('.');
+				
+				
+				var retdb=returndb.split('@@');
 				var stafflist=retdb[0];
 				var location=retdb[1];
 				$("#my_multi_select1").html(stafflist);
 				$("#my_multi_select1").multiSelect('refresh');
 				$('#drpLocation').empty();
 				$("#drpLocation").html(location);
+				
 			}
 		});//END $.ajax
 		 }

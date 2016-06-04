@@ -258,7 +258,7 @@ function drpdeptChange()
 			beforeSend: function(){},
 			complete: function(){},
 			success: function(returndb){
-				var retdb=returndb.split('.');
+				var retdb=returndb.split('@@');
 				var stafflist=retdb[0];
 				var location=retdb[1];
 				document.getElementById("divUser").style.display = "block";

@@ -137,7 +137,7 @@ function getUserByDept()
 			  //echo '<option title="Unavailable" disabled="disabled" value='.$staff_row->id.'>'.$totalTime.'|'.$staff_row->name.'</option>';
 			  $str=$str.'<option title="Unavailable" disabled="disabled" value='.$staff_row->id.'>'.$totalTime.'|'.$staff_row->name.'</option>';
 		  }
-		  echo $str.'.'.$this->getLocationBydept();
+		  echo $str.'@@'.$this->getLocationBydept();
 	  
 }
 function getLocationBydept()

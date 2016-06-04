@@ -9,19 +9,45 @@ class Fullschedulecont extends CI_Controller
 		{
 			show_404();
 		}
+		$userId=$this->uri->segment(3);
+		//$this->session->set_userdata('itemname','');
 		
-		$this->session->set_userdata('user_id',  $this->uri->segment(3));
-		
-		$this->load->model('constantmodel');
-		$rec=$this->constantmodel->get_user_permissions();
-		
-		foreach($rec as $row)
+		if (strpos($this->uri->segment(3),'emp') != '')
 		{
-			$this->session->set_userdata('dep_id',$row->dep_id);
-			$this->session->set_userdata('itemname',$row->itemname);
-			
+			$arg=explode("-",$this->uri->segment(3));
+			$userId=$arg[0];
+			$this->session->set_userdata('user_id', $userId);
+			$this->session->set_userdata('itemname','emp');
+			$this->load->model('constantmodel');
+			$rec=$this->constantmodel->get_user_permissions();
 		
+			foreach($rec as $row)
+			{
+				$this->session->set_userdata('dep_id',$row->dep_id);
+			}
 		}
+		else
+		{
+			$this->session->set_userdata('user_id', $userId);
+			
+			$this->load->model('constantmodel');
+			$rec=$this->constantmodel->get_user_permissions();
+			
+			foreach($rec as $row)
+			{
+				$this->session->set_userdata('dep_id',$row->dep_id);
+				$this->session->set_userdata('itemname',$row->itemname);
+				
+			
+			}
+		}
+		/*echo 'segment value : '.$this->uri->segment(3);
+		echo 'permission value : '.strpos($this->uri->segment(3),'emp');
+		echo 'itemname  : '.$this->session->userdata('itemname');
+		echo 'user_id  : '.$this->session->userdata('user_id');
+		//echo 'permission value : '.strpos($this->uri->segment(3),'emp');
+
+		exit();*/
 			$this->lang->load('label_lang', 'german');//load german languge
 			$this->data['title'] = $page;
 			

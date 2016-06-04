@@ -24,10 +24,25 @@
 						</a>
 					</li>
 					<li <?php if($title == 'fullschedule') echo 'class="active open"';?> >
-						<a href="<?php echo base_url()."fullschedulecont/fullschedule/".$this->session->userdata('user_id');?>">
+                    <?php if ($this->session->userdata('itemname')=='emp')
+					{
+						?>
+						<a href="<?php echo base_url()."fullschedulecont/fullschedule/".$this->session->userdata('user_id').'-emp'; ?>">
 						<i class="icon-calendar"></i>
+						<span class="title"><?php echo $this->lang->line('My Schedule');  ?></span>
+						</a>
+						<?php
+					}
+						else						
+						{
+						?>
+						<a href="<?php echo base_url()."fullschedulecont/fullschedule/".$this->session->userdata('user_id');?>">                        
+                        <i class="icon-calendar"></i>
 						<span class="title"><?php echo $this->lang->line('Full Schedule');  ?></span>
 						</a>
+                        <?php
+						}
+						?>
 					</li>
                    <!-- <li <?php if($title == 'locations') echo 'class="active open"';?>>
 						<a href="<?php echo base_url();?>locationscont/locations">

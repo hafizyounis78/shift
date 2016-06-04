@@ -166,9 +166,16 @@ function get_jobtitle_list()
 }
 function get_spec_list()
 	{	
-	
-		$query = $this->db->get('dusseldorf_specialization');
+		$this->db->from('dusseldorf_specialization');
+		$this->db->where('is_deleted',0);
+		$this->db->order_by("name", "ASC");
+		
+		$query = $this->db->get();
+		
 		return $query->result();
+		
+	/*	$query = $this->db->get('dusseldorf_specialization');
+		return $query->result();*/
 		
 	}
 

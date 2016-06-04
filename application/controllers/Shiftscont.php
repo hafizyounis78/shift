@@ -92,21 +92,22 @@ class Shiftscont extends CI_Controller
 			  
 		  }  
 		//*******************get location by dept
-		echo $str.'.'.$this->getLocationBydept();
+		echo $str.'@@'.$this->getLocationBydept();
 	}
 	function getLocationBydept()
 	{
 		$this->load->model('constantmodel');
 		$location=$this->constantmodel->get_locationBydept();
-		
+		$str='';
 		if (count($location) == 0)
 		{
-			echo 0;
-			return;
+			//echo 0;
+			return ' <option value="">No Location</option>';
 		}
 		//$output = array();
 		/*foreach($rec as $row)
-		{*/$str='';
+		{*/
+		else{
 			 foreach ($location as $location_row)
 			 {
 				$str=$str.' <option value="'.$location_row->id.'">'.$location_row->Location_name.'::'.$location_row->dep_name.'</option>';
@@ -130,6 +131,7 @@ class Shiftscont extends CI_Controller
 			
 		
 //	}
+		}
 }
 	function getallLocation()
 	{

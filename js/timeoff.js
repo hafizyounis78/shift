@@ -79,10 +79,9 @@ function edittimeoff() {
 		var action = $("#hdnaction").val();
 	if (action!="updateTimeoff")	
 		if (!validateStaffselect())
+			 return;
 	if ( !$("#drpLocation").valid() )
-		valid = false;
-		 return;
-		
+		valid = false;	
 			var formData = new FormData();
 	
 				formData.append('hdnshiftId'		 , $("#hdnshiftId").val());
@@ -155,6 +154,7 @@ function deletetimeoff(i)
 
 function updatetimeoff(i)
 {
+	getAlllocation();
 	$("#hdnshiftId").val(i);
 	$("#hdnaction").val('updateTimeoff');
 	var locationId=$("#tdlocation"+i).attr('data-loid');
@@ -195,6 +195,10 @@ function clearStaffSelect()
 		$("#my_multi_select1").html('');
 		$("#my_multi_select1").multiSelect('refresh');
 		staffList="";
+		if ($("#rdSelection1").attr("checked")) {
+		$('#drpLocation').empty();
+		$('#drpLocation').val("");
+		}
 		var ddldept=document.getElementById('drplstDept');
 		 ddldept.options[0].selected = true;
 		var ddlJobtitle=document.getElementById('drplstJobtitle');
@@ -259,7 +263,7 @@ function drptimeoffdeptChange()
 			beforeSend: function(){},
 			complete: function(){},
 			success: function(returndb){
-				var retdb=returndb.split('.');
+				var retdb=returndb.split('@@');
 				var stafflist=retdb[0];
 				var location=retdb[1];
 
