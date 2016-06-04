@@ -75,9 +75,9 @@ function addShiftTemplate()
 			beforeSend: function(){},
 			complete: function(){},
 			success: function(returndb){
-				alert(returndb);
+				/*alert(returndb);
 				alert(returndb[0]);
-				alert(returndb[0]['txtName']);
+				alert(returndb[0]['txtName']);*/
                 var el = $('<div class="external-event label label-default col-md-12"><span id="dvName">' 
 						  + returndb[0]['txtName'] + 
 						 '</span><br/><span id="dvStart">' + returndb[0]['txtStart'] + '</span> - <span id="dvEnd">'

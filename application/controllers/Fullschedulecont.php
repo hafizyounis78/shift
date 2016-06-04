@@ -109,7 +109,8 @@ class Fullschedulecont extends CI_Controller
 	{
 		$this->load->model('fullschedulemodel');
 		$this->fullschedulemodel->insert_shift_template();
-		//$this->drawLocationTable();
+		$this->getfullschedule();
+		
 	}
 
 
