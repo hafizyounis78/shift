@@ -1,4 +1,4 @@
-<script src="<?php echo base_url();?>js/shift.js"></script>
+<!--<script src="<?php echo base_url();?>js/shift.js"></script>
 <script>
       jQuery(document).ready(function() {    
          
@@ -7,7 +7,7 @@
 		 ShiftModalFormValidation.init();
 		 
       });
-   </script>
+   </script>-->
 
 <?php
 $action ="addshift";
