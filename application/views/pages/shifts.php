@@ -1,3 +1,14 @@
+<script src="<?php echo base_url();?>js/shift.js"></script>
+<script>
+      jQuery(document).ready(function() {    
+         
+		ShiftComponentsDropdowns.init();
+		 ShiftFormValidation.init();
+		 ShiftModalFormValidation.init();
+		 
+      });
+   </script>
+
 <?php
 $action ="addshift";
 
@@ -53,10 +64,10 @@ $readonly = '';
                           * </span></label>
                         <div class="col-md-6">
                             <div class="input-group input-medium date-picker input-daterange" data-date="10/11/2012" data-date-format="yyyy-mm-dd">
-                                <input type="text" id="drpFromdate" class="form-control classConflict" name="drpFromdate" onchange="clearStaffSelect()">
+                                <input type="text" id="drpFromdate" class="form-control shiftclassConflict" name="drpFromdate" >
                                 <span class="input-group-addon">
                                 to </span>
-                                <input type="text" id="drpTodate" class="form-control classConflict" name="drpTodate" onchange="clearStaffSelect()">
+                                <input type="text" id="drpTodate" class="form-control shiftclassConflict" name="drpTodate" >
                             </div>
                             <!-- /input-group -->
                         </div>
@@ -66,7 +77,7 @@ $readonly = '';
                           * </span></label>
                             <div class="col-md-2">
                                 <div class="input-group">
-                                    <input type="text" class="form-control timepicker timepicker-24 classConflict" id="txtStart"  name="txtStart" onchange="clearStaffSelect()">
+                                    <input type="text" class="form-control timepicker timepicker-24 shiftclassConflict" id="txtStart"  name="txtStart" >
                                     <span class="input-group-btn">
                                     <button class="btn default" type="button"><i class="fa fa-clock-o"></i></button>
                                     </span>
@@ -74,7 +85,7 @@ $readonly = '';
                             </div>
                             <div class="col-md-2">
                                 <div class="input-group">
-                                    <input type="text" class="form-control timepicker timepicker-24 classConflict" id="txtEnd" name="txtEnd" onchange="clearStaffSelect()">
+                                    <input type="text" class="form-control timepicker timepicker-24 shiftclassConflict" id="txtEnd" name="txtEnd" >
                                     <span class="input-group-btn">
                                     <button class="btn default" type="button"><i class="fa fa-clock-o"></i></button>
                                     </span>
@@ -305,6 +316,12 @@ $readonly = '';
 											 End Time
 										</th>
 										<th>
+											 <?php echo $this->lang->line('Market'); ?>
+										</th>
+                                        <th>
+											 <?php echo $this->lang->line('Department'); ?>
+										</th>
+                                        <th>
 											 <?php echo $this->lang->line('Locatios'); ?>
 										</th>
                                         <th>
@@ -336,6 +353,8 @@ $readonly = '';
 												 echo '<td id="tdend_date'.$row->id.'">'. $row->end_date.'</td>';
 												 echo '<td id="tdstart_Time'.$row->id.'">'. $row->start_time.'</td>';
 												 echo '<td id="tdend_Time'.$row->id.'">'. $row->end_time.'</td>';
+												 echo '<td id="tdMarket'.$row->id.'" data-loid="'.$row->market_id.'">'. $row->market_name.'</td>';
+												 echo '<td id="tdDepartment'.$row->id.'" data-loid="'.$row->dept_id.'">'. $row->dept_name.'</td>';
 												 echo '<td id="tdlocation'.$row->id.'" data-loid="'.$row->locationId.'">'. $row->location_desc.'</td>';
 												// echo '<td id="tdrdStatus'.$row->id.'">'. $statusrow.'</td>';
 												if ($row->status == 1)
@@ -361,3 +380,5 @@ $readonly = '';
 					</div>
 					
 				</div>
+                
+                

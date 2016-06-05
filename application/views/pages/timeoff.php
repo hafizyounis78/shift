@@ -41,10 +41,10 @@ $readonly = '';
                           * </span></label>
                         <div class="col-md-6">
                             <div class="input-group input-medium date-picker input-daterange" data-date="10/11/2012" data-date-format="yyyy-mm-dd">
-                                <input type="text" id="drpFromdate" class="form-control classConflict" name="drpFromdate" onchange="clearStaffSelect()">
+                                <input type="text" id="drpFromdate" class="form-control timeoffclassConflict" name="drpFromdate" >
                                 <span class="input-group-addon">
                                 to </span>
-                                <input type="text" id="drpTodate" class="form-control classConflict" name="drpTodate" onchange="clearStaffSelect()">
+                                <input type="text" id="drpTodate" class="form-control timeoffclassConflict" name="drpTodate">
                             </div>
                             <!-- /input-group -->
                         </div>
@@ -54,7 +54,7 @@ $readonly = '';
                           * </span></label>
                             <div class="col-md-2">
                                 <div class="input-group">
-                                    <input type="text" class="form-control timepicker timepicker-24 classConflict" id="txtStart" name="txtStart" onchange="clearStaffSelect()">
+                                    <input type="text" class="form-control timepicker timepicker-24 timeoffclassConflict" id="txtStart" name="txtStart" >
                                     <span class="input-group-btn">
                                     <button class="btn default" type="button"><i class="fa fa-clock-o"></i></button>
                                     </span>
@@ -62,7 +62,7 @@ $readonly = '';
                             </div>
                             <div class="col-md-2">
                                 <div class="input-group">
-                                    <input type="text" class="form-control timepicker timepicker-24 classConflict" id="txtEnd" name="txtEnd" onchange="clearStaffSelect()">
+                                    <input type="text" class="form-control timepicker timepicker-24 timeoffclassConflict" id="txtEnd" name="txtEnd" >
                                     <span class="input-group-btn">
                                     <button class="btn default" type="button"><i class="fa fa-clock-o"></i></button>
                                     </span>

@@ -146,7 +146,7 @@ class Shiftscont extends CI_Controller
 		$str='';
 			 foreach ($location as $location_row)
 			 {
-				$str=$str.' <option value="'.$location_row->id.'">'.$location_row->Location_name.'::'.$location_row->dep_name.'</option>';
+				$str=$str.' <option value="'.$location_row->id.'">'.$location_row->id.'- '.$location_row->Location_name.'::'.$location_row->dep_name.'</option>';
 			 }
 			 echo $str;
 
@@ -241,6 +241,8 @@ class Shiftscont extends CI_Controller
 			  echo '<td id="tdend_date'.$row->id.'">'. $row->end_date.'</td>';
 			 echo '<td id="tdstart_Time'.$row->id.'">'. $row->start_time.'</td>';
 			 echo '<td id="tdend_Time'.$row->id.'">'. $row->end_time.'</td>';
+			 echo '<td id="tdMarket'.$row->id.'" data-loid="'.$row->market_id.'">'. $row->market_name.'</td>';
+			 echo '<td id="tdDepartment'.$row->id.'" data-loid="'.$row->dept_id.'">'. $row->dept_name.'</td>';
 			 echo '<td id="tdlocation'.$row->id.'" data-loid="'.$row->locationId.'">'. $row->location_desc.'</td>';
 			// echo '<td id="tdrdStatus'.$row->id.'">'. $statusrow.'</td>';
 			if ($row->status == 1)

@@ -37,31 +37,39 @@ class Shiftmodel extends CI_Model
 function get_all_shifts()
 {	
  if ($this->session->userdata('itemname')=='admin')
-	 	$myquery = "SELECT  dusseldorf_v3_shifts.id, start_date,end_date,start_time,end_time,dusseldorf_v3_shifts.status,task_map_dep.map_id as locationId,Special_shift,task_map_dep.map_name as location_desc,CONCAT(first_name,' ',last_name) as Staff_name
-					FROM    dusseldorf_v3_shifts,task_map_dep,dusseldorf_users
-					WHERE   start_date > 2016-04-01 and dusseldorf_v3_shifts.type=1
-					AND     location_id=task_map_dep.map_id
-					AND      user_id=dusseldorf_users.id";
-else if ($this->session->userdata('itemname')=='gm')
-	 	$myquery = "SELECT  dusseldorf_v3_shifts.id, start_date,end_date,start_time,end_time,dusseldorf_v3_shifts.status,task_map_dep.map_id as locationId,Special_shift,task_map_dep.map_name as location_desc,CONCAT(first_name,' ',last_name) as Staff_name
-					FROM    dusseldorf_v3_shifts,task_map_dep,dusseldorf_users
+	 	$myquery = "SELECT  dusseldorf_v3_shifts.id, start_date,end_date,start_time,end_time,dusseldorf_v3_shifts.status,task_map_dep.map_id as locationId,Special_shift,task_map_dep.map_name as location_desc,market.dep_id as market_id,market.dep_name as market_name,dept.dep_id as dept_id,dept.dep_name as dept_name,CONCAT(first_name,' ',last_name) as Staff_name
+					FROM    dusseldorf_v3_shifts,task_map_dep,dusseldorf_users,departments as market,departments as dept
 					WHERE   start_date > 2016-04-01 and dusseldorf_v3_shifts.type=1
 					AND     location_id=task_map_dep.map_id
 					AND      user_id=dusseldorf_users.id
+					and      market.dep_id=dusseldorf_users.dept_parent
+					and      dept.dep_id=dusseldorf_users.dep_id";
+else if ($this->session->userdata('itemname')=='gm')
+	 	$myquery = "SELECT  dusseldorf_v3_shifts.id, start_date,end_date,start_time,end_time,dusseldorf_v3_shifts.status,task_map_dep.map_id as locationId,Special_shift,task_map_dep.map_name as location_desc,market.dep_id as market_id,market.dep_name as market_name,dept.dep_id as dept_id,dept.dep_name as dept_name,CONCAT(first_name,' ',last_name) as Staff_name
+					FROM    dusseldorf_v3_shifts,task_map_dep,dusseldorf_users,departments as market,departments as dept
+					WHERE   start_date > 2016-04-01 and dusseldorf_v3_shifts.type=1
+					AND     location_id=task_map_dep.map_id
+					AND      user_id=dusseldorf_users.id
+					and      market.dep_id=dusseldorf_users.dept_parent
+					and      dept.dep_id=dusseldorf_users.dep_id
 					and dusseldorf_users.dept_parent=".$this->session->userdata('dep_id');
 else if ($this->session->userdata('itemname')=='circle_man')
-	 	$myquery = "SELECT  dusseldorf_v3_shifts.id, start_date,end_date,start_time,end_time,dusseldorf_v3_shifts.status,task_map_dep.map_id as locationId,Special_shift,task_map_dep.map_name as location_desc,CONCAT(first_name,' ',last_name) as Staff_name
-					FROM    dusseldorf_v3_shifts,task_map_dep,dusseldorf_users
+	 	$myquery = "SELECT  dusseldorf_v3_shifts.id, start_date,end_date,start_time,end_time,dusseldorf_v3_shifts.status,task_map_dep.map_id as locationId,Special_shift,task_map_dep.map_name as location_desc,market.dep_id as market_id,market.dep_name as market_name,dept.dep_id as dept_id,dept.dep_name as dept_name,CONCAT(first_name,' ',last_name) as Staff_name
+					FROM    dusseldorf_v3_shifts,task_map_dep,dusseldorf_users,departments as market,departments as dept
 					WHERE   start_date > 2016-04-01 and dusseldorf_v3_shifts.type=1
 					AND     location_id=task_map_dep.map_id
 					AND      user_id=dusseldorf_users.id
+					and      market.dep_id=dusseldorf_users.dept_parent
+					and      dept.dep_id=dusseldorf_users.dep_id
 					and dusseldorf_users.dep_id=".$this->session->userdata('dep_id');
 else if ($this->session->userdata('itemname')=='emp')
-$myquery = "SELECT  dusseldorf_v3_shifts.id, start_date,end_date,start_time,end_time,dusseldorf_v3_shifts.status,task_map_dep.map_id as locationId,Special_shift,task_map_dep.map_name as location_desc,CONCAT(first_name,' ',last_name) as Staff_name
-					FROM    dusseldorf_v3_shifts,task_map_dep,dusseldorf_users
+$myquery = "SELECT  dusseldorf_v3_shifts.id, start_date,end_date,start_time,end_time,dusseldorf_v3_shifts.status,task_map_dep.map_id as locationId,Special_shift,task_map_dep.map_name as location_desc,market.dep_id as market_id,market.dep_name as market_name,dept.dep_id as dept_id,dept.dep_name as dept_name,CONCAT(first_name,' ',last_name) as Staff_name
+					FROM    dusseldorf_v3_shifts,task_map_dep,dusseldorf_users,departments as market,departments as dept
 					WHERE   start_date > 2016-04-01 and dusseldorf_v3_shifts.type=1
 					AND     location_id=task_map_dep.map_id
 					AND      user_id=dusseldorf_users.id
+					and      market.dep_id=dusseldorf_users.dept_parent
+					and      dept.dep_id=dusseldorf_users.dep_id
 					and dusseldorf_users.id=".$this->session->userdata('user_id');
 
 

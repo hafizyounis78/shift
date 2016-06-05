@@ -8,6 +8,7 @@ $(document).ready(function () {
 			document.getElementById("divDept").style.display = "block";	
 			document.getElementById("divJobtitle").style.display = "None";	
 			document.getElementById("divSpec").style.display = "None";	
+			
 			$('#drpLocation').empty();
 			$('#drpLocation').val("");
         }
@@ -22,7 +23,7 @@ $(document).ready(function () {
     })
 
 //*****************change date or time*************//
-	$(".classConflict").change(function () {
+	$(".shiftclassConflict").change(function () {
 	
 		clearStaffSelect();
 	})		
@@ -143,11 +144,18 @@ function updateShift(i)
 	$("#hdnshiftId").val(i);
 	$("#hdnaction").val('updateShift');
 	var locationId=$("#tdlocation"+i).attr('data-loid');
+	//alert(locationId);
 	$("#drpLocation").val(locationId);
-	$("#drpFromdate").val($("#tdstart_date"+i).html());
-	$("#drpTodate").val($("#tdend_date"+i).html());
-	$("#txtStart").val($("#tdstart_Time"+i).html());
-	$("#txtEnd").val($("#tdend_Time"+i).html());
+	$('#drpFromdate').datepicker('setDate', $("#tdstart_date"+i).html());
+	//$("#drpFromdate").val($("#tdstart_date"+i).html());
+	$('#drpTodate').datepicker('setDate', $("#tdend_date"+i).html());
+	/*$("#drpFromdate").val($("#tdstart_date"+i).html());
+	$("#drpTodate").val($("#tdend_date"+i).html());*/
+	$('#txtStart').timepicker('setTime',$("#tdstart_Time"+i).html());
+//	$("#txtStart").val($("#tdstart_Time"+i).html());
+	$('#txtStart').timepicker('setTime',$("#tdstart_Time"+i).html());
+	$('#txtEnd').timepicker('setTime',$("#tdend_Time"+i).html());
+//	$("#txtEnd").val($("#tdend_Time"+i).html());
 	$("#rdStatus").val($("#tdlocation"+i).html());
 	
 	var statusId=$("#tdrdStatus"+i).attr('data-stid');
@@ -191,8 +199,9 @@ function clearStaffSelect()
 		$("#my_multi_select1").multiSelect('refresh');
 		staffList="";
 		if ($("#rdSelection1").attr("checked")) {
-		$('#drpLocation').empty();
+		/*$('#drpLocation').empty();
 		$('#drpLocation').val("");
+		*///alert('shift');
 		}
 		var ddldept=document.getElementById('drplstDept');
 		 	ddldept.options[0].selected = true;
@@ -232,6 +241,7 @@ function drpdeptChange()
 		$("#my_multi_select1").multiSelect('refresh');
 		$('#drpLocation').empty();
 		$('#drpLocation').val("");
+	
 		if (!validateShift())
 		 {
 			 clearStaffSelect()

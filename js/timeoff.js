@@ -26,9 +26,9 @@ $(document).ready(function () {
     })
 	
 	//*****************change date or time*************//
-	$(".classConflict").change(function () {
-	
-		clearStaffSelect();
+	$(".timeoffclassConflict").change(function () {
+	//alert('timeoff classConflict');
+		timeoffclearStaffSelect();
 	})	
 /*	$('#timeoffTable').dataTable( {
 		"bPaginate": true,
@@ -159,10 +159,15 @@ function updatetimeoff(i)
 	$("#hdnaction").val('updateTimeoff');
 	var locationId=$("#tdlocation"+i).attr('data-loid');
 	$("#drpLocation").val(locationId);
-	$("#drpFromdate").val($("#tdstart_date"+i).html());
-	$("#drpTodate").val($("#tdend_date"+i).html());
-	$("#txtStart").val($("#tdstart_Time"+i).html());
-	$("#txtEnd").val($("#tdend_Time"+i).html());
+	$('#drpFromdate').datepicker('setDate', $("#tdstart_date"+i).html());
+	//$("#drpFromdate").val($("#tdstart_date"+i).html());
+	$('#drpTodate').datepicker('setDate', $("#tdend_date"+i).html());
+	//$("#drpTodate").val($("#tdend_date"+i).html());
+	$('#txtStart').timepicker('setTime',$("#tdstart_Time"+i).html());
+	$('#txtEnd').timepicker('setTime',$("#tdend_Time"+i).html());
+	
+	/*$("#txtStart").val($("#tdstart_Time"+i).html());
+	$("#txtEnd").val($("#tdend_Time"+i).html());*/
 	$("#rdStatus").val($("#tdlocation"+i).html());
 	
 	var statusId=$("#tdrdStatus"+i).attr('data-stid');
@@ -190,14 +195,14 @@ function updatetimeoff(i)
 		document.getElementById("dvstaffname").style.display = "block";	
 		Metronic.scrollTo($('#timeOffForm'), -100);
 }
-function clearStaffSelect()
-{
+function timeoffclearStaffSelect()
+{alert('timeoff clrear shift');
 		$("#my_multi_select1").html('');
 		$("#my_multi_select1").multiSelect('refresh');
 		staffList="";
 		if ($("#rdSelection1").attr("checked")) {
-		$('#drpLocation').empty();
-		$('#drpLocation').val("");
+		/*$('#drpLocation').empty();
+		$('#drpLocation').val("");*/
 		}
 		var ddldept=document.getElementById('drplstDept');
 		 ddldept.options[0].selected = true;
@@ -223,7 +228,7 @@ function clearfimeoffForm()
 	document.getElementById("dvstaffname").style.display = "None";		
     document.getElementById("divJobtitle").style.display = "None";	
 	document.getElementById("divSpec").style.display = "None";	
-	clearStaffSelect();
+	timeoffclearStaffSelect();
 
 }
 
@@ -238,7 +243,7 @@ function drptimeoffdeptChange()
 		
 		if (!validateShift())
 		{
-			clearStaffSelect()
+			timeoffclearStaffSelect()
 			return;
 		}
 		 if ($("#drplstDept").val()!='')
@@ -283,7 +288,7 @@ function drpJobtitleChange()
 		
 		if (!validateShift())
 		{
-			clearStaffSelect()
+			timeoffclearStaffSelect()
 			return;
 		}
 		 if ($("#drplstJobtitle").val()!='')
@@ -323,7 +328,7 @@ function drpSpecChange()
 		
 		if (!validateShift())
 		 {
-			clearStaffSelect()
+			timeoffclearStaffSelect()
 			return;
 		}
 		 if ($("#drplstSpec").val()!='' && $("#drplstJobtitle").val()!='' )
