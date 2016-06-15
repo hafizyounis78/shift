@@ -7,6 +7,7 @@ var sessionValue = "<?php echo $this->session->userdata('itemname'); ?>";
 </script>
 
 <style>
+
 .modal-body {
     max-height: calc(100vh - 210px);
     overflow-y: auto;
@@ -23,27 +24,40 @@ var sessionValue = "<?php echo $this->session->userdata('itemname'); ?>";
      border-top-right-radius: 5px;
  }
 */
+@media print {
+   #nonprintable
+    {    
+     display: none !important;
+    }
+
+  #printable
+    {
+     display: block !important;
+    }
+}
 </style>
 
 
 
 <div class="row">
   <div class="col-md-12">
-      <div class="portlet box green-meadow calendar">
-          <div class="portlet-title">
+      <div  class="portlet box green-meadow calendar ">
+          <div id="printable" class="portlet-title">
               <div class="caption">
                   <i class="fa fa-gift"></i><?php echo $this->lang->line('Schedule');  ?>
               </div>
           </div>
-          <div class="portlet-body">
+          <div  class="portlet-body">
               <div class="row">
               <?php if ($this->session->userdata('itemname') == "gm" ||$this->session->userdata('itemname') == "admin")	{ ?>
-                  <div class="col-md-3 col-sm-12">
+                  <div class="col-md-3 col-sm-12" id="nonprintable">
                       <!-- BEGIN DRAGGABLE EVENTS PORTLET-->
                       <div class="panel-group accordion" id="accordion1">
                           <div class="panel panel-default">
                               <div class="panel-heading">
+                                 <input type="button" id="btnprint" name="btnprint" onclick="printCalender();"  value="Print"/>
                                   <h4 class="panel-title">
+                                 
                                   <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion1" href="#collapse_1">
                                   <?php echo $this->lang->line('Shift Template');  ?> </a>
                                   </h4>
@@ -391,7 +405,7 @@ var sessionValue = "<?php echo $this->session->userdata('itemname'); ?>";
                
             </div>
             <div class="modal-footer bg-info">
-                <button   type="button" class="btn btn-default" data-dismiss="modal"><?php echo $this->lang->line('Cancel'); ?></button>
+                <button   type="button" class="btn btn-default" data-dismiss="modal" ><?php echo $this->lang->line('Cancel'); ?></button>
                 <button  type="submit" class="btn btn-primary" ><?php echo $this->lang->line('Save');  ?> </button>
             </div>
         </div>

@@ -50,7 +50,7 @@
 						<span class="title"><?php echo $this->lang->line('Locatios');?></span>
 						</a>
 					</li>-->
-                    <?php if ($this->session->userdata('itemname') != "emp")
+                    <?php if ($this->session->userdata('itemname') == "gm")
 					{
 						?>
                     <li <?php if($title == 'shifts') echo 'class="active open"';?>>
@@ -73,12 +73,16 @@
 						<span class="title">Timeoff Request</span>
 						</a>
 					</li>
+                     <?php if ($this->session->userdata('itemname') == "gm")
+					{
+						?>
                     <li class="last " <?php if($title == 'setting') echo 'class="active open"';?>>
 						<a href="<?php echo base_url();?>settingcont/setting">
 						<i class="icon-settings"></i>
 						<span class="title">Setting</span>
 						</a>
 					</li>
+                       <?php  }?>
 					<!--<li class="active open">
 						<a href="javascript:;">
 						<i class="icon-rocket"></i>

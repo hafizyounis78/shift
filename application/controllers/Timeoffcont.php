@@ -38,7 +38,7 @@ class Timeoffcont extends CI_Controller
 	}
 	function timeoff()
 	{   $this->load->model('constantmodel');
-		$this->data['location']= $this->constantmodel->get_location_list();
+		$this->data['location']= $this->constantmodel->get_timeoffLocation_list();
 		//$this->data['staffList']= $this->constantmodel->get_staff_list();
 		$this->data['deptList']= $this->constantmodel->get_dept_list();
 		$this->data['specList']= $this->constantmodel->get_spec_list();
@@ -77,7 +77,7 @@ class Timeoffcont extends CI_Controller
 					 $statusrow='Active';
 					 echo '<tr>';		
 					 echo '<td>'.$i++.'</td>';
-					 echo '<td id="tdstaff'.$row->id.'">'.$row->Staff_name.'</td>';
+					 echo '<td id="tdstaff'.$row->id.'" data-staffId="'.$row->staffId.'">'.$row->Staff_name.'</td>';
 					 echo '<td id="tdstart_date'.$row->id.'">'. $row->start_date.'</td>';
 					 echo '<td id="tdend_date'.$row->id.'">'. $row->end_date.'</td>';
 					 echo '<td id="tdstart_Time'.$row->id.'">'. $row->start_time.'</td>';

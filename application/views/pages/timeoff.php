@@ -17,14 +17,14 @@ $readonly = '';
               <!-- BEGIN FORM-->
               <form action="#" id="timeOffForm" class="form-horizontal">
                   <div class="form-body">
-                  	  <div id="dvStaffMsg" class="alert alert-danger display-none">
+                  	<!--  <div id="dvStaffMsg" class="alert alert-danger display-none">
                          <button class="close" data-dismiss="alert"></button>
                          You should select at least one staff.
                       </div>
                        <div id="dvDeptMsg" class="alert alert-danger display-none">
                          <button class="close" data-dismiss="alert"></button>
                          You should select Location ,date ,start time and end time before selecting department. Please check below.
-                      </div>
+                      </div>-->
                       <div class="alert alert-danger display-hide">
                           <button class="close" data-close="alert"></button>
                           You have some form errors. Please check below.
@@ -70,7 +70,11 @@ $readonly = '';
                             </div>
                             
                         </div>
-                      <div class="form-group">
+                         <?php $disabled='style="display:none"';
+							if ($this->session->userdata('itemname') == "gm") 
+								$disabled='style="display:block"';  
+								?>
+                      <div class="form-group" id="gmDiv"  <?php echo $disabled ?>>
                         <label class="control-label col-md-3">Status</label>
                         <div class="col-md-4">
                           <div class="radio-list">
@@ -82,7 +86,7 @@ $readonly = '';
                           </div>
                         </div>
                     </div>
-                    <div class="form-group" id="divSelect">
+                    <!--<div class="form-group" id="divSelect">
                         <label class="control-label col-md-3"><?php echo $this->lang->line('Filter staff by');  ?><span class="required">
                           * </span></label>
                         <div class="col-md-4">
@@ -94,8 +98,8 @@ $readonly = '';
                               
                           </div>
                         </div>
-                    </div>
-                    <div class="form-group" id="divDept">
+                    </div>-->
+                    <!--<div class="form-group" id="divDept">
                           <label class="control-label col-md-3"><?php echo $this->lang->line('Department');  ?> <span class="required">
                           * </span>
                           </label>
@@ -121,8 +125,8 @@ $readonly = '';
 
                               </select>
                           </div>
-                      </div>
-                      <div class="form-group" id="divJobtitle"  style="display:none">
+                      </div>-->
+                      <!--<div class="form-group" id="divJobtitle"  style="display:none">
                           <label class="control-label col-md-3"><?php echo $this->lang->line('Job Title');  ?> <span class="required">
                           * </span>
                           </label>
@@ -144,8 +148,8 @@ $readonly = '';
 
                               </select>
                           </div>
-                      </div>
-                      <div class="form-group" id="divSpec" style="display:none">
+                      </div>-->
+                      <!--<div class="form-group" id="divSpec" style="display:none">
                           <label class="control-label col-md-3"><?php echo $this->lang->line('Specialization');  ?>  <span class="required">
                           * </span>
                           </label>
@@ -167,30 +171,27 @@ $readonly = '';
 
                               </select>
                           </div>
-                      </div>
-                      <div class="form-group">
+                      </div>-->
+                      <!--<div class="form-group">
                             <label class="control-label col-md-3"><?php echo $this->lang->line('Locatios'); ?> <span class="required">
                           * </span></label>
                             <div class="col-md-4">
                                 <select class="form-control input-large" data-placeholder="<?php echo $this->lang->line('select');  ?>.." id="drpLocation" name="drpLocation">
                                     <option value=""><?php echo $this->lang->line('select');  ?>..</option>
-                                     <?php /*
+                                     <?php  /*?>
 								  foreach ($location as $location_row)
 								  {
 									  $selected = '';
-									  /*
-									  if ($patient_row->status_id == $location_row->sub_constant_id)
-									  	$selected = 'selected="selected"';
-									  */
-								/*	  echo ' <option value="'.$location_row->id.'" '.$selected.'>'
-									  						 .$location_row->name.'::'.$location_row->dep_name.'</option>';
-								  }*/
+									  
+								  echo ' <option value="'.$location_row->id.'" '.$selected.'>'
+									  						 .$location_row->dep_name.'::'.$location_row->Location_name.'</option>';
+								  }<?php */?>
 								  ?>
                                 </select>
                                 
                             </div>
-                        </div>
-                    <div class="form-group" id="divUser">
+                        </div>-->
+                    <!--<div class="form-group" id="divUser">
                         <label class="control-label col-md-3"><?php echo $this->lang->line('Staff');  ?><span class="required">
                           * </span></label>
                         <div class="col-md-9">
@@ -210,11 +211,13 @@ $readonly = '';
                             </select>
                             
                         </div>
-                    </div>
-                   <div class="form-group" id="dvstaffname" style="display:none">
+                    </div>-->
+                   <div class="form-group" id="dvstaffname">
                             <label class="control-label col-md-3"><?php echo $this->lang->line('Staff');  ?> name</label>
                             <div class="col-md-4">
-                                <input id="txtstaffName" name="txtstaffName" type="text" class="form-control form-filter input-sm"  disabled="disabled">
+                                <input id="txtstaffName" name="txtstaffName" type="text" class="form-control form-filter input-sm"  disabled="disabled" value="<?php if ($this->session->userdata('itemname') == "emp") echo $this->session->userdata('staffName') ?>">
+                                 <input id="hdnstaffId" name="hdnstaffId" type="hidden"  value="<?php if ($this->session->userdata('itemname') == "emp") echo $this->session->userdata('user_id') ?>">
+                                 
                             </div>
                         </div>   
                   </div>
@@ -292,7 +295,7 @@ $readonly = '';
                                  $statusrow='Active';
                                  echo '<tr>';		
                                  echo '<td>'.$i++.'</td>';
-                                 echo '<td id="tdstaff'.$row->id.'">'.$row->Staff_name.'</td>';
+                                 echo '<td id="tdstaff'.$row->id.'" data-staffId="'.$row->staffId.'">'.$row->Staff_name.'</td>';
                                  echo '<td id="tdstart_date'.$row->id.'">'. $row->start_date.'</td>';
                                  echo '<td id="tdend_date'.$row->id.'">'. $row->end_date.'</td>';
                                  echo '<td id="tdstart_Time'.$row->id.'">'. $row->start_time.'</td>';

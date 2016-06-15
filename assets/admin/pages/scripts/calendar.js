@@ -195,7 +195,7 @@ var Calendar = function() {
 			},
 				drop: function(date, allDay) { // this function is called when something is dropped
 				//var sessionValue  =" <?php echo json_encode($this->session->userdata('itemname')); ?>"; 
-				alert(sessionValue);
+				//alert(sessionValue);
 				if (sessionValue=='gm')
 				{
                     // retrieve the dropped element's stored Event Object

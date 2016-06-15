@@ -29,6 +29,7 @@ class Welcome extends CI_Controller {
 		{
 			$this->session->set_userdata('dep_id',$row->dep_id);
 			$this->session->set_userdata('itemname',$row->itemname);
+			$this->session->set_userdata('staffName',$row->name);
 			
 		
 		}

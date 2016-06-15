@@ -36,6 +36,10 @@ $(document).ready(function () {
 	})		
 	
 });
+function printCalender()
+{
+	 window.print();
+}
 function getAlllocation()
 {
 				var formData = new FormData();

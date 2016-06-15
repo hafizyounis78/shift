@@ -4,7 +4,7 @@ class Constantmodel extends CI_Model
 	function get_user_permissions()
 	{
 		
-		$myquery ="SELECT itemname, IFNULL(dep_man.dep_id,dusseldorf_users.dep_id) as dep_id
+		$myquery ="SELECT itemname,CONCAT( dusseldorf_users.first_name, ' ', dusseldorf_users.last_name ) as name ,IFNULL(dep_man.dep_id,dusseldorf_users.dep_id) as dep_id
 									   FROM 	 dusseldorf_users
 									   LEFT JOIN dep_man ON dusseldorf_users.id = dep_man.usr_id,
 									   users,AuthAssignment 
@@ -38,6 +38,25 @@ class Constantmodel extends CI_Model
 		
 	}	
 	//************* get Location*********//
+	function get_timeoffLocation_list()
+	{	
+		
+	
+		
+			$myquery = "SELECT map_id as id,map_name as Location_name,dep_name   
+						FROM   task_map_dep,dusseldorf_users,departments
+						where  task_map_dep.dep_child_id=dusseldorf_users.dep_id
+						and    departments.dep_id=task_map_dep.dep_child_id
+						and    dusseldorf_users.id=".$this->session->userdata('user_id');
+						
+					
+			$res = $this->db->query($myquery);
+			return $res->result();
+		
+	/*	$query = $this->db->get('dusseldorf_v3_locations');
+		return $query->result();
+	*/	
+	}
 	function get_location_list()
 	{	
 		if ($this->session->userdata('itemname')=="admin")

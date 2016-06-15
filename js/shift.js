@@ -219,10 +219,12 @@ function clearShiftForm()
 	$('#drpLocation').val("");
 	$("#drplstBreak").val("");
 	
-	$("#drpFromdate").val("");
-	$("#drpTodate").val("");
-	$("#txtStart").val("");
-	$("#txtEnd").val("");
+	$("#drpFromdate").datepicker("setDate", new Date());
+	$("#drpTodate").datepicker("setDate", new Date());
+
+	$('#txtStart').timepicker('setTime', new Date());
+	$('#txtEnd').timepicker('setTime', new Date());
+
 	$("#txtstaffName").val("");
 	
 	document.getElementById("divUser").style.display = "block";

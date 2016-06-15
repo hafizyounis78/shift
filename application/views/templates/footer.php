@@ -108,7 +108,7 @@ else if (pathArray[3]=="locations")
 		 Demo.init(); // init demo features
 		
 		ShiftComponentsDropdowns.init();
-		 TimeoffComponentsDropdowns.init();
+		//TimeoffComponentsDropdowns.init();
 		  /*******Forms Validation *******************/
 		  
 		 TimeOffFormValidation.init();
