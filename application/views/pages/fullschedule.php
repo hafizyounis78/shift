@@ -25,7 +25,7 @@ var sessionValue = "<?php echo $this->session->userdata('itemname'); ?>";
  }
 */
 @media print {
-   #nonprintable
+   #nonprintable, #btnprint
     {    
      display: none !important;
     }
@@ -39,23 +39,27 @@ var sessionValue = "<?php echo $this->session->userdata('itemname'); ?>";
 
 
 
-<div class="row">
+<div id="nonprintable" class="row">
   <div class="col-md-12">
+  <!--<span id="widget" class="widget" >-->
       <div  class="portlet box green-meadow calendar ">
-          <div id="printable" class="portlet-title">
+      
+          <div class="portlet-title">
               <div class="caption">
                   <i class="fa fa-gift"></i><?php echo $this->lang->line('Schedule');  ?>
+                  <input type="button" id="btnprint" name="btnprint" class="btn btn-default" onclick="printCalender();"  value="Print"/>
               </div>
           </div>
+        
           <div  class="portlet-body">
               <div class="row">
               <?php if ($this->session->userdata('itemname') == "gm" ||$this->session->userdata('itemname') == "admin")	{ ?>
-                  <div class="col-md-3 col-sm-12" id="nonprintable">
+                  <div class="col-md-3 col-sm-12" >
                       <!-- BEGIN DRAGGABLE EVENTS PORTLET-->
                       <div class="panel-group accordion" id="accordion1">
                           <div class="panel panel-default">
                               <div class="panel-heading">
-                                 <input type="button" id="btnprint" name="btnprint" onclick="printCalender();"  value="Print"/>
+                                 
                                   <h4 class="panel-title">
                                  
                                   <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion1" href="#collapse_1">
@@ -147,9 +151,11 @@ var sessionValue = "<?php echo $this->session->userdata('itemname'); ?>";
   						
                       <!-- END DRAGGABLE EVENTS PORTLET-->
                   </div>
-                  <div class="col-md-9 col-sm-12">
+                  <!--Calender-->
+                  
+                  <div id="widget" class="col-md-9 col-sm-12">
                    <?php } else {?>
-                      <div class="col-md-12 col-sm-12">
+                      <div id="widget" class="col-md-12 col-sm-12">
                        <?php } ?>
                   
                       <div id="calendar" class="has-toolbar">
@@ -418,5 +424,7 @@ var sessionValue = "<?php echo $this->session->userdata('itemname'); ?>";
           
       </div>
   </div>
+<!--  </span>-->
 </div>
 <!-- END PAGE CONTENT-->
+<div id="printable" style="display:none"></div>

@@ -19,9 +19,11 @@
 --------------------------------------------------------------------------------------------------*/
 
 .fc-event {
-	background: #fff !important;
+	background: #FF6 !important;
 	color: #000 !important;
 	page-break-inside: avoid;
+	/*-webkit-print-color-adjust: exact;
+      print-color-adjust: exact;*/
 }
 
 .fc-event .fc-resizer {
@@ -198,4 +200,10 @@ tbody,
 .fc-button-group,
 .fc button {
 	display: none; /* don't display any button-related controls */
+}
+.popover
+{background: #FF6 !important;
+	color: #000 !important;
+	display:inline !important;
+	position:relative !important;
 }

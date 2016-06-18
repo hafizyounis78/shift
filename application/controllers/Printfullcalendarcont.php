@@ -1,6 +1,6 @@
 <?php
 
-class Fullschedulecont extends CI_Controller 
+class Printfullcalendarcont extends CI_Controller 
 {
 	public $data;
 	function view ( $page = 'home', $uid = '' )
@@ -9,55 +9,16 @@ class Fullschedulecont extends CI_Controller
 		{
 			show_404();
 		}
-		$userId=$this->uri->segment(3);
-		//$this->session->set_userdata('itemname','');
 		
-		if (strpos($this->uri->segment(3),'emp') != '')
-		{
-			$arg=explode("-",$this->uri->segment(3));
-			$userId=$arg[0];
-			$this->session->set_userdata('user_id', $userId);
-			$this->session->set_userdata('itemname','emp');
-			$this->load->model('constantmodel');
-			$rec=$this->constantmodel->get_user_permissions();
-		
-			foreach($rec as $row)
-			{
-				$this->session->set_userdata('dep_id',$row->dep_id);
-				$this->session->set_userdata('staffName',$row->name);
-			}
-		}
-		else
-		{
-			$this->session->set_userdata('user_id', $userId);
-			
-			$this->load->model('constantmodel');
-			$rec=$this->constantmodel->get_user_permissions();
-			
-			foreach($rec as $row)
-			{
-				$this->session->set_userdata('dep_id',$row->dep_id);
-				$this->session->set_userdata('itemname',$row->itemname);
-				$this->session->set_userdata('staffName',$row->name);	
-			
-			}
-		}
-		/*echo 'segment value : '.$this->uri->segment(3);
-		echo 'permission value : '.strpos($this->uri->segment(3),'emp');
-		echo 'itemname  : '.$this->session->userdata('itemname');
-		echo 'user_id  : '.$this->session->userdata('user_id');
-		//echo 'permission value : '.strpos($this->uri->segment(3),'emp');
-
-		exit();*/
 			$this->lang->load('label_lang', 'german');//load german languge
 			$this->data['title'] = $page;
 			
 			$this->$page();
 			$this->load->view('templates/head',$this->data);
-			$this->load->view('templates/header',$this->data);
-			$this->load->view('templates/sidebar');
-			$this->load->view('templates/content');
-			$this->load->view('templates/pageheader');
+		//	$this->load->view('templates/header',$this->data);
+			//$this->load->view('templates/sidebar');
+			//$this->load->view('templates/content');
+		//	$this->load->view('templates/pageheader');
 			
 			$this->load->view('pages/'.$page,$this->data);
 			$this->load->view('templates/footer');
@@ -66,7 +27,16 @@ class Fullschedulecont extends CI_Controller
 		
 	}
 	
-	
+	function printfullcalendar()
+	{
+		$this->load->model('constantmodel');
+		$this->data['location']= $this->constantmodel->get_location_list();
+		//$this->data['staffList']= $this->constantmodel->get_staff_list();
+		$this->data['deptList']= $this->constantmodel->get_dept_list();
+		$this->data['specList']= $this->constantmodel->get_spec_list();
+		$this->data['jobtitleList']= $this->constantmodel->get_jobtitle_list();
+	//	$this->getall_Shift_calender();
+	}
 	function fullschedule()
 	{
 		$this->load->model('constantmodel');
@@ -182,18 +152,16 @@ class Fullschedulecont extends CI_Controller
 			$temp = array();
 	
 			if ( $row->type==1)
-	//			$temp['title'] ="Shift-".$row->name."\n";
-				$temp['title'] ='Location: '.$row->name."\n";
+				$temp['title'] ="Shift-".$row->name."\n";
 			else
-//				$temp['title'] ="TimeOff-".$row->name."\n";
-				$temp['title'] =$row->name."\n";
+				$temp['title'] ="TimeOff-".$row->name."\n";
 
 			$temp['start_date'] = $row->start_date;
 			$temp['start_time'] = $row->start_time;
 			$temp['end_date'] = $row->end_date;
 			$temp['end_time'] = $row->end_time;
 			$temp['location_name'] = $row->name;
-			$temp['event_details'] = 'Employee: '.$row->emp_name;
+			$temp['event_details'] = $row->emp_name;
 			$temp['color'] = $row->color;
 	
 			array_push($output,$temp);

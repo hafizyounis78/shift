@@ -128,8 +128,32 @@ var Calendar = function() {
 
 			
            $('#calendar').fullCalendar('destroy'); // destroy the calendar
+		   /**************************************/
+		   /*
+		   var w = $('#calendar').css('width');
+			var renderEvent = function() {
+				// prepare calendar for printing
+				$('#calendar').css('width', w);
+				$('#calendar').fullCalendar('render');
+			};
+			if (window.matchMedia) {
+				var mediaQueryList = window.matchMedia('print');
+				mediaQueryList.addListener(function(mql) {
+					if (mql.matches) {
+						renderEvent();
+					} else {
+						renderEvent();
+					}
+				});
+			}
+			window.onbeforeprint = renderEvent;
+			window.onafterprint = renderEvent;
+			$(window).resize(function(){$('#calendar').css('width', '100%');});*/
+//***************************//
             $('#calendar').fullCalendar({ //re-initialize the calendar
                 header: h,
+				 height: 1100,
+		        contentHeight: 1100,
                 defaultView: 'month', // change default view with available options from http://arshaw.com/fullcalendar/docs/views/Available_Views/ 
                 slotMinutes: 15,
                 editable: true,
@@ -248,7 +272,12 @@ var Calendar = function() {
 				            content: event.msg
                         });
 				},
-				viewRender: function(view, element) 
+				/*eventAfterRender: function(event, element, view) 
+				  {
+					  $(element).css('height','100');
+					  $(element).css('width','100');
+				  },*/
+								viewRender: function(view, element) 
 				{
 					
 					if(view.name === 'agendaWeek' || view.name === 'agendaDay')
@@ -328,6 +357,8 @@ var Calendar = function() {
                     		 start: new Date(y, m, 1),
                     			backgroundColor: Metronic.getBrandColor('yellow')
                 			}];
+							/*var style = $('<style>@media print {.fc-event { background: green; }</style>')
+							$('html > head').append(style);*/
 							// Since your controller produce array of object you can access the value by using this one :
          					var events = [];
 							for(var a=0; a< retrieved_data.length; a++)
@@ -340,7 +371,7 @@ var Calendar = function() {
 									
 									
          						events.push({
-											title:retrieved_data[a]['title'],
+											title:retrieved_data[a]['title']+retrieved_data[a]['event_details'],
 											msg: retrieved_data[a]['event_details'],
 											start:new Date(startdateParts[0], parseInt(startdateParts[1] - 1), startdateParts[2], starttimeParts[0], starttimeParts[1]),//:retrieved_data[a]['start_date'],
 											end: new Date(enddateParts[0], parseInt(enddateParts[1] - 1), enddateParts[2],  endtimeParts[0], endtimeParts[1]),

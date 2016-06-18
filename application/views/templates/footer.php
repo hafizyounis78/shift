@@ -7,14 +7,14 @@
 </div>
 <!-- END CONTAINER -->
 <!-- BEGIN FOOTER -->
-	<div class="page-footer">
+	<!--<div class="page-footer">
 		<div class="page-footer-inner">
 			 
 		</div>
 		<div class="scroll-to-top">
 			<i class="icon-arrow-up"></i>
 		</div>
-	</div>
+	</div>-->
 	<!-- END FOOTER -->
 </div>
 <!-- BEGIN JAVASCRIPTS(Load javascripts at bottom, this will reduce page load time) -->
@@ -66,6 +66,9 @@
 <script src="<?php echo base_url();?>assets/admin/pages/scripts/components-dropdowns.js"></script>
 <script src="<?php echo base_url();?>assets/admin/pages/scripts/table-managed.js"></script>
 <script src="<?php echo base_url();?>assets/global/scripts/datatable.js"></script>
+<script src="<?php echo base_url();?>js/canvas2image.js"></script>
+<script src="<?php echo base_url();?>js/html2canvas.js"></script>
+
 <!-- END PAGE LEVEL SCRIPS -->
 
 <!-- OUR SCRIPTS -->

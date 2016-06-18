@@ -38,7 +38,25 @@ $(document).ready(function () {
 });
 function printCalender()
 {
-	 window.print();
+	//Canvas2Image.saveAsPNG(canvasObj, width, height)
+	//alert($("#widget").html());
+        html2canvas($("#widget"), {
+            onrendered: function(canvas) {
+                theCanvas = canvas;
+                document.body.appendChild(canvas);
+
+                // Convert and download as image 
+				
+                //Canvas2Image.saveAsPNG(canvas);
+				 $("#printable").html(''); 
+                $("#printable").append(canvas);
+				window.print();
+				
+                // Clean up 
+                //document.body.removeChild(canvas);
+            }
+        });
+
 }
 function getAlllocation()
 {
