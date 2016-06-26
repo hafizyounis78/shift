@@ -54,6 +54,7 @@
 
 
 
+
 <!-- CORE SCRIPTS -->
 <script src="<?php echo base_url();?>assets/global/scripts/metronic.js" type="text/javascript"></script>
 <script src="<?php echo base_url();?>assets/admin/layout2/scripts/layout.js" type="text/javascript"></script>
@@ -64,7 +65,9 @@
 <script src="<?php echo base_url();?>assets/admin/pages/scripts/calendar.js"></script>
 <script src="<?php echo base_url();?>assets/admin/pages/scripts/components-pickers.js"></script>
 <script src="<?php echo base_url();?>assets/admin/pages/scripts/components-dropdowns.js"></script>
+<script src="<?php echo base_url();?>assets/admin/pages/scripts/table-advanced.js"></script>
 <script src="<?php echo base_url();?>assets/admin/pages/scripts/table-managed.js"></script>
+
 <script src="<?php echo base_url();?>assets/global/scripts/datatable.js"></script>
 <script src="<?php echo base_url();?>js/canvas2image.js"></script>
 <script src="<?php echo base_url();?>js/html2canvas.js"></script>
@@ -110,6 +113,7 @@ else if (pathArray[3]=="locations")
          Metronic.init(); // init metronic core components
 		 Layout.init(); // init current layout
 		 TableManaged.init();
+		 TableAdvanced.init();
 		 Demo.init(); // init demo features
 		
 		ShiftComponentsDropdowns.init();
