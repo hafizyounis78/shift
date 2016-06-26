@@ -98,6 +98,8 @@ else if (pathArray[3]=="locations")
 <script src="<?php echo base_url();?>js/timeoff.js"></script>
 <script src="<?php echo base_url();?>js/fullschedule.js"></script>
 <script src="<?php echo base_url();?>js/shift.js"></script>
+<script src="<?php echo base_url();?>js/printcal.js"></script>
+
 <!--<script src="<?php echo base_url().$filename;?>"></script>-->
 <!--<script src="<?php echo base_url();?>js/setting.js"></script>-->
 

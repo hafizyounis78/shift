@@ -60,6 +60,7 @@ $route['timeoffcont/(:any)'] = 'timeoffcont/view/$1';
 $route['shifttemplatecont/(:any)'] = 'shifttemplatecont/view/$1';
 $route['shiftscont/(:any)'] = 'shiftscont/view/$1';
 $route['settingcont/(:any)'] = 'settingcont/view/$1';
+$route['reportscont/(:any)'] = 'reportscont/view/$1';
 $route['(:any)'] = 'home/view/$1';
 $route['default_controller'] = 'home/view';
 $route['404_override'] = '';
