@@ -74,11 +74,12 @@ class Fullschedulemodel extends CI_Model
 		
 		$myquery = "SELECT sft.start_date, sft.start_time, sft.end_time, sft.end_date, sft.location_id,sft.type, loc.map_name as name, loc.color, loc.map_id, (
 		
-								SELECT GROUP_CONCAT( CONCAT( b.first_name, ' ', b.last_name )
+								SELECT GROUP_CONCAT( CONCAT( b.first_name, ' ', b.last_name,'(', dep_name,')' )
 								SEPARATOR ', ' )
-								FROM dusseldorf_users b, dusseldorf_v3_shifts c
+								FROM dusseldorf_users b, dusseldorf_v3_shifts c,departments d
 								WHERE b.id = c.user_id
 								AND location_id = sft.location_id
+								and b.dep_id=d.dep_id
 								AND start_date = sft.start_date
 								AND end_date = sft.end_date
 								AND start_time = sft.start_time
@@ -95,11 +96,12 @@ class Fullschedulemodel extends CI_Model
 		else if ($this->session->userdata('itemname')=='gm')
 			$myquery = "SELECT sft.start_date, sft.start_time, sft.end_time, sft.end_date, sft.location_id,sft.type, loc.map_name as name, loc.color, loc.map_id, (
 		
-								SELECT GROUP_CONCAT( CONCAT( b.first_name, ' ', b.last_name )
+								SELECT GROUP_CONCAT( CONCAT( b.first_name, ' ', b.last_name,'(', dep_name,')' )
 								SEPARATOR ', ' )
-								FROM dusseldorf_users b, dusseldorf_v3_shifts c
+								FROM dusseldorf_users b, dusseldorf_v3_shifts c,departments d
 								WHERE b.id = c.user_id
 								AND location_id = sft.location_id
+								and b.dep_id=d.dep_id
 								AND start_date = sft.start_date
 								AND end_date = sft.end_date
 								AND start_time = sft.start_time
@@ -117,11 +119,12 @@ class Fullschedulemodel extends CI_Model
 		else if ($this->session->userdata('itemname')=='circle_man')
 			$myquery = "SELECT sft.start_date, sft.start_time, sft.end_time, sft.end_date, sft.location_id,sft.type, loc.map_name as name, loc.color, loc.map_id, (
 			
-									SELECT GROUP_CONCAT( CONCAT( b.first_name, ' ', b.last_name )
+								SELECT GROUP_CONCAT( CONCAT( b.first_name, ' ', b.last_name,'(', dep_name,')' )
 									SEPARATOR ', ' )
-									FROM dusseldorf_users b, dusseldorf_v3_shifts c
+									FROM dusseldorf_users b, dusseldorf_v3_shifts c,departments d
 									WHERE b.id = c.user_id
 									AND location_id = sft.location_id
+									and b.dep_id=d.dep_id
 									AND start_date = sft.start_date
 									AND end_date = sft.end_date
 									AND start_time = sft.start_time
@@ -245,14 +248,9 @@ class Fullschedulemodel extends CI_Model
 	// First Day
 	public function get_shift_day1()//Calender View
 	{
-		
-		
-		//******************general manager***************//
-		/*if ($this->session->userdata('itemname')== null || $this->session->userdata('itemname') == '')
-				return;*/
-				$dept_id='';
+		$dept_id='';
 		extract($_POST);
-		//$drpFromdate='2016-06-25';
+		
 		
 				$dep_filter = '';		
 				if($dept_id!= 0 && $dept_id!='')
@@ -295,10 +293,12 @@ class Fullschedulemodel extends CI_Model
 								AND end_date = sft.end_date
 								AND start_time = sft.start_time
 								AND end_time = sft.end_time
+								".$dep_filter."
 								and   b.dept_parent=".$this->session->userdata('dep_id')."
 								) AS emp_name
 								FROM dusseldorf_v3_shifts sft, task_map_dep loc,dusseldorf_users b
 								where b.id=sft.user_id
+								".$dep_filter."
 								and start_date<='".$drpFromdate."'
 								and end_date >= '".$drpFromdate."'
 								and   sft.location_id = loc.map_id								
@@ -348,15 +348,10 @@ class Fullschedulemodel extends CI_Model
 	// Secand Day
 	public function get_shift_day2()//Calender View
 	{
-		
-		
-		//******************general manager***************//
-		/*if ($this->session->userdata('itemname')== null || $this->session->userdata('itemname') == '')
-				return;*/
-				$dept_id='';
+		$dept_id='';
 		extract($_POST);
 		$drpFromdate = date('Y-m-d', strtotime($drpFromdate . ' +1 day'));
-	//	$drpFromdate=$drpFromdate+1;
+	
 		
 				$dep_filter = '';		
 				if($dept_id!= 0 && $dept_id!='')
@@ -399,10 +394,12 @@ class Fullschedulemodel extends CI_Model
 								AND end_date = sft.end_date
 								AND start_time = sft.start_time
 								AND end_time = sft.end_time
+								".$dep_filter."
 								and   b.dept_parent=".$this->session->userdata('dep_id')."
 								) AS emp_name
 								FROM dusseldorf_v3_shifts sft, task_map_dep loc,dusseldorf_users b
 								where b.id=sft.user_id
+								".$dep_filter."
 								and start_date<='".$drpFromdate."'
 								and end_date >= '".$drpFromdate."'
 								and   sft.location_id = loc.map_id								
@@ -422,10 +419,12 @@ class Fullschedulemodel extends CI_Model
 									AND end_date = sft.end_date
 									AND start_time = sft.start_time
 									AND end_time = sft.end_time
+									".$dep_filter."
 									and   b.dep_id=".$this->session->userdata('dep_id')."
 									) AS emp_name
 									FROM dusseldorf_v3_shifts sft, task_map_dep loc,dusseldorf_users users
 									where users.id=sft.user_id
+									".$dep_filter."
    									and sft.location_id = loc.map_id		
 									and start_date<='".$drpFromdate."'
 									and end_date >= '".$drpFromdate."'
@@ -448,7 +447,7 @@ class Fullschedulemodel extends CI_Model
 		return $this->db->query($myquery);
 
 	}	
-		// First Day
+	// THIRD Day
 	public function get_shift_day3()//Calender View
 	{
 		
@@ -501,10 +500,12 @@ class Fullschedulemodel extends CI_Model
 								AND end_date = sft.end_date
 								AND start_time = sft.start_time
 								AND end_time = sft.end_time
+								".$dep_filter."
 								and   b.dept_parent=".$this->session->userdata('dep_id')."
 								) AS emp_name
 								FROM dusseldorf_v3_shifts sft, task_map_dep loc,dusseldorf_users b
 								where b.id=sft.user_id
+								".$dep_filter."
 								and start_date<='".$drpFromdate."'
 								and end_date >= '".$drpFromdate."'
 								and   sft.location_id = loc.map_id								
@@ -550,23 +551,18 @@ class Fullschedulemodel extends CI_Model
 		return $this->db->query($myquery);
 
 	}	
-		// First Day
+	// FOUR Day
 	public function get_shift_day4()//Calender View
 	{
-		
-		
-		//******************general manager***************//
-		/*if ($this->session->userdata('itemname')== null || $this->session->userdata('itemname') == '')
-				return;*/
-				$dept_id='';
+		$dept_id='';
 		extract($_POST);
 		$drpFromdate = date('Y-m-d', strtotime($drpFromdate . ' +3 day'));
 		
-				$dep_filter = '';		
-				if($dept_id!= 0 && $dept_id!='')
-				{
-					$dep_filter = "AND b.dep_id=".$dept_id;
-				}
+		$dep_filter = '';		
+		if($dept_id!= 0 && $dept_id!='')
+		{
+			$dep_filter = "AND b.dep_id=".$dept_id;
+		}
 		if ($this->session->userdata('itemname')=='admin')
 		
 		$myquery = "SELECT sft.start_date, sft.start_time, sft.end_time, sft.end_date, sft.location_id,sft.type, loc.map_name as name, loc.color, loc.map_id, (
@@ -603,10 +599,12 @@ class Fullschedulemodel extends CI_Model
 								AND end_date = sft.end_date
 								AND start_time = sft.start_time
 								AND end_time = sft.end_time
+								".$dep_filter."
 								and   b.dept_parent=".$this->session->userdata('dep_id')."
 								) AS emp_name
 								FROM dusseldorf_v3_shifts sft, task_map_dep loc,dusseldorf_users b
 								where b.id=sft.user_id
+								".$dep_filter."
 								and start_date<='".$drpFromdate."'
 								and end_date >= '".$drpFromdate."'
 								and   sft.location_id = loc.map_id								
@@ -652,23 +650,18 @@ class Fullschedulemodel extends CI_Model
 		return $this->db->query($myquery);
 
 	}	
-		// First Day
+	// FIVE Day
 	public function get_shift_day5()//Calender View
-	{
-		
-		
-		//******************general manager***************//
-		/*if ($this->session->userdata('itemname')== null || $this->session->userdata('itemname') == '')
-				return;*/
-				$dept_id='';
+	{	
+		$dept_id='';
 		extract($_POST);
-$drpFromdate = date('Y-m-d', strtotime($drpFromdate . ' +4 day'));
+		$drpFromdate = date('Y-m-d', strtotime($drpFromdate . ' +4 day'));
 		
-				$dep_filter = '';		
-				if($dept_id!= 0 && $dept_id!='')
-				{
-					$dep_filter = "AND b.dep_id=".$dept_id;
-				}
+		$dep_filter = '';		
+		if($dept_id!= 0 && $dept_id!='')
+		{
+			$dep_filter = "AND b.dep_id=".$dept_id;
+		}
 		if ($this->session->userdata('itemname')=='admin')
 		
 		$myquery = "SELECT sft.start_date, sft.start_time, sft.end_time, sft.end_date, sft.location_id,sft.type, loc.map_name as name, loc.color, loc.map_id, (
@@ -705,10 +698,12 @@ $drpFromdate = date('Y-m-d', strtotime($drpFromdate . ' +4 day'));
 								AND end_date = sft.end_date
 								AND start_time = sft.start_time
 								AND end_time = sft.end_time
+								".$dep_filter."
 								and   b.dept_parent=".$this->session->userdata('dep_id')."
 								) AS emp_name
 								FROM dusseldorf_v3_shifts sft, task_map_dep loc,dusseldorf_users b
 								where b.id=sft.user_id
+								".$dep_filter."
 								and start_date<='".$drpFromdate."'
 								and end_date >= '".$drpFromdate."'
 								and   sft.location_id = loc.map_id								
@@ -754,26 +749,21 @@ $drpFromdate = date('Y-m-d', strtotime($drpFromdate . ' +4 day'));
 		return $this->db->query($myquery);
 
 	}	
-		// First Day
+	// SEX Day
 	public function get_shift_day6()//Calender View
 	{
-		
-		
-		//******************general manager***************//
-		/*if ($this->session->userdata('itemname')== null || $this->session->userdata('itemname') == '')
-				return;*/
-				$dept_id='';
+		$dept_id='';
 		extract($_POST);
 		$drpFromdate = date('Y-m-d', strtotime($drpFromdate .'+5 day'));
 		
-				$dep_filter = '';		
-				if($dept_id!= 0 && $dept_id!='')
-				{
-					$dep_filter = "AND b.dep_id=".$dept_id;
-				}
+		$dep_filter = '';		
+		if($dept_id!= 0 && $dept_id!='')
+		{
+			$dep_filter = "AND b.dep_id=".$dept_id;
+		}
 		if ($this->session->userdata('itemname')=='admin')
 		
-		$myquery = "SELECT sft.start_date, sft.start_time, sft.end_time, sft.end_date, sft.location_id,sft.type, loc.map_name as name, loc.color, loc.map_id, (
+			$myquery = "SELECT sft.start_date, sft.start_time, sft.end_time, sft.end_date, sft.location_id,sft.type, loc.map_name as name, loc.color, loc.map_id, (
 		
 								SELECT GROUP_CONCAT( CONCAT( b.first_name, ' ', b.last_name )
 								SEPARATOR ', ' )
@@ -807,10 +797,12 @@ $drpFromdate = date('Y-m-d', strtotime($drpFromdate . ' +4 day'));
 								AND end_date = sft.end_date
 								AND start_time = sft.start_time
 								AND end_time = sft.end_time
+								".$dep_filter."
 								and   b.dept_parent=".$this->session->userdata('dep_id')."
 								) AS emp_name
 								FROM dusseldorf_v3_shifts sft, task_map_dep loc,dusseldorf_users b
 								where b.id=sft.user_id
+								".$dep_filter."
 								and start_date<='".$drpFromdate."'
 								and end_date >= '".$drpFromdate."'
 								and   sft.location_id = loc.map_id								
@@ -855,26 +847,22 @@ $drpFromdate = date('Y-m-d', strtotime($drpFromdate . ' +4 day'));
 		
 		return $this->db->query($myquery);
 
-	}	
+	}
+	// SIVEN Day	
 	public function get_shift_day7()//Calender View
 	{
-		
-		
-		//******************general manager***************//
-		/*if ($this->session->userdata('itemname')== null || $this->session->userdata('itemname') == '')
-				return;*/
-				$dept_id='';
+		$dept_id='';
 		extract($_POST);
 		$drpFromdate = date('Y-m-d', strtotime($drpFromdate .'+6 day'));
 		
-				$dep_filter = '';		
-				if($dept_id!= 0 && $dept_id!='')
-				{
-					$dep_filter = "AND b.dep_id=".$dept_id;
-				}
+		$dep_filter = '';		
+		if($dept_id!= 0 && $dept_id!='')
+		{
+			$dep_filter = "AND b.dep_id=".$dept_id;
+		}
 		if ($this->session->userdata('itemname')=='admin')
 		
-		$myquery = "SELECT sft.start_date, sft.start_time, sft.end_time, sft.end_date, sft.location_id,sft.type, loc.map_name as name, loc.color, loc.map_id, (
+			$myquery = "SELECT sft.start_date, sft.start_time, sft.end_time, sft.end_date, sft.location_id,sft.type, loc.map_name as name, loc.color, loc.map_id, (
 		
 								SELECT GROUP_CONCAT( CONCAT( b.first_name, ' ', b.last_name )
 								SEPARATOR ', ' )
@@ -908,10 +896,12 @@ $drpFromdate = date('Y-m-d', strtotime($drpFromdate . ' +4 day'));
 								AND end_date = sft.end_date
 								AND start_time = sft.start_time
 								AND end_time = sft.end_time
+								".$dep_filter."
 								and   b.dept_parent=".$this->session->userdata('dep_id')."
 								) AS emp_name
 								FROM dusseldorf_v3_shifts sft, task_map_dep loc,dusseldorf_users b
 								where b.id=sft.user_id
+								".$dep_filter."
 								and start_date<='".$drpFromdate."'
 								and end_date >= '".$drpFromdate."'
 								and   sft.location_id = loc.map_id								

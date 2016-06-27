@@ -101,43 +101,47 @@ class Constantmodel extends CI_Model
 		return $query->result();
 	*/	
 	}
-	function get_locationBydept()
-	{	
-			extract($_POST);
-		if ($deptNo == 0)//all department
-			$myquery = "SELECT map_id as id,map_name as Location_name,dep_name    
-						FROM   task_map_dep,departments
-						where  departments.dep_id=task_map_dep.dep_child_id
-						and    task_map_dep.dep_id=".$this->session->userdata('dep_id')."
-						UNION
-						SELECT map_id as id,map_name as Location_name,'Market' as dep_name    
-						FROM   task_map_dep
-						where  map_id=400";
-
-				
-			
-		else
+function get_locationBydept()
+{	
+		extract($_POST);
+	if ($deptNo == 0)//all department
 		$myquery = "SELECT map_id as id,map_name as Location_name,dep_name    
-						FROM   task_map_dep,departments
-						where  departments.dep_id=task_map_dep.dep_child_id
-						and    task_map_dep.dep_child_id=".$deptNo;
-					
-			$res = $this->db->query($myquery);
-			return $res->result();
+					FROM   task_map_dep,departments
+					where  departments.dep_id=task_map_dep.dep_child_id
+					and    task_map_dep.dep_id=".$this->session->userdata('dep_id')."
+					UNION
+					SELECT map_id as id,map_name as Location_name,'Market' as dep_name    
+					FROM   task_map_dep
+					where  map_id=400";
+
+			
 		
-	/*	$query = $this->db->get('dusseldorf_v3_locations');
-		return $query->result();
-	*/	
-	}
-	function get_staff_list()
-	{
-		
-		
-		$myquery = "SELECT id, CONCAT(first_name,' ',last_name) as name FROM dusseldorf_users where type=2";
-		
+	else
+	$myquery = "SELECT map_id as id,map_name as Location_name,dep_name    
+					FROM   task_map_dep,departments
+					where  departments.dep_id=task_map_dep.dep_child_id
+					and    task_map_dep.dep_child_id=".$deptNo."
+					UNION
+					SELECT map_id as id,map_name as Location_name,'Market' as dep_name    
+					FROM   task_map_dep
+					where  map_id=400";
+				
 		$res = $this->db->query($myquery);
 		return $res->result();
-	}
+	
+/*	$query = $this->db->get('dusseldorf_v3_locations');
+	return $query->result();
+*/	
+}
+function get_staff_list()
+{
+	
+	
+	$myquery = "SELECT id, CONCAT(first_name,' ',last_name) as name FROM dusseldorf_users where type=2";
+	
+	$res = $this->db->query($myquery);
+	return $res->result();
+}
 function get_dept_list()
 	{	
 	
@@ -188,7 +192,7 @@ function get_jobtitle_list()
 	
 }
 function get_spec_list()
-	{	
+{	
 		$this->db->from('dusseldorf_specialization');
 		$this->db->where('is_deleted',0);
 		$this->db->order_by("name", "ASC");
