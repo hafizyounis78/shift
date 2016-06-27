@@ -108,7 +108,11 @@ class Constantmodel extends CI_Model
 			$myquery = "SELECT map_id as id,map_name as Location_name,dep_name    
 						FROM   task_map_dep,departments
 						where  departments.dep_id=task_map_dep.dep_child_id
-						and    task_map_dep.dep_id=".$this->session->userdata('dep_id');
+						and    task_map_dep.dep_id=".$this->session->userdata('dep_id')."
+						UNION
+						SELECT map_id as id,map_name as Location_name,'Market' as dep_name    
+						FROM   task_map_dep
+						where  map_id=400";
 
 				
 			

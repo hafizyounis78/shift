@@ -168,11 +168,18 @@ function addModalshift(){
 					$(".alert-success").alert('close');
 				});
 				clearFullShiftForm();
-				 location.reload();
+				 $("#calendar").fullCalendar("refetchEvents");
+				 $("#shiftModalform").modal("hide");
+				 //location.reload();
 			}
 		});//END $.ajax
 }
 	
+	function cancelShift()
+	{
+		
+		return;
+	}
 //****************select shift type*******//
 $(document).ready(function() {
     $('input[type=radio][name=rdShifttype]').change(function() {

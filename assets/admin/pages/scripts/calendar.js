@@ -209,11 +209,16 @@ var Calendar = function() {
 							
 					
 						 $("#drpTodate").val(dateParts[0]+'-'+dateParts[1]+'-'+endDay);
-						 
-						
 						 $("#my_multi_select1").html('');
 						 $("#my_multi_select1").multiSelect('refresh');
+						 
+						 $( "#drplstBreak" ).val(0);			
 						
+						
+						$("#drplstDept").val($("#drplstfilterByDept").val());
+						
+						drpdeptFullChange();
+						 
 						$('#calendar').fullCalendar('unselect');
 				   }
 			},
@@ -222,7 +227,7 @@ var Calendar = function() {
 				//alert(sessionValue);
 				if (sessionValue=='gm')
 				{
-                    // retrieve the dropped element's stored Event Object
+                   /* // retrieve the dropped element's stored Event Object
                     var originalEventObject = $(this).data('eventObject');
                     // we need to copy it, so that multiple events don't have a reference to the same object
                     var copiedEventObject = $.extend({}, originalEventObject);
@@ -241,7 +246,7 @@ var Calendar = function() {
                         // if so, remove the element from the "Draggable Events" list
                         $(this).remove();
                     }
-					
+					*/
 					// Open Modal
 					$("#form_modal2").modal();
 					var d = new Date(date);
@@ -252,9 +257,20 @@ var Calendar = function() {
 					$( "#txtStart" ).timepicker( "setTime", $(this).find("#dvStart").text() );
 					$( "#txtEnd" ).timepicker( "setTime", $(this).find("#dvEnd").text() );
 					$( "#drplstBreak" ).val( $(this).find("#dvBreak").text() );
+//					$( "#drplstBreak" ).val( $(this).find("#dvBreak").text() );
 
 					$( "#drpFromdate" ).datepicker( "setDate", year+"-"+month+"-"+day );
 					$( "#drpTodate" ).datepicker( "setDate", year+"-"+month+"-"+day );
+					$("#my_multi_select1").html('');
+						 $("#my_multi_select1").multiSelect('refresh');
+						
+						
+						
+						$("#drplstDept").val($("#drplstfilterByDept").val());
+						
+						drpdeptFullChange();
+
+					
 				}
                 },
 				dayClick: function(date, jsEvent, view, resourceObj) {
@@ -329,7 +345,8 @@ var Calendar = function() {
 					
 					
 				},
-			
+				
+							
                 events: function(start, end, timezone, callback){
 						
 					//************ read segment value *********//

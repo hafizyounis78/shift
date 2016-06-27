@@ -121,7 +121,7 @@ var sessionValue = "<?php echo $this->session->userdata('itemname'); ?>";
             <h3 class="event-form-title"> <?php echo $this->lang->line('Department');  ?> </h3>
             <div id="external-events">
                 <form class="inline-form">
-                    <select  class="form-control select2me" id="drplstfilterByDept" name="drplstfilterByDept" >
+                    <select  class="form-control " id="drplstfilterByDept" name="drplstfilterByDept" >
                              
                                    <?php 
 							if ($this->session->userdata('itemname') == "gm" ||$this->session->userdata('itemname') == "admin")	   
@@ -259,8 +259,13 @@ var sessionValue = "<?php echo $this->session->userdata('itemname'); ?>";
                               <select id="drplstBreak" class="form-control" name="drplstBreak">
                                   <option value=""><?php echo $this->lang->line('select');  ?>...</option>
                                   <?php
+								  $selected='';
 									  for($i=0; $i<=240; $i=$i+5)
-									  	echo '<option value="'.$i.'">'.$i.' min</option>';
+									  { $selected='';
+										  if ($i==0)
+										  $selected = 'selected="selected"';
+									  	echo '<option  value="'.$i.'" '.$selected.' >'.$i.' min</option>';
+									  }
 								  ?>
                               </select>
                           </div>
@@ -411,7 +416,7 @@ var sessionValue = "<?php echo $this->session->userdata('itemname'); ?>";
                
             </div>
             <div class="modal-footer bg-info">
-                <button   type="button" class="btn btn-default" data-dismiss="modal" ><?php echo $this->lang->line('Cancel'); ?></button>
+                <button   type="button" class="btn btn-default" data-dismiss="modal" onclick="cancelShift();" ><?php echo $this->lang->line('Cancel'); ?></button>
                 <button  type="submit" class="btn btn-primary" ><?php echo $this->lang->line('Save');  ?> </button>
             </div>
         </div>
