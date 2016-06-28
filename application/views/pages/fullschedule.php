@@ -47,7 +47,7 @@ var sessionValue = "<?php echo $this->session->userdata('itemname'); ?>";
           <div class="portlet-title">
               <div class="caption">
                   <i class="fa fa-gift"></i><?php echo $this->lang->line('Schedule');  ?>
-                  <input type="button" id="btnprint" name="btnprint" class="btn btn-default" onclick="printCalender();"  value="Print"/>
+                 
               </div>
           </div>
         

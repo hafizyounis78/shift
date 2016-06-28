@@ -24,6 +24,7 @@ date_default_timezone_set('Asia/Gaza');
           <div class="portlet-title">
               <div class="caption">
                   <i class="fa fa-clock-o"></i>Print Plan
+                  <input type="button" id="btnprint" name="btnprint"  onclick="printcal();"  value="Print" />
               </div>
               
           </div>

@@ -76,6 +76,16 @@
                      <?php if ($this->session->userdata('itemname') == "gm")
 					{
 						?>
+                    <li class="last " <?php if($title == 'calrep') echo 'class="active open"';?>>
+						<a href="<?php echo base_url();?>reportscont/printcalendar">
+						<i class="icon-printer"></i>
+						<span class="title">Print</span>
+						</a>
+					</li>
+                       <?php  }?>
+                     <?php if ($this->session->userdata('itemname') == "gm")
+					{
+						?>
                     <li class="last " <?php if($title == 'setting') echo 'class="active open"';?>>
 						<a href="<?php echo base_url();?>settingcont/setting">
 						<i class="icon-settings"></i>
@@ -83,6 +93,7 @@
 						</a>
 					</li>
                        <?php  }?>
+
 					<!--<li class="active open">
 						<a href="javascript:;">
 						<i class="icon-rocket"></i>

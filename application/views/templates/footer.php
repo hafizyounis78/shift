@@ -53,8 +53,6 @@
 <script type="text/javascript" src="<?php echo base_url();?>assets/global/plugins/datatables/plugins/bootstrap/dataTables.bootstrap.js"></script>
 
 
-
-
 <!-- CORE SCRIPTS -->
 <script src="<?php echo base_url();?>assets/global/scripts/metronic.js" type="text/javascript"></script>
 <script src="<?php echo base_url();?>assets/admin/layout2/scripts/layout.js" type="text/javascript"></script>
@@ -62,11 +60,15 @@
 <!-- END CORE SCRIPTS -->
 
 <!-- BEGIN PAGE LEVEL SCRIPS -->
+<script type="text/javascript" src="<?php echo base_url();?>assets/global/plugins/datatables/extensions/TableTools/js/dataTables.tableTools.min.js"></script>
+<script type="text/javascript" src="<?php echo base_url();?>assets/global/plugins/datatables/extensions/ColReorder/js/dataTables.colReorder.min.js"></script>
+<script type="text/javascript" src="<?php echo base_url();?>assets/global/plugins/datatables/extensions/Scroller/js/dataTables.scroller.min.js"></script>
+
 <script src="<?php echo base_url();?>assets/admin/pages/scripts/calendar.js"></script>
 <script src="<?php echo base_url();?>assets/admin/pages/scripts/components-pickers.js"></script>
 <script src="<?php echo base_url();?>assets/admin/pages/scripts/components-dropdowns.js"></script>
-<script src="<?php echo base_url();?>assets/admin/pages/scripts/table-advanced.js"></script>
-<script src="<?php echo base_url();?>assets/admin/pages/scripts/table-managed.js"></script>
+<!--<script src="<?php echo base_url();?>assets/admin/pages/scripts/table-advanced.js"></script>
+--><script src="<?php echo base_url();?>assets/admin/pages/scripts/table-managed.js"></script>
 
 <script src="<?php echo base_url();?>assets/global/scripts/datatable.js"></script>
 <script src="<?php echo base_url();?>js/canvas2image.js"></script>
@@ -113,7 +115,7 @@ else if (pathArray[3]=="locations")
          Metronic.init(); // init metronic core components
 		 Layout.init(); // init current layout
 		 TableManaged.init();
-		 TableAdvanced.init();
+		// TableAdvanced.init();
 		 Demo.init(); // init demo features
 		
 		ShiftComponentsDropdowns.init();

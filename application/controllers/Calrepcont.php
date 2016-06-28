@@ -1,6 +1,6 @@
 <?php
 
-class Reportscont extends CI_Controller 
+class Calrepcont extends CI_Controller 
 {
 	public $data;
 	function view ( $page = 'home', $uid = '' )
@@ -10,33 +10,36 @@ class Reportscont extends CI_Controller
 			show_404();
 		}
 		
-			$this->lang->load('label_lang', 'german');//load german languge
+			//$this->lang->load('label_lang', 'german');//load german languge
 			$this->data['title'] = $page;
 			
 			$this->$page();
-			$this->load->view('templates/head',$this->data);
-		$this->load->view('templates/header',$this->data);
+		/*	$this->load->view('templates/head',$this->data);
+			$this->load->view('templates/header',$this->data);
 			$this->load->view('templates/sidebar');
 			$this->load->view('templates/content');
-			$this->load->view('templates/pageheader');
+			$this->load->view('templates/pageheader');*/
 			
 			$this->load->view('pages/'.$page,$this->data);
-			$this->load->view('templates/footer');
+			//$this->load->view('templates/footer');
 			
 		
 		
 	}
-	function calrep()
-	{
-	}
+function setparameter()
+{
+	$this->session->set_userdata('startDate', $_POST['drpFromdate']);
 	
-	function printcalendar()
+}
+
+	
+	function calrep()
 	{
 		date_default_timezone_set('Asia/Gaza');  
 //		echo date('Y-m-d',strtotime('last monday')); 
 	//	print_r(date('Y-m-d',strtotime('last monday'))); 
-		$_POST['drpFromdate'] = date('Y-m-d',strtotime('last monday'));
-	    $this->session->set_userdata('startDate', $_POST['drpFromdate']);
+		$_POST['drpFromdate'] = date($this->session->userdata('startDate'),strtotime('last monday'));
+
 		$this->load->model('fullschedulemodel');
 		
 		$rec1  = $this->fullschedulemodel->get_shift_day1();
@@ -69,7 +72,6 @@ class Reportscont extends CI_Controller
 	{
 		extract($_POST);
 		//$this->getall_ShiftByDAte();
-		$this->session->set_userdata('startDate', $_POST['drpFromdate']);
 		$this->load->model('fullschedulemodel');
 		
 		$rec1  = $this->fullschedulemodel->get_shift_day1();

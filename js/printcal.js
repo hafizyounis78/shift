@@ -58,3 +58,13 @@ function get_nextschedual()
 		}
 	});//END $.ajax
 }
+
+function printcal()
+{
+	
+	var path=baseURL+'calrepcont/calrep';
+	var targetWin = window.open(path,'mypopup','width=400,height=400,scrollbars=yes');
+	setTimeout(function(){
+	 targetWin.print();
+	},500);
+}
