@@ -31,7 +31,7 @@ date_default_timezone_set('Asia/Gaza');
 <table id="calenderTable" >
         <thead>
           <tr>
-            <th scope="col"><?php echo date('D',strtotime($last_monday)).' '.$last_monday; ?></th>
+            <th  scope="col"><?php echo date('D',strtotime($last_monday)).' '.$last_monday; ?></th>
             <th scope="col"><?php echo date('D',mktime(0, 0, 0, $parts[1], $parts[2]+1,$parts[0])).' '.date('y-m-d',mktime(0, 0, 0,$parts[1],$parts[2]+1,$parts[0]));?></th>
             <th scope="col"><?php echo date('D',mktime(0, 0, 0, $parts[1], $parts[2]+2,$parts[0])).' '.date('y-m-d',mktime(0, 0, 0,$parts[1],$parts[2]+2,$parts[0]));?></th>
             <th scope="col"><?php echo date('D',mktime(0, 0, 0, $parts[1], $parts[2]+3,$parts[0])).' '.date('y-m-d',mktime(0, 0, 0,$parts[1],$parts[2]+3,$parts[0]));?></th>

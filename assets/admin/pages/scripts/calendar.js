@@ -388,7 +388,8 @@ var Calendar = function() {
 									
 									
          						events.push({
-											title:retrieved_data[a]['title']+retrieved_data[a]['event_details'],
+//											title:retrieved_data[a]['title']+retrieved_data[a]['event_details'],
+											title:retrieved_data[a]['title'],
 											msg: retrieved_data[a]['event_details'],
 											start:new Date(startdateParts[0], parseInt(startdateParts[1] - 1), startdateParts[2], starttimeParts[0], starttimeParts[1]),//:retrieved_data[a]['start_date'],
 											end: new Date(enddateParts[0], parseInt(enddateParts[1] - 1), enddateParts[2],  endtimeParts[0], endtimeParts[1]),

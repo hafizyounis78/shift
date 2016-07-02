@@ -105,9 +105,9 @@ function setparameter()
 	
 	$parts = explode('-', $drpFromdate);
 
-	  echo '<table class="table table-bordered" id="shiftTable">';
+	  echo '<table  style=" border-collapse: collapse; border: 1px solid #999999;padding: 5px" id="shiftTable">';
       echo '<thead>';
-      echo '<tr>';
+      echo '<tr  style=" border: 1px solid #999999;padding: 5px">';
       echo '<th scope="col">'.date('D',strtotime($_POST['drpFromdate'])).' '.$_POST['drpFromdate'].'</th>';
       echo '<th scope="col">'.date('D',mktime(0, 0, 0, $parts[1], $parts[2]+1,$parts[0])).' '.date('y-m-d',mktime(0, 0, 0,$parts[1],$parts[2]+1,$parts[0])).'</th>';
       echo '<th scope="col">'.date('D',mktime(0, 0, 0, $parts[1], $parts[2]+2,$parts[0])).' '.date('y-m-d',mktime(0, 0, 0,$parts[1],$parts[2]+2,$parts[0])).'</th>';
@@ -185,86 +185,7 @@ function setparameter()
 
 	}	
 
-	
-	/*function getmy_Shift_calender()
-	{
-		
-		
-		
-		$this->load->model('fullschedulemodel');
-		$rec = $this->fullschedulemodel->get_my_shift();
-		
-		
-		$rec = $rec->result();
-		
-		$output = array();
-		foreach($rec as $row)
-		{
-			unset($temp); // Release the contained value of the variable from the last loop
-			$temp = array();
-	
-			if ( $row->type==1)
-				$temp['title'] ="Shift-".$row->name."\n";
-			else
-				$temp['title'] ="TimeOff-".$row->name."\n";
-	
-	
-			$temp['start_date'] = $row->start_date;
-			$temp['start_time'] = $row->start_time;
-			$temp['end_date'] = $row->end_date;
-			$temp['end_time'] = $row->end_time;
-			$temp['location_name'] = $row->name;
-			$temp['event_details'] = $row->emp_name;
-			$temp['color'] = $row->color;
-			
-			array_push($output,$temp);
-		}
-		
-		header('Access-Control-Allow-Origin: *');
-		header("Content-Type: application/json");
-		echo json_encode($output);
-		
-	}*/
-	function getall_ShiftByDAte()
-	{
-		/*		
-		$this->load->model('fullschedulemodel');
-		$data["shifts"] = $this->fullschedulemodel->get_shiftByDate();
-		
-		/*
-		
-		
-		$rec = $rec->result();
-		
-		$output = array();
-		foreach($rec as $row)
-		{
-			unset($temp); // Release the contained value of the variable from the last loop
-			$temp = array();
-	
-			if ( $row->type==1)
-	//			$temp['title'] ="Shift-".$row->name."\n";
-				$temp['title'] ='Location: '.$row->name."\n";
-			else
-//				$temp['title'] ="TimeOff-".$row->name."\n";
-				$temp['title'] =$row->name."\n";
 
-			$temp['start_date'] = $row->start_date;
-			$temp['start_time'] = $row->start_time;
-			$temp['end_date'] = $row->end_date;
-			$temp['end_time'] = $row->end_time;
-			$temp['location_name'] = $row->name;
-			$temp['event_details'] = 'Employee: '.$row->emp_name;
-			$temp['color'] = $row->color;
-	
-			array_push($output,$temp);
-		}
-		
-		header('Access-Control-Allow-Origin: *');
-		header("Content-Type: application/json");
-		echo json_encode($output);
-		*/
-	}
 	
 	}
 	
