@@ -145,6 +145,9 @@ else if (pathArray[3]=="locations")
       });
 	  
 	 
+//$( ".date-picker" ).datepicker({ firstDay: 1});
+var firstDay = $('.date-picker').datepicker('option', 'firstDay');
+$( ".date-picker" ).datepicker( "option", "firstDay", 1 );
 
    </script>
 <script src="<?php echo base_url();?>js/setting.js"></script>

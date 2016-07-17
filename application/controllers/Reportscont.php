@@ -33,13 +33,14 @@ class Reportscont extends CI_Controller
 	
 	 public function creatreport() {
 		//**************************************//
+		extract($_POST);
 		$_POST['drpFromdate'] = date($this->session->userdata('startDate'),strtotime('last monday'));
 		$drpFromdate=$_POST['drpFromdate'];
 		$parts = explode('-', $drpFromdate);
 
 		
 		//**************************************///
-		extract($_POST);
+		
 		
 		 
         $this -> load -> library('pdf');
@@ -188,11 +189,16 @@ class Reportscont extends CI_Controller
         //Close and output PDF document
   
        // $pdf -> Output('report.pdf',  'I');
-	   $pdf -> Output('c://report.pdf',  'F');
-	    $to="hafizyounis@gmail.com";
+//	   $pdf -> Output('c://report.pdf',  'F');
+	   $pdf -> Output('report.pdf',  'F');
+	   $rec=$this->fullschedulemodel->get_emails($drpFromdate);
+	   $address = $rec->result();
+	   //echo 'address : '.$rec1[0]->email1;
+	  //  $to="hafizyounis@gmail.com";
 		$subject='Super Market Account';
 		$message="Dear Sear \n,Your Plan as follow : \n";	        
-		$this->send_email($to,$subject,$message);
+		foreach ($address as $to)
+		$this->send_email($to->email1,$subject,$message);
 	   
     }
 	   private function send_email($to,$subject,$message)
@@ -203,7 +209,7 @@ class Reportscont extends CI_Controller
             //$this->email->cc('another@another-example.com');
             //$this->email->bcc('them@their-example.com');
 			/*$path = set_realpath('uploads/pdf/');*/
-			$this->email->attach('c://report.pdf');
+			$this->email->attach('report.pdf');
             $this->email->subject($subject);
             $this->email->message($message);
             $this->email->send();

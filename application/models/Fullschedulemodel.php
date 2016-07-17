@@ -56,6 +56,24 @@ class Fullschedulemodel extends CI_Model
 		}
         return $this->db->query($myquery);
 	}*/
+	function get_emails($drpFromdate)
+	{
+		
+		$drpTodate = date('Y-m-d', strtotime($drpFromdate .'+6 day'));
+		$myquery = "SELECT 	email1
+					FROM 	dusseldorf_v3_shifts sft,dusseldorf_users b
+					where 	b.id=sft.user_id
+					AND     b.id in (select  user_id 
+   								     from   dusseldorf_v3_shifts
+									 where  ((start_date<='".$drpFromdate."' and end_date>='".$drpTodate."')
+									 OR      (start_date>='".$drpFromdate."' and start_date<='".$drpTodate."' AND end_date>='".$drpTodate."')
+									 OR      (start_date<='".$drpFromdate."' and end_date>='".$drpFromdate."' AND end_date<='".$drpTodate."')
+									 OR      (start_date>='".$drpFromdate."' and end_date<='".$drpTodate."')))";
+									 
+		return $this->db->query($myquery);
+
+
+	}
 	public function get_all_shift()//Calender View
 	{
 		

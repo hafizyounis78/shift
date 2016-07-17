@@ -18,7 +18,7 @@
 				<ul class="page-sidebar-menu page-sidebar-menu-hover-submenu " data-keep-expanded="false" data-auto-scroll="true" data-slide-speed="200">
 					<li class="start <?php if($title == 'home') echo 'active';?> ">
 <!--						<a href="<?php echo base_url();?>home">-->
-						<a href="http://hireit4u.com/supermarket/index.php/dashboard/#">
+						<a href="http://hireit4u.com/edeka/index.php/dashboard/#">
 						<i class="icon-home"></i>
 						<span class="title">Home</span>
 						</a>
@@ -56,7 +56,7 @@
                     <li <?php if($title == 'shifts') echo 'class="active open"';?>>
 						<a href="<?php echo base_url();?>shiftscont/shifts">
 						<i class="icon-list"></i>
-						<span class="title">Shifts</span>
+						<span class="title"><?php echo $this->lang->line('Shifts');?></span>
 						</a>
 					</li>
                    <?php  }?>
@@ -70,7 +70,7 @@
                     <li  <?php if($title == 'timeoff') echo 'class="active open"';?>>
 						<a href="<?php echo base_url();?>timeoffcont/timeoff">
 						<i class="icon-speedometer"></i>
-						<span class="title">Timeoff Request</span>
+						<span class="title"><?php echo $this->lang->line('Timeoff Request');?></span>
 						</a>
 					</li>
                      <?php if ($this->session->userdata('itemname') == "gm")
@@ -79,7 +79,7 @@
                     <li class="last " <?php if($title == 'calrep') echo 'class="active open"';?>>
 						<a href="<?php echo base_url();?>reportscont/printcalendar">
 						<i class="icon-printer"></i>
-						<span class="title">Print</span>
+						<span class="title"><?php echo $this->lang->line('Print');?></span>
 						</a>
 					</li>
                        <?php  }?>
@@ -89,7 +89,7 @@
                     <li class="last " <?php if($title == 'setting') echo 'class="active open"';?>>
 						<a href="<?php echo base_url();?>settingcont/setting">
 						<i class="icon-settings"></i>
-						<span class="title">Setting</span>
+						<span class="title"><?php echo $this->lang->line('Settings');?></span>
 						</a>
 					</li>
                        <?php  }?>

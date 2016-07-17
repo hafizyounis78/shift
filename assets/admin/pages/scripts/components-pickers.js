@@ -6,7 +6,8 @@ var ComponentsPickers = function () {
             $('.date-picker').datepicker({
                 rtl: Metronic.isRTL(),
                 orientation: "left",
-                autoclose: true
+                autoclose: true,
+				firstDay: 1
             });
             //$('body').removeClass("modal-open"); // fix bug when inline picker is used in modal
         }
@@ -56,6 +57,7 @@ var ComponentsPickers = function () {
                 endDate: moment(),
                 minDate: '01/01/2012',
                 maxDate: '12/31/2014',
+				firstDay: 1
             },
             function (start, end) {
                 $('#defaultrange input').val(start.format('MMMM D, YYYY') + ' - ' + end.format('MMMM D, YYYY'));
@@ -70,6 +72,7 @@ var ComponentsPickers = function () {
                 endDate: moment(),
                 minDate: '01/01/2012',
                 maxDate: '12/31/2014',
+				firstDay: 1
             },
             function (start, end) {
                 $('#defaultrange_modal input').val(start.format('MMMM D, YYYY') + ' - ' + end.format('MMMM D, YYYY'));
@@ -125,7 +128,7 @@ var ComponentsPickers = function () {
                 $('#reportrange span').html(start.format('MMMM D, YYYY') + ' - ' + end.format('MMMM D, YYYY'));
             }
         );
-        //Set the initial state of the picker label
+        //Set the initial states of the picker label
         $('#reportrange span').html(moment().subtract('days', 29).format('MMMM D, YYYY') + ' - ' + moment().format('MMMM D, YYYY'));
     }
 

@@ -56,6 +56,8 @@ class Fullschedulecont extends CI_Controller
 			$this->load->view('templates/head',$this->data);
 			$this->load->view('templates/header',$this->data);
 			$this->load->view('templates/sidebar');
+			//$this->load->view('templates/sidebarhor');
+			
 			$this->load->view('templates/content');
 			$this->load->view('templates/pageheader');
 			
@@ -71,6 +73,7 @@ class Fullschedulecont extends CI_Controller
 	{
 		$this->load->model('constantmodel');
 		$this->data['location']= $this->constantmodel->get_location_list();
+//		echo $this->data['location'];
 		//$this->data['staffList']= $this->constantmodel->get_staff_list();
 		$this->data['deptList']= $this->constantmodel->get_dept_list();
 		$this->data['specList']= $this->constantmodel->get_spec_list();

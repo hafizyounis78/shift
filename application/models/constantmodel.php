@@ -57,7 +57,7 @@ class Constantmodel extends CI_Model
 		return $query->result();
 	*/	
 	}
-	function get_location_list()
+	function get_location_list_old()
 	{	
 		if ($this->session->userdata('itemname')=="admin")
 			$myquery = "SELECT map_id as id,map_name as Location_name,dep_name  
@@ -101,6 +101,17 @@ class Constantmodel extends CI_Model
 		return $query->result();
 	*/	
 	}
+function get_location_list()
+	{	
+			$myquery = "SELECT map_id as id,map_name as Location_name,dep_name  
+						FROM   task_map_dep,departments
+						where  departments.dep_id=task_map_dep.dep_child_id";
+						
+					
+			$res = $this->db->query($myquery);
+			return $res->result();
+		
+	}	
 function get_locationBydept()
 {	
 		extract($_POST);
@@ -108,11 +119,11 @@ function get_locationBydept()
 		$myquery = "SELECT map_id as id,map_name as Location_name,dep_name    
 					FROM   task_map_dep,departments
 					where  departments.dep_id=task_map_dep.dep_child_id
-					and    task_map_dep.dep_id=".$this->session->userdata('dep_id')."
-					UNION
+					and    task_map_dep.dep_id=".$this->session->userdata('dep_id');
+					/*UNION
 					SELECT map_id as id,map_name as Location_name,'Market' as dep_name    
 					FROM   task_map_dep
-					where  map_id=400";
+					where  map_id=400*/
 
 			
 		
@@ -120,11 +131,11 @@ function get_locationBydept()
 	$myquery = "SELECT map_id as id,map_name as Location_name,dep_name    
 					FROM   task_map_dep,departments
 					where  departments.dep_id=task_map_dep.dep_child_id
-					and    task_map_dep.dep_child_id=".$deptNo."
-					UNION
+					and    task_map_dep.dep_child_id=".$deptNo;
+					/*UNION
 					SELECT map_id as id,map_name as Location_name,'Market' as dep_name    
 					FROM   task_map_dep
-					where  map_id=400";
+					where  map_id=400*/
 				
 		$res = $this->db->query($myquery);
 		return $res->result();
@@ -150,7 +161,8 @@ function get_dept_list()
 	if ($this->session->userdata('itemname')=="admin")
 		$myquery = "SELECT departments.dep_id,dep_name  
 					FROM   departments
-					where  parent_id != 0";
+					where  parent_id != 0
+					and    dep_statues=1";
 					
 
 	else if ($this->session->userdata('itemname')=="gm")
@@ -160,6 +172,7 @@ function get_dept_list()
 		$myquery = "SELECT departments.dep_id,dep_name  
 					FROM   departments,dep_man 
 					where  dep_man.dep_id=departments.parent_id
+					and    dep_statues=1
 					and    dep_man.usr_id=".$this->session->userdata('user_id');
 				
 		}
@@ -170,6 +183,7 @@ function get_dept_list()
 		$myquery = "SELECT departments.dep_id,dep_name  
 					FROM   departments,dep_man 
 					where  dep_man.dep_id=departments.dep_id
+					and    dep_statues=1
 					and    dep_man.usr_id=".$this->session->userdata('user_id');
 				
 		}
@@ -178,6 +192,7 @@ function get_dept_list()
 		$myquery = "SELECT departments.dep_id,dep_name  
 				FROM  departments,dusseldorf_users
 				where departments.dep_id=dusseldorf_users.dep_id
+				and    dep_statues=1
 				and   dusseldorf_users.id=".$this->session->userdata('user_id');
 		
 		$res = $this->db->query($myquery);

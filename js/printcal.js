@@ -71,26 +71,18 @@ function printcal()
 function creatreport()
 { 
 //alert(111);
- window.open(  baseURL+"Reportscont/creatreport", "popupWindow", "width=600,height=600,scrollbars=yes");
-/*var reportSize='A4';
-	var formData = new FormData();
-		formData.append('reportSize', reportSize),
-	
-		$.ajax({
-	url: baseURL+"Reportscont/creatreport",
-	type: "POST",
-	data: formData,
-	processData: false,
-	contentType: false,
-	error: function(xhr, status, error) {
-		alert(xhr.responseText);
-	},
-	beforeSend: function(){},
-	complete: function(){},
-	success: function(returndb){
-		alert('Done');
-		}
-	});//END $.ajax*/
+// window.open(  baseURL+"Reportscont/creatreport", "popupWindow", "width=600,height=600,scrollbars=yes");
+
+	$.ajax({
+		url: baseURL+"Reportscont/creatreport",
+		type: "POST",
+		error: function(xhr, status, error) {
+			alert(xhr.responseText);
+		},
+		success: function(returndb){
+			alert('Done');
+			}
+		});//END $.ajax
 
 	
 	

@@ -11,8 +11,8 @@ $(document).ready(function () {
 			document.getElementById("divSpec").style.display = "None";	
 			var ddldept=document.getElementById('drplstDept');
 			ddldept.options[0].selected = true;
-			$('#drpLocation').empty();
-			$('#drpLocation').val('');
+		//	$('#drpLocation').empty();
+		//	$('#drpLocation').val('');
 			
 
         }
@@ -76,8 +76,8 @@ function getAlllocation()
 				complete: function(){},
 				success: function(returndb){
 					
-					$('#drpLocation').empty();
-					$("#drpLocation").html(returndb);
+				//	$('#drpLocation').empty();
+				//	$("#drpLocation").html(returndb);
 	
 					}
 				});//END $.ajax
@@ -100,11 +100,11 @@ function addShiftTemplate()
 				/*alert(returndb);
 				alert(returndb[0]);
 				alert(returndb[0]['txtName']);*/
-                var el = $('<div class="external-event label label-default col-md-12"><span id="dvName">' 
+                var el = $('<div class="external-event label label-default col-md-10" style=" background-color:#069"><span id="dvName">' 
 						  + returndb[0]['txtName'] + 
 						 '</span><br/><span id="dvStart">' + returndb[0]['txtStart'] + '</span> - <span id="dvEnd">'
 						  + returndb[0]['txtEnd'] +
-						  '</span><i class="fa fa-coffee" aria-hidden="true"></i> <span id="dvBreak">' 
+						  '</span><i style="font-size:12px" class="fa fa-coffee" aria-hidden="true"></i> <span id="dvBreak">' 
 						  + returndb[0]['txtBreak'] +'</span> min</div>');
                 jQuery('#event_box').append(el);
 				
@@ -203,7 +203,7 @@ function clearFullStaffSelect()
 		$("#my_multi_select1").multiSelect('refresh');
 		staffList="";
 		if ($("#rdSelection1").attr("checked")) {
-		$('#drpLocation').empty();
+	//	$('#drpLocation').empty();
 		$('#drpLocation').val("");
 		}
 		var ddldept=document.getElementById('drplstDept');
@@ -216,7 +216,7 @@ function clearFullStaffSelect()
 function clearFullShiftForm()
 {
 	$("#hdnshiftId").val("");
-	$('#drpLocation').empty();
+	//$('#drpLocation').empty();
 	$('#drpLocation').val("");
 	$("#drplstBreak").val("");
 	$("#drpFromdate").val("");
@@ -238,8 +238,8 @@ function drpdeptFullChange()
 {
 		$("#my_multi_select1").html('');
 		$("#my_multi_select1").multiSelect('refresh');
-		$('#drpLocation').empty();
-		$('#drpLocation').val("");
+		//$('#drpLocation').empty();
+		//$('#drpLocation').val("");
 		var shifttype= $("input[name=rdShifttype]:checked").val();
 		var shiftcont='';
 		if (shifttype==1)
@@ -280,8 +280,8 @@ function drpdeptFullChange()
 				var location=retdb[1];
 				$("#my_multi_select1").html(stafflist);
 				$("#my_multi_select1").multiSelect('refresh');
-				$('#drpLocation').empty();
-				$("#drpLocation").html(location);
+		//		$('#drpLocation').empty();
+			//	$("#drpLocation").html(location);
 				
 			}
 		});//END $.ajax

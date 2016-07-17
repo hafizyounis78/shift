@@ -24,8 +24,8 @@ date_default_timezone_set('Asia/Gaza');
           <div class="portlet-title">
               <div class="caption">
                   <i class="fa fa-clock-o"></i>Print Plan
-                  <input type="button" id="btnprint" name="btnprint"  onclick="printcal();"  value="Print" />
-                   <input type="button" id="btnpdf" name="btnpdf"  onclick="creatreport();"  value="Pdf" />
+                  <button type="button" id="btnprint" name="btnprint"  class="btn default btn-xs red" onclick="printcal();"  value="Print"><i class="icon-printer"></i></button>
+                   <button type="button" id="btnpdf" name="btnpdf"  class="btn default btn-xs blue" onclick="creatreport();"  value="Send Email" ><i class="fa fa-mail-forward"></i></button>
               </div>
               
           </div>

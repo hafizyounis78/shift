@@ -109,11 +109,11 @@ var Calendar = function() {
 						  
 						  for(var a=0; a< returndb.length; a++){
 							  
-							  var html = $('<div class="external-event label label-default col-md-12"><span id="dvName">' 
+							  var html = $('<div class="external-event label label-default col-md-10" style=" background-color:#069"><span id="dvName">' 
 										    + returndb[a]['txtName'] + 
 										   '</span><br/><span id="dvStart">' + returndb[a]['txtStart'] + '</span> - <span id="dvEnd">'
 										    + returndb[a]['txtEnd'] +
-											'</span><i class="fa fa-coffee" aria-hidden="true"></i> <span id="dvBreak">' 
+											'</span><i style="font-size:12px" class="fa fa-coffee" aria-hidden="true"></i> <span id="dvBreak">' 
 											+ returndb[a]['txtBreak'] +'</span> min</div>');
 							jQuery('#event_box').append(html);
 							initDrag(html);
@@ -165,12 +165,34 @@ var Calendar = function() {
 				select: function(start, end) {
 				  if (sessionValue =='gm')
 				   {
+				//	alert(222);
+					var view = $('#calendar').fullCalendar('getView');
+					//alert(view.name);
+					  var startdate = start.format().toString();
+						 var startdateParts = startdate.split("-");
+						
+					 var endstr = end.format().toString();
+						 var dateParts = endstr.split("-");
+						  var Startate = startdateParts[2];
+							var Enddate = dateParts[2]-1;
+					if (Enddate<=0)
+					Enddate=Startate;
+
+					if (view.name =='month')
+					{
+						if (Startate==Enddate)
+						 {
+							 $('#calendar').fullCalendar('changeView', 'agendaDay')
+							 $('#calendar').fullCalendar('gotoDate', start.format());
+							 return;
+						 }
+					}
 						 $("#form_modal2").modal();	
 						 $("#drpFromdate").val('');
 						 $("#drpTodate").val('');
 						
-						  var startdate = start.format().toString();
-						 var startdateParts = startdate.split("-");
+						/*  var startdate = start.format().toString();
+						 var startdateParts = startdate.split("-");*/
 						
 						 if (startdateParts[2].toString().length>2)
 						 {	//alert(startdateParts[2].toString());	
@@ -185,8 +207,8 @@ var Calendar = function() {
 						 else
 						  $("#drpFromdate").val(start.format());
 										 
-						 var endstr = end.format().toString();
-						 var dateParts = endstr.split("-");
+						/* var endstr = end.format().toString();
+						 var dateParts = endstr.split("-");*/
 						if (dateParts[2].length>2)
 						{	
 							
@@ -248,6 +270,11 @@ var Calendar = function() {
                     }
 					*/
 					// Open Modal
+					//alert(555);
+					
+					/*if(view.name === 'agendaWeek' || view.name === 'agendaDay')
+					{
+					}*/
 					$("#form_modal2").modal();
 					var d = new Date(date);
 					
@@ -273,11 +300,21 @@ var Calendar = function() {
 					
 				}
                 },
-				dayClick: function(date, jsEvent, view, resourceObj) {
-				/*	alert('Date: ' + date.format());
-					alert('Resource ID: ' + resourceObj.id);
-			*/
+				dayClick: function(date, jsEvent, view) {
+					//alert('Date: ' + date.format());
+
+			
+				
+				
+				  if(view.name != 'month')
+					return;
+				  else
+				   {
+				  /* $('#calendar').fullCalendar('changeView', 'agendaDay')
+					$('#calendar').fullCalendar('gotoDate', date.format());*/
+				   }
 				},
+				
 				eventRender: function (event, element) {
 					$('.popover').popover('hide');
 					element.popover({
@@ -293,7 +330,14 @@ var Calendar = function() {
 					  $(element).css('height','100');
 					  $(element).css('width','100');
 				  },*/
-								viewRender: function(view, element) 
+					eventDrop: function(event, delta, revertFunc) {
+				
+							revertFunc();
+						
+					},
+				
+		 
+				viewRender: function(view, element) 
 				{
 					
 					if(view.name === 'agendaWeek' || view.name === 'agendaDay')

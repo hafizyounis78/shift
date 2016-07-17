@@ -9,8 +9,8 @@ $(document).ready(function () {
 			document.getElementById("divJobtitle").style.display = "None";	
 			document.getElementById("divSpec").style.display = "None";	
 			
-			$('#drpLocation').empty();
-			$('#drpLocation').val("");
+		//	$('#drpLocation').empty();
+		//	$('#drpLocation').val("");
         }
         else {
             slectionId=$("#rdSelection2").val();
@@ -19,7 +19,11 @@ $(document).ready(function () {
 			document.getElementById("divSpec").style.display = "block";	
 			getAlllocation();
 		}
-
+/*$(function() {
+    $( "#dvdate" ).datepicker({ 
+	
+	firstDay: 1 });
+});*/
     })
 
 //*****************change date or time*************//
@@ -46,8 +50,8 @@ function getAlllocation()
 				complete: function(){},
 				success: function(returndb){
 					
-					$('#drpLocation').empty();
-					$("#drpLocation").html(returndb);
+				//	$('#drpLocation').empty();
+				//	$("#drpLocation").html(returndb);
 	
 					}
 				});//END $.ajax
@@ -142,9 +146,14 @@ function updateShift(i)
 {
 	getAlllocation();
 	$("#hdnshiftId").val(i);
+	var shiftid=$("#hdnshiftId").val();
+	//alert(shiftid);
 	$("#hdnaction").val('updateShift');
 	var locationId=$("#tdlocation"+i).attr('data-loid');
 	//alert(locationId);
+	var deptId=$("#tdDepartment"+i).attr('data-loid');
+	//alert(deptId);
+	//$("#drpLocation")='';
 	$("#drpLocation").val(locationId);
 	$('#drpFromdate').datepicker('setDate', $("#tdstart_date"+i).html());
 	//$("#drpFromdate").val($("#tdstart_date"+i).html());
@@ -184,13 +193,13 @@ function updateShift(i)
      }
 
  
-	$("#txtstaffName").val($("#tdstaff"+i).html());
-	document.getElementById("divSelect").style.display = "None";	
+	//$("#txtstaffName").val($("#tdstaff"+i).html());
+	/*document.getElementById("divSelect").style.display = "None";	
 	document.getElementById("divUser").style.display = "None";	
 	document.getElementById("divDept").style.display = "None";	
 	document.getElementById("divJobtitle").style.display = "None";	
 	document.getElementById("divSpec").style.display = "None";	
-	document.getElementById("dvstaffname").style.display = "block";	
+	document.getElementById("dvstaffname").style.display = "block";	*/
 	 Metronic.scrollTo($('#shiftForm'), -100);
 }
 function clearStaffSelect()
@@ -215,7 +224,7 @@ function clearShiftForm()
 {
 	$("#hdnshiftId").val("");
 	$("#hdnaction").val('addshift');
-	$('#drpLocation').empty();
+	//$('#drpLocation').empty();
 	$('#drpLocation').val("");
 	$("#drplstBreak").val("");
 	
@@ -241,8 +250,8 @@ function drpdeptChange()
 {
 		$("#my_multi_select1").html('');
 		$("#my_multi_select1").multiSelect('refresh');
-		$('#drpLocation').empty();
-		$('#drpLocation').val("");
+		//$('#drpLocation').empty();
+		//$('#drpLocation').val("");
 	
 		if (!validateShift())
 		 {
@@ -280,8 +289,8 @@ function drpdeptChange()
 				*/
 				$("#my_multi_select1").html(stafflist);
 				$("#my_multi_select1").multiSelect('refresh');
-				$('#drpLocation').empty();
-				$("#drpLocation").html(location);
+			//	$('#drpLocation').empty();
+			//	$("#drpLocation").html(location);
 
 			}
 		});//END $.ajax
@@ -671,8 +680,8 @@ var ShiftComponentsDropdowns = function () {
 				staffList=newstafflist;
 			},
 			
-			selectableHeader: "<div class='btn-danger' align='center'><b> Available </b></div>",
-  			selectionHeader: "<div class='btn-success' align='center'><b> Selected </b></div>"
+			selectableHeader: "<div class='btn-danger' align='center'><b> Verfügbar </b></div>",
+  			selectionHeader: "<div class='btn-success' align='center'><b> Ausgewählt </b></div>"
         });
 	
     }
