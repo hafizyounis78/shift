@@ -106,10 +106,10 @@ var Calendar = function() {
 					  beforeSend: function(){},
 					  complete: function(){},
 					  success: function(returndb){
-						  
+						  jQuery('#event_box').html('');
 						  for(var a=0; a< returndb.length; a++){
 							  
-							  var html = $('<div class="external-event label label-default col-md-10" style=" background-color:#069"><span id="dvName">' 
+							  var html = $('<div class="external-event label label-default col-md-10" style=" background-color:#069" ondblclick="delShiftTemp(' + returndb[a]['id'] + ');"><span id="dvName">' 
 										    + returndb[a]['txtName'] + 
 										   '</span><br/><span id="dvStart">' + returndb[a]['txtStart'] + '</span> - <span id="dvEnd">'
 										    + returndb[a]['txtEnd'] +
@@ -154,7 +154,7 @@ var Calendar = function() {
                 header: h,
 				 height: 1100,
 		        contentHeight: 1100,
-                defaultView: 'month', // change default view with available options from http://arshaw.com/fullcalendar/docs/views/Available_Views/ 
+                defaultView: 'agendaWeek', // change default view with available options from http://arshaw.com/fullcalendar/docs/views/Available_Views/ 
                 slotMinutes: 15,
                 editable: true,
 				eventLimit: true, // allow "more" link when too many events
@@ -318,12 +318,13 @@ var Calendar = function() {
 				eventRender: function (event, element) {
 					$('.popover').popover('hide');
 					element.popover({
-				            title: "Employee",
+				            title: "Einzelheiten",
 				            placement:'left',
 							container:'body',
 				            html:true,
 				            content: event.msg
                         });
+				element.find('.fc-time').after('<span style="font-size:12px" class="fa fa-coffee"></span> ');
 				},
 				/*eventAfterRender: function(event, element, view) 
 				  {
@@ -433,6 +434,7 @@ var Calendar = function() {
 									
          						events.push({
 //											title:retrieved_data[a]['title']+retrieved_data[a]['event_details'],
+											//title:'<span><i style="font-size:12px" class="fa fa-coffee" aria-hidden="true"></i></span>'+retrieved_data[a]['lunch_break']+'<br/>'+retrieved_data[a]['title'],
 											title:retrieved_data[a]['title'],
 											msg: retrieved_data[a]['event_details'],
 											start:new Date(startdateParts[0], parseInt(startdateParts[1] - 1), startdateParts[2], starttimeParts[0], starttimeParts[1]),//:retrieved_data[a]['start_date'],
@@ -480,6 +482,65 @@ function convertTime(timeParam)
 	if(hours<10) sHours = "0" + sHours;
 	
 	return parseInt(sHours);
+}
+function delShiftTemp(shiftTempId)
+{
+	var x='';
+	var r = confirm('This record will be deleted. Do you want to continue?');
+	
+	if (r == true) 
+		x =1;
+	else 
+		x = 0;
+	
+	if(x==1)
+	{
+		$.ajax({
+			  url: baseURL+"Fullschedulecont/deleteShiftTemp",
+			  type: "POST",
+			  data:  {shiftTempId:shiftTempId},
+			  error: function(xhr, status, error) {
+				  //var err = eval("(" + xhr.responseText + ")");
+				  alert(xhr.responseText);
+			  },
+			  beforeSend: function(){},
+			  complete: function(){},
+			  success: function(returndb){
+				  /*alert(returndb);
+				alert(returndb[0]);
+				alert(returndb[0]['txtName']);*/
+               jQuery('#event_box').html('');
+			   var el='';
+			  for(var a=0; a< returndb.length; a++){
+							  
+				   el = $('<div class="external-event label label-default col-md-10" style=" background-color:#069" ondblclick="delShiftTemp(' + returndb[a]['id'] + ');"><span id="dvName">' 
+								+ returndb[a]['txtName'] + 
+							   '</span><br/><span id="dvStart">' + returndb[a]['txtStart'] + '</span> - <span id="dvEnd">'
+								+ returndb[a]['txtEnd'] +
+								'</span><i style="font-size:12px" class="fa fa-coffee" aria-hidden="true"></i> <span id="dvBreak">' 
+								+ returndb[a]['txtBreak'] +'</span> min</div>');
+				jQuery('#event_box').append(el);
+				var eventObject = {
+                    title: $.trim(el.text()) // use the element's text as the event title
+                };
+                // store the Event Object in the DOM element so we can get to it later
+                el.data('eventObject', eventObject);
+                // make the event draggable using jQuery UI
+                el.draggable({
+                    zIndex: 999,
+                    revert: true, // will cause the event to go back to its
+                    revertDuration: 0 //  original position after the drag
+                });
+				  
+						}//END FOR	
+				//--initDrag;
+				alert('Delete shift Templete success');
+				
+			}
+				 
+			  
+		});//END $.ajax
+	}
 }
 //----
 $(document).ready(function(){

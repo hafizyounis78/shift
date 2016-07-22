@@ -80,6 +80,7 @@ class Fullschedulecont extends CI_Controller
 		$this->data['jobtitleList']= $this->constantmodel->get_jobtitle_list();
 	//	$this->getall_Shift_calender();
 	}
+	
 	function getfullschedule()
 	{
 		
@@ -94,6 +95,7 @@ class Fullschedulecont extends CI_Controller
 			$temp = array();
 
 			// It guess your client side will need the id to extract, and distinguish the ScoreCH data
+			$temp['id'] 	= $row->id;
 			$temp['txtName'] 	= $row->name;
 			$temp['txtStart'] 	= $row->start_time;
 			$temp['txtEnd'] 	= $row->end_time;
@@ -115,6 +117,13 @@ class Fullschedulecont extends CI_Controller
 	{
 		$this->load->model('fullschedulemodel');
 		$this->fullschedulemodel->insert_shift_template();
+		$this->getfullschedule();
+		
+	}
+	function deleteShiftTemp()
+	{
+		$this->load->model('fullschedulemodel');
+		$this->fullschedulemodel->delete_shift_template();
 		$this->getfullschedule();
 		
 	}
@@ -186,17 +195,21 @@ class Fullschedulecont extends CI_Controller
 	
 			if ( $row->type==1)
 	//			$temp['title'] ="Shift-".$row->name."\n";
-				$temp['title'] ='Location: '.$row->name."\n";
+		{
+				$temp['title'] ="Break: ".$row->lunch_break."\n Abteilungen:".$row->dep_name."\n Station: ".$row->name."\n";
+				$temp['lunch_break'] =$row->lunch_break;
+		}
 			else
 //				$temp['title'] ="TimeOff-".$row->name."\n";
-				$temp['title'] =$row->name."\n";
-
+			{	$temp['title'] =$row->name."\n";
+				$temp['lunch_break'] ='';
+			}
 			$temp['start_date'] = $row->start_date;
 			$temp['start_time'] = $row->start_time;
 			$temp['end_date'] = $row->end_date;
 			$temp['end_time'] = $row->end_time;
 			$temp['location_name'] = $row->name;
-			$temp['event_details'] = 'Employee: '.$row->emp_name;
+			$temp['event_details'] = "Mitarbeiter:".$row->emp_name."<br/>Abteilungen:".$row->dep_name."<br/>Station:".$row->name."\n";
 			$temp['color'] = $row->color;
 	
 			array_push($output,$temp);

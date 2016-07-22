@@ -97,19 +97,17 @@ function addShiftTemplate()
 			beforeSend: function(){},
 			complete: function(){},
 			success: function(returndb){
-				/*alert(returndb);
-				alert(returndb[0]);
-				alert(returndb[0]['txtName']);*/
-                var el = $('<div class="external-event label label-default col-md-10" style=" background-color:#069"><span id="dvName">' 
-						  + returndb[0]['txtName'] + 
-						 '</span><br/><span id="dvStart">' + returndb[0]['txtStart'] + '</span> - <span id="dvEnd">'
-						  + returndb[0]['txtEnd'] +
-						  '</span><i style="font-size:12px" class="fa fa-coffee" aria-hidden="true"></i> <span id="dvBreak">' 
-						  + returndb[0]['txtBreak'] +'</span> min</div>');
-                jQuery('#event_box').append(el);
-				
-				//--initDrag;
-				alert('Add shift Templete success');
+				jQuery('#event_box').html('');
+			   var el='';
+			  for(var a=0; a< returndb.length; a++){
+							  
+				   el = $('<div class="external-event label label-default col-md-10" style=" background-color:#069" ondblclick="delShiftTemp(' + returndb[a]['id'] + ');"><span id="dvName">' 
+								+ returndb[a]['txtName'] + 
+							   '</span><br/><span id="dvStart">' + returndb[a]['txtStart'] + '</span> - <span id="dvEnd">'
+								+ returndb[a]['txtEnd'] +
+								'</span><i style="font-size:12px" class="fa fa-coffee" aria-hidden="true"></i> <span id="dvBreak">' 
+								+ returndb[a]['txtBreak'] +'</span> min</div>');
+				jQuery('#event_box').append(el);
 				var eventObject = {
                     title: $.trim(el.text()) // use the element's text as the event title
                 };
@@ -121,8 +119,9 @@ function addShiftTemplate()
                     revert: true, // will cause the event to go back to its
                     revertDuration: 0 //  original position after the drag
                 });
-				//--
-                
+				  
+						}//END FOR	
+				
 			}
 		});//END $.ajax
 	

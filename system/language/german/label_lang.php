@@ -180,6 +180,7 @@ $lang['Married'] = "Verheiratet";
 $lang['Divorced'] = "Geschieden";
 
 $lang['Detail'] = "Detail";
+$lang['Details'] = "Einzelheiten";
 
 
 
@@ -274,6 +275,7 @@ $lang['All Department'] = "Alle Abteilungen";
 $lang['Add new locations'] = "Neue Station hinzufügen";
 
 $lang['Location Name'] = "Name der Station";
+$lang['Location'] = "Station";
 
 $lang['Description'] = "Beschreibung";
 

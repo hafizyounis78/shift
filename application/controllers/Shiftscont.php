@@ -92,7 +92,8 @@ class Shiftscont extends CI_Controller
 			  
 		  }  
 		//*******************get location by dept
-		echo $str.'@@'.$this->getLocationBydept();
+//		echo $str.'@@'.$this->getLocationBydept();
+		echo $str.'@@'.'hafiz';
 	}
 	function getLocationBydept()
 	{
