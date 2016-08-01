@@ -20,7 +20,7 @@
 <!--						<a href="<?php echo base_url();?>home">-->
 						<a href="http://hireit4u.com/edeka/index.php/dashboard/#">
 						<i class="icon-home"></i>
-						<span class="title">Home</span>
+						<span class="title"><?php echo $this->lang->line('Home');  ?></span>
 						</a>
 					</li>
 					<li <?php if($title == 'fullschedule') echo 'class="active open"';?> >
@@ -60,6 +60,16 @@
 						</a>
 					</li>
                    <?php  }?>
+				 	<?php if ($this->session->userdata('itemname') == "gm")
+					{
+						?>
+                    <li <?php if($title == 'shiftsmang') echo 'class="active open"';?>>
+						<a href="<?php echo base_url();?>shiftscont/shiftsmang">
+						<i class="icon-list"></i>
+						<span class="title">shift copy</span>
+						</a>
+					</li>
+                    <?php  }?>
 
                     <!--<li <?php if($title == 'shifttemplate') echo 'class="active open"';?>>
 						<a href="<?php echo base_url();?>shifttemplatecont/shifttemplate">

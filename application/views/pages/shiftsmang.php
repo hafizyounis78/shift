@@ -64,10 +64,10 @@ $readonly = '';
                           * </span></label>
                         <div id="dvdate" class="col-md-6">
                             <div class="input-group input-medium date-picker input-daterange" data-date="10/11/2012" data-date-format="yyyy-mm-dd">
-                                <input type="text" id="drpFromdate" class="form-control shiftclassConflict" name="drpFromdate" >
+                                <input type="text" id="drpFromdate" class="form-control " name="drpFromdate" >
                                 <span class="input-group-addon">
                                 to </span>
-                                <input type="text" id="drpTodate" class="form-control shiftclassConflict" name="drpTodate" >
+                                <input type="text" id="drpTodate" class="form-control " name="drpTodate" >
                             </div>
                             <!-- /input-group -->
                         </div>
@@ -77,7 +77,7 @@ $readonly = '';
                           * </span></label>
                             <div class="col-md-2">
                                 <div class="input-group">
-                                    <input type="text" class="form-control timepicker timepicker-24 shiftclassConflict" id="txtStart"  name="txtStart" >
+                                    <input type="text" class="form-control timepicker timepicker-24 " id="txtStart"  name="txtStart" >
                                     <span class="input-group-btn">
                                     <button class="btn default" type="button"><i class="fa fa-clock-o"></i></button>
                                     </span>
@@ -85,7 +85,7 @@ $readonly = '';
                             </div>
                             <div class="col-md-2">
                                 <div class="input-group">
-                                    <input type="text" class="form-control timepicker timepicker-24 shiftclassConflict" id="txtEnd" name="txtEnd" >
+                                    <input type="text" class="form-control timepicker timepicker-24 " id="txtEnd" name="txtEnd" >
                                     <span class="input-group-btn">
                                     <button class="btn default" type="button"><i class="fa fa-clock-o"></i></button>
                                     </span>
@@ -297,11 +297,9 @@ $readonly = '';
 -->									<table class="table table-striped table-bordered table-hover" id="sample_3">
 									<thead>
 									<tr>
-										<th>
-											 #
-										</th>
+											
                                         <th>
-											 <?php echo $this->lang->line('Staff'); ?>
+											 <?php echo $this->lang->line('Locatios'); ?>
 										</th>
 										<th>
 											 <?php echo $this->lang->line('Start Date');?>
@@ -315,20 +313,15 @@ $readonly = '';
 										<th>
 											<?php echo $this->lang->line('End Time');?> 
 										</th>
-										<th>
-											 <?php echo $this->lang->line('Market'); ?>
-										</th>
-                                        <th>
-											 <?php echo $this->lang->line('Department'); ?>
-										</th>
-                                        <th>
-											 <?php echo $this->lang->line('Locatios'); ?>
-										</th>
+										                   
                                         <th>
 											 Status
 										</th>
                                          <th>
 											 <?php echo $this->lang->line('Is special Shift'); ?>
+										</th>
+                                        <th>
+											 <?php echo $this->lang->line('No. of Employee'); ?>
 										</th>
                                         <th>
 											 <?php echo $this->lang->line('Action'); ?>
@@ -340,36 +333,43 @@ $readonly = '';
 						            <?php
 									$i=1;
 									$statusrow='';
+									$specialrow='';
 										foreach($shiftrec as $row)
 											{
 												if($row->status==1)
 												 $statusrow='Draft';
 												 else
 												 $statusrow='Active';
+												 if($row->Special_shift==1)
+												 $specialrow='Yes';
+												 else
+												 $specialrow='No';
 												 echo '<tr>';		
-												 echo '<td>'.$i++.'</td>';
-												 echo '<td id="tdstaff'.$row->id.'">'.$row->Staff_name.'</td>';
-												 echo '<td id="tdstart_date'.$row->id.'">'. $row->start_date.'</td>';
-												 echo '<td id="tdend_date'.$row->id.'">'. $row->end_date.'</td>';
-												 echo '<td id="tdstart_Time'.$row->id.'">'. $row->start_time.'</td>';
-												 echo '<td id="tdend_Time'.$row->id.'">'. $row->end_time.'</td>';
-												 echo '<td id="tdMarket'.$row->id.'" data-loid="'.$row->market_id.'">'. $row->market_name.'</td>';
-												 echo '<td id="tdDepartment'.$row->id.'" data-loid="'.$row->dept_id.'">'. $row->dept_name.'</td>';
-												 echo '<td id="tdlocation'.$row->id.'" data-loid="'.$row->locationId.'">'. $row->location_desc.'</td>';
-												// echo '<td id="tdrdStatus'.$row->id.'">'. $statusrow.'</td>';
+												
+												 echo '<td id="tdlocation'.$i.'" data-loid="'.$row->map_id.'">'. $row->loc_name.'</td>';
+												 echo '<td id="tdstart_date'.$i.'">'. $row->start_date.'</td>';
+												 echo '<td id="tdend_date'.$i.'">'. $row->end_date.'</td>';
+												 echo '<td id="tdstart_Time'.$i.'">'. $row->start_time.'</td>';
+												 echo '<td id="tdend_Time'.$i.'">'. $row->end_time.'</td>';
+												 
 												if ($row->status == 1)
-												 echo '<td id="tdrdStatus'.$row->id.'" data-stid="'.$row->status.'"><span class="label label-sm label-warning">'.$statusrow.'</span></td>';		 
+												 echo '<td id="tdrdStatus'.$i.'" data-stid="'.$row->status.'"><span class="label label-sm label-warning">'.$statusrow.'</span></td>';		 
  												else
-												 echo '<td id="tdrdStatus'.$row->id.'" data-stid="'.$row->status.'"><span class="label label-sm label-success">'.$statusrow.'</span></td>';		 
-												 echo '<td id="tdSpecial_shift'.$row->id.'">'. $row->Special_shift.'</td>';
+												 echo '<td id="tdrdStatus'.$i.'" data-stid="'.$row->status.'"><span class="label label-sm label-success">'.$statusrow.'</span></td>';		 
+												 echo '<td id="tdSpecial_shift'.$i.'">'.$specialrow.'</td>';
+ 												 echo '<td id="tdemployees'.$i.'">'.$row->emp_name.'</td>';
 												 echo '<td>
-													  <button id="btnupdateShift" name="btnupdateShift" type="button" class="btn default btn-xs blue" onclick="updateShift('.$row->id.')">
-													  <i class="fa fa-edit"></i> Update </button>
-													  <button id="btndelShift" name="btndelShift" type="submit" value="Delete" class="btn default btn-xs red" onclick="deleteShift('.$row->id.')"><i class="fa fa-trash-o"></i> delete</button>';
+													  <button id="btnupdateShift" name="btnupdateShift" type="button" class="btn default btn-xs blue" onclick="updateAllshift('.$i.')">
+													  <i class="fa fa-edit"></i>  </button>
+													  <button id="btnduplicatShift" name="btnduplicatShift" type="button" class="btn default btn-xs green" onclick="duplicatShift('.$i.')">
+													  <i class="fa fa-copy"></i>  </button>';
+													  
 												 echo '</td>';  
 												
 												 echo '</tr>';
+											$i++;
 											}
+											
 									?>
 									</tbody>
 									</table>

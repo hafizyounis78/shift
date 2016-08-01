@@ -9,7 +9,7 @@ $readonly = '';
       <div class="portlet box green">
           <div class="portlet-title">
               <div class="caption">
-                  <i class="fa fa-clock-o"></i>Time Off Request
+                  <i class="fa fa-clock-o"></i><?php echo $this->lang->line('Timeoff Request'); ?>
               </div>
               
           </div>
@@ -79,7 +79,7 @@ $readonly = '';
                         <div class="col-md-4">
                           <div class="radio-list">
                               <label class="radio-inline">
-                              <input type="radio" name="rdStatus" id="rdStatus1" value="1" checked>Pending</label>
+                              <input type="radio" name="rdStatus" id="rdStatus1" value="1" checked><?php echo $this->lang->line('Pending');  ?></label>
                               <label class="radio-inline">
                               <input type="radio" name="rdStatus" id="rdStatus2" value="2"><?php echo $this->lang->line('Active');  ?></label>
                               
@@ -243,7 +243,7 @@ $readonly = '';
         <div class="portlet box purple">
             <div class="portlet-title">
                 <div class="caption">
-                    <i class="fa fa-clock-o"></i>Timeoff Table
+                    <i class="fa fa-clock-o"></i><?php echo $this->lang->line('Timeoff Table'); ?>
                 </div>
                 
                 
@@ -260,16 +260,16 @@ $readonly = '';
                              <?php echo $this->lang->line('Staff');  ?>
                         </th>
                         <th>
-                             Start Date
+                             <?php echo $this->lang->line('Start Date');?>
                         </th>
                         <th>
-                             End Date
+                             <?php echo $this->lang->line('End Date');?> 
                         </th>
                         <th>
-                            Start Time
+                            <?php echo $this->lang->line('Start Time');?>
                         </th>
                         <th>
-                             End Time
+                             <?php echo $this->lang->line('End Time');?> 
                         </th>
                         <th>
                              <?php echo $this->lang->line('Locatios'); ?>
@@ -290,9 +290,9 @@ $readonly = '';
                         foreach($timeoffrec as $row)
                             {
                                 if($row->status==1)
-                                 $statusrow='Pending';
+                                 $statusrow='anstehend';
                                  else
-                                 $statusrow='Active';
+                                 $statusrow='Aktiviert';
                                  echo '<tr>';		
                                  echo '<td>'.$i++.'</td>';
                                  echo '<td id="tdstaff'.$row->id.'" data-staffId="'.$row->staffId.'">'.$row->Staff_name.'</td>';

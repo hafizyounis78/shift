@@ -253,6 +253,8 @@ $lang['Department'] = "Abteilungen";
 $lang['Qualification and Specialities'] = "Qualifikationen/Schulungen";
 
 $lang['Employees'] = "Mitarbeiter";
+$lang['No. of Employee'] = "Anzahl der Mitarbeiter";
+
 
 $lang['First Name'] = "Vorname";
 
@@ -342,10 +344,16 @@ $lang['Company Details'] = "Firmendetails";
 $lang['Qualifications and Speciality'] = "Qualifikationen und Sonderqualifikationen";
 //******************************************//
 $lang['Shifts'] = "Schichten";
+$lang['Add Shifts'] = "Neuen Schicht";
+$lang['Shift type'] = "Schicht Typen";
+$lang['Managing Shifts'] = "Verwalten von Schichten";
+$lang['Pending'] = "anstehend";
+$lang['Home'] = "Startseite";
 $lang['Timeoff Request'] = "Urlaubsanfrage";
+$lang['Timeoff Table'] = "Timeoff Tabelle";
 $lang['Print'] = "Drucken";
 $lang['Settings'] = "Einstellungen";
-$lang['Is a special Shift'] = "Sonder Schicht";
+$lang['Is special Shift'] = "Sonder Schicht";
 $lang['Break'] = "Pause";
 $lang['Select one Stuff at least'] = "Wählen Sie mindestens einen Mitarbeiter aus";
 $lang['Available'] = "Verfügbar";

@@ -2,64 +2,12 @@
 
 class Shiftmodel extends CI_Model
 {
-	function insert_duplicatShift()
-	{
-		extract($_POST);
-		//print_r($_POST);
-		$staffid = explode(",", $staffList);
-		foreach($staffid as $element)
-		{
-			
-		 $myquery = "SELECT  COUNT(1) as count_emp
-		 			 FROM    dusseldorf_users outusertb
-					 LEFT    OUTER JOIN dusseldorf_v3_shifts outshifttb on outusertb.id= outshifttb.user_id
-					 WHERE   outusertb.type =2
-					 AND     outusertb.id=".$element."
-					 AND     outusertb.id in (select  user_id 
-													   from   dusseldorf_v3_shifts
-													   where  dusseldorf_v3_shifts.user_id=".$element."
-													   AND   ((start_date<='".$drpFromdate."' and end_date>='".$drpTodate."')
-													   OR      (start_date>='".$drpFromdate."' and start_date<='".$drpTodate."' AND end_date>='".$drpTodate."')
-													   OR      (start_date<='".$drpFromdate."' and end_date>='".$drpFromdate."' AND end_date<='".$drpTodate."')
-													   OR      (start_date>='".$drpFromdate."' and end_date<='".$drpTodate."'))
-													   AND   ((start_time<='".$txtStart."' and end_time>='".$txtEnd."')
-													   or     ( start_time>='".$txtStart."' and start_time<='".$txtEnd."' AND end_time>='".$txtEnd."')
-													   or     ( start_time<='".$txtStart."' and end_time>='".$txtStart."' and end_time<='".$txtEnd."')
-													   or     ( start_time>='".$txtStart."' and end_time<='".$txtEnd."')))";	
 	
-		$res = $this->db->query($myquery);
-		$emp_count = $res->result();
-		$duplicat=0;
-		foreach ($emp_count as $row);
-		if($row->count_emp==0)
-		{
-			$data['type'] = 1;
-			$data['location_id'] = $drpLocation;
-			$data['start_date'] = $drpFromdate;
-			$data['end_date'] = $drpTodate;
-			$data['start_time'] = $txtStart;
-			$data['end_time'] = $txtEnd;
-			$data['status'] = $rdStatus;
-			$data['Special_shift'] = $chbxIsspecial;
-			$data['Notification_req'] = $ckbNotification;
-			
-			$data['lunch_break'] = $drplstBreak;
-			$data['user_id'] = $element;
-			
-			$this->db->insert('dusseldorf_v3_shifts',$data);
-			
-		}
-		else
-		 $duplicat=1;
-		
-		}
-			return $duplicat;
-	}
 	
 	function insert_shift()
 	{
 		extract($_POST);
-		//print_r($_POST);
+		print_r($_POST);
 		$staffid = explode(",", $staffList);
 		if (!isset($rdShifttype))
 		   $shftype=1;
@@ -86,7 +34,7 @@ class Shiftmodel extends CI_Model
 		
 		
 	}
-function get_all_shifts()
+function get_all_shifts_old()
 {	
  if ($this->session->userdata('itemname')=='admin')
 	 	$myquery = "SELECT  dusseldorf_v3_shifts.id, start_date,end_date,start_time,end_time,dusseldorf_v3_shifts.status,task_map_dep.map_id as locationId,Special_shift,task_map_dep.map_name as location_desc,market.dep_id as market_id,market.dep_name as market_name,dept.dep_id as dept_id,dept.dep_name as dept_name,CONCAT(first_name,' ',last_name) as Staff_name
@@ -152,52 +100,31 @@ $myquery = "SELECT count(sft.id) as total ,sft.start_date, sft.start_time, sft.e
 								GROUP BY sft.start_date, sft.start_time, sft.end_time, sft.end_date, sft.location_id, loc.map_name, loc.color
 								HAVING start_date >'2016-04-01'";
 		
-
+/* if ($this->session->userdata('itemname')=='admin')
+	 	$myquery = "SELECT  count(id) as total,start_date,end_date,start_time,end_time,shift.status,task_map_dep.map_id as locationId,task_map_dep.map_name as location_desc,market.dep_id as market_id,market.dep_name as market_name,dept.dep_id as dept_id,dept.dep_name as dept_name,Special_shift
+					FROM    dusseldorf_v3_shifts as shift,task_map_dep,departments as market,departments as dept
+					WHERE   start_date > 2016-04-01 and shift.type=1
+					AND     shift.location_id=task_map_dep.map_id
+					and     task_map_dep.dep_child_id=dept.dep_id
+					and     task_map_dep.dep_id=market.dep_id
+					GROUP BY  start_date,end_date,start_time,end_time,shift.status,locationId,location_desc,market_id,market_name,dept_id,dept_name,Special_shift";
+else*/
+ 
+/*	if ($this->session->userdata('itemname')=='gm')
+	 	$myquery = "SELECT  count(id) as total,start_date,end_date,start_time,end_time,shift.status,task_map_dep.map_id as locationId,task_map_dep.map_name as location_desc,market.dep_id as market_id,market.dep_name as market_name,dept.dep_id as dept_id,dept.dep_name as dept_name,Special_shift
+					FROM    dusseldorf_v3_shifts as shift,task_map_dep,departments as market,departments as dept
+					WHERE   start_date > 2016-04-01 and shift.type=1
+					AND     shift.location_id=task_map_dep.map_id
+					and     task_map_dep.dep_child_id=dept.dep_id
+					and     task_map_dep.dep_id=market.dep_id
+					GROUP BY  start_date,end_date,start_time,end_time,shift.status,locationId,location_desc,market_id,market_name,dept_id,dept_name,Special_shift";
+					
+*/
         $rec=$this->db->query($myquery);
 		return $rec->result();
 
 
 	}		
-function update_Allshift()
-{
-	
-		extract($_POST);
-		//print_r($_POST);
-		$staffid = explode(",", $staffList);
-		
-
-		 $myquery = "DELETE  FROM dusseldorf_v3_shifts
-		 			 WHERE   start_date='".$drpFromdate."' AND end_date>='".$drpTodate."'
-					 AND     start_time='".$txtStart."'    AND end_time='".$txtEnd."'";
-	
-		$res = $this->db->query($myquery);
-		//$emp_count = $res->result();
-		//$duplicat=0;
-		//foreach ($emp_count as $row);
-		if (!isset($rdShifttype))
-		   $shftype=1;
-		else
-		     $shftype=$rdShifttype;
-		foreach($staffid as $element)
-		{
-		
-		$data['type'] = $shftype;
-		$data['location_id'] = $drpLocation;
-		$data['start_date'] = $drpFromdate;
-		$data['end_date'] = $drpTodate;
-		$data['start_time'] = $txtStart;
-		$data['end_time'] = $txtEnd;
-		$data['status'] = $rdStatus;
-		$data['Special_shift'] = $chbxIsspecial;
-		$data['Notification_req'] = $ckbNotification;
-		
-		$data['lunch_break'] = $drplstBreak;
-		$data['user_id'] = $element;
-		
-		$this->db->insert('dusseldorf_v3_shifts',$data);
-		}
-		
-}
 function update_shift()
 {	
 	extract($_POST);

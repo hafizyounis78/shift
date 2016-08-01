@@ -91,7 +91,7 @@ var sessionValue = "<?php echo $this->session->userdata('itemname'); ?>";
                                     <br/>
                                     
                                     <select id="drpBreak" name="drpBreak" class="form-control" >
-                                      <option value=""><?php echo $this->lang->line('select');  ?> Break Time...</option>
+                                      <option value=""><?php echo $this->lang->line('select');echo ' '; echo $this->lang->line('Break');  ?>...</option>
                                       <?php
 									  for($i=0; $i<=240; $i=$i+5)
 									  	echo '<option value="'.$i.'">'.$i.' min</option>';
@@ -172,7 +172,7 @@ var sessionValue = "<?php echo $this->session->userdata('itemname'); ?>";
         <div class="modal-content">
             <div class="modal-header bg-primary">
                 <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                <h4 class="modal-title">Add Shift</h4>
+                <h4 class="modal-title"> <?php echo $this->lang->line('Add Shifts');  ?></h4>
                 <div id="dvStaffMsg" class="alert alert-danger display-none">
                      <button class="close" data-dismiss="alert"></button>
                      You should select at least one staff.
@@ -193,7 +193,7 @@ var sessionValue = "<?php echo $this->session->userdata('itemname'); ?>";
             <div class="modal-body bgColorWhite">
               
                <div class="form-group">
-                        <label class="control-label col-md-3">Shift type</label>
+                        <label class="control-label col-md-3"><?php echo $this->lang->line('Shift type');?></label>
                         <div class="col-md-4">
                           <div class="radio-list">
                               <label class="radio-inline">
@@ -205,7 +205,7 @@ var sessionValue = "<?php echo $this->session->userdata('itemname'); ?>";
                         </div>
                     </div>
                     <div class="form-group">
-                          <label class="control-label col-md-3">Is special Shift
+                          <label class="control-label col-md-3"><?php echo $this->lang->line('Is special Shift');?>
                           </label>
                           <div class="col-md-4">
                               <div class="checkbox-list" data-error-container="#form_2_services_error">
@@ -252,7 +252,7 @@ var sessionValue = "<?php echo $this->session->userdata('itemname'); ?>";
                     </div>
                                                                         
                      <div id="divBreak" class="form-group">
-                          <label class="control-label col-md-3">Break <span class="required">
+                          <label class="control-label col-md-3"><?php echo $this->lang->line('Break');  ?> <span class="required">
                           * </span>
                           </label>
                           <div class="col-md-4">
@@ -283,7 +283,8 @@ var sessionValue = "<?php echo $this->session->userdata('itemname'); ?>";
                         </div>
                     </div>
                     <div class="form-group">
-                        <label class="control-label col-md-3"><?php echo $this->lang->line('Locatios');  ?></label>
+                        <label class="control-label col-md-3"><?php echo $this->lang->line('Locatios');  ?><span class="required">
+                          * </span></label>
                         <div class="col-md-4">
                             <select id="drpLocation" name="drpLocation" class="form-control input-large " data-placeholder="Select..." required>
                                <!-- <option value=""><?php echo $this->lang->line('select');  ?>..</option>-->
@@ -387,7 +388,7 @@ var sessionValue = "<?php echo $this->session->userdata('itemname'); ?>";
                       </div>
                       
                     <div class="form-group">
-                        <label class="control-label col-md-3">Staff</label>
+                        <label class="control-label col-md-3"><?php echo $this->lang->line('Staff');?></label>
                         <div class="col-md-9">
                             <select multiple="multiple" class="multi-select" id="my_multi_select1" name="my_multi_select1[]">
                                 <?php
@@ -408,7 +409,7 @@ var sessionValue = "<?php echo $this->session->userdata('itemname'); ?>";
                             <div class="input-group">
                                 <div class="icheck-inline">
                                     <label>
-                                    <input type="checkbox" class="icheck" id="ckbNotification" name="ckbNotification"> Skip Notification Email</label>
+                                    <input type="checkbox" class="icheck" id="ckbNotification" name="ckbNotification"><?php echo $this->lang->line('Skip Notification Email');  ?> </label>
                                     
                                 </div>
                             </div>

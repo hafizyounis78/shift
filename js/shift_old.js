@@ -1,7 +1,5 @@
 // JavaScript Document
 var staffList="";
-var allEmpList='';
-var employees='';
 $(document).ready(function () {
 	var slectionId='';
     $("input[name=rdSelection]:radio").change(function () {
@@ -60,9 +58,8 @@ function getAlllocation()
 				
 			}
 function editshift(){
-//alert("staffList insert"+staffList)
+
 			var action = $("#hdnaction").val();
-			//alert(action);
 		if (action!="updateShift")
 			if (!validateStaffselect())
 			 return;
@@ -97,39 +94,13 @@ function editshift(){
 		beforeSend: function(){},
 		complete: function(){},
 		success: function(returndb){
-			//alert(action)
-			if (action=="duplicatShift")
-			{
-				//alert(returndb);
-				var returndata=returndb.split('@@')	
-				if (returndata[0]==1)
-				{
-					//var danger = $('.alert-danger', $("#shiftForm"));
-					//danger.show();
-					alert("Shift Conflict Please check the selected employees");
-					//clearShiftForm();
-				}
-				else
-				{			
-					var success = $('.alert-success', $("#shiftForm"));
-					success.show();
-				}
-				$("#shift_body").html(returndata[1]);	
-			}
-			else if(action=="updateAllshift")
-			{
-				alert('Update Shift success');
-				location.reload(); 
-			}
-			else
-			{
-				var success = $('.alert-success', $("#shiftForm"));
-				success.show();
-				$("#shift_body").html(returndb);
-				clearShiftForm();
-			}
-			Metronic.scrollTo(success, -200);
 			
+		
+			var success = $('.alert-success', $("#shiftForm"));
+			success.show();
+			Metronic.scrollTo(success, -200);
+			clearShiftForm();
+			$("#shift_body").html(returndb);
 			
 		}
 		});//END $.ajax
@@ -170,126 +141,10 @@ function deleteShift(i)
 		});//END $.ajax
 	}
 }
-function duplicatShift(i)
-{
-	getAlllocation();
-	$("#drplstDept").val(0);
-	
-	 Metronic.scrollTo($('#shiftForm'), -100);
 
-	$("#hdnshiftId").val(i);
-	var shiftid=$("#hdnshiftId").val();
-	//alert(shiftid);
-	$("#hdnaction").val('duplicatShift');
-	var locationId=$("#tdlocation"+i).attr('data-loid');
-	//alert(locationId);
-	var deptId=$("#tdDepartment"+i).attr('data-loid');
-	//alert(deptId);
-	//$("#drpLocation")='';
-	$("#drpLocation").val(locationId);
-	$('#drpFromdate').datepicker('setDate', $("#tdstart_date"+i).html());
-	//$("#drpFromdate").val($("#tdstart_date"+i).html());
-	$('#drpTodate').datepicker('setDate', $("#tdend_date"+i).html());
-	/*$("#drpFromdate").val($("#tdstart_date"+i).html());
-	$("#drpTodate").val($("#tdend_date"+i).html());*/
-	$('#txtStart').timepicker('setTime',$("#tdstart_Time"+i).html());
-//	$("#txtStart").val($("#tdstart_Time"+i).html());
-	$('#txtStart').timepicker('setTime',$("#tdstart_Time"+i).html());
-	$('#txtEnd').timepicker('setTime',$("#tdend_Time"+i).html());
-//	$("#txtEnd").val($("#tdend_Time"+i).html());
-	$("#rdStatus").val($("#tdlocation"+i).html());
-	employees=$("#tdemployees"+i).html();
-		//alert(employees);
-	var statusId=$("#tdrdStatus"+i).attr('data-stid');
-	var Isspecial=$("#tdSpecial_shift"+i).html();
-
-	if 	(Isspecial==1)
-	{
-	  $('#chbxIsspecial').attr('checked', true); 
-	  $("#chbxIsspecial").parent().addClass('checked');
-	}
-	else
-	{ $('#chbxIsspecial').attr('checked', false); 
-	  $("#chbxIsspecial").parent().removeClass('checked');
-	}
-	if (statusId==1)
-	{
-
-		$("#rdStatus1").parent().addClass('checked');
-		$("#rdStatus2").parent().removeClass('checked');
-	}
-	 else
-	 {
-
-		$("#rdStatus2").parent().addClass('checked');
-		$("#rdStatus1").parent().removeClass('checked');
-     }
-
- getemployee();
- 		 		 Metronic.scrollTo($('#shiftForm'), -100);
-}
-function updateAllshift(i)
-{
-	getAlllocation();
-	$("#drplstDept").val(0);
-	
-	 Metronic.scrollTo($('#shiftForm'), -100);
-
-	$("#hdnshiftId").val(i);
-	var shiftid=$("#hdnshiftId").val();
-	//alert(shiftid);
-	$("#hdnaction").val('updateAllshift');
-	var locationId=$("#tdlocation"+i).attr('data-loid');
-	//alert(locationId);
-	var deptId=$("#tdDepartment"+i).attr('data-loid');
-	//alert(deptId);
-	//$("#drpLocation")='';
-	$("#drpLocation").val(locationId);
-	$('#drpFromdate').datepicker('setDate', $("#tdstart_date"+i).html());
-	//$("#drpFromdate").val($("#tdstart_date"+i).html());
-	$('#drpTodate').datepicker('setDate', $("#tdend_date"+i).html());
-	/*$("#drpFromdate").val($("#tdstart_date"+i).html());
-	$("#drpTodate").val($("#tdend_date"+i).html());*/
-	$('#txtStart').timepicker('setTime',$("#tdstart_Time"+i).html());
-//	$("#txtStart").val($("#tdstart_Time"+i).html());
-	$('#txtStart').timepicker('setTime',$("#tdstart_Time"+i).html());
-	$('#txtEnd').timepicker('setTime',$("#tdend_Time"+i).html());
-//	$("#txtEnd").val($("#tdend_Time"+i).html());
-	$("#rdStatus").val($("#tdlocation"+i).html());
-	employees=$("#tdemployees"+i).html();
-		//alert(employees);
-	var statusId=$("#tdrdStatus"+i).attr('data-stid');
-	var Isspecial=$("#tdSpecial_shift"+i).html();
-
-	if 	(Isspecial==1)
-	{
-	  $('#chbxIsspecial').attr('checked', true); 
-	  $("#chbxIsspecial").parent().addClass('checked');
-	}
-	else
-	{ $('#chbxIsspecial').attr('checked', false); 
-	  $("#chbxIsspecial").parent().removeClass('checked');
-	}
-	if (statusId==1)
-	{
-
-		$("#rdStatus1").parent().addClass('checked');
-		$("#rdStatus2").parent().removeClass('checked');
-	}
-	 else
-	 {
-
-		$("#rdStatus2").parent().addClass('checked');
-		$("#rdStatus1").parent().removeClass('checked');
-     }
-
- getemployee();
- 		 		 Metronic.scrollTo($('#shiftForm'), -100);
-}
 function updateShift(i)
 {
 	getAlllocation();
-	
 	$("#hdnshiftId").val(i);
 	var shiftid=$("#hdnshiftId").val();
 	//alert(shiftid);
@@ -338,13 +193,13 @@ function updateShift(i)
      }
 
  
-	$("#txtstaffName").val($("#tdstaff"+i).html());
-	document.getElementById("divSelect").style.display = "None";	
+	//$("#txtstaffName").val($("#tdstaff"+i).html());
+	/*document.getElementById("divSelect").style.display = "None";	
 	document.getElementById("divUser").style.display = "None";	
 	document.getElementById("divDept").style.display = "None";	
 	document.getElementById("divJobtitle").style.display = "None";	
 	document.getElementById("divSpec").style.display = "None";	
-	document.getElementById("dvstaffname").style.display = "block";	
+	document.getElementById("dvstaffname").style.display = "block";	*/
 	 Metronic.scrollTo($('#shiftForm'), -100);
 }
 function clearStaffSelect()
@@ -440,80 +295,6 @@ function drpdeptChange()
 			}
 		});//END $.ajax
 		 }
-}
-function getemployee()
-{
-		$("#my_multi_select1").html('');
-		$("#my_multi_select1").multiSelect('refresh');
-		$("#drplstDept").val(0);
-			var formData = new FormData();
-				formData.append('drpFromdate'	, $("#drpFromdate").val());
-				formData.append('drpTodate'		, $("#drpTodate").val());
-				formData.append('txtStart'	    , $("#txtStart").val());
-				formData.append('txtEnd'	    , $("#txtEnd").val());
-				formData.append('deptNo'        , $("#drplstDept").val()),
-		
-		$.ajax({
-			url: baseURL+"Shiftscont/getAllEmp",
-			type: "POST",
-			data: formData,
-			processData: false,
-			contentType: false,
-			error: function(xhr, status, error) {
-  				alert(xhr.responseText);
-			},
-			beforeSend: function(){},
-			complete: function(){},
-			success: function(returndb){
-				//initChart2(returndb.result1,returndb.result2);
-				 data21 = returndb.result1;
-         		data22 = returndb.result2;
-			/*	 
-			$.each(returndb, function(i, item){
-               data21 = item.data21;
-               data22 = item.data22;
-            });*/
-          //  initChart2(data21,data22);
-			//alert(data21);
-			var emplist='';
-
-			//alert(availbleEmp);
-			staffList='';
-				for(i=0;i<data21.length;i++)
-				{
-					
-					if (employees.search(data21[i].stffId)!= -1)
-					
-					emplist=emplist+'<option selected value='+data21[i].stffId+'>'+data21[i].totalTime+'|'+data21[i].staffName+'|'+data21[i].hoursPerWeek+'</option>';	
-					
-					else
-					emplist=emplist+'<option value='+data21[i].stffId+'>'+data21[i].totalTime+'|'+data21[i].staffName+'|'+data21[i].hoursPerWeek+'</option>';	
-					
-				}
-				for(i=0;i<data22.length;i++)
-				{
-					
-					if (employees.search(data22[i].stffId)!= -1)
-					{
-						if (staffList=='')
-							staffList=data22[i].stffId;
-						else
-							staffList=staffList+','+data22[i].stffId;
-						emplist=emplist+'<option selected value='+data22[i].stffId+'>'+data22[i].totalTime+'|'+data22[i].staffName+'|'+data22[i].hoursPerWeek+'</option>';	
-					}
-					else
-					emplist=emplist+'<option title="Unavailable" disabled="disabled" value='+data22[i].stffId+'>'+data22[i].totalTime+'|'+data22[i].staffName+'|'+data22[i].hoursPerWeek+'</option>';	
-					
-				}
-	//alert("getemployee:  "+staffList);
-				$("#my_multi_select1").html(emplist);
-				$("#my_multi_select1").multiSelect('refresh');
-				$("#my_multi_select1").multiSelect('refresh');
-
-
-			}
-		});//END $.ajax
-		
 }
 function drpJobtitleChange()
 {
@@ -866,8 +647,6 @@ var ShiftComponentsDropdowns = function () {
         $('#my_multi_select1').multiSelect({
             selectableOptgroup: true,
 			afterSelect: function(values){
-				/*alert("values is "+values);
-				alert("staffList is "+staffList);*/
 				/*var txt = $("#my_multi_select1 option[value='"+values+"']").text();
 				$("#my_multi_select1 option[value='"+values+"']").html('6666');
 
@@ -882,7 +661,6 @@ var ShiftComponentsDropdowns = function () {
 			 },
 			afterDeselect: function(values){
 				//alert("values is "+values);
-				//alert("staffList is "+staffList);
 			   var staffID =staffList.split(',');
 			   var newstafflist="";
 			   for ( var i = 0; i < staffID.length; i++ )

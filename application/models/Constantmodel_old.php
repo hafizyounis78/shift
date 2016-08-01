@@ -220,90 +220,11 @@ function get_spec_list()
 		return $query->result();*/
 		
 	}
-function getAllEmployees()
-{
-	
-	extract($_POST);
-	
-		 $myquery = "SELECT  DISTINCT outusertb.id, (SELECT sum((TIME_TO_SEC( end_time ) - TIME_TO_SEC( start_time )) * ( end_date - start_date +1 ))		      	   						
-														   FROM dusseldorf_v3_shifts inshiftstb
-														   WHERE WEEKOFYEAR( start_date ) = WEEKOFYEAR('".$drpFromdate."')
-														   AND inshiftstb.user_id = outusertb.id
-														   and inshiftstb.type=1
-														   GROUP BY user_id) AS worktime, 
-								  CONCAT( first_name, ' ', last_name ) AS name, hoursPerWeek, pricePerHour
-						  FROM    dusseldorf_users outusertb
-						  LEFT OUTER JOIN dusseldorf_v3_shifts outshifttb on outusertb.id= outshifttb.user_id
-						  WHERE   outusertb.type =2";
-		$res = $this->db->query($myquery);
-		return $res->result();
-}
-function getAllempAvailable()
-{
-	
-	
-	extract($_POST);
-	
-		 $myquery = "SELECT  DISTINCT outusertb.id, (SELECT sum((TIME_TO_SEC( end_time ) - TIME_TO_SEC( start_time )) * ( end_date - start_date +1 ))		      	   						
-														   FROM dusseldorf_v3_shifts inshiftstb
-														   WHERE WEEKOFYEAR( start_date ) = WEEKOFYEAR('".$drpFromdate."')
-														   AND inshiftstb.user_id = outusertb.id
-														   and inshiftstb.type=1
-														   GROUP BY user_id) AS worktime, 
-								  CONCAT( first_name, ' ', last_name ) AS name, hoursPerWeek, pricePerHour
-						  FROM    dusseldorf_users outusertb
-						  LEFT OUTER JOIN dusseldorf_v3_shifts outshifttb on outusertb.id= outshifttb.user_id
-						  WHERE   outusertb.type =2
-						  AND     outusertb.id not in (select  user_id 
-													   from   dusseldorf_v3_shifts
-													   where  ((start_date<='".$drpFromdate."' and end_date>='".$drpTodate."')
-													   OR      (start_date>='".$drpFromdate."' and start_date<='".$drpTodate."' AND end_date>='".$drpTodate."')
-													   OR      (start_date<='".$drpFromdate."' and end_date>='".$drpFromdate."' AND end_date<='".$drpTodate."')
-													   OR      (start_date>='".$drpFromdate."' and end_date<='".$drpTodate."'))
-													   AND   ((start_time<='".$txtStart."' and end_time>='".$txtEnd."')
-													   or     ( start_time>='".$txtStart."' and start_time<='".$txtEnd."' AND end_time>='".$txtEnd."')
-													   or     ( start_time<='".$txtStart."' and end_time>='".$txtStart."' and end_time<='".$txtEnd."')
-													   or     ( start_time>='".$txtStart."' and end_time<='".$txtEnd."')))";	
-	
-		$res = $this->db->query($myquery);
-		return $res->result();
-}
-function getAllempNotAvailable()
-{
-	
-	
-	extract($_POST);
-	
-		 $myquery = "SELECT  DISTINCT outusertb.id, (SELECT sum((TIME_TO_SEC( end_time ) - TIME_TO_SEC( start_time )) * ( end_date - start_date +1 ))		      	   						
-														   FROM dusseldorf_v3_shifts inshiftstb
-														   WHERE WEEKOFYEAR( start_date ) = WEEKOFYEAR('".$drpFromdate."')
-														   AND inshiftstb.user_id = outusertb.id
-														   and inshiftstb.type=1
-														   GROUP BY user_id) AS worktime, 
-								  CONCAT( first_name, ' ', last_name ) AS name, hoursPerWeek, pricePerHour
-						  FROM    dusseldorf_users outusertb
-						  LEFT OUTER JOIN dusseldorf_v3_shifts outshifttb on outusertb.id= outshifttb.user_id
-						  WHERE   outusertb.type =2
-						  AND     outusertb.id in (select  user_id 
-													   from   dusseldorf_v3_shifts
-													   where  ((start_date<='".$drpFromdate."' and end_date>='".$drpTodate."')
-													   OR      (start_date>='".$drpFromdate."' and start_date<='".$drpTodate."' AND end_date>='".$drpTodate."')
-													   OR      (start_date<='".$drpFromdate."' and end_date>='".$drpFromdate."' AND end_date<='".$drpTodate."')
-													   OR      (start_date>='".$drpFromdate."' and end_date<='".$drpTodate."'))
-													   AND   ((start_time<='".$txtStart."' and end_time>='".$txtEnd."')
-													   or     ( start_time>='".$txtStart."' and start_time<='".$txtEnd."' AND end_time>='".$txtEnd."')
-													   or     ( start_time<='".$txtStart."' and end_time>='".$txtStart."' and end_time<='".$txtEnd."')
-													   or     ( start_time>='".$txtStart."' and end_time<='".$txtEnd."')))";	
-	
-		$res = $this->db->query($myquery);
-		return $res->result();
-}
 
 //***************shift conflict******//
 //***************get user by dept************//
 function getAvailUser_byDept()
-{
-	$dep_filter ="";
+{$dep_filter ="";
 	if ($this->session->userdata('itemname')=='gm')
 	$dep_filter = "and   outusertb.dept_parent=".$this->session->userdata('dep_id');
 	extract($_POST);

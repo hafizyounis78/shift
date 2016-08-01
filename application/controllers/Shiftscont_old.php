@@ -20,6 +20,7 @@ class Shiftscont extends CI_Controller
 			$this->load->view('pages/'.$page,$this->data);
 			$this->load->view('templates/footer');
 	}
+	
 	function shiftsmang()
 	{
 		
@@ -29,11 +30,11 @@ class Shiftscont extends CI_Controller
 		$this->data['specList']= $this->constantmodel->get_spec_list();
 		$this->data['jobtitleList']= $this->constantmodel->get_jobtitle_list();
 		$this->load->model('Shiftmodel');
-		$this->data['shiftrec']= $this->Shiftmodel->get_all_shiftsmang();
-		
+		$this->data['shiftrec']= $this->Shiftmodel->get_all_shifts();
 		
 	
 	}
+
 	function shifts()
 	{
 		
@@ -54,14 +55,6 @@ class Shiftscont extends CI_Controller
 		$this->Shiftmodel->insert_shift();
 		$this->drawShiftsTable();
 	}
-function duplicatShift()
-{
-		$this->load->model('Shiftmodel');
-		$returnValue=$this->Shiftmodel->insert_duplicatShift();
-		$tableData=$this->drawShiftsmangTable();
-		echo $returnValue.'@@'.$tableData;
-		
-}		
 	
 	function updateShift()
 	{
@@ -69,12 +62,6 @@ function duplicatShift()
 		$this->Shiftmodel->update_shift();
 		$this->drawShiftsTable();
 	}
-function updateAllshift()
-{
-		$this->load->model('Shiftmodel');
-		$this->Shiftmodel->update_Allshift();
-		$this->drawShiftsmangTable();
-}
 	function deleteShift()
 	{
 		$this->load->model('Shiftmodel');
@@ -122,67 +109,6 @@ function updateAllshift()
 		//*******************get location by dept
 //		echo $str.'@@'.$this->getLocationBydept();
 		echo $str.'@@'.'hafiz';
-	}
-	function getAllEmp()
-	{
-		
-		$this->load->model('constantmodel');
-//		$staffList=$this->constantmodel->getAvailUser_byDept();
-		$staffList=$this->constantmodel->getAllempAvailable();
-		$staffListNotAvailable=$this->constantmodel->getAllempNotAvailable();
-		$totalTime='';
-		
-		$output = array();
-		 foreach($staffList as $staff_row)
-		  {
-			unset($temp); // Release the contained value of the variable from the last loop
-			$temp = array();
-	 
-			// $totalTime=$staff_row->hoursPerWeek-(($staff_row->totaltime)/3600);
-			if ($staff_row->worktime =='')
-				$totalTime=-45;
-			else
-			 $totalTime=(($staff_row->worktime)/3600)-$staff_row->hoursPerWeek;
-			 
-			//  echo '<option  value='.$staff_row->id.'>'.$totalTime.'|'.$staff_row->name.'|'.$staff_row->pricePerHour.'</option>';
-			//$str=$str.'<option  value='.$staff_row->id.'>'.$totalTime.'|'.$staff_row->name.'|'.$staff_row->pricePerHour.'</option>';
-		  	$temp['stffId'] = $staff_row->id;
-			$temp['staffName'] = $staff_row->name;
-			$temp['totalTime'] = $totalTime;
-			$temp['hoursPerWeek'] = $staff_row->hoursPerWeek;
-			
-			array_push($output,$temp);
-		  }
-		$output2 = array();
-		 foreach($staffListNotAvailable as $staff_row)
-		  {
-			unset($temp); // Release the contained value of the variable from the last loop
-			$temp = array();
-	 
-			// $totalTime=$staff_row->hoursPerWeek-(($staff_row->totaltime)/3600);
-			if ($staff_row->worktime =='')
-				$totalTime=-45;
-			else
-			 $totalTime=(($staff_row->worktime)/3600)-$staff_row->hoursPerWeek;
-			 
-			//  echo '<option  value='.$staff_row->id.'>'.$totalTime.'|'.$staff_row->name.'|'.$staff_row->pricePerHour.'</option>';
-			//$str=$str.'<option  value='.$staff_row->id.'>'.$totalTime.'|'.$staff_row->name.'|'.$staff_row->pricePerHour.'</option>';
-		  	$temp['stffId'] = $staff_row->id;
-			$temp['staffName'] = $staff_row->name;
-			$temp['totalTime'] = $totalTime;
-			$temp['hoursPerWeek'] = $staff_row->hoursPerWeek;
-			
-			array_push($output2,$temp);
-		  }
-		
-		header('Access-Control-Allow-Origin: *');
-		header("Content-Type: application/json");
-		echo json_encode(array('result1'=>$output,'result2'=>$output2));
-		/*echo json_encode($output);
-		echo json_encode($output2);*/
-		
-
-		
 	}
 	function getLocationBydept()
 	{
@@ -352,38 +278,5 @@ function updateAllshift()
 										
 		
 	}
-	function drawShiftsmangTable()
-	{
-		
-		$this->load->model('Shiftmodel');
-		$shiftrec = $this->Shiftmodel->get_all_shiftsmang();
-
-		
-		$i=1;
-		$statusrow='';
-		$specialrow='';
-		$str='';
-			foreach($shiftrec as $row)
-				{
-					if($row->status==1)
-					 $statusrow='Draft';
-					 else
-					 $statusrow='Active';
-					 if($row->Special_shift==1)
-					 $specialrow='Yes';
-					 else
-					 $specialrow='No';
-					 $str= '<tr><td id="tdlocation'.$i.'" data-loid="'.$row->map_id.'">'. $row->loc_name.'</td><td id="tdstart_date'.$i.'">'. $row->start_date.'</td><td id="tdend_date'.$i.'">'. $row->end_date.'</td><td id="tdstart_Time'.$i.'">'. $row->start_time.'</td><td id="tdend_Time'.$i.'">'. $row->end_time.'</td>';
-					 
-					if ($row->status == 1)
-					 $str.= '<td id="tdrdStatus'.$i.'" data-stid="'.$row->status.'"><span class="label label-sm label-warning">'.$statusrow.'</span></td>';		 
-					else
-					 $str.= '<td id="tdrdStatus'.$i.'" data-stid="'.$row->status.'"><span class="label label-sm label-success">'.$statusrow.'</span></td>';		 
-					 
-					 $str.= '<td id="tdSpecial_shift'.$i.'">'.$specialrow.'</td><td id="tdemployees'.$i.'">'.$row->emp_name.'</td><td><button id="btnupdateShift" name="btnupdateShift" type="button" class="btn default btn-xs blue" onclick="updateAllshift('.$i.')"><i class="fa fa-edit"></i></button><button id="btnduplicatShift" name="btnduplicatShift" type="button" class="btn default btn-xs green" onclick="duplicatShift('.$i.')"><i class="fa fa-copy"></i></button></td></tr>';
-				$i++;
-				}
-			return $str;	
-			}
 }
 ?>
