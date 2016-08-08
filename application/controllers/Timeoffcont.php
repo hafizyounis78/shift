@@ -51,8 +51,10 @@ class Timeoffcont extends CI_Controller
 	function addTimeoff()
 	{
 		$this->load->model('timeoffmodel');
-		$this->timeoffmodel->insert_timeoff();
-		$this->drawTimeoffTable();
+		//$this->timeoffmodel->insert_timeoff();
+		$returnValue=$this->timeoffmodel->Check_duplicatShift();
+		//$this->drawTimeoffTable();
+		echo $returnValue;
 	}
 	function updateTimeoff()
 	{
@@ -71,13 +73,13 @@ class Timeoffcont extends CI_Controller
 		$statusrow='';
 			foreach($timeoffrec as $row)
 				{
-					if($row->status==1)
-					 $statusrow='Pending';
+					 if($row->status==1)
+						 $statusrow='anstehend';//pending
 					 else
-					 $statusrow='Active';
+					 	$statusrow='Aktiviert';//active
 					 echo '<tr>';		
 					 echo '<td>'.$i++.'</td>';
-					 echo '<td id="tdstaff'.$row->id.'" data-staffId="'.$row->staffId.'">'.$row->Staff_name.'</td>';
+					 echo '<td id="tdstaff'.$row->id.'" data-auth="'.$row->itemname.'" data-staffId="'.$row->staffId.'" data-status="'.$row->leavereason.'">'.$row->Staff_name.'</td>';
 					 echo '<td id="tdstart_date'.$row->id.'">'. $row->start_date.'</td>';
 					 echo '<td id="tdend_date'.$row->id.'">'. $row->end_date.'</td>';
 					 echo '<td id="tdstart_Time'.$row->id.'">'. $row->start_time.'</td>';
@@ -89,9 +91,10 @@ class Timeoffcont extends CI_Controller
 						echo '<td id="tdrdStatus'.$row->id.'" data-stid="'.$row->status.'"><span class="label label-sm label-success">'.$statusrow.'</span></td>';		 
 						
 					 echo '<td>
+					 <button id="btnNewtimeoff" name="btnNewtimeoff" type="submit" value="New" class="btn default btn-xs green" onclick="Newtimeoff('.$row->id.')"><i class="fa fa-plus"></i> </button>
 						  <button id="btnupdateShift" name="btnupdateShift" type="button" class="btn default btn-xs blue" onclick="updatetimeoff('.$row->id.')">
-						  <i class="fa fa-edit"></i> Update </button>
-						  <button id="btndelShift" name="btndelShift" type="submit" value="Delete" class="btn default btn-xs red" onclick="deletetimeoff('.$row->id.')"><i class="fa fa-trash-o"></i> delete</button>';
+						  <i class="fa fa-edit"></i>  </button>
+						  <button id="btndelShift" name="btndelShift" type="submit" value="Delete" class="btn default btn-xs red" onclick="deletetimeoff('.$row->id.')"><i class="fa fa-trash-o"></i> </button>';
 					 echo '</td>';  
 					
 					 echo '</tr>';

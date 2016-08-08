@@ -294,7 +294,7 @@ $readonly = '';
 							</div>
 							<div class="portlet-body">
 								<!--<div class="table-scrollable">
--->									<table class="table table-striped table-bordered table-hover" id="sample_3">
+-->									<table class="table table-striped table-bordered table-hover" id="ShiftDatatable">
 									<thead>
 									<tr>
 											

@@ -20,6 +20,11 @@ class Shiftscont extends CI_Controller
 			$this->load->view('pages/'.$page,$this->data);
 			$this->load->view('templates/footer');
 	}
+	function shiftsearch()
+	{
+		$this->load->model('constantmodel');
+		$this->data['location']= $this->constantmodel->get_location_list();
+	}
 	function shiftsmang()
 	{
 		
@@ -385,5 +390,113 @@ function updateAllshift()
 				}
 			return $str;	
 			}
+function shiftgriddata()
+{
+	/*
+	date_default_timezone_set('Asia/Gaza');   
+	$today_date = date('y-m-d');
+	*/
+	$this->load->model('Shiftmodel');
+	$rec = $this->Shiftmodel->get_search_shifts($_REQUEST);
+	
+	
+	$i = 1;
+	$data = array();
+	foreach($rec as $row)
+	{
+	$nestedData=array();
+	/*
+	if ($row->active_account == 1)
+		$active = '<i class="fa fa-user font-green"></i>';
+	else
+		$active = '<i class="fa fa-user font-red-sunglo"></i>';
+		*/
+	/*$btn='<a href="'.base_url().'adduser/'.$row->user_name.'" class="btn default btn-xs purple">
+	  <i class="fa fa-edit"></i> تعديل </a>';*/
+	  $active='';
+	  $typerow='';
+	/*if($row->status==1)
+	 $statusrow='Pending';
+	else
+	 $statusrow='Active';*/
+	  $onclick='onclick="updateshiftstatus(\''.$row->id.'\')"';
+	  $style = 'style="cursor:pointer"';
+	 
+	if($row->type==1)
+	 $typerow='Shift';
+	else
+	 $typerow='Timeoff';
+	// $start_date='';
+	 //$start_date=date('Y-m-d',$row->start_date);  // for first day of this week
+	 //*****************************************//
+	 if (($row->user_id == $this->session->userdata('user_id') && $this->session->userdata('itemname') != 'admin') )
+	 	//	|| $start_date <= $today_date)
+	 {
+	 	$onclick='';
+		$style = '';
+		
+	 }
+	 if ($row->status == 2)
+	 {
+		 //'.$this->session->userdata('user_id').'-'.$row->user_id.'
+				$active = '<i id="i'.$row->id.'" class="fa fa-user font-green" '.$onclick.' '.$style.' ></i>';
+				$active = $active .'&nbsp;&nbsp;&nbsp;&nbsp';
+				
+				
+	}
+	else
+	{
+		$active = '<i id="i'.$row->id.'" class="fa fa-user font-red-sunglo" '.$onclick.' '.$style.'></i>';
+		$active = $active .'&nbsp;&nbsp;&nbsp;&nbsp';
+		
+		
+	}
+	 
+	 //*******************************************//
+	 
+	 
+	 
+	$btn='<a class="btn default btn-xs purple" onclick="showshiftDetails(\''.$row->id.'\')">
+	  <i class="fa fa-edit"></i> Details </a>';
+	
+	$nestedData[] = $i++;
+	$nestedData[] = $row->Staff_name;
+	$nestedData[] = $row->start_date;
+	$nestedData[] = $row->end_date;
+	$nestedData[] = $row->start_time;
+	$nestedData[] = $row->end_time;
+	$nestedData[] = $typerow;
+	$nestedData[] = $active;
+	$nestedData[] = $row->location_desc;
+	
+	//$nestedData[] = $active;
+	$nestedData[] = $btn;
+	
+	$data[] = $nestedData;
+	} // End Foreach
+	
+	$totalFiltered = count($rec);
+	$totalData=$this->Shiftmodel->count_shifts();
+	
+	foreach($totalData as $res);
+	$totalCount = $res->count_row;
+	
+	//$records["draw"] = $sEcho;
+	$json_data = array(
+			"draw"            => intval( $_REQUEST['draw'] ),   // for every request/draw by clientside , they send a number as a parameter, when they recieve a response/data they first check the draw number, so we are sending same number in draw. 
+			"recordsTotal"    => intval( $totalCount ),  // total number of records
+			"recordsFiltered" => intval( $totalFiltered ), // total number of records after searching, if there is no searching then totalFiltered = totalData
+			"data"            => $data   // total data array
+			);
+	
+	echo json_encode($json_data);  // send data as json format
+}
+function updateShiftStatus()
+{
+	$this->load->model('Shiftmodel');
+	$rec = $this->Shiftmodel->update_Shift_status();
+	
+}
+
 }
 ?>

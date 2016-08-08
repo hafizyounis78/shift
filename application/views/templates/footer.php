@@ -23,7 +23,9 @@
 <script src="../../assets/global/plugins/respond.min.js"></script>
 <script src="../../assets/global/plugins/excanvas.min.js"></script> 
 <![endif]-->
+
 <script src="<?php echo base_url();?>assets/global/plugins/jquery.min.js" type="text/javascript"></script>
+
 <script src="<?php echo base_url();?>assets/global/plugins/jquery-migrate.min.js" type="text/javascript"></script>
 <!-- IMPORTANT! Load jquery-ui-1.10.3.custom.min.js before bootstrap.min.js to fix bootstrap tooltip conflict with jquery ui tooltip -->
 <script src="<?php echo base_url();?>assets/global/plugins/jquery-ui/jquery-ui-1.10.3.custom.min.js" type="text/javascript"></script>
@@ -67,13 +69,25 @@
 <script src="<?php echo base_url();?>assets/admin/pages/scripts/calendar.js"></script>
 <script src="<?php echo base_url();?>assets/admin/pages/scripts/components-pickers.js"></script>
 <script src="<?php echo base_url();?>assets/admin/pages/scripts/components-dropdowns.js"></script>
-<!--<script src="<?php echo base_url();?>assets/admin/pages/scripts/table-advanced.js"></script>
---><script src="<?php echo base_url();?>assets/admin/pages/scripts/table-managed.js"></script>
+<script src="<?php echo base_url();?>assets/admin/pages/scripts/table-ajax.js"></script>
+<script src="<?php echo base_url();?>assets/admin/pages/scripts/table-managed.js"></script>
 
 <script src="<?php echo base_url();?>assets/global/scripts/datatable.js"></script>
 <script src="<?php echo base_url();?>js/canvas2image.js"></script>
 <script src="<?php echo base_url();?>js/html2canvas.js"></script>
+<script>
+$(document).ready(function() {
+	var table = $('#ShiftDatatable').DataTable();
+	table.destroy();
+    $('#ShiftDatatable').DataTable( {
+        "language": {
+            "url": "//cdn.datatables.net/plug-ins/9dcbecd42ad/i18n/German.json"
+        }
+    } );
+} );
+//***************//
 
+</script>
 <!-- END PAGE LEVEL SCRIPS -->
 
 <!-- OUR SCRIPTS -->
@@ -111,6 +125,7 @@ else if (pathArray[3]=="locations")
 <!-- END OUR SCRIPTS -->
 
 <script>
+
       jQuery(document).ready(function() {    
          Metronic.init(); // init metronic core components
 		 Layout.init(); // init current layout
@@ -125,6 +140,7 @@ else if (pathArray[3]=="locations")
 		 TimeOffFormValidation.init();
 		 ShiftFormValidation.init();
 		 ShiftModalFormValidation.init();
+		 shiftTableAjax.init();
 		// FullSchedulFormValidation.init();
 		 //***********component intialization*******//
 

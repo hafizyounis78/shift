@@ -294,7 +294,7 @@ $readonly = '';
 							</div>
 							<div class="portlet-body">
 								<!--<div class="table-scrollable">
--->									<table class="table table-striped table-bordered table-hover" id="sample_3">
+-->									<table class="table table-striped table-bordered table-hover" id="ShiftDatatable">
 									<thead>
 									<tr>
 										<th>
@@ -340,12 +340,17 @@ $readonly = '';
 						            <?php
 									$i=1;
 									$statusrow='';
+									
 										foreach($shiftrec as $row)
 											{
 												if($row->status==1)
 												 $statusrow='Draft';
 												 else
 												 $statusrow='Active';
+												 if($row->Special_shift==2)
+										$specialShift='Yes';
+									else
+										$specialShift='No';
 												 echo '<tr>';		
 												 echo '<td>'.$i++.'</td>';
 												 echo '<td id="tdstaff'.$row->id.'">'.$row->Staff_name.'</td>';
@@ -361,11 +366,11 @@ $readonly = '';
 												 echo '<td id="tdrdStatus'.$row->id.'" data-stid="'.$row->status.'"><span class="label label-sm label-warning">'.$statusrow.'</span></td>';		 
  												else
 												 echo '<td id="tdrdStatus'.$row->id.'" data-stid="'.$row->status.'"><span class="label label-sm label-success">'.$statusrow.'</span></td>';		 
-												 echo '<td id="tdSpecial_shift'.$row->id.'">'. $row->Special_shift.'</td>';
+												 echo '<td id="tdSpecial_shift'.$row->id.'">'.$specialShift.'</td>';
 												 echo '<td>
 													  <button id="btnupdateShift" name="btnupdateShift" type="button" class="btn default btn-xs blue" onclick="updateShift('.$row->id.')">
-													  <i class="fa fa-edit"></i> Update </button>
-													  <button id="btndelShift" name="btndelShift" type="submit" value="Delete" class="btn default btn-xs red" onclick="deleteShift('.$row->id.')"><i class="fa fa-trash-o"></i> delete</button>';
+													  <i class="fa fa-edit"></i>  </button>
+													  <button id="btndelShift" name="btndelShift" type="submit" value="Delete" class="btn default btn-xs red" onclick="deleteShift('.$row->id.')"><i class="fa fa-trash-o"></i> </button>';
 												 echo '</td>';  
 												
 												 echo '</tr>';

@@ -3,6 +3,10 @@ var staffList="";
 var allEmpList='';
 var employees='';
 $(document).ready(function () {
+//$('#txtEnd').timepicker('setTime',"05:00:00");
+//	$('#txtEnd').val(null);
+/*$('#txtStart').timepicker('setTime', new Date());
+	$('#txtEnd').timepicker('setTime', new Date());*/
 	var slectionId='';
     $("input[name=rdSelection]:radio").change(function () {
         if ($("#rdSelection1").attr("checked")) {
@@ -34,6 +38,50 @@ $(document).ready(function () {
 		clearStaffSelect();
 	})		
 });
+function showshiftDetails()
+{
+	alert('details');
+}
+
+function updateshiftstatus(id)
+{
+	var isactive = '';
+	var newclass = '';
+	var itemid = '#i'+id;
+	var active_class = 'fa fa-user font-green';
+	var unactive_class = 'fa fa-user font-red-sunglo';
+	
+	if($('#i'+id).attr("class") == active_class)
+	{
+		isactive = 1;
+		newclass = unactive_class;
+	}
+	else
+	{
+		isactive = 2;
+		newclass = active_class;
+	}
+	
+	$.ajax({
+			url: baseURL+"Shiftscont/updateShiftStatus",
+			type: "POST",
+			data:  {shiftId : id,
+					isactive : isactive},
+			error: function(xhr, status, error) {
+  				//var err = eval("(" + xhr.responseText + ")");
+  				alert(xhr.responseText);
+			},
+			beforeSend: function(){},
+			complete: function(){},
+			success: function(returndb){
+				if (returndb == '')	//Success
+				{
+					$('#i'+id).removeClass( $('#i'+id).attr("class") ).addClass(newclass);
+				}
+			}
+		});//END $.ajax
+	
+}
 function getAlllocation()
 {
 				var formData = new FormData();
@@ -913,6 +961,93 @@ var ShiftComponentsDropdowns = function () {
         init: function () {            
            handleMultiSelect();
         }
+    };
+
+}();
+
+//************* patient Ajax**************//
+var shiftTableAjax = function () {
+
+// I removed Datepicker becuse it is not used here
+
+    var handleRecords = function () {
+
+        var grid = new Datatable();
+		
+        grid.init({
+            src: $("#shiftdatatable_ajax"),
+            onSuccess: function (grid) {
+                // execute some code after table records loaded
+				//alert(grid);
+            },
+            onError: function(xhr, status, error) {
+  				//alert(xhr.responseText);
+			},
+            loadingMessage: 'Search...',
+            dataTable: { // here you can define a typical datatable settings from http://datatables.net/usage/options 
+
+                // Uncomment below line("dom" parameter) to fix the dropdown overflow issue in the datatable cells. The default datatable layout
+                // setup uses scrollable div(table-scrollable) with overflow:auto to enable vertical scroll(see: assets/global/scripts/datatable.js). 
+                // So when dropdowns used the scrollable div should be removed. 
+                //"dom": "<'row'<'col-md-8 col-sm-12'pli><'col-md-4 col-sm-12'<'table-group-actions pull-right'>>r>t<'row'<'col-md-8 col-sm-12'pli><'col-md-4 col-sm-12'>>",
+                
+                "bStateSave": true, // save datatable state(pagination, sort, etc) in cookie.
+
+                "lengthMenu": [
+                    [10, 20, 50, 100, 150, -1],
+                    [10, 20, 50, 100, 150, "All"] // change per page values here
+                ],
+                "pageLength": 10, // default record count per page
+                "ajax": {
+                    "url": baseURL+"Shiftscont/shiftgriddata", // ajax source
+					"type": "POST"
+                },
+                "order": [
+                    [1, "asc"]
+                ] // set first column as a default sort by asc
+            }
+        });
+
+        // handle group actionsubmit button click
+        grid.getTableWrapper().on('click', '.table-group-action-submit', function (e) {
+            e.preventDefault();
+            var action = $(".table-group-action-input", grid.getTableWrapper());
+            if (action.val() != "" && grid.getSelectedRowsCount() > 0) {
+                grid.setAjaxParam("customActionType", "group_action");
+                grid.setAjaxParam("customActionName", action.val());
+                grid.setAjaxParam("id", grid.getSelectedRows());
+                grid.getDataTable().ajax.reload();
+                grid.clearAjaxParams();
+            } else if (action.val() == "") {
+                Metronic.alert({
+                    type: 'danger',
+                    icon: 'warning',
+                    message: 'Please select an action',
+                    container: grid.getTableWrapper(),
+                    place: 'prepend'
+                });
+            } else if (grid.getSelectedRowsCount() === 0) {
+                Metronic.alert({
+                    type: 'danger',
+                    icon: 'warning',
+                    message: 'No record selected',
+                    container: grid.getTableWrapper(),
+                    place: 'prepend'
+                });
+            }
+        });
+    }
+	
+    return {
+
+        //main function to initiate the module
+        init: function () {
+
+            //initPickers();
+            handleRecords();
+			
+        }
+
     };
 
 }();

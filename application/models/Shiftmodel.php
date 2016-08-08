@@ -219,7 +219,224 @@ function delete_shift()
 	$this->db->where('id',$shiftId);
 	$this->db->delete('dusseldorf_v3_shifts');
 }	
+
+// Get All Elders
+function get_search_shifts($requestData)
+{
+	$columns = array( 
+		1 => 'Staff_name',
+		2 => 'start_date',
+		3 => 'end_date',
+		4 => 'start_time', 
+		5 => 'end_time',
+		6 => 'type',
+		7 => 'status',
+		8 => 'location_desc');
 	
+		
+ if ($this->session->userdata('itemname')=='admin')
+	 	$myquery = "SELECT   dusseldorf_v3_shifts.id,dusseldorf_v3_shifts.user_id, start_date,end_date,start_time,end_time,dusseldorf_v3_shifts.status,dusseldorf_v3_shifts.type,task_map_dep.map_id as locationId,Special_shift,task_map_dep.map_name as location_desc,market.dep_id as market_id,market.dep_name as market_name,dept.dep_id as dept_id,dept.dep_name as dept_name,CONCAT(first_name,' ',last_name) as Staff_name
+					FROM     dusseldorf_v3_shifts,task_map_dep,dusseldorf_users,departments as market,departments as dept
+					WHERE    start_date > 2016-04-01 
+					AND      location_id=task_map_dep.map_id
+					AND      user_id=dusseldorf_users.id
+					and      market.dep_id=dusseldorf_users.dept_parent
+					and      dept.dep_id=dusseldorf_users.dep_id";
+else if ($this->session->userdata('itemname')=='gm')
+	 	$myquery = "SELECT   dusseldorf_v3_shifts.id,dusseldorf_v3_shifts.user_id, start_date,end_date,start_time,end_time,dusseldorf_v3_shifts.status,dusseldorf_v3_shifts.type,task_map_dep.map_id as locationId,Special_shift,task_map_dep.map_name as location_desc,market.dep_id as market_id,market.dep_name as market_name,dept.dep_id as dept_id,dept.dep_name as dept_name,CONCAT(first_name,' ',last_name) as Staff_name
+					FROM     dusseldorf_v3_shifts,task_map_dep,dusseldorf_users,departments as market,departments as dept
+					WHERE    start_date > 2016-04-01 
+					AND      location_id=task_map_dep.map_id
+					AND      user_id=dusseldorf_users.id
+					and      market.dep_id=dusseldorf_users.dept_parent
+					and      dept.dep_id=dusseldorf_users.dep_id
+					and dusseldorf_users.dept_parent=".$this->session->userdata('dep_id');
+else if ($this->session->userdata('itemname')=='circle_man')
+	 	$myquery = "SELECT   dusseldorf_v3_shifts.id,dusseldorf_v3_shifts.user_id, start_date,end_date,start_time,end_time,dusseldorf_v3_shifts.status,dusseldorf_v3_shifts.type,task_map_dep.map_id as locationId,Special_shift,task_map_dep.map_name as location_desc,market.dep_id as market_id,market.dep_name as market_name,dept.dep_id as dept_id,dept.dep_name as dept_name,CONCAT(first_name,' ',last_name) as Staff_name
+					FROM     dusseldorf_v3_shifts,task_map_dep,dusseldorf_users,departments as market,departments as dept
+					WHERE    start_date > 2016-04-01 
+					AND      location_id=task_map_dep.map_id
+					AND      user_id=dusseldorf_users.id
+					and      market.dep_id=dusseldorf_users.dept_parent
+					and      dept.dep_id=dusseldorf_users.dep_id
+					and dusseldorf_users.dep_id=".$this->session->userdata('dep_id');
+else if ($this->session->userdata('itemname')=='emp')
+		$myquery = "SELECT   dusseldorf_v3_shifts.id,dusseldorf_v3_shifts.user_id, start_date,end_date,start_time,end_time,dusseldorf_v3_shifts.status,dusseldorf_v3_shifts.type,task_map_dep.map_id as locationId,Special_shift,task_map_dep.map_name as location_desc,market.dep_id as market_id,market.dep_name as market_name,dept.dep_id as dept_id,dept.dep_name as dept_name,CONCAT(first_name,' ',last_name) as Staff_name
+					FROM     dusseldorf_v3_shifts,task_map_dep,dusseldorf_users,departments as market,departments as dept
+					WHERE    start_date > 2016-04-01 
+					AND      location_id=task_map_dep.map_id
+					AND      user_id=dusseldorf_users.id
+					and      market.dep_id=dusseldorf_users.dept_parent
+					and      dept.dep_id=dusseldorf_users.dep_id
+					and      dusseldorf_users.id=".$this->session->userdata('user_id');
+
+
+
+
+	
+	
+	if(isset($requestData['txtName']) && $requestData['txtName'] !='')
+	{
+		$myquery = $myquery." AND CONCAT(first_name,' ',last_name)
+		LIKE '%".$requestData['txtName']."%' ";
+	}
+	
+	/*******************************************************************/
+	if(isset($requestData['dtstartDate']) && $requestData['dtstartDate'] != '')
+	
+	{
+		$myquery = $myquery." AND start_date >= '".$requestData['dtstartDate']."'";
+	}
+	if(isset($requestData['dtendDate']) && $requestData['dtendDate'] != '')
+	
+	{
+		$myquery = $myquery." AND end_date <= '".$requestData['dtendDate']."'";
+	}
+	
+	if(isset($requestData['txtStart']) && $requestData['txtStart'] != '')
+	
+	{
+		$myquery = $myquery." AND start_time >= '".$requestData['txtStart']."'";
+	}
+	if(isset($requestData['txtEnd']) && $requestData['txtEnd'] != '')
+	
+	{
+		$myquery = $myquery." AND end_time <= '".$requestData['txtEnd']."'";
+	}
+	
+	//*****************************************************************//
+	if(isset($requestData['drpLocation']) && $requestData['drpLocation'] !='')
+	{
+		$myquery = $myquery." AND task_map_dep.map_id = ".$requestData['drpLocation'];
+	}
+	if(isset($requestData['drpStatus']) && $requestData['drpStatus'] !='')
+	{
+		$myquery = $myquery." AND dusseldorf_v3_shifts.status = ".$requestData['drpStatus'];
+	}
+	
+	if(isset($requestData['drpType']) && $requestData['drpType'] !='')
+	{
+		$myquery = $myquery." AND dusseldorf_v3_shifts.type = ".$requestData['drpType'];
+	}
+	/*$myquery = $myquery." ORDER BY ". $columns[$requestData['order'][0]['column']]."   ".$requestData['order'][0]['dir'].
+				" LIMIT ".$requestData['start']." ,".$requestData['length']."   ";
+	*/
+	$myquery = $myquery." ORDER BY ". $columns[$requestData['order'][0]['column']]."   ".$requestData['order'][0]['dir'];
+		
+		if ($requestData['length'] > 0)
+			$myquery = $myquery." LIMIT ".$requestData['start']." ,".$requestData['length']."   ";
+		
+	$res = $this->db->query($myquery);
+	return $res->result();
+	
+}
+function count_shifts()
+{
+	
+	
+		
+ if ($this->session->userdata('itemname')=='admin')
+	 	$myquery = "SELECT   count(*) as count_row
+					FROM     dusseldorf_v3_shifts,task_map_dep,dusseldorf_users,departments as market,departments as dept
+					WHERE    start_date > 2016-04-01 
+					AND      location_id=task_map_dep.map_id
+					AND      user_id=dusseldorf_users.id
+					and      market.dep_id=dusseldorf_users.dept_parent
+					and      dept.dep_id=dusseldorf_users.dep_id";
+else if ($this->session->userdata('itemname')=='gm')
+	 	$myquery = "SELECT   count(*) as count_row
+					FROM     dusseldorf_v3_shifts,task_map_dep,dusseldorf_users,departments as market,departments as dept
+					WHERE    start_date > 2016-04-01 
+					AND      location_id=task_map_dep.map_id
+					AND      user_id=dusseldorf_users.id
+					and      market.dep_id=dusseldorf_users.dept_parent
+					and      dept.dep_id=dusseldorf_users.dep_id
+					and dusseldorf_users.dept_parent=".$this->session->userdata('dep_id');
+else if ($this->session->userdata('itemname')=='circle_man')
+	 	$myquery = "SELECT   count(*) as count_row
+					FROM     dusseldorf_v3_shifts,task_map_dep,dusseldorf_users,departments as market,departments as dept
+					WHERE    start_date > 2016-04-01 
+					AND      location_id=task_map_dep.map_id
+					AND      user_id=dusseldorf_users.id
+					and      market.dep_id=dusseldorf_users.dept_parent
+					and      dept.dep_id=dusseldorf_users.dep_id
+					and dusseldorf_users.dep_id=".$this->session->userdata('dep_id');
+else if ($this->session->userdata('itemname')=='emp')
+		$myquery = "SELECT   count(*) as count_row
+					FROM     dusseldorf_v3_shifts,task_map_dep,dusseldorf_users,departments as market,departments as dept
+					WHERE    start_date > 2016-04-01 
+					AND      location_id=task_map_dep.map_id
+					AND      user_id=dusseldorf_users.id
+					and      market.dep_id=dusseldorf_users.dept_parent
+					and      dept.dep_id=dusseldorf_users.dep_id
+					and      dusseldorf_users.id=".$this->session->userdata('user_id');
+
+
+
+
+	
+	
+	if(isset($requestData['txtName']) && $requestData['txtName'] !='')
+	{
+		$myquery = $myquery." AND CONCAT(first_name,' ',last_name)
+		LIKE '%".$requestData['txtName']."%' ";
+	}
+	
+	/*******************************************************************/
+	if(isset($requestData['dtstartDate']) && $requestData['dtstartDate'] != '')
+	
+	{
+		$myquery = $myquery." AND start_date >= '".$requestData['dtstartDate']."'";
+	}
+	if(isset($requestData['dtendDate']) && $requestData['dtendDate'] != '')
+	
+	{
+
+		$myquery = $myquery." AND end_date <= '".$requestData['dtendDate']."'";
+	}
+	
+	if(isset($requestData['txtStart']) && $requestData['txtStart'] != '')
+	
+	{
+		$myquery = $myquery." AND start_time >= '".$requestData['txtStart']."'";
+	}
+	if(isset($requestData['txtEnd']) && $requestData['txtEnd'] != '')
+	
+	{
+		$myquery = $myquery." AND end_time <= '".$requestData['txtEnd']."'";
+	}
+	
+	//*****************************************************************//
+	if(isset($requestData['drpLocation']) && $requestData['drpLocation'] !='')
+	{
+		$myquery = $myquery." AND task_map_dep.map_id = ".$requestData['drpLocation'];
+	}
+	if(isset($requestData['drpStatus']) && $requestData['drpStatus'] !='')
+	{
+		$myquery = $myquery." AND dusseldorf_v3_shifts.status = ".$requestData['drpStatus'];
+	}
+	
+	if(isset($requestData['drpType']) && $requestData['drpType'] !='')
+	{
+		$myquery = $myquery." AND dusseldorf_v3_shifts.type = ".$requestData['drpType'];
+	}
+	
+	$res = $this->db->query($myquery);
+	return $res->result();
+	
+
+//	return $this->db->count_all('dusseldorf_v3_shifts');			
+}
+function update_Shift_status()
+{
+	extract($_POST);
+		
+	$data['status'] = $isactive;
+		
+	$this->db->where('id',$shiftId);
+	$this->db->update('dusseldorf_v3_shifts',$data);
+}
+
 }
 
 ?>

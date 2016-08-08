@@ -1,6 +1,28 @@
 // JavaScript Document
 //clearfimeoffForm();
+
 var staffList="";
+function Newtimeoff()
+{
+ $("#timeoffNewModal").modal();	
+ $("#hdnaction").val("addtimeoff");	
+
+
+$("#txtstaffName").val(sessionEmpName);
+$("#hdnstaffId").val(sessionUserId);
+if(sessionPerm=='admin')
+	{
+		
+		document.getElementById("gmDiv").style.display = "block";
+	}
+else 
+	{
+		
+		
+		document.getElementById("gmDiv").style.display = "None";
+	}	
+}
+
 /*$(document).ready(function () {
 	var slectionId='';
     $("input[name=rdSelection]:radio").change(function () {
@@ -77,15 +99,14 @@ var staffList="";
 function edittimeoff() {							
 		
 		var action = $("#hdnaction").val();
-		var staffList = $("#hdnstaffId").val()
+				
+		var staffList = $("#hdnstaffId").val();
+				
 		if(!validateTimeoffShift())
+		{
+			
 			return;
-			//alert($("input[name=rdStatus]:checked").val());
-	//if (action!="updateTimeoff")	
-		/*if (!validateStaffselect())
-			 return;*/
-	/*if ( !$("#drpLocation").valid() )
-		valid = false;	*/
+		}
 			var formData = new FormData();
 	
 				formData.append('hdnshiftId'		 , $("#hdnshiftId").val());
@@ -94,6 +115,7 @@ function edittimeoff() {
 				formData.append('drpTodate'		, $("#drpTodate").val());
 				formData.append('txtStart'	    ,  $("#txtStart").val());
 				formData.append('txtEnd'	        ,  $("#txtEnd").val());
+				formData.append('leavereason'	        ,  $("#drpLeavereason").val());
 				formData.append('rdStatus'          ,  $("input[name=rdStatus]:checked").val());
 				formData.append('staffList'		     , staffList);
 	
@@ -110,13 +132,27 @@ function edittimeoff() {
 			beforeSend: function(){},
 			complete: function(){},
 			success: function(returndb){
-				clearfimeoffForm();
+				if ($("#hdnaction").val()=="addtimeoff")
+				{
+					if (returndb==0){
+						alert("Add Success");
+						location.reload();
+						
+					}
+					else
+						alert("Shift Conflict Please check the selected employees");
+				
+			/*	clearfimeoffForm();
 				var success = $('.alert-success', $("#timeOffForm"));
 				success.show();
 				Metronic.scrollTo(success, -200);
 				
-				$("#timeoff_body").html(returndb);
+				$("#timeoff_body").html(returndb);*/
 				
+				}
+				else if ($("#hdnaction").val()=="updateTimeoff")
+				alert("Update Success");
+						location.reload();
 				
 			}
 		});//END $.ajax
@@ -147,10 +183,11 @@ function deletetimeoff(i)
 			beforeSend: function(){},
 			complete: function(){},
 			success: function(returndb){
-				clearfimeoffForm();
+				/*clearfimeoffForm();
 				var success = $('.alert-success', $("#timeOffForm"));
 				success.show();
-				$("#timeoff_body").html(returndb);
+				$("#timeoff_body").html(returndb);*/
+				location.reload();
 				
 			}
 		});//END $.ajax
@@ -159,7 +196,8 @@ function deletetimeoff(i)
 
 function updatetimeoff(i)
 {
-	getAlllocation();
+	//getAlllocation();
+	$("#timeoffNewModal").modal();	
 	$("#hdnshiftId").val(i);
 	$("#hdnaction").val('updateTimeoff');
 	//var locationId=$("#tdlocation"+i).attr('data-loid');
@@ -178,6 +216,9 @@ function updatetimeoff(i)
 	$("#hdnstaffId").val(staffId);
 	$("#txtstaffName").val($("#tdstaff"+i).html());
 	var statusId=$("#tdrdStatus"+i).attr('data-stid');
+	var empauth=$("#tdstaff"+i).attr('data-auth');
+	var shiftStatus=$("#tdstaff"+i).attr('data-status');
+	$("#drpLeavereason").val(shiftStatus);
 	
 	if (statusId==1)
 	{
@@ -191,15 +232,36 @@ function updatetimeoff(i)
 		$("#rdStatus2").parent().addClass('checked');
 		$("#rdStatus1").parent().removeClass('checked');
 	}
-
-    /*
-		$("#txtstaffName").val($("#tdstaff"+i).html());
-		document.getElementById("divSelect").style.display = "None";	
-		document.getElementById("divUser").style.display = "None";	
-		document.getElementById("divDept").style.display = "None";	
-        document.getElementById("divJobtitle").style.display = "None";	
-		document.getElementById("divSpec").style.display = "None";	
-		document.getElementById("dvstaffname").style.display = "block";	*/
+	//if (sessionEmpName='admin')
+	if(sessionPerm=='admin')
+	{
+		document.getElementById("gmDiv").style.display = "block";
+	}
+	else if (sessionPerm=='gm')
+		if (empauth=='emp'||empauth=='circle_man')
+		{
+			
+			
+			document.getElementById("gmDiv").style.display = "block";
+		}
+		else
+		{
+			document.getElementById("gmDiv").style.display = "None";
+		}
+	else if (sessionPerm=='circle_man')
+		if (empauth=='emp')
+			{
+				
+				
+				document.getElementById("gmDiv").style.display = "block";
+			}
+			else
+			{
+				document.getElementById("gmDiv").style.display = "None";
+			}
+	else
+		document.getElementById("gmDiv").style.display = "None";
+		
 		Metronic.scrollTo($('#timeOffForm'), -100);
 }
 function timeoffclearStaffSelect()
@@ -408,17 +470,27 @@ function validateTimeoffShift()
 	var error = $('#dvDeptMsg');
 	var valid = true;
 	if ( !$("#drpFromdate").valid() )
+	{
 		valid = false;
-		if ( !$("#drpTodate").valid() )
-		valid = false;
+	}
+	if ( !$("#drpTodate").valid() )
+	{
+			valid = false;
+	}
 	if ( !$("#txtStart").valid() )
-		valid = false;
+	{
+	valid = false;
+	}
 	if ( !$("#txtEnd").valid() )
-		valid = false;
+	{	
+	valid = false;
 
-	if ( staffList == '' )
-		valid = false;
-	
+	}
+	/*if ( staffList == '' )
+	{
+		alert("staffList");
+			valid = false;
+	}*/
 	if(!valid)
 	{
 		

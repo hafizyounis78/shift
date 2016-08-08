@@ -10910,7 +10910,7 @@
 			 *      } );
 			 *    } );
 			 */
-			"sInfo": "Showing _START_ to _END_ of _TOTAL_ entries",
+			"sInfo": "Es werden _START_ to _END_ of _TOTAL_ Einträge",
 	
 	
 			/**
@@ -10931,7 +10931,7 @@
 			 *      } );
 			 *    } );
 			 */
-			"sInfoEmpty": "Showing 0 to 0 of 0 entries",
+			"sInfoEmpty": "Es werden 0 to 0 of 0 Einträge",
 	
 	
 			/**

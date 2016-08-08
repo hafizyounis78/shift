@@ -29,9 +29,9 @@ var TableAdvanced = function () {
                     "sortDescending": ": activate to sort column descending"
                 },
                 "emptyTable": "No data available in table",
-                "info": "Showing _START_ to _END_ of _TOTAL_ entries",
+                "info": "Es werden _START_ to _END_ of _TOTAL_ Einträge",
                 "infoEmpty": "No entries found",
-                "infoFiltered": "(filtered1 from _MAX_ total entries)",
+                "infoFiltered": "(filtered1 from _MAX_ total Einträge)",
                 "lengthMenu": "Show _MENU_ entries",
                 "search": "Search:",
                 "zeroRecords": "No matching records found"
@@ -104,9 +104,9 @@ var TableAdvanced = function () {
                     "sortDescending": ": activate to sort column descending"
                 },
                 "emptyTable": "No data available in table",
-                "info": "Showing _START_ to _END_ of _TOTAL_ entries",
+                "info": "Es werden _START_ to _END_ of _TOTAL_ Einträge",
                 "infoEmpty": "No entries found",
-                "infoFiltered": "(filtered1 from _MAX_ total entries)",
+                "infoFiltered": "(filtered1 from _MAX_ total Einträge)",
                 "lengthMenu": "Show _MENU_ entries",
                 "search": "Search:",
                 "zeroRecords": "No matching records found"
@@ -201,9 +201,9 @@ var TableAdvanced = function () {
                     "sortDescending": ": activate to sort column descending"
                 },
                 "emptyTable": "No data available in table",
-                "info": "Showing _START_ to _END_ of _TOTAL_ entries",
+                "info": "Es werden _START_ to _END_ of _TOTAL_ Einträge",
                 "infoEmpty": "No entries found",
-                "infoFiltered": "(filtered1 from _MAX_ total entries)",
+                "infoFiltered": "(filtered1 from _MAX_ total Einträge)",
                 "lengthMenu": "Show _MENU_ entries",
                 "search": "Search:",
                 "zeroRecords": "No matching records found"
@@ -287,9 +287,9 @@ var TableAdvanced = function () {
                     "sortDescending": ": activate to sort column descending"
                 },
                 "emptyTable": "No data available in table",
-                "info": "Showing _START_ to _END_ of _TOTAL_ entries",
+                "info": "Es werden _START_ to _END_ of _TOTAL_ Einträge",
                 "infoEmpty": "No entries found",
-                "infoFiltered": "(filtered1 from _MAX_ total entries)",
+                "infoFiltered": "(filtered1 from _MAX_ total Einträge)",
                 "lengthMenu": "Show _MENU_ entries",
                 "search": "Search:",
                 "zeroRecords": "No matching records found"
@@ -382,9 +382,9 @@ var TableAdvanced = function () {
                     "sortDescending": ": activate to sort column descending"
                 },
                 "emptyTable": "No data available in table",
-                "info": "Showing _START_ to _END_ of _TOTAL_ entries",
+                "info": "Es werden _START_ to _END_ of _TOTAL_ Einträge",
                 "infoEmpty": "No entries found",
-                "infoFiltered": "(filtered1 from _MAX_ total entries)",
+                "infoFiltered": "(filtered1 from _MAX_ total Einträge)",
                 "lengthMenu": "Show _MENU_ entries",
                 "search": "Search:",
                 "zeroRecords": "No matching records found"

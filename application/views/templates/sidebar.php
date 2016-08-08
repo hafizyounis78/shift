@@ -83,6 +83,12 @@
 						<span class="title"><?php echo $this->lang->line('Timeoff Request');?></span>
 						</a>
 					</li>
+                    <li  <?php if($title == 'shiftsearch') echo 'class="active open"';?>>
+						<a href="<?php echo base_url();?>shiftscont/shiftsearch">
+						<i class="icon-book-open "></i>
+						<span class="title"><?php echo $this->lang->line('Search');?>Search</span>
+						</a>
+					</li>
                      <?php if ($this->session->userdata('itemname') == "gm")
 					{
 						?>
