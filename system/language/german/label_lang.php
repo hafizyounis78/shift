@@ -353,7 +353,7 @@ $lang['Timeoff Request'] = "Urlaubsanfrage";
 $lang['Timeoff Table'] = "Timeoff Tabelle";
 $lang['Print'] = "Drucken";
 $lang['Settings'] = "Einstellungen";
-$lang['Is special Shift'] = "Sonder Schicht";
+$lang['Is special Shift'] = "SonderSchicht";
 $lang['Break'] = "Pause";
 $lang['Select one Stuff at least'] = "Wählen Sie mindestens einen Mitarbeiter aus";
 $lang['Available'] = "Verfügbar";
@@ -362,7 +362,7 @@ $lang['Start Date'] = "Start-Datum";
 $lang['End Date'] = "End-Datum";
 $lang['Start Time'] = "Start-Zeit";
 $lang['End Time'] = "End-Zeit";
-$lang['Skip Notification Email'] = "Email Benachrichtigung verschieben";
+$lang['Skip Notification Email'] = "E-mail Benachrichtigung verschieben";
       
 	  
 ?>

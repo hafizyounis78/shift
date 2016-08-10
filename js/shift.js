@@ -774,29 +774,29 @@ var ShiftFormValidation = function () {
 
                messages: { // custom messages for radio buttons and checkboxes
                 drpLocation: {
-                        required: "Please enter the location"
+                        required: "Bitte geben Sie den station"
                     },
                     drpFromdate: {
-                        required: "Please enter valid start date"
+                        required: "Bitte geben Sie eine gültige Startdatum "
                     },
 	                drpTodate: {
-						required: "Please enter valid end date",
-						greaterThanStartdate:"Please enter valid end date",
-						checkWeekNumber:"End date should be at same week duration"
+						required: "Bitte geben Sie eine gültige Enddatum",
+						greaterThanStartdate:"Bitte geben Sie eine gültige Enddatum",
+						checkWeekNumber:"Enddatum in derselben Woche Dauer sein sollte"
                     },
                     txtStart: {
-                        required: "Please enter valid start time",
+                        required: "Bitte geben Sie eine gültige Startzeit",
 						
 						
                     }
 					,
                     txtEnd: {
-                        required: "Please enter valid end time",
-						greaterThanStarttime:"Please enter valid end time"
+                        required: "Bitte geben Sie eine gültige Endzeit",
+						greaterThanStarttime:"Bitte geben Sie eine gültige Endzeit"
 						
                     },
 					drplstBreak: {
-                        required: "Please select break time of shift"
+                        required: "Bitte wählen Sie Pausenzeit der Verschiebung"
                     }
 				},
                 errorPlacement: function (error, element) { // render error placement for each input type

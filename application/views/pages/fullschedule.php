@@ -175,19 +175,19 @@ var sessionValue = "<?php echo $this->session->userdata('itemname'); ?>";
                 <h4 class="modal-title"> <?php echo $this->lang->line('Add Shifts');  ?></h4>
                 <div id="dvStaffMsg" class="alert alert-danger display-none">
                      <button class="close" data-dismiss="alert"></button>
-                     You should select at least one staff.
+                     Sie sollten mindestens einen Mitarbeiter auswählen.
                   </div>
                   <div id="dvDeptMsg" class="alert alert-danger display-none">
                      <button class="close" data-dismiss="alert"></button>
-                     You should select Location ,date ,start time and end time. Please check below.
+                     Sie haben einige Formfehler . Bitte überprüfen Sie unten.
                   </div>
                  <div class="alert alert-danger display-hide">
                       <button class="close" data-close="alert"></button>
-                      You have some form errors. Please check below.
+                     Sie haben einige Formfehler . Bitte überprüfen Sie unten.
                   </div>
                   <div class="alert alert-success display-hide">
                       <button class="close" data-close="alert"></button>
-                      Your form validation is successful!
+                     Ihre Formular-Validierung ist erfolgreich!
                   </div>
             </div>
             <div class="modal-body bgColorWhite">

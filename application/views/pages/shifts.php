@@ -344,9 +344,9 @@ $readonly = '';
 										foreach($shiftrec as $row)
 											{
 												if($row->status==1)
-												 $statusrow='Draft';
+												 $statusrow='Entwurf';
 												 else
-												 $statusrow='Active';
+												 $statusrow='Aktiviert';
 												 if($row->Special_shift==2)
 										$specialShift='Yes';
 									else

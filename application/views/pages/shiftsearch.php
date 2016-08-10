@@ -66,25 +66,33 @@
 										<input type="checkbox" class="group-checkable">
 									</th>
 									<th width="18%">
+										 <?php echo $this->lang->line('Staff'); ?>
 									</th>
 									<th width="15%">
+										 <?php echo $this->lang->line('Start Date');?>
 									</th>
                                     <th width="15%">
+										<?php echo $this->lang->line('End Date');?>
 									</th>
 									<th width="12%">
+										 <?php echo $this->lang->line('Start Time');?>
 									</th>
                                     <th width="12%">
+										 <?php echo $this->lang->line('End Time');?> 
 									</th>
 									<th width="10%">
+										 <?php echo $this->lang->line('Shift type');?>
 									</th>
 									<th width="12%">
 										 Status
 									</th>
                                     <th width="5%">
+										 <?php echo $this->lang->line('Locatios');  ?>
 									</th>
 									
 									
 									<th width="10%">
+										 <?php echo $this->lang->line('Action'); ?>
 									</th>
 								</tr>
 								<tr role="row" class="filter">
@@ -123,6 +131,7 @@
                                     <td>
                                    
                                         <div class="input-group">
+                                            <input type="text" class="form-control timepicker timepicker-24 form-filter input-sm" id="txtEnd" name="txtEnd" value="" >
                                             <span class="input-group-btn">
                                             <button class="btn btn-sm default" type="button"><i class="fa fa-clock-o"></i></button>
                                             </span>
@@ -133,6 +142,7 @@
 									</td>
 									<td>
 									<select id="drpType" name="drpType" class="form-control form-filter input-sm">
+											<option value=""><?php echo $this->lang->line('select');  ?>...</option>
 											<option value="1">Shift</option>
 											<option value="2">Timeoff</option>
 										
