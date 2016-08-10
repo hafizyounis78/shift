@@ -65,8 +65,18 @@
 						?>
                     <li <?php if($title == 'shiftsmang') echo 'class="active open"';?>>
 						<a href="<?php echo base_url();?>shiftscont/shiftsmang">
-						<i class="icon-list"></i>
+						<i class="icon-docs"></i>
 						<span class="title">shift copy</span>
+						</a>
+					</li>
+                    <?php  }?>
+				 	<?php if ($this->session->userdata('itemname') == "gm")
+					{
+						?>
+                    <li <?php if($title == 'weektemp') echo 'class="active open"';?>>
+						<a href="<?php echo base_url();?>weektemplatecont/weektemp">
+						<i class="icon-magic-wand"></i>
+						<span class="title">Week copy</span>
 						</a>
 					</li>
                     <?php  }?>
