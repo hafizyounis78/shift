@@ -1,12 +1,15 @@
 function get_lastschedual()
 {
 	var startDate=$('#lastMondy').val();
+	//var endDate=$('#nextMondy').val();
+	$('#hdncurrStartDate').val(startDate);		
+	//$('#hdncurrEndDate').val(endDate);		
 		//alert(startDate);
 	var formData = new FormData();
 		formData.append('drpFromdate', startDate),
-
+		formData.append('dept_id', $('#drplstDept').val()),
 	$.ajax({
-	url: baseURL+"Reportscont/getcalendar",
+	url: baseURL+"Weektemplatecont/getcalendar",
 	type: "POST",
 	data: formData,
 	processData: false,
@@ -31,13 +34,17 @@ function get_lastschedual()
 function get_nextschedual()
 {
 	var startDate=$('#nextMondy').val();
+	
+	$('#hdncurrStartDate').val(startDate);		
+	//$('#hdncurrEndDate').val(endDate);	
 //alert(startDate);
 	var formData = new FormData();
 		formData.append('drpFromdate', startDate),
+		formData.append('dept_id', $('#drplstDept').val()),
 	//	formData.append('drpFromdate', startDate),
 
 	$.ajax({
-	url: baseURL+"Reportscont/getcalendar",
+	url: baseURL+"Weektemplatecont/getcalendar",
 	type: "POST",
 	data: formData,
 	processData: false,
@@ -61,12 +68,15 @@ function get_nextschedual()
 
 function copyshift()
 {
-	var fromDate=$('#lastMondy').val();
-	var newDate=$('#nextMondy').val();
+	/*var fromDate=$('#lastMondy').val();
+	var newDate=$('#nextMondy').val();*/
+	var fromDate=$('#hdncurrStartDate').val();
+	//var newDate=$('#nextMondy').val();
 //alert(startDate);
 	var formData = new FormData();
 		formData.append('drpFromdate', fromDate),
-		formData.append('drpNewdate', newDate),
+		//formData.append('drpNewdate', newDate),
+		formData.append('dept_id', $('#drplstDept').val()),
 	//	formData.append('drpFromdate', startDate),
 
 	$.ajax({
@@ -87,4 +97,38 @@ function copyshift()
 		}
 	});//END $.ajax
 }
+function drpweekdeptChange()
+{
+	var startDate=$('#hdncurrStartDate').val();
+		//alert('hdncurrStartDate :'+startDate);
+	
+	/*var endDate=$('#nextMondy').val();
+		alert('endDate :'+endDate);*/
 
+	var formData = new FormData();
+		formData.append('drpFromdate', startDate),
+		formData.append('dept_id', $('#drplstDept').val()),
+
+	$.ajax({
+	url: baseURL+"Weektemplatecont/getcalendar",
+	type: "POST",
+	data: formData,
+	processData: false,
+	contentType: false,
+	error: function(xhr, status, error) {
+		alert(xhr.responseText);
+	},
+	beforeSend: function(){},
+	complete: function(){},
+	success: function(returndb){
+		
+		var parts=returndb.split('@#@');
+		//alert('last'+parts[0]);
+		//$('#lastMondy').val(parts[0]);
+		//$('#nextMondy').val(parts[1]);
+		$('#dvTable').empty();
+		$("#dvTable").html(parts[2]);
+//		$('#lastMondy').val(startDate);
+		}
+	});//END $.ajax
+}

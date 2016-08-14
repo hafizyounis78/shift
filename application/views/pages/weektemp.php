@@ -47,7 +47,8 @@ date_default_timezone_set('Asia/Gaza');
                           Your form validation is successful!
                       </div>
                       
-                      
+                      <input type="hidden" id="hdncurrStartDate" name="hdncurrStartDate" value="<?php echo $last_monday ?>"/>
+                     <!-- <input type="hidden" id="hdncurrEndDate" name="hdncurrEndDate"/>-->
                       <!--<div class="form-group">
                         <label class="control-label col-md-3"><?php echo $this->lang->line('Date');  ?><span class="required">
                           * </span></label>
@@ -91,10 +92,38 @@ date_default_timezone_set('Asia/Gaza');
                     <div class="clearfix">
 													
 
-                        <div class="btn-group btn-group-circle btn-group-solid">
+                        
+                        <div class="form-group" id="divDept">
+                          <label class="control-label col-md-3"><?php echo $this->lang->line('Department');  ?>  <span class="required">
+                          * </span>
+                          </label>
+                          <div class="col-md-4">
+                              <select id="drplstDept" class="form-control" name="drplstDept" onchange="drpweekdeptChange();">
+                              <option value=""><?php echo $this->lang->line('select');  ?>...</option>
+                                <?php 
+								   if ($this->session->userdata('itemname') == "gm" ||$this->session->userdata('itemname') == "admin")	   
+							 		echo '<option value="0">'.$this->lang->line('All Department').'</option>';
+							
+								  foreach ($deptList as $dept_row)
+								  {
+									  $selected = '';
+									  /*
+									  if ($patient_row->status_id == $location_row->sub_constant_id)
+									  	$selected = 'selected="selected"';
+									  */
+									  echo ' <option value="'.$dept_row->dep_id.'" '.$selected.'>'
+									  						 .$dept_row->dep_id.'-'.$dept_row->dep_name.'</option>';
+								  }
+								  ?>
+
+                              </select>
+                          </div>
+                      
+                      <div class="btn-group btn-group-circle btn-group-solid">
                             <button type="button" class="btn red" id="lastMondy" value="<?php echo $last_monday ?>"  onclick="get_lastschedual()">&lt;</button>
                             <button type="button" class="btn green" id="nextMondy" value="<?php echo $next_monday ?>" onclick="get_nextschedual()">&gt;</button>
                         </div>
+                    </div>
                     </div>
                   </div>
                   <!--<div class="form-actions">

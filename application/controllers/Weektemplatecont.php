@@ -34,20 +34,22 @@ class Weektemplatecont extends CI_Controller
 
 	function weektemp()
 	{
+		$this->load->model('constantmodel');
+		$this->data['deptList']= $this->constantmodel->get_dept_list();
 		date_default_timezone_set('Asia/Gaza');  
 //		echo date('Y-m-d',strtotime('last monday')); 
 	//	print_r(date('Y-m-d',strtotime('last monday'))); 
 		$_POST['drpFromdate'] = date('Y-m-d',strtotime('last monday'));
 	    $this->session->set_userdata('startDate', $_POST['drpFromdate']);
-		$this->load->model('fullschedulemodel');
+		$this->load->model('Weektempmodel');
 		
-		$rec1  = $this->fullschedulemodel->get_shift_day1();
-		$rec2  = $this->fullschedulemodel->get_shift_day2();
-		$rec3  = $this->fullschedulemodel->get_shift_day3();
-		$rec4  = $this->fullschedulemodel->get_shift_day4();
-		$rec5  = $this->fullschedulemodel->get_shift_day5();
-		$rec6  = $this->fullschedulemodel->get_shift_day6();
-		$rec7  = $this->fullschedulemodel->get_shift_day7();
+		$rec1  = $this->Weektempmodel->get_shift_day1();
+		$rec2  = $this->Weektempmodel->get_shift_day2();
+		$rec3  = $this->Weektempmodel->get_shift_day3();
+		$rec4  = $this->Weektempmodel->get_shift_day4();
+		$rec5  = $this->Weektempmodel->get_shift_day5();
+		$rec6  = $this->Weektempmodel->get_shift_day6();
+		$rec7  = $this->Weektempmodel->get_shift_day7();
 
 		$rec1 = $rec1->result();
 		$rec2 = $rec2->result();
@@ -72,15 +74,15 @@ class Weektemplatecont extends CI_Controller
 		extract($_POST);
 		//$this->getall_ShiftByDAte();
 		$this->session->set_userdata('startDate', $_POST['drpFromdate']);
-		$this->load->model('fullschedulemodel');
+		$this->load->model('Weektempmodel');
 		
-		$rec1  = $this->fullschedulemodel->get_shift_day1();
-		$rec2  = $this->fullschedulemodel->get_shift_day2();
-		$rec3  = $this->fullschedulemodel->get_shift_day3();
-		$rec4  = $this->fullschedulemodel->get_shift_day4();
-		$rec5  = $this->fullschedulemodel->get_shift_day5();
-		$rec6  = $this->fullschedulemodel->get_shift_day6();
-		$rec7  = $this->fullschedulemodel->get_shift_day7();
+		$rec1  = $this->Weektempmodel->get_shift_day1();
+		$rec2  = $this->Weektempmodel->get_shift_day2();
+		$rec3  = $this->Weektempmodel->get_shift_day3();
+		$rec4  = $this->Weektempmodel->get_shift_day4();
+		$rec5  = $this->Weektempmodel->get_shift_day5();
+		$rec6  = $this->Weektempmodel->get_shift_day6();
+		$rec7  = $this->Weektempmodel->get_shift_day7();
 
 		$rec1 = $rec1->result();
 		$rec2 = $rec2->result();
@@ -104,7 +106,15 @@ class Weektemplatecont extends CI_Controller
 	echo '@#@';
 	
 	$parts = explode('-', $drpFromdate);
-
+	  echo '<div class="portlet box blue-hoki">
+						<div class="portlet-title">
+							<div class="caption">
+								<i class="fa fa-globe"></i>PLAN
+							</div>
+							<div class="tools">
+							</div>
+						</div>
+   <div class="portlet-body">';
 	  echo '<table class="table table-bordered" id="shiftTable">';
       echo '<thead>';
       echo '<tr>';
