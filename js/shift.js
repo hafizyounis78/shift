@@ -1,4 +1,13 @@
 // JavaScript Document
+
+  $(document).ready(function(){
+     $.fn.datepicker.defaults.language = 'de';
+});
+
+$(document).ready(function(){
+     $('.datepicker').datepicker();
+});
+
 var staffList="";
 var allEmpList='';
 var employees='';
@@ -774,25 +783,25 @@ var ShiftFormValidation = function () {
 
                messages: { // custom messages for radio buttons and checkboxes
                 drpLocation: {
-                        required: "Bitte geben Sie den station"
+                        required: "Bitte tragen Sie den station"
                     },
                     drpFromdate: {
-                        required: "Bitte geben Sie eine gültige Startdatum "
+                        required: "Bitte tragen Sie eine Startdatum "
                     },
 	                drpTodate: {
-						required: "Bitte geben Sie eine gültige Enddatum",
-						greaterThanStartdate:"Bitte geben Sie eine gültige Enddatum",
+						required: "Bitte tragen Sie eine Enddatum",
+						greaterThanStartdate:"Bitte tragen Sie eine Enddatum",
 						checkWeekNumber:"Enddatum in derselben Woche Dauer sein sollte"
                     },
                     txtStart: {
-                        required: "Bitte geben Sie eine gültige Startzeit",
+                        required: "Bitte tragen Sie eine Startzeit ein",
 						
 						
                     }
 					,
                     txtEnd: {
-                        required: "Bitte geben Sie eine gültige Endzeit",
-						greaterThanStarttime:"Bitte geben Sie eine gültige Endzeit"
+                        required: "Bitte tragen Sie eine Endzeit ein",
+						greaterThanStarttime:"Bitte tragen Sie eine Endzeit ein"
 						
                     },
 					drplstBreak: {

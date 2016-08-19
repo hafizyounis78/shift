@@ -45,6 +45,8 @@ class Timeoffcont extends CI_Controller
 		$this->data['jobtitleList']= $this->constantmodel->get_jobtitle_list();
 		$this->load->model('timeoffmodel');
 		$this->data['timeoffrec'] = $this->timeoffmodel->get_all_timeoff();
+		$this->data['staffList'] = $this->constantmodel->get_staff_list();
+		
 		
 	//	$this->getstaffList();
 	}

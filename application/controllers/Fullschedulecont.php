@@ -209,6 +209,9 @@ class Fullschedulecont extends CI_Controller
 			$temp['end_date'] = $row->end_date;
 			$temp['end_time'] = $row->end_time;
 			$temp['location_name'] = $row->name;
+			$temp['location_id'] = $row->location_id;
+			$temp['empList'] = $row->emp_id;
+			
 			$temp['event_details'] = "Mitarbeiter:".$row->emp_name."<br/>Abteilungen:".$row->dep_name."<br/>Station:".$row->name."\n";
 			$temp['color'] = $row->color;
 	
@@ -220,7 +223,67 @@ class Fullschedulecont extends CI_Controller
 		echo json_encode($output);
 		
 	}
-	
+	function getAllEmp()
+	{
+		
+		$this->load->model('constantmodel');
+//		$staffList=$this->constantmodel->getAvailUser_byDept();
+		$staffList=$this->constantmodel->getAllempAvailable();
+		$staffListNotAvailable=$this->constantmodel->getAllempNotAvailable();
+		$totalTime='';
+		
+		$output = array();
+		 foreach($staffList as $staff_row)
+		  {
+			unset($temp); // Release the contained value of the variable from the last loop
+			$temp = array();
+	 
+			// $totalTime=$staff_row->hoursPerWeek-(($staff_row->totaltime)/3600);
+			if ($staff_row->worktime =='')
+				$totalTime=-45;
+			else
+			 $totalTime=(($staff_row->worktime)/3600)-$staff_row->hoursPerWeek;
+			 
+			//  echo '<option  value='.$staff_row->id.'>'.$totalTime.'|'.$staff_row->name.'|'.$staff_row->pricePerHour.'</option>';
+			//$str=$str.'<option  value='.$staff_row->id.'>'.$totalTime.'|'.$staff_row->name.'|'.$staff_row->pricePerHour.'</option>';
+		  	$temp['stffId'] = $staff_row->id;
+			$temp['staffName'] = $staff_row->name;
+			$temp['totalTime'] = $totalTime;
+			$temp['hoursPerWeek'] = $staff_row->hoursPerWeek;
+			
+			array_push($output,$temp);
+		  }
+		$output2 = array();
+		 foreach($staffListNotAvailable as $staff_row)
+		  {
+			unset($temp); // Release the contained value of the variable from the last loop
+			$temp = array();
+	 
+			// $totalTime=$staff_row->hoursPerWeek-(($staff_row->totaltime)/3600);
+			if ($staff_row->worktime =='')
+				$totalTime=-45;
+			else
+			 $totalTime=(($staff_row->worktime)/3600)-$staff_row->hoursPerWeek;
+			 
+			//  echo '<option  value='.$staff_row->id.'>'.$totalTime.'|'.$staff_row->name.'|'.$staff_row->pricePerHour.'</option>';
+			//$str=$str.'<option  value='.$staff_row->id.'>'.$totalTime.'|'.$staff_row->name.'|'.$staff_row->pricePerHour.'</option>';
+		  	$temp['stffId'] = $staff_row->id;
+			$temp['staffName'] = $staff_row->name;
+			$temp['totalTime'] = $totalTime;
+			$temp['hoursPerWeek'] = $staff_row->hoursPerWeek;
+			
+			array_push($output2,$temp);
+		  }
+		
+		header('Access-Control-Allow-Origin: *');
+		header("Content-Type: application/json");
+		echo json_encode(array('result1'=>$output,'result2'=>$output2));
+		/*echo json_encode($output);
+		echo json_encode($output2);*/
+		
+
+		
+	}
 	}
 	
 ?>

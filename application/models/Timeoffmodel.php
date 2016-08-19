@@ -21,11 +21,12 @@ class Timeoffmodel extends CI_Model
 											   AND   ((start_date<='".$drpFromdate."' and end_date>='".$drpTodate."')
 											   OR      (start_date>='".$drpFromdate."' and start_date<='".$drpTodate."' AND end_date>='".$drpTodate."')
 											   OR      (start_date<='".$drpFromdate."' and end_date>='".$drpFromdate."' AND end_date<='".$drpTodate."')
-											   OR      (start_date>='".$drpFromdate."' and end_date<='".$drpTodate."'))
-											   AND   ((start_time<='".$txtStart."' and end_time>='".$txtEnd."')
+											   OR      (start_date>='".$drpFromdate."' and end_date<='".$drpTodate."')))";
+											   
+/*											   AND   ((start_time<='".$txtStart."' and end_time>='".$txtEnd."')
 											   or     ( start_time>='".$txtStart."' and start_time<='".$txtEnd."' AND end_time>='".$txtEnd."')
 											   or     ( start_time<='".$txtStart."' and end_time>='".$txtStart."' and end_time<='".$txtEnd."')
-											   or     ( start_time>='".$txtStart."' and end_time<='".$txtEnd."')))";	
+											   or     ( start_time>='".$txtStart."' and end_time<='".$txtEnd."')))*/	
 
 		$res = $this->db->query($myquery);
 		$emp_count = $res->result();

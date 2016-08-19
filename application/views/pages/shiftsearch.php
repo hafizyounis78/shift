@@ -143,16 +143,16 @@
 									<td>
 									<select id="drpType" name="drpType" class="form-control form-filter input-sm">
 											<option value=""><?php echo $this->lang->line('select');  ?>...</option>
-											<option value="1">Shift</option>
-											<option value="2">Timeoff</option>
+											<option value="1">Schicht</option>
+											<option value="2">Auszeit</option>
 										
 										</select>
 									</td>
                                     	<td>
 										<select name="drpStatus" class="form-control form-filter input-sm">
-											<option value="">Select...</option>
-											<option value="1">Pending</option>
-											<option value="2">Active</option>
+											<option value=""><?php echo $this->lang->line('select');  ?>..</option>
+											<option value="1"><?php echo $this->lang->line('Pending');  ?></option>
+											<option value="2"><?php echo $this->lang->line('Active');  ?></option>
 											
 										</select>
 									</td>

@@ -156,6 +156,8 @@ var Calendar = function() {
 		        contentHeight: 1100,
                 defaultView: 'agendaWeek', // change default view with available options from http://arshaw.com/fullcalendar/docs/views/Available_Views/ 
                 slotMinutes: 15,
+				minTime: "05:00:00",
+				//maxTime: "04:00:00",
                 editable: true,
 				eventLimit: true, // allow "more" link when too many events
                 droppable: true, // this allows things to be dropped onto the calendar !!!
@@ -325,6 +327,52 @@ var Calendar = function() {
 				            content: event.msg
                         });
 				element.find('.fc-time').after('<span style="font-size:12px" class="fa fa-coffee"></span> ');
+				 element.bind('dblclick', function() {
+         				
+							//*******************************//
+						
+				//	alert(event.locationId);
+						getmodalemployee(event.locationId,event.txtstart,event.txtend,event.starttime, event.endtime,event.empList);
+						$("#hdnaction").val('updateShift');
+						
+							 
+							$("#form_modal2").modal();	
+							$('#drpFromdate').datepicker('setDate', event.txtstart );
+							 $('#drpTodate').datepicker('setDate', event.txtend );
+						   
+							$('#txtStart').timepicker('setTime',event.starttime);
+							$('#txtEnd').timepicker('setTime',event.endtime);
+							$("#drpLocation").val(event.locationId);
+							$("#drplstDept").val(0);
+				/*$.ajax({
+					url: baseURL+"Fullschedulecont/getshiftdata" ,
+					type: "POST",
+					data: formData,
+					processData: false,
+					contentType: false,
+					error: function(xhr, status, error) {
+						//var err = eval("(" + xhr.responseText + ")");
+						alert(xhr.responseText);
+					},
+					beforeSend: function(){},
+					complete: function(){},
+					success: function(returndb){
+							$("#hdnaction").val('updateShift');
+							$("#form_modal2").modal();	
+						    $("#drpFromdate").val(startdate );
+						    $("#drpTodate").val(enddate);
+							$('#txtStart').timepicker('setTime',event.starttime);
+							$('#txtEnd').timepicker('setTime',event.endtime);
+							
+							
+					}*/
+					//});//END $.ajax
+//****************************************//
+						
+											
+						// change the border color just for fun
+						$(this).css('border-color', 'red');
+			      });
 				},
 				/*eventAfterRender: function(event, element, view) 
 				  {
@@ -358,6 +406,7 @@ var Calendar = function() {
 								val0 =parseInt( returndb[0]['close_to'].split(':')[0]) ;
 								val1= parseInt(returndb[0]['open_emp_to'].split(':')[0]);
 								end=parseInt(returndb[0]['open_to'].split(':')[0]); 
+							
 								
 							}
 						});//END $.ajax
@@ -430,7 +479,7 @@ var Calendar = function() {
 									var enddateParts = retrieved_data[a]['end_date'].split("-");
 									var starttimeParts = retrieved_data[a]['start_time'].split(":");
 									var endtimeParts = retrieved_data[a]['end_time'].split(":");
-									
+								
 									
          						events.push({
 //											title:retrieved_data[a]['title']+retrieved_data[a]['event_details'],
@@ -440,6 +489,12 @@ var Calendar = function() {
 											start:new Date(startdateParts[0], parseInt(startdateParts[1] - 1), startdateParts[2], starttimeParts[0], starttimeParts[1]),//:retrieved_data[a]['start_date'],
 											end: new Date(enddateParts[0], parseInt(enddateParts[1] - 1), enddateParts[2],  endtimeParts[0], endtimeParts[1]),
 											backgroundColor: retrieved_data[a]['color'],
+											txtstart:retrieved_data[a]['start_date'],
+											txtend:retrieved_data[a]['end_date'],
+											starttime:retrieved_data[a]['start_time'],
+											endtime:retrieved_data[a]['end_time'],
+											locationId:retrieved_data[a]['location_id'],
+											empList:retrieved_data[a]['empList'],
 											allDay: false
 											
 											});
@@ -543,6 +598,7 @@ function delShiftTemp(shiftTempId)
 	}
 }
 //----
+
 $(document).ready(function(){
 	
 	$('#drplstfilterByDept').change(function(event) {							

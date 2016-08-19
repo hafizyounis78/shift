@@ -9,7 +9,8 @@ function Newtimeoff()
 
 
 $("#txtstaffName").val(sessionEmpName);
-$("#hdnstaffId").val(sessionUserId);
+$('#drpstafflist').val(sessionUserId);
+$("#hdnstaffId").val($('#drpstafflist').val(sessionUserId));
 if(sessionPerm=='admin')
 	{
 		
@@ -99,8 +100,12 @@ else
 function edittimeoff() {							
 		
 		var action = $("#hdnaction").val();
+		var startTime="01:00";
+		var endTime="23:55";
+		
+		//$("#hdnstaffId").val($('#drpstafflist').val());
 				
-		var staffList = $("#hdnstaffId").val();
+		var staffList = $('#drpstafflist').val()
 				
 		if(!validateTimeoffShift())
 		{
@@ -113,8 +118,8 @@ function edittimeoff() {
 				formData.append('drpLocation'		 , 200);
 				formData.append('drpFromdate'		 , $("#drpFromdate").val());
 				formData.append('drpTodate'		, $("#drpTodate").val());
-				formData.append('txtStart'	    ,  $("#txtStart").val());
-				formData.append('txtEnd'	        ,  $("#txtEnd").val());
+				formData.append('txtStart'	    ,startTime  );
+				formData.append('txtEnd'	        , endTime);
 				formData.append('leavereason'	        ,  $("#drpLeavereason").val());
 				formData.append('rdStatus'          ,  $("input[name=rdStatus]:checked").val());
 				formData.append('staffList'		     , staffList);
@@ -132,6 +137,8 @@ function edittimeoff() {
 			beforeSend: function(){},
 			complete: function(){},
 			success: function(returndb){
+				
+				
 				if ($("#hdnaction").val()=="addtimeoff")
 				{
 					if (returndb==0){
@@ -141,18 +148,12 @@ function edittimeoff() {
 					}
 					else
 						alert("Shift Conflict Please check the selected employees");
-				
-			/*	clearfimeoffForm();
-				var success = $('.alert-success', $("#timeOffForm"));
-				success.show();
-				Metronic.scrollTo(success, -200);
-				
-				$("#timeoff_body").html(returndb);*/
+		
 				
 				}
 				else if ($("#hdnaction").val()=="updateTimeoff")
 				alert("Update Success");
-						location.reload();
+					location.reload();
 				
 			}
 		});//END $.ajax
@@ -206,13 +207,14 @@ function updatetimeoff(i)
 	//$("#drpFromdate").val($("#tdstart_date"+i).html());
 	$('#drpTodate').datepicker('setDate', $("#tdend_date"+i).html());
 	//$("#drpTodate").val($("#tdend_date"+i).html());
-	$('#txtStart').timepicker('setTime',$("#tdstart_Time"+i).html());
+	/*$('#txtStart').timepicker('setTime',$("#tdstart_Time"+i).html());
 	$('#txtEnd').timepicker('setTime',$("#tdend_Time"+i).html());
-	
+	*/
 	/*$("#txtStart").val($("#tdstart_Time"+i).html());
 	$("#txtEnd").val($("#tdend_Time"+i).html());*/
 	//$("#rdStatus").val($("#tdlocation"+i).html());
 	var staffId=$("#tdstaff"+i).attr('data-staffId');
+	$('#drpstafflist').val(staffId);
 	$("#hdnstaffId").val(staffId);
 	$("#txtstaffName").val($("#tdstaff"+i).html());
 	var statusId=$("#tdrdStatus"+i).attr('data-stid');
@@ -294,8 +296,8 @@ function clearfimeoffForm()
 	$("#drpFromdate").datepicker("setDate", new Date());
 	$("#drpTodate").datepicker("setDate", new Date());
 
-	$('#txtStart').timepicker('setTime', new Date());
-	$('#txtEnd').timepicker('setTime', new Date());
+	/*$('#txtStart').timepicker('setTime', new Date());
+	$('#txtEnd').timepicker('setTime', new Date());*/
 	
 	/*$("#txtStart").val("");
 	$("#txtEnd").val("");*/
@@ -477,7 +479,7 @@ function validateTimeoffShift()
 	{
 			valid = false;
 	}
-	if ( !$("#txtStart").valid() )
+	/*if ( !$("#txtStart").valid() )
 	{
 	valid = false;
 	}
@@ -485,7 +487,7 @@ function validateTimeoffShift()
 	{	
 	valid = false;
 
-	}
+	}*/
 	/*if ( staffList == '' )
 	{
 		alert("staffList");
@@ -577,7 +579,7 @@ var TimeOffFormValidation = function () {
 			jQuery.validator.addMethod("greaterThanStartdate", function(value, element) {
     			return Date.parse($('#drpTodate').val())>=Date.parse($('#drpFromdate').val()) ;
 			}, "* End date must be greater than Start date");
-			jQuery.validator.addMethod("greaterThanStarttime", function(value, element) {
+			/*jQuery.validator.addMethod("greaterThanStarttime", function(value, element) {
 				var start_time = $("#txtStart").val();
 				var end_time = $("#txtEnd").val();
 				//convert both time into timestamp
@@ -587,7 +589,7 @@ var TimeOffFormValidation = function () {
 				endt = endt.getTime();
 					
 				return endt>stt ;
-			}, "* End time must be greater than Start time");
+			}, "* End time must be greater than Start time");*/
 			
             form.validate({
                 errorElement: 'span', //default input error message container
@@ -607,14 +609,8 @@ var TimeOffFormValidation = function () {
 						greaterThanStartdate:true,
 						checkWeekNumber:true
                     
-					},
-					txtStart: {
-                        required: true
-                    },
-	                txtEnd: {
-                        required: true,
-						greaterThanStarttime:true
-                    }
+					}
+					
 				},
 
                messages: { // custom messages for radio buttons and checkboxes
@@ -622,21 +618,14 @@ var TimeOffFormValidation = function () {
                         required: "Please enter the location"
                     },
 */                    drpFromdate: {
-                        required: "Please enter timeoff date"
+                         required: "Bitte tragen Sie eine Startdatum "
                     },
 					drpTodate: {
-						required: "Please enter valid end date",
-						greaterThanStartdate:"Please enter valid end date",
-						checkWeekNumber:"End date should be at same week duration"
-                    },
-                    txtStart: {
-                        required: "Please enter start time of timeoff"
-                    }
-					,
-                    txtEnd: {
-                        required: "Please enter start time of timeoff",
-						greaterThanStarttime:"Please enter valid end time"
-                    }
+						required: "Bitte tragen Sie eine Enddatum",
+						greaterThanStartdate:"Bitte tragen Sie eine Enddatum",
+						checkWeekNumber:"Enddatum in derselben Woche Dauer sein sollte"
+                    }                    
+                   
 				},
                 errorPlacement: function (error, element) { // render error placement for each input type
                     if (element.attr("data-error-container")) { 

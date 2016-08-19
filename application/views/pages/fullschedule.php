@@ -191,7 +191,7 @@ var sessionValue = "<?php echo $this->session->userdata('itemname'); ?>";
                   </div>
             </div>
             <div class="modal-body bgColorWhite">
-              
+              <input type="hidden" id="hdnaction" name="hdnaction" value="addModalshift" />
                <div class="form-group">
                         <label class="control-label col-md-3"><?php echo $this->lang->line('Shift type');?></label>
                         <div class="col-md-4">
@@ -223,7 +223,7 @@ var sessionValue = "<?php echo $this->session->userdata('itemname'); ?>";
                             <div class="input-group input-medium date-picker input-daterange" data-date="10/11/2012" data-date-format="yyyy-mm-dd">
                                 <input type="text" id="drpFromdate" class="form-control classConflict" name="drpFromdate" required>
                                 <span class="input-group-addon">
-                                to </span>
+                                bis </span>
                                 <input type="text" id="drpTodate" class="form-control classConflict" name="drpTodate" required>
                             </div>
                             <!-- /input-group -->
@@ -275,9 +275,9 @@ var sessionValue = "<?php echo $this->session->userdata('itemname'); ?>";
                         <div class="col-md-6">
                           <div class="radio-list">
                               <label class="radio-inline">
-                              <input type="radio" name="rdStatus" id="rdStatus1" value="1" checked><?php echo $this->lang->line('Draft');  ?></label>
+                              <input type="radio" name="rdStatus" id="rdStatus1" value="1" disabled="disabled" ><?php echo $this->lang->line('Draft');  ?></label>
                               <label class="radio-inline">
-                              <input type="radio" name="rdStatus" id="rdStatus2" value="2"><?php echo $this->lang->line('Active');  ?></label>
+                              <input type="radio" name="rdStatus" id="rdStatus2" value="2" checked><?php echo $this->lang->line('Active');  ?></label>
                               
                           </div>
                         </div>
@@ -286,20 +286,21 @@ var sessionValue = "<?php echo $this->session->userdata('itemname'); ?>";
                         <label class="control-label col-md-3"><?php echo $this->lang->line('Locatios');  ?><span class="required">
                           * </span></label>
                         <div class="col-md-4">
-                            <select id="drpLocation" name="drpLocation" class="form-control input-large " data-placeholder="Select..." required>
+                            <select id="drpLocation" name="drpLocation" class="form-control input-large " data-placeholder="<?php echo $this->lang->line('select');  ?>.." required>
                                <!-- <option value=""><?php echo $this->lang->line('select');  ?>..</option>-->
                                 <?php 
 								foreach ($location as $location_row)
 								{
 									
 									 echo ' <option value="'.$location_row->id.'" '.$selected.'>'
-									  						 .$location_row->Location_name.'::'.$location_row->dep_name.'</option>';
+									  						 .$location_row->id.':'.$location_row->Location_name.'::'.$location_row->dep_name.'</option>';
 								}
 								?>
                             </select>
                             
                         </div>
                     </div>
+                    
 					<div class="form-group" id="divSelect">
                         <label class="control-label col-md-3"><?php echo $this->lang->line('Filter staff by');  ?><span class="required">
                           * </span></label>
@@ -333,7 +334,7 @@ var sessionValue = "<?php echo $this->session->userdata('itemname'); ?>";
 									  	$selected = 'selected="selected"';
 									  */
 									  echo ' <option value="'.$dept_row->dep_id.'" '.$selected.'>'
-									  						 .$dept_row->dep_name.'</option>';
+									  						 .$dept_row->dep_id.'::'.$dept_row->dep_name.'</option>';
 								  }
 								  ?>
 
@@ -419,7 +420,7 @@ var sessionValue = "<?php echo $this->session->userdata('itemname'); ?>";
             </div>
             <div class="modal-footer bg-info">
                 <button   type="button" class="btn btn-default" data-dismiss="modal" onclick="cancelShift();" ><?php echo $this->lang->line('Cancel'); ?></button>
-                <button  type="submit" class="btn btn-primary" ><?php echo $this->lang->line('Save');  ?> </button>
+                <button  type="submit" class="btn btn-primary"  ><?php echo $this->lang->line('Save');  ?> </button>
             </div>
         </div>
         <!-- /.modal-content -->

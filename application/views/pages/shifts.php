@@ -66,7 +66,7 @@ $readonly = '';
                             <div class="input-group input-medium date-picker input-daterange" data-date="10/11/2012" data-date-format="yyyy-mm-dd">
                                 <input type="text" id="drpFromdate" class="form-control shiftclassConflict" name="drpFromdate" >
                                 <span class="input-group-addon">
-                                to </span>
+                                bis </span>
                                 <input type="text" id="drpTodate" class="form-control shiftclassConflict" name="drpTodate" >
                             </div>
                             <!-- /input-group -->
@@ -109,12 +109,12 @@ $readonly = '';
                       <div class="form-group">
                         <label class="control-label col-md-3">Status<span class="required">
                           * </span></label>
-                        <div class="col-md-4">
+                        <div class="col-md-4" >
                           <div class="radio-list">
                               <label class="radio-inline">
-                              <input type="radio" name="rdStatus" id="rdStatus1" value="1" checked>Draft</label>
+                              <input type="radio" name="rdStatus" id="rdStatus1" value="1" disabled="disabled"><?php echo $this->lang->line('Draft');  ?></label>
                               <label class="radio-inline">
-                              <input type="radio" name="rdStatus" id="rdStatus2" value="2"><?php echo $this->lang->line('Active');  ?></label>
+                              <input type="radio" name="rdStatus" id="rdStatus2" value="2" checked ><?php echo $this->lang->line('Active');  ?></label>
                               
                           </div>
                         </div>

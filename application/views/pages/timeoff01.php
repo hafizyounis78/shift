@@ -23,11 +23,11 @@ $readonly = '';
                 
                  <div id="dvDeptMsg" class="alert alert-danger display-hide">
                       <button class="close" data-close="alert"></button>
-                       Sie haben einige Formfehler . Bitte überprüfen Sie unten.
+                      You have some form errors. Please check below.
                   </div>
                   <div class="alert alert-success display-hide">
                       <button class="close" data-close="alert"></button>
-                     Ihre Formular-Validierung ist erfolgreich!
+                      Your form validation is successful!
                   </div>
             </div>
              <input type="hidden" name="hdnaction" id="hdnaction" value="<?php echo $action; ?>" />
@@ -48,7 +48,7 @@ $readonly = '';
                         <!-- /input-group -->
                     </div>
                 </div>
-                    <!--<div class="form-group">
+                    <div class="form-group">
                         <label class="control-label col-md-3"><?php echo $this->lang->line('Time');  ?><span class="required">
                       * </span></label>
                         <div class="col-md-3">
@@ -68,7 +68,7 @@ $readonly = '';
                             </div>
                         </div>
                         
-                    </div>-->
+                    </div>
                     <div class="form-group" >
                           <label class="control-label col-md-3"><?php echo $this->lang->line('Reason');  ?> Reason <span class="required">
                           * </span>
@@ -77,9 +77,9 @@ $readonly = '';
                               <select id="drpLeavereason" class="form-control" name="drpLeavereason" >
                               	  <option value="0"><?php echo $this->lang->line('select');  ?>...</option>
                             
-                                  <option value="1">Urlaub</option>
-                                  <option value="2">Krankheitsfall</option>
-                                  <option value="3">Notfall</option>
+                                  <option value="1">Annual leave</option>
+                                  <option value="2">Sicke leave</option>
+                                  <option value="3">emergency leave</option>
                               </select>
                           </div>
                       </div>
@@ -138,6 +138,8 @@ $readonly = '';
                                                       </select> 
                                                 </div>
                                             </div>   
+                                            
+                                             
                                         </div>
                       
                
@@ -160,11 +162,12 @@ $readonly = '';
         <!-- BEGIN SAMPLE TABLE PORTLET-->
         <div class="portlet box purple">
             <div class="portlet-title">
-                <button id="btnNewtimeoff" name="btnNewtimeoff" type="submit" value="New" class="btn default btn-md green add-time" onclick="Newtimeoff('<?php echo $this->session->userdata('user_id') ?>')"><i class="fa fa-plus"></i> <?php echo $this->lang->line('Add time'); ?> </button>
                 <div class="caption">
                     <i class="fa fa-clock-o"></i><?php echo $this->lang->line('Timeoff Table'); ?>
+                    <button id="btnNewtimeoff" name="btnNewtimeoff" type="submit" value="New" class="btn default btn-xs green" onclick="Newtimeoff('<?php echo $this->session->userdata('user_id') ?>')"><i class="fa fa-plus"></i> </button>
                 </div>
-
+                
+                
             </div>
             <div class="portlet-body">
                 <div class="table-scrollable">

@@ -327,9 +327,9 @@ function updateAllshift()
 		foreach($shiftrec as $row)
 		{
 			if($row->status==1)
-			 $statusrow='Draft';
+			 $statusrow='Entwurf';
 			 else
-			 $statusrow='Active';
+			 $statusrow='Aktiviert';
 			 echo '<tr>';		
 			 echo '<td>'.$i++.'</td>';
 			 echo '<td id="tdstaff'.$row->id.'">'.$row->Staff_name.'</td>';
@@ -372,9 +372,9 @@ function updateAllshift()
 			foreach($shiftrec as $row)
 				{
 					if($row->status==1)
-					 $statusrow='Draft';
+					 $statusrow='Entwurf';
 					 else
-					 $statusrow='Active';
+					 $statusrow='Aktiviert';
 					 if($row->Special_shift==1)
 					 $specialrow='Yes';
 					 else
@@ -424,9 +424,9 @@ function shiftgriddata()
 	  $style = 'style="cursor:pointer"';
 	 
 	if($row->type==1)
-	 $typerow='Shift';
+	 $typerow='Schicht';
 	else
-	 $typerow='Timeoff';
+	 $typerow='Auszeit';
 	// $start_date='';
 	 //$start_date=date('Y-m-d',$row->start_date);  // for first day of this week
 	 //*****************************************//
@@ -456,11 +456,11 @@ function shiftgriddata()
 	 //*******************************************//
 	 
 	 
-	 
+	/* 
 	$btn='<a class="btn default btn-xs purple" onclick="showshiftDetails(\''.$row->id.'\')">
-	  <i class="fa fa-edit"></i> Details </a>';
+	  <i class="fa fa-edit"></i> Details </a>';*/
 	
-	$nestedData[] = $i++;
+	$nestedData[] = "<input type='checkbox' id='".$row->id."' value='0' />";
 	$nestedData[] = $row->Staff_name;
 	$nestedData[] = $row->start_date;
 	$nestedData[] = $row->end_date;
@@ -471,7 +471,8 @@ function shiftgriddata()
 	$nestedData[] = $row->location_desc;
 	
 	//$nestedData[] = $active;
-	$nestedData[] = $btn;
+	//$nestedData[] = $btn;
+	$nestedData[] = '';
 	
 	$data[] = $nestedData;
 	} // End Foreach

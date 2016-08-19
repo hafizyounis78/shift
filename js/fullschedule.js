@@ -169,6 +169,7 @@ function addModalshift(){
 				clearFullShiftForm();
 				 $("#calendar").fullCalendar("refetchEvents");
 				 $("#shiftModalform").modal("hide");
+				 $("[data-dismiss=modal]").trigger({ type: "click" });
 				 //location.reload();
 			}
 		});//END $.ajax
@@ -372,6 +373,75 @@ function drpSpecFullChange()
 		});//END $.ajax
 }
 }
+function getmodalemployee(locationId,txtstart,txtend,starttime, endtime,employees)
+{
+		$("#my_multi_select1").html('');
+		$("#my_multi_select1").multiSelect('refresh');
+		
+			var formData = new FormData();
+				formData.append('drpFromdate'	, txtstart);
+				formData.append('drpTodate'		,txtend);
+				formData.append('txtStart'	    ,starttime);
+				formData.append('txtEnd'	    , endtime);
+				formData.append('locationId'    ,locationId ),
+		
+		$.ajax({
+			url: baseURL+"Fullschedulecont/getAllEmp",
+			type: "POST",
+			data: formData,
+			processData: false,
+			contentType: false,
+			error: function(xhr, status, error) {
+  				alert(xhr.responseText);
+			},
+			beforeSend: function(){},
+			complete: function(){},
+			success: function(returndb){
+				//initChart2(returndb.result1,returndb.result2);
+				 data21 = returndb.result1;
+         		data22 = returndb.result2;
+			
+			
+			var emplist='';
+
+			//alert(availbleEmp);
+			staffList='';
+				for(i=0;i<data21.length;i++)
+				{
+					
+					if (employees.search(data21[i].stffId)!= -1)
+					
+					emplist=emplist+'<option selected value='+data21[i].stffId+'>'+data21[i].totalTime+'|'+data21[i].staffName+'|'+data21[i].hoursPerWeek+'</option>';	
+					
+					else
+					emplist=emplist+'<option value='+data21[i].stffId+'>'+data21[i].totalTime+'|'+data21[i].staffName+'|'+data21[i].hoursPerWeek+'</option>';	
+					
+				}
+				for(i=0;i<data22.length;i++)
+				{
+					
+					if (employees.search(data22[i].stffId)!= -1)
+					{
+						if (staffList=='')
+							staffList=data22[i].stffId;
+						else
+							staffList=staffList+','+data22[i].stffId;
+						emplist=emplist+'<option selected value='+data22[i].stffId+'>'+data22[i].totalTime+'|'+data22[i].staffName+'|'+data22[i].hoursPerWeek+'</option>';	
+					}
+					else
+					emplist=emplist+'<option title="Unavailable" disabled="disabled" value='+data22[i].stffId+'>'+data22[i].totalTime+'|'+data22[i].staffName+'|'+data22[i].hoursPerWeek+'</option>';	
+					
+				}
+	//alert("getemployee:  "+staffList);
+				$("#my_multi_select1").html(emplist);
+				$("#my_multi_select1").multiSelect('refresh');
+				$("#my_multi_select1").multiSelect('refresh');
+
+
+			}
+		});//END $.ajax
+		
+}
 //****************timeoff Validation
 function validatStaff()
 {
@@ -552,29 +622,29 @@ var ShiftModalFormValidation = function () {
 
                messages: { // custom messages for radio buttons and checkboxes
                 drpLocation: {
-                        required: "Please enter the location"
+                        required: "Bitte tragen Sie den station"
                     },
                     drpFromdate: {
-                        required: "Please enter valid start date"
+                        required: "= Bitte tragen Sie eine Startdatum"
                     },
 	                drpTodate: {
-						required: "Please enter valid end date",
-						greaterThanStartdate:"Please enter valid end date",
-						checkWeekNumber:"End date should be at same week duration"
+						required: "Bitte tragen Sie eine Enddatum",
+						greaterThanStartdate:"Bitte tragen Sie eine Enddatum",
+						checkWeekNumber:"Enddatum in derselben Woche Dauer sein sollte"
                     },
                     txtStart: {
-                        required: "Please enter valid start time",
+                        required: "Bitte tragen Sie eine Startzeit ein",
 						
 						
                     }
 					,
                     txtEnd: {
-                        required: "Please enter valid end time",
-						greaterThanStarttime:"Please enter valid end time"
+                        required: "Bitte tragen Sie eine Endzeit ein",
+						greaterThanStarttime:"Bitte tragen Sie eine Endzeit ein"
 						
                     },
 					drplstBreak: {
-                        required: "Please select break time"
+                        required: "Bitte wählen Sie Pausenzeit der Verschiebung"
                     }
 				},
                 errorPlacement: function (error, element) { // render error placement for each input type

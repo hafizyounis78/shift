@@ -82,6 +82,7 @@ class Fullschedulemodel extends CI_Model
 
 
 	}
+	
 	public function get_all_shift()//Calender View
 	{
 		
@@ -94,18 +95,21 @@ class Fullschedulemodel extends CI_Model
 				$dep_filter = '';		
 				if($dept_id!= 0 && $dept_id!='')
 				{
-					$dep_filter = "AND b.dep_id=".$dept_id;
+//					$dep_filter = "AND b.dep_id=".$dept_id;
+					$dep_filter = "AND loc.dep_child_id=".$dept_id;
+
 				}
 		if ($this->session->userdata('itemname')=='admin')
-		
+		/* SELECT GROUP_CONCAT( CONCAT( b.first_name, ' ', b.last_name,' (', dep_name,')' )
+								SEPARATOR ', ' )*/
 		$myquery = "SELECT sft.start_date, sft.start_time, sft.end_time, sft.end_date,sft.lunch_break, sft.location_id,sft.type, loc.map_name as name, loc.color, loc.map_id,deplocation.dep_name, (
 		
 								SELECT GROUP_CONCAT( CONCAT( b.first_name, ' ', b.last_name,' (', dep_name,')' )
 								SEPARATOR ', ' )
-								FROM dusseldorf_users b, dusseldorf_v3_shifts c,departments d
+								FROM dusseldorf_users b, dusseldorf_v3_shifts c,task_map_dep loc
 								WHERE b.id = c.user_id
 								AND location_id = sft.location_id
-								and b.dep_id=d.dep_id
+								AND sft.location_id=loc.map_id
 								AND start_date = sft.start_date
 								AND end_date = sft.end_date
 								AND start_time = sft.start_time
@@ -125,17 +129,29 @@ class Fullschedulemodel extends CI_Model
 		
 								SELECT GROUP_CONCAT( CONCAT( b.first_name, ' ', b.last_name,' (', dep_name,')' )
 								SEPARATOR ', ' )
-								FROM dusseldorf_users b, dusseldorf_v3_shifts c,departments d
+								FROM dusseldorf_users b, dusseldorf_v3_shifts c,task_map_dep loc
 								WHERE b.id = c.user_id
 								AND location_id = sft.location_id
-								and b.dep_id=d.dep_id
+								AND sft.location_id=loc.map_id
 								AND start_date = sft.start_date
 								AND end_date = sft.end_date
 								AND start_time = sft.start_time
 								AND end_time = sft.end_time
 								".$dep_filter."
 								and   b.dept_parent=".$this->session->userdata('dep_id')."
-								) AS emp_name
+								) AS emp_name,
+								(SELECT GROUP_CONCAT( c.user_id	SEPARATOR ', ' )
+								FROM dusseldorf_users b, dusseldorf_v3_shifts c,task_map_dep loc
+								WHERE b.id = c.user_id
+								AND location_id = sft.location_id
+								AND sft.location_id=loc.map_id
+								AND start_date = sft.start_date
+								AND end_date = sft.end_date
+								AND start_time = sft.start_time
+								AND end_time = sft.end_time
+								".$dep_filter."
+								and   b.dept_parent=".$this->session->userdata('dep_id')."
+								) AS emp_id
 								FROM dusseldorf_v3_shifts sft, task_map_dep loc,dusseldorf_users b,departments as deplocation
 								where b.id=sft.user_id
 								".$dep_filter."
@@ -149,21 +165,21 @@ class Fullschedulemodel extends CI_Model
 			
 								SELECT GROUP_CONCAT( CONCAT( b.first_name, ' ', b.last_name,' (', dep_name,')' )
 									SEPARATOR ', ' )
-									FROM dusseldorf_users b, dusseldorf_v3_shifts c,departments d
+									FROM dusseldorf_users b, dusseldorf_v3_shifts c,task_map_dep loc
 									WHERE b.id = c.user_id
 									AND location_id = sft.location_id
-									and b.dep_id=d.dep_id
+									AND sft.location_id=loc.map_id
 									AND start_date = sft.start_date
 									AND end_date = sft.end_date
 									AND start_time = sft.start_time
 									AND end_time = sft.end_time
 									and   b.dep_id=".$this->session->userdata('dep_id')."
 									) AS emp_name
-									FROM dusseldorf_v3_shifts sft, task_map_dep loc,dusseldorf_users users,departments as deplocation
+									FROM  dusseldorf_v3_shifts sft, task_map_dep loc,dusseldorf_users users,departments as deplocation
 									where users.id=sft.user_id
-									and loc.dep_child_id=deplocation.dep_id	
-   									and sft.location_id = loc.map_id									
-									and   users.dep_id=".$this->session->userdata('dep_id').
+									and   loc.dep_child_id=deplocation.dep_id	
+   									and   sft.location_id = loc.map_id									
+									and    b.dep_id=".$this->session->userdata('dep_id').
 									" GROUP BY sft.start_date, sft.start_time, sft.end_time, sft.end_date, sft.location_id, loc.map_name, loc.color
 									HAVING start_date >'2016-04-01'";
 		else if ($this->session->userdata('itemname')=='emp')
@@ -285,7 +301,7 @@ class Fullschedulemodel extends CI_Model
 				$dep_filter = '';		
 				if($dept_id!= 0 && $dept_id!='')
 				{
-					$dep_filter = "AND b.dep_id=".$dept_id;
+					$dep_filter = "AND loc.dep_child_id=".$dept_id;
 				}
 		if ($this->session->userdata('itemname')=='admin')
 		
@@ -293,9 +309,10 @@ class Fullschedulemodel extends CI_Model
 		
 								SELECT GROUP_CONCAT( CONCAT( b.first_name, ' ', b.last_name )
 								SEPARATOR ', ' )
-								FROM dusseldorf_users b, dusseldorf_v3_shifts c
+								FROM dusseldorf_users b, dusseldorf_v3_shifts c,task_map_dep loc
 								WHERE b.id = c.user_id
 								AND location_id = sft.location_id
+								AND sft.location_id=loc.map_id
 								AND start_date = sft.start_date
 								AND end_date = sft.end_date
 								AND start_time = sft.start_time
@@ -316,9 +333,10 @@ class Fullschedulemodel extends CI_Model
 			$myquery = "SELECT sft.start_date, sft.start_time, sft.end_time, sft.end_date, sft.location_id,sft.type, loc.map_name as name, loc.color, loc.map_id, (
 								SELECT GROUP_CONCAT( CONCAT( b.first_name, ' ', b.last_name )
 								SEPARATOR ', ' )
-								FROM dusseldorf_users b, dusseldorf_v3_shifts c
+								FROM dusseldorf_users b, dusseldorf_v3_shifts c,task_map_dep loc
 								WHERE b.id = c.user_id
 								AND location_id = sft.location_id
+								AND sft.location_id=loc.map_id
 								AND start_date = sft.start_date
 								AND end_date = sft.end_date
 								AND start_time = sft.start_time
@@ -341,9 +359,10 @@ class Fullschedulemodel extends CI_Model
 			
 									SELECT GROUP_CONCAT( CONCAT( b.first_name, ' ', b.last_name )
 									SEPARATOR ', ' )
-									FROM dusseldorf_users b, dusseldorf_v3_shifts c
+									FROM dusseldorf_users b, dusseldorf_v3_shifts c,task_map_dep loc
 									WHERE b.id = c.user_id
 									AND location_id = sft.location_id
+									AND sft.location_id=loc.map_id
 									AND start_date = sft.start_date
 									AND end_date = sft.end_date
 									AND start_time = sft.start_time
@@ -386,7 +405,7 @@ class Fullschedulemodel extends CI_Model
 				$dep_filter = '';		
 				if($dept_id!= 0 && $dept_id!='')
 				{
-					$dep_filter = "AND b.dep_id=".$dept_id;
+					$dep_filter = "AND loc.dep_child_id=".$dept_id;
 				}
 		if ($this->session->userdata('itemname')=='admin')
 		
@@ -394,8 +413,9 @@ class Fullschedulemodel extends CI_Model
 		
 								SELECT GROUP_CONCAT( CONCAT( b.first_name, ' ', b.last_name )
 								SEPARATOR ', ' )
-								FROM dusseldorf_users b, dusseldorf_v3_shifts c
+								FROM dusseldorf_users b, dusseldorf_v3_shifts c,task_map_dep loc
 								WHERE b.id = c.user_id
+								and sft.location_id = loc.map_id
 								AND location_id = sft.location_id
 								AND start_date = sft.start_date
 								AND end_date = sft.end_date
@@ -417,8 +437,9 @@ class Fullschedulemodel extends CI_Model
 			$myquery = "SELECT sft.start_date, sft.start_time, sft.end_time, sft.end_date, sft.location_id,sft.type, loc.map_name as name, loc.color, loc.map_id, (
 								SELECT GROUP_CONCAT( CONCAT( b.first_name, ' ', b.last_name )
 								SEPARATOR ', ' )
-								FROM dusseldorf_users b, dusseldorf_v3_shifts c
+								FROM dusseldorf_users b, dusseldorf_v3_shifts c, task_map_dep loc
 								WHERE b.id = c.user_id
+								and sft.location_id = loc.map_id
 								AND location_id = sft.location_id
 								AND start_date = sft.start_date
 								AND end_date = sft.end_date
@@ -442,8 +463,9 @@ class Fullschedulemodel extends CI_Model
 			
 									SELECT GROUP_CONCAT( CONCAT( b.first_name, ' ', b.last_name )
 									SEPARATOR ', ' )
-									FROM dusseldorf_users b, dusseldorf_v3_shifts c
+									FROM dusseldorf_users b, dusseldorf_v3_shifts c,task_map_dep loc
 									WHERE b.id = c.user_id
+									and   sft.location_id = loc.map_id		
 									AND location_id = sft.location_id
 									AND start_date = sft.start_date
 									AND end_date = sft.end_date
@@ -492,7 +514,7 @@ class Fullschedulemodel extends CI_Model
 				$dep_filter = '';		
 				if($dept_id!= 0 && $dept_id!='')
 				{
-					$dep_filter = "AND b.dep_id=".$dept_id;
+					$dep_filter = "AND loc.dep_child_id=".$dept_id;
 				}
 		if ($this->session->userdata('itemname')=='admin')
 		
@@ -500,8 +522,9 @@ class Fullschedulemodel extends CI_Model
 		
 								SELECT GROUP_CONCAT( CONCAT( b.first_name, ' ', b.last_name )
 								SEPARATOR ', ' )
-								FROM dusseldorf_users b, dusseldorf_v3_shifts c
+								FROM dusseldorf_users b, dusseldorf_v3_shifts c, task_map_dep loc
 								WHERE b.id = c.user_id
+								and   sft.location_id = loc.map_id		
 								AND location_id = sft.location_id
 								AND start_date = sft.start_date
 								AND end_date = sft.end_date
@@ -523,8 +546,9 @@ class Fullschedulemodel extends CI_Model
 			$myquery = "SELECT sft.start_date, sft.start_time, sft.end_time, sft.end_date, sft.location_id,sft.type, loc.map_name as name, loc.color, loc.map_id, (
 								SELECT GROUP_CONCAT( CONCAT( b.first_name, ' ', b.last_name )
 								SEPARATOR ', ' )
-								FROM dusseldorf_users b, dusseldorf_v3_shifts c
+								FROM dusseldorf_users b, dusseldorf_v3_shifts c, task_map_dep loc
 								WHERE b.id = c.user_id
+								and   sft.location_id = loc.map_id	
 								AND location_id = sft.location_id
 								AND start_date = sft.start_date
 								AND end_date = sft.end_date
@@ -548,9 +572,10 @@ class Fullschedulemodel extends CI_Model
 			
 									SELECT GROUP_CONCAT( CONCAT( b.first_name, ' ', b.last_name )
 									SEPARATOR ', ' )
-									FROM dusseldorf_users b, dusseldorf_v3_shifts c
+									FROM dusseldorf_users b, dusseldorf_v3_shifts c,task_map_dep loc
 									WHERE b.id = c.user_id
 									AND location_id = sft.location_id
+									and   sft.location_id = loc.map_id
 									AND start_date = sft.start_date
 									AND end_date = sft.end_date
 									AND start_time = sft.start_time
@@ -591,7 +616,7 @@ class Fullschedulemodel extends CI_Model
 		$dep_filter = '';		
 		if($dept_id!= 0 && $dept_id!='')
 		{
-			$dep_filter = "AND b.dep_id=".$dept_id;
+			$dep_filter = "AND loc.dep_child_id=".$dept_id;
 		}
 		if ($this->session->userdata('itemname')=='admin')
 		
@@ -599,8 +624,9 @@ class Fullschedulemodel extends CI_Model
 		
 								SELECT GROUP_CONCAT( CONCAT( b.first_name, ' ', b.last_name )
 								SEPARATOR ', ' )
-								FROM dusseldorf_users b, dusseldorf_v3_shifts c
+								FROM dusseldorf_users b, dusseldorf_v3_shifts c,task_map_dep loc
 								WHERE b.id = c.user_id
+								and sft.location_id = loc.map_id
 								AND location_id = sft.location_id
 								AND start_date = sft.start_date
 								AND end_date = sft.end_date
@@ -622,8 +648,9 @@ class Fullschedulemodel extends CI_Model
 			$myquery = "SELECT sft.start_date, sft.start_time, sft.end_time, sft.end_date, sft.location_id,sft.type, loc.map_name as name, loc.color, loc.map_id, (
 								SELECT GROUP_CONCAT( CONCAT( b.first_name, ' ', b.last_name )
 								SEPARATOR ', ' )
-								FROM dusseldorf_users b, dusseldorf_v3_shifts c
+								FROM dusseldorf_users b, dusseldorf_v3_shifts c,task_map_dep loc
 								WHERE b.id = c.user_id
+								and sft.location_id = loc.map_id
 								AND location_id = sft.location_id
 								AND start_date = sft.start_date
 								AND end_date = sft.end_date
@@ -647,8 +674,9 @@ class Fullschedulemodel extends CI_Model
 			
 									SELECT GROUP_CONCAT( CONCAT( b.first_name, ' ', b.last_name )
 									SEPARATOR ', ' )
-									FROM dusseldorf_users b, dusseldorf_v3_shifts c
+									FROM dusseldorf_users b, dusseldorf_v3_shifts c,task_map_dep loc
 									WHERE b.id = c.user_id
+									and sft.location_id = loc.map_id
 									AND location_id = sft.location_id
 									AND start_date = sft.start_date
 									AND end_date = sft.end_date
@@ -690,7 +718,7 @@ class Fullschedulemodel extends CI_Model
 		$dep_filter = '';		
 		if($dept_id!= 0 && $dept_id!='')
 		{
-			$dep_filter = "AND b.dep_id=".$dept_id;
+			$dep_filter = "AND loc.dep_child_id=".$dept_id;
 		}
 		if ($this->session->userdata('itemname')=='admin')
 		
@@ -698,8 +726,9 @@ class Fullschedulemodel extends CI_Model
 		
 								SELECT GROUP_CONCAT( CONCAT( b.first_name, ' ', b.last_name )
 								SEPARATOR ', ' )
-								FROM dusseldorf_users b, dusseldorf_v3_shifts c
+								FROM dusseldorf_users b, dusseldorf_v3_shifts c,task_map_dep loc
 								WHERE b.id = c.user_id
+								and sft.location_id = loc.map_id
 								AND location_id = sft.location_id
 								AND start_date = sft.start_date
 								AND end_date = sft.end_date
@@ -721,8 +750,9 @@ class Fullschedulemodel extends CI_Model
 			$myquery = "SELECT sft.start_date, sft.start_time, sft.end_time, sft.end_date, sft.location_id,sft.type, loc.map_name as name, loc.color, loc.map_id, (
 								SELECT GROUP_CONCAT( CONCAT( b.first_name, ' ', b.last_name )
 								SEPARATOR ', ' )
-								FROM dusseldorf_users b, dusseldorf_v3_shifts c
+								FROM dusseldorf_users b, dusseldorf_v3_shifts c,task_map_dep loc
 								WHERE b.id = c.user_id
+								and sft.location_id = loc.map_id
 								AND location_id = sft.location_id
 								AND start_date = sft.start_date
 								AND end_date = sft.end_date
@@ -746,8 +776,9 @@ class Fullschedulemodel extends CI_Model
 			
 									SELECT GROUP_CONCAT( CONCAT( b.first_name, ' ', b.last_name )
 									SEPARATOR ', ' )
-									FROM dusseldorf_users b, dusseldorf_v3_shifts c
+									FROM dusseldorf_users b, dusseldorf_v3_shifts c, task_map_dep loc
 									WHERE b.id = c.user_id
+									and sft.location_id = loc.map_id
 									AND location_id = sft.location_id
 									AND start_date = sft.start_date
 									AND end_date = sft.end_date
@@ -789,7 +820,7 @@ class Fullschedulemodel extends CI_Model
 		$dep_filter = '';		
 		if($dept_id!= 0 && $dept_id!='')
 		{
-			$dep_filter = "AND b.dep_id=".$dept_id;
+			$dep_filter = "AND loc.dep_child_id=".$dept_id;
 		}
 		if ($this->session->userdata('itemname')=='admin')
 		
@@ -797,8 +828,9 @@ class Fullschedulemodel extends CI_Model
 		
 								SELECT GROUP_CONCAT( CONCAT( b.first_name, ' ', b.last_name )
 								SEPARATOR ', ' )
-								FROM dusseldorf_users b, dusseldorf_v3_shifts c
+								FROM dusseldorf_users b, dusseldorf_v3_shifts c, task_map_dep loc
 								WHERE b.id = c.user_id
+								and sft.location_id = loc.map_id
 								AND location_id = sft.location_id
 								AND start_date = sft.start_date
 								AND end_date = sft.end_date
@@ -820,8 +852,9 @@ class Fullschedulemodel extends CI_Model
 			$myquery = "SELECT sft.start_date, sft.start_time, sft.end_time, sft.end_date, sft.location_id,sft.type, loc.map_name as name, loc.color, loc.map_id, (
 								SELECT GROUP_CONCAT( CONCAT( b.first_name, ' ', b.last_name )
 								SEPARATOR ', ' )
-								FROM dusseldorf_users b, dusseldorf_v3_shifts c
+								FROM dusseldorf_users b, dusseldorf_v3_shifts c,task_map_dep loc
 								WHERE b.id = c.user_id
+								and   sft.location_id = loc.map_id
 								AND location_id = sft.location_id
 								AND start_date = sft.start_date
 								AND end_date = sft.end_date
@@ -845,8 +878,9 @@ class Fullschedulemodel extends CI_Model
 			
 									SELECT GROUP_CONCAT( CONCAT( b.first_name, ' ', b.last_name )
 									SEPARATOR ', ' )
-									FROM dusseldorf_users b, dusseldorf_v3_shifts c
+									FROM dusseldorf_users b, dusseldorf_v3_shifts c,task_map_dep loc
 									WHERE b.id = c.user_id
+									and   sft.location_id = loc.map_id
 									AND location_id = sft.location_id
 									AND start_date = sft.start_date
 									AND end_date = sft.end_date
@@ -888,7 +922,7 @@ class Fullschedulemodel extends CI_Model
 		$dep_filter = '';		
 		if($dept_id!= 0 && $dept_id!='')
 		{
-			$dep_filter = "AND b.dep_id=".$dept_id;
+			$dep_filter = "AND loc.dep_child_id=".$dept_id;
 		}
 		if ($this->session->userdata('itemname')=='admin')
 		
@@ -896,8 +930,9 @@ class Fullschedulemodel extends CI_Model
 		
 								SELECT GROUP_CONCAT( CONCAT( b.first_name, ' ', b.last_name )
 								SEPARATOR ', ' )
-								FROM dusseldorf_users b, dusseldorf_v3_shifts c
+								FROM dusseldorf_users b, dusseldorf_v3_shifts c, task_map_dep loc
 								WHERE b.id = c.user_id
+								and sft.location_id = loc.map_id
 								AND location_id = sft.location_id
 								AND start_date = sft.start_date
 								AND end_date = sft.end_date
@@ -919,8 +954,9 @@ class Fullschedulemodel extends CI_Model
 			$myquery = "SELECT sft.start_date, sft.start_time, sft.end_time, sft.end_date, sft.location_id,sft.type, loc.map_name as name, loc.color, loc.map_id, (
 								SELECT GROUP_CONCAT( CONCAT( b.first_name, ' ', b.last_name )
 								SEPARATOR ', ' )
-								FROM dusseldorf_users b, dusseldorf_v3_shifts c
+								FROM dusseldorf_users b, dusseldorf_v3_shifts c, task_map_dep loc
 								WHERE b.id = c.user_id
+								and sft.location_id = loc.map_id
 								AND location_id = sft.location_id
 								AND start_date = sft.start_date
 								AND end_date = sft.end_date
@@ -944,8 +980,9 @@ class Fullschedulemodel extends CI_Model
 			
 									SELECT GROUP_CONCAT( CONCAT( b.first_name, ' ', b.last_name )
 									SEPARATOR ', ' )
-									FROM dusseldorf_users b, dusseldorf_v3_shifts c
+									FROM dusseldorf_users b, dusseldorf_v3_shifts c, task_map_dep loc
 									WHERE b.id = c.user_id
+									and sft.location_id = loc.map_id	
 									AND location_id = sft.location_id
 									AND start_date = sft.start_date
 									AND end_date = sft.end_date

@@ -20,12 +20,12 @@
                       </div>
                       <div class="alert alert-success display-hide">
                           <button class="close" data-close="alert"></button>
-                          Your form validation is successful!
+                          Ihre Einstellung war erfolgreich!
                       </div>
                       
                       
                       <div class="form-group">
-                            <label class="control-label col-md-3">Slider <?php echo $this->lang->line('Time');  ?> Start At<span class="required">
+                            <label class="control-label col-md-3">Slider Start<?php echo $this->lang->line('Time');?><span class="required">
                           * </span></label>
                             <div class="col-md-4">
                                 <div class="input-group">

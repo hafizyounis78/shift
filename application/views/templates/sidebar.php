@@ -66,7 +66,7 @@
                     <li <?php if($title == 'shiftsmang') echo 'class="active open"';?>>
 						<a href="<?php echo base_url();?>shiftscont/shiftsmang">
 						<i class="icon-docs"></i>
-						<span class="title">shift copy</span>
+						<span class="title">Schicht Kopie</span>
 						</a>
 					</li>
                     <?php  }?>
@@ -76,7 +76,7 @@
                     <li <?php if($title == 'weektemp') echo 'class="active open"';?>>
 						<a href="<?php echo base_url();?>weektemplatecont/weektemp">
 						<i class="icon-magic-wand"></i>
-						<span class="title">Week copy</span>
+						<span class="title">Woche Kopie</span>
 						</a>
 					</li>
                     <?php  }?>
@@ -96,7 +96,7 @@
                     <li  <?php if($title == 'shiftsearch') echo 'class="active open"';?>>
 						<a href="<?php echo base_url();?>shiftscont/shiftsearch">
 						<i class="icon-book-open "></i>
-						<span class="title"><?php echo $this->lang->line('Search');?>Search</span>
+						<span class="title">Suche</span>
 						</a>
 					</li>
                      <?php if ($this->session->userdata('itemname') == "gm")

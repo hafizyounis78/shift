@@ -42,12 +42,16 @@
 
 <!-- BEGIN PAGE LEVEL PLUGINS -->
 <!-- IMPORTANT! fullcalendar depends on jquery-ui-1.10.3.custom.min.js for drag & drop support -->
+
 <script src="<?php echo base_url();?>assets/global/plugins/moment.min.js"></script>
+
 <script src="<?php echo base_url();?>assets/global/plugins/fullcalendar/fullcalendar.min.js"></script>
 <script type="text/javascript" src="<?php echo base_url();?>assets/global/plugins/bootstrap-colorpicker/js/bootstrap-colorpicker.js"></script>
 <script type="text/javascript" src="<?php echo base_url();?>assets/global/plugins/bootstrap-datetimepicker/js/bootstrap-datetimepicker.min.js"></script>
+
 <script type="text/javascript" src="<?php echo base_url();?>assets/global/plugins/bootstrap-timepicker/js/bootstrap-timepicker.min.js"></script>
 <script type="text/javascript" src="<?php echo base_url();?>assets/global/plugins/bootstrap-datepicker/js/bootstrap-datepicker.js"></script>
+<script type="text/javascript" src="<?php echo base_url();?>assets/global/plugins/bootstrap-datepicker/js/locales/bootstrap-datepicker.de.js"></script>
 <script type="text/javascript" src="<?php echo base_url();?>assets/global/plugins/bootstrap-select/bootstrap-select.min.js"></script>
 <script type="text/javascript" src="<?php echo base_url();?>assets/global/plugins/select2/select2.min.js"></script>
 <script type="text/javascript" src="<?php echo base_url();?>assets/global/plugins/jquery-multi-select/js/jquery.multi-select.js"></script>
@@ -163,12 +167,18 @@ else if (pathArray[3]=="locations")
 	  
 	 
 //$( ".date-picker" ).datepicker({ firstDay: 1});
-var firstDay = $('.date-picker').datepicker('option', 'firstDay');
-$( ".date-picker" ).datepicker( "option", "firstDay", 1 );
+//var firstDay = $('.date-picker').datepicker('option', 'firstDay');
+//$( ".date-picker" ).datepicker( "option", "firstDay", 1 );
+/*$(function() {
+    $( ".date-picker" ).datepicker();
+	//$( ".date-picker" ).datepicker({ firstDay: 1 });
+	$( ".date-picker" ).datepicker( "option", "firstDay", 1 );
 
+  });*/
    </script>
 <script src="<?php echo base_url();?>js/setting.js"></script>
 <script src="<?php echo base_url();?>js/de-at.js"></script>
+<!--<script src="<?php echo base_url();?>js/datepicker-gl.js"></script>-->
 <!-- END JAVASCRIPTS -->
 </body>
 <!-- END BODY -->

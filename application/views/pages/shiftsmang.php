@@ -66,7 +66,7 @@ $readonly = '';
                             <div class="input-group input-medium date-picker input-daterange" data-date="10/11/2012" data-date-format="yyyy-mm-dd">
                                 <input type="text" id="drpFromdate" class="form-control " name="drpFromdate" >
                                 <span class="input-group-addon">
-                                to </span>
+                                bis </span>
                                 <input type="text" id="drpTodate" class="form-control " name="drpTodate" >
                             </div>
                             <!-- /input-group -->
@@ -112,9 +112,9 @@ $readonly = '';
                         <div class="col-md-4">
                           <div class="radio-list">
                               <label class="radio-inline">
-                              <input type="radio" name="rdStatus" id="rdStatus1" value="1" checked>Draft</label>
+                              <input type="radio" name="rdStatus" id="rdStatus1" value="1" disabled="disabled"  ><?php echo $this->lang->line('Draft');  ?></label>
                               <label class="radio-inline">
-                              <input type="radio" name="rdStatus" id="rdStatus2" value="2"><?php echo $this->lang->line('Active');  ?></label>
+                              <input type="radio" name="rdStatus" id="rdStatus2" value="2" checked><?php echo $this->lang->line('Active');  ?></label>
                               
                           </div>
                         </div>
@@ -125,9 +125,9 @@ $readonly = '';
                         <div class="col-md-4">
                           <div class="radio-list">
                               <label class="radio-inline">
-                              <input type="radio" name="rdSelection" id="rdSelection1" value="1" checked ><?php echo $this->lang->line('Department');  ?> </label>
+                              <input type="radio" name="rdSelection" id="rdSelection1" value="1"  checked><?php echo $this->lang->line('Department');  ?> </label>
                               <label class="radio-inline">
-                              <input type="radio" name="rdSelection" id="rdSelection2" value="2" ><?php echo $this->lang->line('Job Title');  ?></label>
+                              <input type="radio" name="rdSelection" id="rdSelection2" value="2"  ><?php echo $this->lang->line('Job Title');  ?></label>
                               
                           </div>
                         </div>
@@ -337,9 +337,9 @@ $readonly = '';
 										foreach($shiftrec as $row)
 											{
 												if($row->status==1)
-												 $statusrow='Draft';
+												 $statusrow='Entwurf';
 												 else
-												 $statusrow='Active';
+												 $statusrow='Aktiviert';
 												 if($row->Special_shift==1)
 												 $specialrow='Yes';
 												 else
