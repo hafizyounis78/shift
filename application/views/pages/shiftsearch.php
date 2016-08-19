@@ -64,7 +64,7 @@
 								<thead>
 								<tr role="row" class="heading">
 									<th width="2%">
-										<input type="checkbox" class="group-checkable">
+										<input type="checkbox" class="group-checkable" id="-1">
 									</th>
 									<th width="18%">
 										 <?php echo $this->lang->line('Staff'); ?>
@@ -192,8 +192,9 @@
 							</div>
                             
 						</div>
-                         <button  type="button" class="btn btn-primary"  >Active </button>
-                         <button  type="button" class="btn btn-primary"  >Delete </button>
+                         <button  type="button" class="btn btn-primary" onclick="activate_group()">Active </button>
+                         <button  type="button" class="btn btn-primary"  onclick="delete_group()">Delete </button>
+                         
                         
 					</div>
 					<!-- End: life time stats -->

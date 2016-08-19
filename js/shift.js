@@ -975,6 +975,38 @@ var ShiftComponentsDropdowns = function () {
 }();
 
 //************* patient Ajax**************//
+function activate_group()
+{
+	var ids = "";
+	$("input:checked").each(function () {
+		if ($(this).attr("id") != -1 ) // NOT the Checkbox in the header
+		{
+			var id = $(this).attr("id");
+			if (ids == "")
+				ids = ids + id;
+			else
+				ids = ids + ',' +id;
+				
+			alert("Do something for: " + ids );
+		}
+    });
+}
+function delete_group()
+{
+	var ids = "";
+	$("input:checked").each(function () {
+		if ($(this).attr("id") != -1 ) // NOT the Checkbox in the header
+		{
+			var id = $(this).attr("id");
+			if (ids == "")
+				ids = ids + id;
+			else
+				ids = ids + ',' +id;
+				
+			alert("Do something for: " + ids );
+		}
+    });
+}
 var shiftTableAjax = function () {
 
 // I removed Datepicker becuse it is not used here
