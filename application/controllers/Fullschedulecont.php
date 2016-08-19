@@ -80,7 +80,12 @@ class Fullschedulecont extends CI_Controller
 		$this->data['jobtitleList']= $this->constantmodel->get_jobtitle_list();
 	//	$this->getall_Shift_calender();
 	}
-	
+function updateshiftFromCalander()
+{
+		$this->load->model('Shiftmodel');
+		$this->Shiftmodel->update_Allshift();
+		
+}
 	function getfullschedule()
 	{
 		
@@ -243,7 +248,7 @@ class Fullschedulecont extends CI_Controller
 				$totalTime=-45;
 			else
 			 $totalTime=(($staff_row->worktime)/3600)-$staff_row->hoursPerWeek;
-			 
+			  $totalTime=round($totalTime); 
 			//  echo '<option  value='.$staff_row->id.'>'.$totalTime.'|'.$staff_row->name.'|'.$staff_row->pricePerHour.'</option>';
 			//$str=$str.'<option  value='.$staff_row->id.'>'.$totalTime.'|'.$staff_row->name.'|'.$staff_row->pricePerHour.'</option>';
 		  	$temp['stffId'] = $staff_row->id;
@@ -264,7 +269,7 @@ class Fullschedulecont extends CI_Controller
 				$totalTime=-45;
 			else
 			 $totalTime=(($staff_row->worktime)/3600)-$staff_row->hoursPerWeek;
-			 
+			  $totalTime=round($totalTime); 
 			//  echo '<option  value='.$staff_row->id.'>'.$totalTime.'|'.$staff_row->name.'|'.$staff_row->pricePerHour.'</option>';
 			//$str=$str.'<option  value='.$staff_row->id.'>'.$totalTime.'|'.$staff_row->name.'|'.$staff_row->pricePerHour.'</option>';
 		  	$temp['stffId'] = $staff_row->id;

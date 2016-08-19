@@ -134,23 +134,34 @@ function addModalshift(){
 	   return;
 	/* if (!$("#drpLocation").valid())
 		valid = false;*/
+		var action=$("#hdnaction").val()
 	
+		
 	var formData = new FormData();
-
-		formData.append('rdShifttype'        ,  $("input[name=rdShifttype]:checked").val());
 		formData.append('drpLocation'		 ,  $("#drpLocation").val());
 		formData.append('drpFromdate'		 ,  $("#drpFromdate").val());
 		formData.append('drpTodate'	         ,  $("#drpTodate").val());
 		formData.append('txtStart'	         ,  $("#txtStart").val());
 		formData.append('txtEnd'	         ,  $("#txtEnd").val());
+		formData.append('rdShifttype'        ,  $("input[name=rdShifttype]:checked").val());
 		formData.append('drplstBreak'	     ,  $("#drplstBreak").val());
 		formData.append('rdStatus'           ,  $("input[name=rdStatus]:checked").val());
 		formData.append('chbxIsspecial'		, $("#chbxIsspecial").val());
 		formData.append('ckbNotification'		, $("#ckbNotification").val());
 		formData.append('staffList'		     ,  staffList);
-
+		if (action=="updateshiftFromCalander")//old value befor update 
+		{
+			
+			formData.append('drpLocation_old'		 ,  $("#hdnLocation").val());
+			formData.append('drpFromdate_old'		 ,  $("#hdnFromdate").val());
+			formData.append('drpTodate_old'	         ,  $("#hdnTodate").val());
+			formData.append('txtStart_old'	         ,  $("#hdnStarttime").val());
+			formData.append('txtEnd_old'	         ,  $("#hdnEndtime").val());
+		}
+		
 	$.ajax({
-			url: baseURL+"Fullschedulecont/addShift",
+			//url: baseURL+"Fullschedulecont/addShift",
+			url: baseURL+"Fullschedulecont/"+ action,
 			type: "POST",
 			data: formData,
 			 processData: false,

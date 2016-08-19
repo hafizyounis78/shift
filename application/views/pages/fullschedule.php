@@ -191,7 +191,12 @@ var sessionValue = "<?php echo $this->session->userdata('itemname'); ?>";
                   </div>
             </div>
             <div class="modal-body bgColorWhite">
-              <input type="hidden" id="hdnaction" name="hdnaction" value="addModalshift" />
+              <input type="hidden" id="hdnaction" name="hdnaction" value="addShift" />
+              <input type="hidden" id="hdnLocation" name="hdnLocation" value="" />
+              <input type="hidden" id="hdnFromdate" name="hdnFromdate" value="" />
+              <input type="hidden" id="hdnTodate" name="hdnTodate" value="addShift" />
+              <input type="hidden" id="hdnStarttime" name="hdnStarttime" value="" />
+              <input type="hidden" id="hdnEndtime"  name="hdnEndtime" value="" />
                <div class="form-group">
                         <label class="control-label col-md-3"><?php echo $this->lang->line('Shift type');?></label>
                         <div class="col-md-4">
@@ -257,7 +262,7 @@ var sessionValue = "<?php echo $this->session->userdata('itemname'); ?>";
                           </label>
                           <div class="col-md-4">
                               <select id="drplstBreak" class="form-control" name="drplstBreak">
-                                  <option value=""><?php echo $this->lang->line('select');  ?>...</option>
+                                  
                                   <?php
 								  $selected='';
 									  for($i=0; $i<=240; $i=$i+5)
@@ -410,7 +415,7 @@ var sessionValue = "<?php echo $this->session->userdata('itemname'); ?>";
                             <div class="input-group">
                                 <div class="icheck-inline">
                                     <label>
-                                    <input type="checkbox" class="icheck" id="ckbNotification" name="ckbNotification"><?php echo $this->lang->line('Skip Notification Email');  ?> </label>
+                                    <input type="checkbox" class="icheck" id="ckbNotification" name="ckbNotification" ><?php echo $this->lang->line('Skip Notification Email');  ?> </label>
                                     
                                 </div>
                             </div>

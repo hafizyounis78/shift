@@ -333,7 +333,7 @@ var Calendar = function() {
 						
 				//	alert(event.locationId);
 						getmodalemployee(event.locationId,event.txtstart,event.txtend,event.starttime, event.endtime,event.empList);
-						$("#hdnaction").val('updateShift');
+						$("#hdnaction").val('updateshiftFromCalander');
 						
 							 
 							$("#form_modal2").modal();	
@@ -344,6 +344,13 @@ var Calendar = function() {
 							$('#txtEnd').timepicker('setTime',event.endtime);
 							$("#drpLocation").val(event.locationId);
 							$("#drplstDept").val(0);
+							//***********fill hdn field********//
+							$('#hdnFromdate').val(event.txtstart );
+							$('#hdnTodate').val(event.txtend );
+						   	$('#hdnStarttime').val(event.starttime);
+							$('#hdnEndtime').val(event.endtime);
+							$("#hdnLocation").val(event.locationId);
+							
 				/*$.ajax({
 					url: baseURL+"Fullschedulecont/getshiftdata" ,
 					type: "POST",

@@ -167,8 +167,9 @@ function update_Allshift()
 		
 
 		 $myquery = "DELETE  FROM dusseldorf_v3_shifts
-		 			 WHERE   start_date='".$drpFromdate."' AND end_date>='".$drpTodate."'
-					 AND     start_time='".$txtStart."'    AND end_time='".$txtEnd."'";
+		 			 WHERE   start_date='".$drpFromdate_old."' AND end_date>='".$drpTodate_old."'
+					 AND     start_time='".$txtStart_old."'    AND end_time='".$txtEnd_old."'
+					 AND     location_id =".$drpLocation_old;
 	
 		$res = $this->db->query($myquery);
 		//$emp_count = $res->result();
@@ -181,20 +182,21 @@ function update_Allshift()
 		foreach($staffid as $element)
 		{
 		
-		$data['type'] = $shftype;
-		$data['location_id'] = $drpLocation;
-		$data['start_date'] = $drpFromdate;
-		$data['end_date'] = $drpTodate;
-		$data['start_time'] = $txtStart;
-		$data['end_time'] = $txtEnd;
-		$data['status'] = $rdStatus;
-		$data['Special_shift'] = $chbxIsspecial;
-		$data['Notification_req'] = $ckbNotification;
+			$data['type'] = $shftype;
+			$data['location_id'] = $drpLocation;
+			$data['start_date'] = $drpFromdate;
+			$data['end_date'] = $drpTodate;
+			$data['start_time'] = $txtStart;
+			$data['end_time'] = $txtEnd;
+			$data['status'] = $rdStatus;
+			$data['Special_shift'] = $chbxIsspecial;
+			//$data['Notification_req'] = $ckbNotification;
+			$data['Notification_req'] = 0;
+			
+			$data['lunch_break'] = $drplstBreak;
+			$data['user_id'] = $element;
 		
-		$data['lunch_break'] = $drplstBreak;
-		$data['user_id'] = $element;
-		
-		$this->db->insert('dusseldorf_v3_shifts',$data);
+			$this->db->insert('dusseldorf_v3_shifts',$data);
 		}
 		
 }

@@ -80,6 +80,7 @@ function updateAllshift()
 		$this->Shiftmodel->update_Allshift();
 		$this->drawShiftsmangTable();
 }
+
 	function deleteShift()
 	{
 		$this->load->model('Shiftmodel');
@@ -264,7 +265,7 @@ function updateAllshift()
 				$totalTime=-45;
 			else
 			 $totalTime=(($staff_row->worktime)/3600)-$staff_row->hoursPerWeek;
-			 
+			  $totalTime=round($totalTime); 
 			  echo '<option  value='.$staff_row->id.'>'.$totalTime.'|'.$staff_row->staff_name.'|'.$staff_row->pricePerHour.'</option>';
 			  
 		  }
@@ -274,8 +275,7 @@ function updateAllshift()
 				$totalTime=-45;
 			else
 			 $totalTime=(($staff_row->worktime)/3600)-$staff_row->hoursPerWeek;
-	
-	
+			 $totalTime=round($totalTime); 
 			  echo '<option title="Unavailable" disabled="disabled" value='.$staff_row->id.'>'.$totalTime.'|'.$staff_row->staff_name.'</option>';
 			  
 		  } 
@@ -298,7 +298,7 @@ function updateAllshift()
 				$totalTime=45;
 			else
 			 $totalTime=(($staff_row->worktime)/3600)-$staff_row->hoursPerWeek;
-			 
+			  $totalTime=round($totalTime); 
 			  echo '<option  value='.$staff_row->id.'>'.$totalTime.'|'.$staff_row->name.'|'.$staff_row->pricePerHour.'</option>';
 			  
 		  }
@@ -308,7 +308,7 @@ function updateAllshift()
 				$totalTime=45;
 			else
 			 $totalTime=(($staff_row->worktime)/3600)-$staff_row->hoursPerWeek;
-	
+			 $totalTime=round($totalTime); 
 	
 			  echo '<option title="Unavailable" disabled="disabled" value='.$staff_row->id.'>'.$totalTime.'|'.$staff_row->name.'</option>';
 			  
