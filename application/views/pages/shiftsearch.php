@@ -47,6 +47,7 @@
 						</div>-->
 						<div class="portlet-body">
 							<div class="table-container">
+                            
 								<!--<div class="table-actions-wrapper">
 									<span>
 									</span>
@@ -187,8 +188,13 @@
 								<tbody>
 								</tbody>
 								</table>
+                                
 							</div>
+                            
 						</div>
+                         <button  type="button" class="btn btn-primary"  >Active </button>
+                         <button  type="button" class="btn btn-primary"  >Delete </button>
+                        
 					</div>
 					<!-- End: life time stats -->
 				</div>
