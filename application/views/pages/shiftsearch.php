@@ -199,4 +199,5 @@
 					</div>
 					<!-- End: life time stats -->
 				</div>
+                
 			</div>

@@ -80,6 +80,18 @@ function updateAllshift()
 		$this->Shiftmodel->update_Allshift();
 		$this->drawShiftsmangTable();
 }
+function deletecheakedShift()
+{
+	$this->load->model('Shiftmodel');
+		$this->Shiftmodel->delete_cheakedshift();
+		
+}
+function activatecheakedShift()
+{
+	$this->load->model('Shiftmodel');
+		$this->Shiftmodel->activate_cheakedShift();
+		
+}
 
 	function deleteShift()
 	{

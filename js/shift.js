@@ -2,6 +2,7 @@
 
   $(document).ready(function(){
      $.fn.datepicker.defaults.language = 'de';
+	
 });
 
 $(document).ready(function(){
@@ -987,9 +988,26 @@ function activate_group()
 			else
 				ids = ids + ',' +id;
 				
-			alert("Do something for: " + ids );
+			
 		}
     });
+	$.ajax({
+			url: baseURL+"Shiftscont/activatecheakedShift",
+			type: "POST",
+			data: {ids:ids},
+			error: function(xhr, status, error) {
+  				//var err = eval("(" + xhr.responseText + ")");
+  				alert(xhr.responseText);
+			},
+			beforeSend: function(){},
+			complete: function(){},
+			success: function(returndb){
+				
+			$(".filter-cancel").trigger({ type: "click" });
+				
+			}
+		});//END $.ajax
+	
 }
 function delete_group()
 {
@@ -1003,9 +1021,37 @@ function delete_group()
 			else
 				ids = ids + ',' +id;
 				
-			alert("Do something for: " + ids );
+			
 		}
     });
+	var x='';
+	var r = confirm('This record will be deleted. Do you want to continue?');
+	
+	if (r == true) {
+		x =1;
+	} else {
+		x = 0;
+	}
+	if(x==1)
+	{
+	
+	$.ajax({
+			url: baseURL+"Shiftscont/deletecheakedShift",
+			type: "POST",
+			data: {ids:ids},
+			error: function(xhr, status, error) {
+  				//var err = eval("(" + xhr.responseText + ")");
+  				alert(xhr.responseText);
+			},
+			beforeSend: function(){},
+			complete: function(){},
+			success: function(returndb){
+				
+				$(".filter-cancel").trigger({ type: "click" });
+				
+			}
+		});//END $.ajax
+	}
 }
 var shiftTableAjax = function () {
 
@@ -1020,6 +1066,11 @@ var shiftTableAjax = function () {
             onSuccess: function (grid) {
                 // execute some code after table records loaded
 				//alert(grid);
+				if ($("#txtStart").val() == $("#txtEnd").val())
+				{
+					$("#txtStart").val('');
+					$("#txtEnd").val('');
+				}
             },
             onError: function(xhr, status, error) {
   				//alert(xhr.responseText);

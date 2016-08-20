@@ -221,7 +221,25 @@ function delete_shift()
 	$this->db->where('id',$shiftId);
 	$this->db->delete('dusseldorf_v3_shifts');
 }	
-
+function delete_cheakedshift()
+{
+	extract($_POST);
+	 $myquery = "DELETE  FROM dusseldorf_v3_shifts
+		 		 WHERE  id in (".$ids.")";
+	
+		$res = $this->db->query($myquery);
+	
+}
+function activate_cheakedShift()
+{
+	extract($_POST);
+	 $myquery = "UPDATE  dusseldorf_v3_shifts
+				 SET     status=2 
+		 		 WHERE  id in (".$ids.")";
+	
+		$res = $this->db->query($myquery);
+	
+}
 // Get All Elders
 function get_search_shifts($requestData)
 {
@@ -294,18 +312,19 @@ else if ($this->session->userdata('itemname')=='emp')
 	{
 		$myquery = $myquery." AND end_date <= '".$requestData['dtendDate']."'";
 	}
-	
-	if(isset($requestData['txtStart']) && $requestData['txtStart'] != '')
-	
+	if((isset($requestData['txtStart']) && isset($requestData['txtEnd']))&& ($requestData['txtStart'] != $requestData['txtEnd']))
 	{
-		$myquery = $myquery." AND start_time >= '".$requestData['txtStart']."'";
+		if(isset($requestData['txtStart']) && $requestData['txtStart'] != '')
+		
+		{
+			$myquery = $myquery." AND start_time >= '".$requestData['txtStart']."'";
+		}
+		if(isset($requestData['txtEnd']) && $requestData['txtEnd'] != '')
+		
+		{
+			$myquery = $myquery." AND end_time <= '".$requestData['txtEnd']."'";
+		}
 	}
-	if(isset($requestData['txtEnd']) && $requestData['txtEnd'] != '')
-	
-	{
-		$myquery = $myquery." AND end_time <= '".$requestData['txtEnd']."'";
-	}
-	
 	//*****************************************************************//
 	if(isset($requestData['drpLocation']) && $requestData['drpLocation'] !='')
 	{
