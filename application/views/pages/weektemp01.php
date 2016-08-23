@@ -8,24 +8,10 @@
 
 date_default_timezone_set('Asia/Gaza');   
 	$today_date = date('y-m-d');
-	$dayofweek = date('w', strtotime($today_date));
 		//echo $today_date;
-		if ($dayofweek !=1)
-		{
-			$currnt_monday = date('Y-m-d',strtotime('last monday', strtotime($today_date)));
-			//$last_monday = date('Y-m-d',strtotime($currnt_monday. ' -7 day'));
-		}
-		else
-		{
-			$currnt_monday =$today_date ;
-			
-			
-		}
-		$last_monday = date('Y-m-d',strtotime($currnt_monday. ' -7 day'));
-	//	$last_monday=date('Y-m-d',strtotime('last monday'));  // for first day of this week
+		$last_monday=date('Y-m-d',strtotime('last monday'));  // for first day of this week
 		$next_monday=date('Y-m-d',strtotime('next monday'));  // for first day of this week
-		//$next_monday= date('Y-m-d', strtotime('next monday', strtotime($today_date)));
-		$parts = explode('-', $currnt_monday);
+		$parts = explode('-', $last_monday);
 		//echo "Next Monday:". date('Y-m-d', strtotime('next monday', strtotime('2016-07-04')));
 		//echo "Next Monday:". date('Y-m-d', strtotime('next monday', strtotime($today_date)));
 ?>
@@ -38,13 +24,14 @@ date_default_timezone_set('Asia/Gaza');
           <div class="portlet-title">
               <div class="caption">
                   <i class="fa fa-clock-o"></i>Copy Plan
+                  <button type="button" id="btncopy" name="btncopy"  class="btn default btn-xs blue" onclick="copyshift()"  value="Copy"><i class="fa fa-copy"></i> Copy</button>
 
               </div>
               
           </div>
           <div class="portlet-body form">
               <!-- BEGIN FORM-->
-              <form action="#" id="weektempForm" class="form-horizontal" >
+              <form action="#" id="weektempForm" class="form-horizontal">
                   <div class="form-body">
                        <div id="dvStaffMsg" class="alert alert-danger display-none">
                          <button class="close" data-dismiss="alert"></button>
@@ -60,8 +47,7 @@ date_default_timezone_set('Asia/Gaza');
                           Your form validation is successful!
                       </div>
                       
-                      <input type="hidden" id="hdncurrStartDate"  name="hdncurrStartDate" value="<?php echo $currnt_monday ?>"/>
-                      <input type="hidden" id="hdnNoOfDay"  name="hdnNoOfDay" value="7"/>
+                      <input type="hidden" id="hdncurrStartDate" name="hdncurrStartDate" value="<?php echo $last_monday ?>"/>
                      <!-- <input type="hidden" id="hdncurrEndDate" name="hdncurrEndDate"/>-->
                       <!--<div class="form-group">
                         <label class="control-label col-md-3"><?php echo $this->lang->line('Date');  ?><span class="required">
@@ -103,16 +89,17 @@ date_default_timezone_set('Asia/Gaza');
                               </select>
                           </div>
                       </div>-->
-                    <div class="clearfix weektemp-clearfix" >							
+                    <div class="clearfix">
+													
 
                         
                         <div class="form-group" id="divDept">
-                          <label class="control-label col-md-2"><?php echo $this->lang->line('Department');  ?>  <span class="required">
+                          <label class="control-label col-md-3"><?php echo $this->lang->line('Department');  ?>  <span class="required">
                           * </span>
                           </label>
                           <div class="col-md-4">
                               <select id="drplstDept" class="form-control" name="drplstDept" onchange="drpweekdeptChange();">
-                            <!--  <option value=""><?php echo $this->lang->line('select');  ?>...</option>-->
+                              <option value=""><?php echo $this->lang->line('select');  ?>...</option>
                                 <?php 
 								   if ($this->session->userdata('itemname') == "gm" ||$this->session->userdata('itemname') == "admin")	   
 							 		echo '<option value="0">'.$this->lang->line('All Department').'</option>';
@@ -131,24 +118,11 @@ date_default_timezone_set('Asia/Gaza');
 
                               </select>
                           </div>
-                        <div class="col-md-1 div-btn-copy">
-                            <button type="button" id="btncopy" name="btncopy"  class="btn default btn-md blue" onclick="copyshift()"  value="Copy"><i class="fa fa-copy"></i> Copy</button>
-						</div>
-                    </div>
-                    <div class="form-group">
-                          <label class="control-label col-md-2">Next Week  <span class="required">
-                          * </span>
-                          </label>
-                          <div class="col-md-4">
-                              <select id="drpWeek" class="form-control" name="drpWeek" >
-                              
-                                <?php 
-									echo $dayList;
-								  ?>
-
-                              </select>
-                          </div>
-                        
+                      
+                      <div class="btn-group btn-group-circle btn-group-solid">
+                            <button type="button" class="btn red" id="lastMondy" value="<?php echo $last_monday ?>"  onclick="get_lastschedual()">&lt;</button>
+                            <button type="button" class="btn green" id="nextMondy" value="<?php echo $next_monday ?>" onclick="get_nextschedual()">&gt;</button>
+                        </div>
                     </div>
                     </div>
                   </div>
@@ -170,28 +144,20 @@ date_default_timezone_set('Asia/Gaza');
 </div>
 <!--end search form-->
 <div class="row">
-    <div class="col-md-12 btn-group-calendar">
-        <div class="btn-group btn-group-circle btn-group-solid">
-            <button type="button" class="btn red" id="lastMondy" value="<?php echo $last_monday ?>"  onclick="get_Templastschedual()">&lt;</button>
-            <button type="button" class="btn green" id="nextMondy" value="<?php echo $next_monday ?>" onclick="get_Tempnextschedual()">&gt;</button>
-        </div>
-    </div>
 <div id="dvTable" class="col-md-12"> 
 <div class="portlet box blue-hoki">
-                    
 						<div class="portlet-title">
 							<div class="caption">
 								<i class="fa fa-globe"></i>PLAN
 							</div>
 							<div class="tools">
 							</div>
-							
 						</div>
    <div class="portlet-body"> 
 	  <table class="table table-striped table-bordered table-hover" id="calenderTable">
         <thead>
           <tr>
-            <th scope="col"><?php echo date('D',strtotime($currnt_monday)).' '.$currnt_monday; ?></th>
+            <th scope="col"><?php echo date('D',strtotime($last_monday)).' '.$last_monday; ?></th>
             <th scope="col"><?php echo date('D',mktime(0, 0, 0, $parts[1], $parts[2]+1,$parts[0])).' '.date('y-m-d',mktime(0, 0, 0,$parts[1],$parts[2]+1,$parts[0]));?></th>
             <th scope="col"><?php echo date('D',mktime(0, 0, 0, $parts[1], $parts[2]+2,$parts[0])).' '.date('y-m-d',mktime(0, 0, 0,$parts[1],$parts[2]+2,$parts[0]));?></th>
             <th scope="col"><?php echo date('D',mktime(0, 0, 0, $parts[1], $parts[2]+3,$parts[0])).' '.date('y-m-d',mktime(0, 0, 0,$parts[1],$parts[2]+3,$parts[0]));?></th>

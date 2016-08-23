@@ -36,10 +36,30 @@ class Weektemplatecont extends CI_Controller
 	{
 		$this->load->model('constantmodel');
 		$this->data['deptList']= $this->constantmodel->get_dept_list();
-		date_default_timezone_set('Asia/Gaza');  
+		date_default_timezone_set('Asia/Gaza');
+		$firstDayList='';
+		$dayList='';
+		$firstDayList=date('Y-m-d',strtotime('next monday'));
+		$interval='';
+		for ($i=1;$i<=4;$i++)
+		{  
+			$interval=$i*7;
+			$dayList =$dayList.'<option value="'.$interval.'" >'.$firstDayList.'</option>';
+		  	//$firstDayList=date('Y-m-d',strtotime('next monday'));
+			 $firstDayList = date('Y-m-d', strtotime($firstDayList . ' +7 day'));
+		}
+		$this->data['dayList']= $dayList; 
+		
 //		echo date('Y-m-d',strtotime('last monday')); 
 	//	print_r(date('Y-m-d',strtotime('last monday'))); 
+	$today_date = date('y-m-d');
+	$dayofweek = date('w', strtotime($today_date));
+	
+		if ($dayofweek !=1)
 		$_POST['drpFromdate'] = date('Y-m-d',strtotime('last monday'));
+		else
+		$_POST['drpFromdate'] =$today_date ;
+		
 	    $this->session->set_userdata('startDate', $_POST['drpFromdate']);
 		$this->load->model('Weektempmodel');
 		
@@ -72,6 +92,11 @@ class Weektemplatecont extends CI_Controller
 	function getcalendar()
 	{
 		extract($_POST);
+		date_default_timezone_set('Asia/Gaza');
+		$today_date = date('y-m-d');
+		
+		
+		
 		//$this->getall_ShiftByDAte();
 		$this->session->set_userdata('startDate', $_POST['drpFromdate']);
 		$this->load->model('Weektempmodel');
@@ -99,12 +124,46 @@ class Weektemplatecont extends CI_Controller
 		$day5=$rec5;
 		$day6=$rec6;
 		$day7=$rec7;
+//************************************//
+date_default_timezone_set('Asia/Gaza');
+		$firstDayList='';
+		$dayList='';
+		$firstDayList=date('Y-m-d',strtotime('next monday'));
+		$interval='';
+		$disable='';
+		if ($NoOfDay==7)
+			$interval=$currWeekValue;
+		else
+			$interval=$currWeekValue - 14;
+		for ($i=1;$i<=4;$i++)
+		{  //if($currWeekValue!=0)
+			//$interval=$NoOfDay+($i*$currWeekValue);
+			//=7+21
+			if ($NoOfDay==7)
+				$interval=$interval+7;
+			else
+				$interval=$interval+7;
+			  
+			  //$interval=$interval+4*$NoOfDay;
+			//$interval=($i*$NoOfDay);
+			
+			if ($interval <= 0)
+				$disable='disabled="disabled"';
+				
+			$dayList =$dayList.'<option value="'.$interval.'" '.$disable.' >'.$firstDayList.'</option>';
+		  	//$firstDayList=date('Y-m-d',strtotime('next monday'));
+			 $firstDayList = date('Y-m-d', strtotime($firstDayList. ' +7 day'));
+			// $interval='';
+		}
+	
 //***********************************//
+
 	echo date('Y-m-d', strtotime('last monday', strtotime($drpFromdate)));
 	echo '@#@'; 
 	echo date('Y-m-d', strtotime('next monday', strtotime($drpFromdate)));
 	echo '@#@';
-	
+	echo $dayList; 
+	echo '@#@';
 	$parts = explode('-', $drpFromdate);
 	  echo '<div class="portlet box blue-hoki">
 						<div class="portlet-title">
@@ -189,7 +248,8 @@ class Weektemplatecont extends CI_Controller
 			}
                 echo '</tbody>';
 		        echo '</table>';
-
+		
+ 
    
 //***********************************//
 

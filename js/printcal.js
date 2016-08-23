@@ -24,18 +24,17 @@ function get_lastschedual()
 		$('#nextMondy').val(parts[1]);
 		$('#dvTable').empty();
 		$("#dvTable").html(parts[2]);
-//		$('#lastMondy').val(startDate);
+
 		}
 	});//END $.ajax
 }
 function get_nextschedual()
 {
 	var startDate=$('#nextMondy').val();
-//alert(startDate);
+
 	var formData = new FormData();
 		formData.append('drpFromdate', startDate),
-	//	formData.append('drpFromdate', startDate),
-
+	
 	$.ajax({
 	url: baseURL+"Reportscont/getcalendar",
 	type: "POST",
@@ -70,8 +69,6 @@ function printcal()
 }
 function creatreport()
 { 
-//alert(111);
-// window.open(  baseURL+"Reportscont/creatreport", "popupWindow", "width=600,height=600,scrollbars=yes");
 
 	$.ajax({
 		url: baseURL+"Reportscont/creatreport",

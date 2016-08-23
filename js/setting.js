@@ -57,16 +57,7 @@ var ComponentsTimeSliders = function () {
 					
 					$("#spnOpen").attr("data-starttime",hours1 + ':' + minutes1);
 					$("#spnOpen").attr("data-endtime", hoursEnd + ':' + minEnd);		
-				/*	$("#spnClose").attr("data-starttime", hoursStart  + ':' + minStart);
-					$("#spnClose").attr("data-endtime", hours0 + ':' + minutes0);
-					
-					$("#spnEmp").attr("data-starttime",  hours0 + ':' + minutes0);
-					$("#spnEmp").attr("data-endtime", hours1 + ':' + minutes1);
-					
-					$("#spnOpen").attr("data-starttime",hours1 + ':' + minutes1);
-					$("#spnOpen").attr("data-endtime", hoursEnd + ':' + minEnd);*/
-					
-					//alert(ui.values[0]+ ui.values[1]);
+				
 					leftWidth = Math.floor((((($('#txtStartSldr').val().split(":")[0] * 60) + 1440) - ui.values[1]) / 1440) * 100)
 					$('#YourDiv').css('width', leftWidth +'%');
                 }
@@ -83,23 +74,22 @@ var ComponentsTimeSliders = function () {
 				complete: function(){},
 				success: function(returndb){
 				
-					//$('#txtStartSldr').val(returndb[0]['close_from']);
+					
 					str=returndb[0]['close_from'].split(':')[0] *60;
 					val0 = returndb[0]['close_to'].split(':')[0] *60 ;
 					if (str > val0)
 					{
-						//alert('hi1');
+						
 						val0= val0 + str + (1440-str);
 					}
-					//returndb[0]['open_emp_from'];
+					
 					val1= returndb[0]['open_emp_to'].split(':')[0] *60 ;
 					if (str > val1)
 					{
 						//alert('hi2');
 						val1= val1 + str + (1440-str);
 					}
-					//returndb[0]['open_from'];
-					//=returndb[0]['open_to']
+					
 					end=str+ 1440; 
 					$('#txtStartSldr').timepicker('setTime', new Date(00,00,00,returndb[0]['close_from'].split(':')[0],returndb[0]['close_from'].split(':')[1],00));
 					
@@ -149,11 +139,7 @@ $(document).ready(function(){
 			$("#slider-range").slider("values", 1, val1);
 			loaded=true;
 			}
-			/*alert("str"+str);
-			alert("val0"+val0);
-			alert("val1"+val1);
-			alert("end"+end);*/
-			
+					
 			var leftWidth = Math.floor( ( ( (($('#txtStartSldr').val().split(":")[0] * 60) + 1440) - $("#slider-range").slider("values", 1)) / 1440)* 100);
 			
 			$('#YourDiv').css('width', leftWidth +'%');
@@ -182,10 +168,7 @@ $(document).ready(function(){
 			
 			$("#spnOpen").attr("data-starttime",hours1 + ':' + minutes1);
 			$("#spnOpen").attr("data-endtime", hoursEnd + ':' + minEnd);
-			/*starttime=hoursStart+ ':' + minStart;
-			endtime0=hours0 + ':' + minutes0;
-			endtime1=hours1 + ':' + minutes1;
-			endtime=hoursEnd + ':' + minEnd;*/
+			
 			
 			
 	});
@@ -200,14 +183,11 @@ function editColorSetting()
 	empendtime=$("#spnEmp").attr("data-endtime");
 	openstarttime=$("#spnOpen").attr("data-starttime");
 	openendtime=$("#spnOpen").attr("data-endtime");
-//	alert(endtime0);
-	//$("#spnEmp").attr("data-starttime");
+
 	endtime1=$("#spnEmp").attr("data-endtime");
 	
-	//$("#spnOpen").attr("data-starttime");
-	endtime=$("#spnOpen").attr("data-endtime");
 	
-	//alert("closestarttime : "+closestarttime+" endtime0 : "+closeendtime+"\n empstarttime : "+empstarttime+" empendtime : "+empendtime+"\n openstarttime : "+openstarttime+" openendtime: "+openendtime);
+	endtime=$("#spnOpen").attr("data-endtime");
 			
 var formData = new FormData();
 				formData.append('txtclose_from'        , closestarttime);

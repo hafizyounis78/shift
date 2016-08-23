@@ -39,7 +39,7 @@ $(document).ready(function () {
 function printCalender()
 {
 	//Canvas2Image.saveAsPNG(canvasObj, width, height)
-	//alert($("#widget").html());
+	
         html2canvas($("#widget"), {
             onrendered: function(canvas) {
                 theCanvas = canvas;
@@ -47,13 +47,11 @@ function printCalender()
 
                 // Convert and download as image 
 				
-                //Canvas2Image.saveAsPNG(canvas);
+               
 				 $("#printable").html(''); 
                 $("#printable").append(canvas);
 				window.print();
 				
-                // Clean up 
-                //document.body.removeChild(canvas);
             }
         });
 
@@ -415,7 +413,7 @@ function getmodalemployee(locationId,txtstart,txtend,starttime, endtime,employee
 			
 			var emplist='';
 
-			//alert(availbleEmp);
+			
 			staffList='';
 				for(i=0;i<data21.length;i++)
 				{
@@ -443,7 +441,7 @@ function getmodalemployee(locationId,txtstart,txtend,starttime, endtime,employee
 					emplist=emplist+'<option title="Unavailable" disabled="disabled" value='+data22[i].stffId+'>'+data22[i].totalTime+'|'+data22[i].staffName+'|'+data22[i].hoursPerWeek+'</option>';	
 					
 				}
-	//alert("getemployee:  "+staffList);
+
 				$("#my_multi_select1").html(emplist);
 				$("#my_multi_select1").multiSelect('refresh');
 				$("#my_multi_select1").multiSelect('refresh');
@@ -514,7 +512,7 @@ function getweekNumber(stratdate,enddate) {
 	var date2 = new Date(enddate);
 	var timeDiff = Math.abs(date2.getTime() - date1.getTime());
 	var diffDays = Math.ceil(timeDiff / (1000 * 3600 * 24)) +1; 
-	//alert("diffDays "+diffDays);
+	
 	if (diffDays > 7)
 		return false;
 	else
@@ -534,38 +532,7 @@ function getweekNumber(stratdate,enddate) {
 			
 	}
 		return true;
-	/*var dateParts = date.split("-");
-	 var year=	dateParts[0];
-	 var month=dateParts[1] ;
-	 var day=dateParts[2];
-alert("day :"+day+"  month: "+month+ "  year :"+year); 
-*/
-/*	 var when = new Date(year,month,day);
-    var newYear = new Date(year,0,1);
-    var offset = 7 + 1 - newYear.getDay();
-    if (offset == 8) offset = 1;
-    var daynum = ((Date.UTC(y2k(year),when.getMonth(),when.getDate(),0,0,0) - Date.UTC(y2k(year),0,1,0,0,0)) /1000/60/60/24) + 1;
-    var weeknum = Math.floor((daynum-offset+7)/7);
-    if (weeknum == 0) {
-        year--;
-        var prevNewYear = new Date(year,0,1);
-        var prevOffset = 7 + 1 - prevNewYear.getDay();
-        if (prevOffset == 2 || prevOffset == 8) weeknum = 53; else weeknum = 52;
-    }
-*/    //return weeknum;
-	/* var dateParts = date.split("-");
-	 var year=	dateParts[0];
-	 var month=dateParts[1] ;
-	 var day=dateParts[2];
-	 //var dateOfEnd = new Date(dateParts[0], (dateParts[1] - 1), dateParts[2]);
-	alert("day :"+day+"  month: "+month+ "  year :"+year);
-    function serial(days) { return 86400000*days; }
-    function dateserial(year,month,day) { return (new Date(year,month-1,day).valueOf()); }
-    function weekday(date) { return (new Date(date)).getDay()+1; }
-    function yearserial(date) { return (new Date(date)).getFullYear(); }
-    var date = year instanceof Date ? year.valueOf() : typeof year === "string" ? new Date(year).valueOf() : dateserial(year,month,day), 
-        date2 = dateserial(yearserial(date - serial(weekday(date-serial(1))) + serial(4)),1,3);
-    return ~~((date - date2 + serial(weekday(date2) + 5))/ serial(7));*/
+	
 }
 var ShiftModalFormValidation = function () {
  var handleValidation = function() {

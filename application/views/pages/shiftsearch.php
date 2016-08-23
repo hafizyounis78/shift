@@ -192,7 +192,7 @@
 							</div>
                             
 						</div>
-                         <button  type="button" class="btn btn-primary" onclick="activate_group()">Active </button>
+                         <button  type="button" class="btn btn-primary" onclick="activate_group()">Aktiviert </button>
                          <button  type="button" class="btn btn-primary"  onclick="delete_group()">Delete </button>
                          
                         
