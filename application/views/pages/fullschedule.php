@@ -213,9 +213,10 @@ var sessionValue = "<?php echo $this->session->userdata('itemname'); ?>";
                           <label class="control-label col-md-3"><?php echo $this->lang->line('Is special Shift');?>
                           </label>
                           <div class="col-md-4">
-                              <div class="checkbox-list" data-error-container="#form_2_services_error">
+                              <div  id="dvchbxIsspecial" class="checkbox-list" data-error-container="#form_2_services_error">
                                   <label>
-                                  <input type="checkbox" value="1" id="chbxIsspecial" name="chbxIsspecial"/></label>
+                                  
+                                  <input type="checkbox" value="0" id="chbxIsspecial" name="chbxIsspecial" onclick="change_special_shift()"/></label>
                               </div>
                               <div id="form_2_services_error">
                               </div>

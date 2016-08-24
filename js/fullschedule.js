@@ -27,8 +27,16 @@ $(document).ready(function () {
 			ddlSpec.options[0].selected = true;
 			getAlllocation();
         }
-        
-    })
+		})
+function change_special_shift()
+{
+	if($('#chbxIsspecial').val()=='1')
+		$('#chbxIsspecial').val('0');
+	else
+		$('#chbxIsspecial').val('1');	
+}
+          
+    
 //*****************change date or time*************//
 	$(".classConflict").change(function () {
 	

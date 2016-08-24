@@ -197,10 +197,13 @@ function updateshiftFromCalander()
 		{
 			unset($temp); // Release the contained value of the variable from the last loop
 			$temp = array();
-	
+			/*if ($row->Special_shift==1)
+				$img='<span style="font-size:12px" class="fa fa-star"></span>';
+			else
+			$img='';*/
 			if ( $row->type==1)
 	//			$temp['title'] ="Shift-".$row->name."\n";
-		{
+		{ 
 				$temp['title'] ="Break: ".$row->lunch_break."\n Abteilungen:".$row->dep_name."\n Station: ".$row->name."\n";
 				$temp['lunch_break'] =$row->lunch_break;
 		}
@@ -216,6 +219,7 @@ function updateshiftFromCalander()
 			$temp['location_name'] = $row->name;
 			$temp['location_id'] = $row->location_id;
 			$temp['empList'] = $row->emp_id;
+			$temp['Special_shift'] = $row->Special_shift;
 			
 			$temp['event_details'] = "Mitarbeiter:".$row->emp_name."<br/>Abteilungen:".$row->dep_name."<br/>Station:".$row->name."\n";
 			$temp['color'] = $row->color;

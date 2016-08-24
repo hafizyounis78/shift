@@ -102,17 +102,27 @@
                      <?php if ($this->session->userdata('itemname') == "gm")
 					{
 						?>
-                    <li class="last " <?php if($title == 'calrep') echo 'class="active open"';?>>
+                    <li  <?php if($title == 'printcalendar') echo 'class="active open"';?>>
 						<a href="<?php echo base_url();?>reportscont/printcalendar">
 						<i class="icon-printer"></i>
 						<span class="title"><?php echo $this->lang->line('Print');?></span>
 						</a>
 					</li>
                        <?php  }?>
+                       <?php if ($this->session->userdata('itemname') == "gm")
+					{
+						?>
+                    <li  <?php if($title == 'taskrat') echo 'class="active open"';?>>
+						<a href="<?php echo base_url();?>taskratecont/taskrat">
+						<i class="icon-bar-chart"></i>
+						<span class="title">Aufgabe Rate</span>
+						</a>
+					</li>
+                       <?php  }?>
                      <?php if ($this->session->userdata('itemname') == "gm")
 					{
 						?>
-                    <li class="last " <?php if($title == 'setting') echo 'class="active open"';?>>
+                    <li class="last <?php if($title == 'setting') echo ' active open';?>" >
 						<a href="<?php echo base_url();?>settingcont/setting">
 						<i class="icon-settings"></i>
 						<span class="title"><?php echo $this->lang->line('Settings');?></span>

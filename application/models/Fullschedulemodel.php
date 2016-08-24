@@ -102,7 +102,7 @@ class Fullschedulemodel extends CI_Model
 		if ($this->session->userdata('itemname')=='admin')
 		/* SELECT GROUP_CONCAT( CONCAT( b.first_name, ' ', b.last_name,' (', dep_name,')' )
 								SEPARATOR ', ' )*/
-		$myquery = "SELECT sft.start_date, sft.start_time, sft.end_time, sft.end_date,sft.lunch_break, sft.location_id,sft.type, loc.map_name as name, loc.color, loc.map_id,deplocation.dep_name, (
+		$myquery = "SELECT sft.Special_shift,sft.start_date, sft.start_time, sft.end_time, sft.end_date,sft.lunch_break, sft.location_id,sft.type, loc.map_name as name, loc.color, loc.map_id,deplocation.dep_name, (
 		
 								SELECT GROUP_CONCAT( CONCAT( b.first_name, ' ', b.last_name,' (', dep_name,')' )
 								SEPARATOR ', ' )
@@ -125,7 +125,7 @@ class Fullschedulemodel extends CI_Model
 								HAVING start_date >'2016-04-01'";
 								
 		else if ($this->session->userdata('itemname')=='gm')
-			$myquery = "SELECT sft.start_date, sft.start_time, sft.end_time, sft.end_date,sft.lunch_break, sft.location_id,sft.type, loc.map_name as name, loc.color, loc.map_id,deplocation.dep_name, (
+			$myquery = "SELECT sft.Special_shift,sft.start_date, sft.start_time, sft.end_time, sft.end_date,sft.lunch_break, sft.location_id,sft.type, loc.map_name as name, loc.color, loc.map_id,deplocation.dep_name, (
 		
 								SELECT GROUP_CONCAT( CONCAT( b.first_name, ' ', b.last_name,' (', dep_name,')' )
 								SEPARATOR ', ' )
@@ -161,7 +161,7 @@ class Fullschedulemodel extends CI_Model
 								" GROUP BY sft.start_date, sft.start_time, sft.end_time, sft.end_date, sft.location_id, loc.map_name, loc.color
 								HAVING start_date >'2016-04-01'";
 		else if ($this->session->userdata('itemname')=='circle_man')
-			$myquery = "SELECT sft.start_date, sft.start_time, sft.end_time, sft.end_date,sft.lunch_break, sft.location_id,sft.type, loc.map_name as name, loc.color, loc.map_id,deplocation.dep_name, (
+			$myquery = "SELECT sft.Special_shift,sft.start_date, sft.start_time, sft.end_time, sft.end_date,sft.lunch_break, sft.location_id,sft.type, loc.map_name as name, loc.color, loc.map_id,deplocation.dep_name, (
 			
 								SELECT GROUP_CONCAT( CONCAT( b.first_name, ' ', b.last_name,' (', dep_name,')' )
 									SEPARATOR ', ' )
@@ -183,7 +183,7 @@ class Fullschedulemodel extends CI_Model
 									" GROUP BY sft.start_date, sft.start_time, sft.end_time, sft.end_date, sft.location_id, loc.map_name, loc.color
 									HAVING start_date >'2016-04-01'";
 		else if ($this->session->userdata('itemname')=='emp')
-			$myquery = " SELECT  sft.start_date, sft.start_time, sft.end_time, sft.end_date,sft.lunch_break, sft.location_id,sft.type, loc.map_name as name, loc.color,loc.map_id,deplocation.dep_name,CONCAT( b.first_name, ' ', b.last_name ) as emp_name
+			$myquery = " SELECT  sft.Special_shift,sft.start_date, sft.start_time, sft.end_time, sft.end_date,sft.lunch_break, sft.location_id,sft.type, loc.map_name as name, loc.color,loc.map_id,deplocation.dep_name,CONCAT( b.first_name, ' ', b.last_name ) as emp_name
 								  FROM    dusseldorf_v3_shifts sft, task_map_dep loc,dusseldorf_users b,departments as deplocation
 								  where   sft.location_id = loc.map_id
 								  and     loc.dep_child_id=deplocation.dep_id	

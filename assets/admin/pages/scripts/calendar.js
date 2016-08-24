@@ -3,6 +3,7 @@ var str = '';
 var val0='';
 var val1='';
 var end='';
+var img='';
 
 var Calendar = function() {
 
@@ -327,6 +328,8 @@ var Calendar = function() {
 				            content: event.msg
                         });
 				element.find('.fc-time').after('<span style="font-size:12px" class="fa fa-coffee"></span> ');
+				//alert(img);
+				element.find('.fc-time').after(event.imageurl);
 				 element.bind('dblclick', function() {
          				
 							//*******************************//
@@ -481,13 +484,18 @@ var Calendar = function() {
          					var events = [];
 							for(var a=0; a< retrieved_data.length; a++)
 								{
-
+									img='';
 									var startdateParts = retrieved_data[a]['start_date'].split("-");
 									var enddateParts = retrieved_data[a]['end_date'].split("-");
 									var starttimeParts = retrieved_data[a]['start_time'].split(":");
 									var endtimeParts = retrieved_data[a]['end_time'].split(":");
-								
 									
+									if (retrieved_data[a]['Special_shift']==1)
+										img='<span style="font-size:12px" class="fa fa-star"></span>';
+									else
+										img='';
+										
+										
          						events.push({
 //											title:retrieved_data[a]['title']+retrieved_data[a]['event_details'],
 											//title:'<span><i style="font-size:12px" class="fa fa-coffee" aria-hidden="true"></i></span>'+retrieved_data[a]['lunch_break']+'<br/>'+retrieved_data[a]['title'],
@@ -502,9 +510,12 @@ var Calendar = function() {
 											endtime:retrieved_data[a]['end_time'],
 											locationId:retrieved_data[a]['location_id'],
 											empList:retrieved_data[a]['empList'],
+											imageurl:img,
 											allDay: false
 											
 											});
+											
+											
 							}//END FOR
 							
 							callback(events);

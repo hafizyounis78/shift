@@ -52,7 +52,13 @@ function showshiftDetails()
 {
 	alert('details');
 }
-
+function change_special_shift()
+{
+	if($('#chbxIsspecial').val()=='1')
+		$('#chbxIsspecial').val('0');
+	else
+		$('#chbxIsspecial').val('1');	
+}
 function updateshiftstatus(id)
 {
 	var isactive = '';
