@@ -46,7 +46,7 @@ var sessionValue = "<?php echo $this->session->userdata('itemname'); ?>";
       
           <div class="portlet-title">
               <div class="caption">
-                  <i class="fa fa-gift"></i><?php echo $this->lang->line('Schedule');  ?>
+                  <i class="fa fa-gift" ></i><?php echo $this->lang->line('Schedule');  ?>
                  
               </div>
           </div>
@@ -215,7 +215,7 @@ var sessionValue = "<?php echo $this->session->userdata('itemname'); ?>";
                           <div class="col-md-4">
                               <div  id="dvchbxIsspecial" class="checkbox-list" data-error-container="#form_2_services_error">
                                   <label>
-                                  
+                                 
                                   <input type="checkbox" value="0" id="chbxIsspecial" name="chbxIsspecial" onclick="change_special_shift()"/></label>
                               </div>
                               <div id="form_2_services_error">

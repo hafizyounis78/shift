@@ -327,9 +327,10 @@ var Calendar = function() {
 				            html:true,
 				            content: event.msg
                         });
-				element.find('.fc-time').after('<span style="font-size:12px" class="fa fa-coffee"></span> ');
+				element.find('.fc-time').append('<i style="font-size:12px" class="fa fa-coffee"></i> ');
+				//$( '<i style="font-size:12px" class="fa fa-coffee"></i> ' ).prependTo( ".fc-time" );
 				//alert(img);
-				element.find('.fc-time').after(event.imageurl);
+				element.find('.fc-time').before(event.imageurl);
 				 element.bind('dblclick', function() {
          				
 							//*******************************//
@@ -353,6 +354,18 @@ var Calendar = function() {
 						   	$('#hdnStarttime').val(event.starttime);
 							$('#hdnEndtime').val(event.endtime);
 							$("#hdnLocation").val(event.locationId);
+							//alert(event.special);
+							if (event.special=='1')
+							{
+							
+							$("#uniform-chbxIsspecial").children("span").addClass("checked");
+							}
+							else if (event.special=='0')
+							{
+							
+							$("#uniform-chbxIsspecial").children("span").removeClass("checked");
+							}
+							//$("#chbxIsspecial").addClass("checked");
 							
 				/*$.ajax({
 					url: baseURL+"Fullschedulecont/getshiftdata" ,
@@ -491,7 +504,7 @@ var Calendar = function() {
 									var endtimeParts = retrieved_data[a]['end_time'].split(":");
 									
 									if (retrieved_data[a]['Special_shift']==1)
-										img='<span style="font-size:12px" class="fa fa-star"></span>';
+										img='<i style="font-size:14px ;color:#FF0" class="fa fa-star"></i>';
 									else
 										img='';
 										
@@ -510,6 +523,7 @@ var Calendar = function() {
 											endtime:retrieved_data[a]['end_time'],
 											locationId:retrieved_data[a]['location_id'],
 											empList:retrieved_data[a]['empList'],
+											special:retrieved_data[a]['Special_shift'],
 											imageurl:img,
 											allDay: false
 											

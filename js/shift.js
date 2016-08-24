@@ -267,7 +267,12 @@ function duplicatShift(i)
 	var statusId=$("#tdrdStatus"+i).attr('data-stid');
 	var Isspecial=$("#tdSpecial_shift"+i).html();
 
-	if 	(Isspecial==1)
+	if (Isspecial=='1')
+		$("#uniform-chbxIsspecial").children("span").addClass("checked");
+	else if (Isspecial=='0')
+		$("#uniform-chbxIsspecial").children("span").removeClass("checked");
+	
+	/*if 	(Isspecial==1)
 	{
 	  $('#chbxIsspecial').attr('checked', true); 
 	  $("#chbxIsspecial").parent().addClass('checked');
@@ -275,7 +280,7 @@ function duplicatShift(i)
 	else
 	{ $('#chbxIsspecial').attr('checked', false); 
 	  $("#chbxIsspecial").parent().removeClass('checked');
-	}
+	}*/
 	if (statusId==1)
 	{
 
@@ -325,7 +330,7 @@ function updateAllshift(i)
 	var statusId=$("#tdrdStatus"+i).attr('data-stid');
 	var Isspecial=$("#tdSpecial_shift"+i).html();
 
-	if 	(Isspecial==1)
+	/*if 	(Isspecial==1)
 	{
 	  $('#chbxIsspecial').attr('checked', true); 
 	  $("#chbxIsspecial").parent().addClass('checked');
@@ -333,7 +338,12 @@ function updateAllshift(i)
 	else
 	{ $('#chbxIsspecial').attr('checked', false); 
 	  $("#chbxIsspecial").parent().removeClass('checked');
-	}
+	}*/
+	if (Isspecial=='1')
+		$("#uniform-chbxIsspecial").children("span").addClass("checked");
+	else if (Isspecial=='0')
+		$("#uniform-chbxIsspecial").children("span").removeClass("checked");
+	
 	if (statusId==1)
 	{
 
