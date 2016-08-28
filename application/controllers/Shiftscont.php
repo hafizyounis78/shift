@@ -336,12 +336,17 @@ function activatecheakedShift()
 		
 		$i=1;
 		$statusrow='';
+		$specialShift='';
 		foreach($shiftrec as $row)
 		{
-			if($row->status==1)
-			 $statusrow='Entwurf';
+			 if($row->status==1)
+			 	$statusrow='Entwurf';
 			 else
-			 $statusrow='Aktiviert';
+			 	$statusrow='Aktiviert';
+			 if($row->Special_shift=='1')
+				$specialShift='Yes';
+			 else
+				$specialShift='No';
 			 echo '<tr>';		
 			 echo '<td>'.$i++.'</td>';
 			 echo '<td id="tdstaff'.$row->id.'">'.$row->Staff_name.'</td>';
@@ -358,7 +363,7 @@ function activatecheakedShift()
 			else
 				 echo '<td id="tdrdStatus'.$row->id.'" data-stid="'.$row->status.'"><span class="label label-sm label-success">'.$statusrow.'</span></td>';		 
 
-			 echo '<td id="tdSpecial_shift'.$row->id.'">'. $row->Special_shift.'</td>';	 
+			 echo '<td id="tdSpecial_shift'.$row->id.'"data-stid="'.$row->Special_shift.'">'.$specialShift.'</td>';	 
 			 echo '<td>
 				  <button id="btnupdateShift" name="btnupdateShift" type="button" class="btn default btn-xs blue" onclick="updateShift('.$row->id.')">
 				  <i class="fa fa-edit"></i> Update </button>
@@ -387,7 +392,7 @@ function activatecheakedShift()
 					 $statusrow='Entwurf';
 					 else
 					 $statusrow='Aktiviert';
-					 if($row->Special_shift==1)
+					 if($row->Special_shift=='1')
 					 $specialrow='Yes';
 					 else
 					 $specialrow='No';
@@ -398,7 +403,7 @@ function activatecheakedShift()
 					else
 					 $str.= '<td id="tdrdStatus'.$i.'" data-stid="'.$row->status.'"><span class="label label-sm label-success">'.$statusrow.'</span></td>';		 
 					 
-					 $str.= '<td id="tdSpecial_shift'.$i.'">'.$specialrow.'</td><td id="tdemployees'.$i.'">'.$row->emp_name.'</td><td><button id="btnupdateShift" name="btnupdateShift" type="button" class="btn default btn-xs blue" onclick="updateAllshift('.$i.')"><i class="fa fa-edit"></i></button><button id="btnduplicatShift" name="btnduplicatShift" type="button" class="btn default btn-xs green" onclick="duplicatShift('.$i.')"><i class="fa fa-copy"></i></button></td></tr>';
+					 $str.= '<td id="tdSpecial_shift'.$i.'" data-stid="'.$row->Special_shift.'">'.$specialrow.'</td><td id="tdemployees'.$i.'">'.$row->emp_name.'</td><td><button id="btnupdateShift" name="btnupdateShift" type="button" class="btn default btn-xs blue" onclick="updateAllshift('.$i.')"><i class="fa fa-edit"></i></button><button id="btnduplicatShift" name="btnduplicatShift" type="button" class="btn default btn-xs green" onclick="duplicatShift('.$i.')"><i class="fa fa-copy"></i></button></td></tr>';
 				$i++;
 				}
 			return $str;	

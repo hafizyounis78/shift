@@ -50,15 +50,34 @@ $(document).ready(function () {
 });
 function showshiftDetails()
 {
-	alert('details');
+	//alert('details');
 }
+
 function change_special_shift()
 {
+	
+	
+/*		if (Isspecial=='1')
+		$("#uniform-chbxIsspecial").children("span").addClass("checked");
+		else if (Isspecial=='0')
+		$("#uniform-chbxIsspecial").children("span").removeClass("checked");
+*/
+
+	
 	if($('#chbxIsspecial').val()=='1')
-		$('#chbxIsspecial').val('0');
+	{
+				
+				$('#chbxIsspecial').val('0');
+	}
 	else
-		$('#chbxIsspecial').val('1');	
+	{
+			$('#chbxIsspecial').val('1');
+			
+	
+	}
+
 }
+
 function updateshiftstatus(id)
 {
 	var isactive = '';
@@ -133,7 +152,7 @@ function editshift(){
 		if ( !$("#drpLocation").valid() )
 		  valid = false;
 		 
-	
+	alert($("#chbxIsspecial").val());
 			var formData = new FormData();
 				formData.append('rdShifttype'        , 1);
 				formData.append('hdnshiftId'		 , $("#hdnshiftId").val());
@@ -265,12 +284,27 @@ function duplicatShift(i)
 	employees=$("#tdemployees"+i).html();
 		//alert(employees);
 	var statusId=$("#tdrdStatus"+i).attr('data-stid');
-	var Isspecial=$("#tdSpecial_shift"+i).html();
+//	var Isspecial=$("#tdSpecial_shift"+i).html();
+	var Isspecial=$("#tdSpecial_shift"+i).attr('data-stid');
 
 	if (Isspecial=='1')
-		$("#uniform-chbxIsspecial").children("span").addClass("checked");
+	{
+		
+		 $('#chbxIsspecial').attr('checked', true); 
+	     $("#chbxIsspecial").parent().addClass('checked');
+	     $('#chbxIsspecial').val('1');
+/*		$("#uniform-chbxIsspecial").children("span").addClass("checked");
+		$('#chbxIsspecial').val('1');*/
+	}
 	else if (Isspecial=='0')
+	{
+		$('#chbxIsspecial').attr('checked', false); 
+	    $("#chbxIsspecial").parent().removeClass('checked');
+	    $('#chbxIsspecial').val('0');
+	  /*
 		$("#uniform-chbxIsspecial").children("span").removeClass("checked");
+		$('#chbxIsspecial').val('0');*/
+	}
 	
 	/*if 	(Isspecial==1)
 	{
@@ -329,7 +363,7 @@ function updateAllshift(i)
 		//alert(employees);
 	var statusId=$("#tdrdStatus"+i).attr('data-stid');
 	var Isspecial=$("#tdSpecial_shift"+i).html();
-
+	var Isspecial=$("#tdSpecial_shift"+i).attr('data-stid');
 	/*if 	(Isspecial==1)
 	{
 	  $('#chbxIsspecial').attr('checked', true); 
@@ -339,10 +373,26 @@ function updateAllshift(i)
 	{ $('#chbxIsspecial').attr('checked', false); 
 	  $("#chbxIsspecial").parent().removeClass('checked');
 	}*/
+//	var Isspecial=$("#tdSpecial_shift"+i).html();
+
 	if (Isspecial=='1')
-		$("#uniform-chbxIsspecial").children("span").addClass("checked");
+	{
+		
+		 $('#chbxIsspecial').attr('checked', true); 
+	     $("#chbxIsspecial").parent().addClass('checked');
+	     $('#chbxIsspecial').val('1');
+/*		$("#uniform-chbxIsspecial").children("span").addClass("checked");
+		$('#chbxIsspecial').val('1');*/
+	}
 	else if (Isspecial=='0')
+	{
+		$('#chbxIsspecial').attr('checked', false); 
+	    $("#chbxIsspecial").parent().removeClass('checked');
+	    $('#chbxIsspecial').val('0');
+	  /*
 		$("#uniform-chbxIsspecial").children("span").removeClass("checked");
+		$('#chbxIsspecial').val('0');*/
+	}
 	
 	if (statusId==1)
 	{
@@ -387,17 +437,28 @@ function updateShift(i)
 	$("#rdStatus").val($("#tdlocation"+i).html());
 	
 	var statusId=$("#tdrdStatus"+i).attr('data-stid');
-	var Isspecial=$("#tdSpecial_shift"+i).html();
+	var Isspecial=$("#tdSpecial_shift"+i).attr('data-stid');
+	//var Isspecial=$("#tdSpecial_shift"+i).html();
 
-	if 	(Isspecial==1)
+	if (Isspecial=='1')
 	{
-	  $('#chbxIsspecial').attr('checked', true); 
-	  $("#chbxIsspecial").parent().addClass('checked');
+		
+		 $('#chbxIsspecial').attr('checked', true); 
+	     $("#chbxIsspecial").parent().addClass('checked');
+	     $('#chbxIsspecial').val('1');
+/*		$("#uniform-chbxIsspecial").children("span").addClass("checked");
+		$('#chbxIsspecial').val('1');*/
 	}
-	else
-	{ $('#chbxIsspecial').attr('checked', false); 
-	  $("#chbxIsspecial").parent().removeClass('checked');
+	else if (Isspecial=='0')
+	{
+		$('#chbxIsspecial').attr('checked', false); 
+	    $("#chbxIsspecial").parent().removeClass('checked');
+	    $('#chbxIsspecial').val('0');
+	  /*
+		$("#uniform-chbxIsspecial").children("span").removeClass("checked");
+		$('#chbxIsspecial').val('0');*/
 	}
+	
 	if (statusId==1)
 	{
 
