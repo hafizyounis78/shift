@@ -52,7 +52,7 @@ $readonly = '';
                           <div class="col-md-4">
                               <div class="checkbox-list" data-error-container="#form_2_services_error">
                                   <label>
-                                  <input type="checkbox" value="1" id="chbxIsspecial" name="chbxIsspecial" onclick="change_special_shift()"/></label>
+                                  <input type="checkbox" value="0" id="chbxIsspecial" name="chbxIsspecial" onclick="change_special_shift()"/></label>
                               </div>
                               <div id="form_2_services_error">
                               </div>
@@ -340,17 +340,17 @@ $readonly = '';
 						            <?php
 									$i=1;
 									$statusrow='';
-									
+									$specialShift='';
 										foreach($shiftrec as $row)
 											{
 												if($row->status==1)
 												 $statusrow='Entwurf';
 												 else
 												 $statusrow='Aktiviert';
-												 if($row->Special_shift==2)
-										$specialShift='Yes';
-									else
-										$specialShift='No';
+												if($row->Special_shift=='1')
+													$specialShift='Yes';
+												else
+													$specialShift='No';
 												 echo '<tr>';		
 												 echo '<td>'.$i++.'</td>';
 												 echo '<td id="tdstaff'.$row->id.'">'.$row->Staff_name.'</td>';
@@ -366,7 +366,7 @@ $readonly = '';
 												 echo '<td id="tdrdStatus'.$row->id.'" data-stid="'.$row->status.'"><span class="label label-sm label-warning">'.$statusrow.'</span></td>';		 
  												else
 												 echo '<td id="tdrdStatus'.$row->id.'" data-stid="'.$row->status.'"><span class="label label-sm label-success">'.$statusrow.'</span></td>';		 
-												 echo '<td id="tdSpecial_shift'.$row->id.'">'.$specialShift.'</td>';
+												 echo '<td id="tdSpecial_shift'.$row->id.'"data-stid="'.$row->Special_shift.'">'.$specialShift.'</td>';
 												 echo '<td>
 													  <button id="btnupdateShift" name="btnupdateShift" type="button" class="btn default btn-xs blue" onclick="updateShift('.$row->id.')">
 													  <i class="fa fa-edit"></i>  </button>

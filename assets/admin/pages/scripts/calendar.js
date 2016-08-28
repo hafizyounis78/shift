@@ -327,10 +327,29 @@ var Calendar = function() {
 				            html:true,
 				            content: event.msg
                         });
-				element.find('.fc-time').append('<i style="font-size:12px" class="fa fa-coffee"></i> ');
+				//element.find('.fc-time').append('<i style="font-size:12px" class="fa fa-coffee"></i> ');
 				//$( '<i style="font-size:12px" class="fa fa-coffee"></i> ' ).prependTo( ".fc-time" );
 				//alert(img);
-				element.find('.fc-time').before(event.imageurl);
+//				 element.tooltip({title: event.title});
+				var starthour=new Date(event.start).getHours();
+				var startminutes=new Date(event.start).getMinutes();
+				var endhour=new Date(event.end).getHours();
+				var endminutes=new Date(event.end).getMinutes();
+				//typeof(variable) != "undefined" && variable !== null
+			if (event.title !="undefined" &&  event.title !=null && event.title!="")
+           {			 
+				var content =event.imageurl+ '<h6><i style="font-size:12px" class="fa fa-coffee"></i>'+event.toltipTitle+'</h6>' + '<p><b>Start:</b> '+starthour+':'+ startminutes+' End:</b> '+endhour+':'+endminutes+'</p>'+event.msg;
+			//	 var content = event.title+"<br/> Start at "+new Date(event.start)+'<br/> emp: '+event.msg;
+	
+//			   alert('event.toltipTitle');
+		  // alert(event.title);
+		    element.tooltip({title: content,
+			placement:'left',container:'body',html:true})
+		   }
+		   
+           // .reposition(event).show(event);
+			//*************//
+				//element.find('.fc-time').before(event.imageurl);
 				 element.bind('dblclick', function() {
          				
 							//*******************************//
@@ -358,12 +377,19 @@ var Calendar = function() {
 							if (event.special=='1')
 							{
 							
-							$("#uniform-chbxIsspecial").children("span").addClass("checked");
+							//$("#uniform-chbxIsspecial").children("span").addClass("checked");
+							
+							  $('#chbxIsspecial').attr('checked', true); 
+							  $("#chbxIsspecial").parent().addClass('checked');
+							  $('#chbxIsspecial').val('1');
 							}
 							else if (event.special=='0')
 							{
 							
-							$("#uniform-chbxIsspecial").children("span").removeClass("checked");
+							  $('#chbxIsspecial').attr('checked', false); 
+							  $("#chbxIsspecial").parent().removeClass('checked');
+							  $('#chbxIsspecial').val('0');
+							//$("#uniform-chbxIsspecial").children("span").removeClass("checked");
 							}
 							//$("#chbxIsspecial").addClass("checked");
 							
@@ -525,6 +551,7 @@ var Calendar = function() {
 											empList:retrieved_data[a]['empList'],
 											special:retrieved_data[a]['Special_shift'],
 											imageurl:img,
+											toltipTitle:retrieved_data[a]['toltipTitle'],
 											allDay: false
 											
 											});

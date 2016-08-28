@@ -204,7 +204,9 @@ function updateshiftFromCalander()
 			if ( $row->type==1)
 	//			$temp['title'] ="Shift-".$row->name."\n";
 		{ 
-				$temp['title'] ="Break: ".$row->lunch_break."\n Abteilungen:".$row->dep_name."\n Station: ".$row->name."\n";
+//				$temp['title'] ="Break: ".$row->lunch_break."\n Abteilungen:".$row->dep_name."\n Station: ".$row->name."\n";
+				$temp['title'] =$row->dep_name;
+				$temp['toltipTitle'] =" ".$row->lunch_break."<br/> Abteilungen:".$row->dep_name."<br/> Station: ".$row->name."<br/>";
 				$temp['lunch_break'] =$row->lunch_break;
 		}
 			else

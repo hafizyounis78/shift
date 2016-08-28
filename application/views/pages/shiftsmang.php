@@ -356,7 +356,7 @@ $readonly = '';
 												 echo '<td id="tdrdStatus'.$i.'" data-stid="'.$row->status.'"><span class="label label-sm label-warning">'.$statusrow.'</span></td>';		 
  												else
 												 echo '<td id="tdrdStatus'.$i.'" data-stid="'.$row->status.'"><span class="label label-sm label-success">'.$statusrow.'</span></td>';		 
-												 echo '<td id="tdSpecial_shift'.$i.'">'.$specialrow.'</td>';
+												 echo '<td id="tdSpecial_shift'.$i.'" data-stid="'.$row->Special_shift.'">'.$specialrow.'</td>';
  												 echo '<td id="tdemployees'.$i.'">'.$row->emp_name.'</td>';
 												 echo '<td>
 													  <button id="btnupdateShift" name="btnupdateShift" type="button" class="btn default btn-xs blue" onclick="updateAllshift('.$i.')">

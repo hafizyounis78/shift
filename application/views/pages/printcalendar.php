@@ -3,7 +3,7 @@
 
 </style>
 <!-- BEGIN PAGE CONTENT-->
-<?php 
+<?php /*?><?php 
 
 
 date_default_timezone_set('Asia/Gaza');   
@@ -12,6 +12,32 @@ date_default_timezone_set('Asia/Gaza');
 		$last_monday=date('Y-m-d',strtotime('last monday'));  // for first day of this week
 		$next_monday=date('Y-m-d',strtotime('next monday'));  // for first day of this week
 		$parts = explode('-', $last_monday);
+		//echo "Next Monday:". date('Y-m-d', strtotime('next monday', strtotime('2016-07-04')));
+		//echo "Next Monday:". date('Y-m-d', strtotime('next monday', strtotime($today_date)));
+?>
+<?php */?><?php 
+
+
+date_default_timezone_set('Asia/Gaza');   
+	$today_date = date('y-m-d');
+	$dayofweek = date('w', strtotime($today_date));
+		//echo $today_date;
+		if ($dayofweek !=1)
+		{
+			$currnt_monday = date('Y-m-d',strtotime('last monday', strtotime($today_date)));
+			//$last_monday = date('Y-m-d',strtotime($currnt_monday. ' -7 day'));
+		}
+		else
+		{
+			$currnt_monday =$today_date ;
+			
+			
+		}
+		$last_monday = date('Y-m-d',strtotime($currnt_monday. ' -7 day'));
+	//	$last_monday=date('Y-m-d',strtotime('last monday'));  // for first day of this week
+		$next_monday=date('Y-m-d',strtotime('next monday'));  // for first day of this week
+		//$next_monday= date('Y-m-d', strtotime('next monday', strtotime($today_date)));
+		$parts = explode('-', $currnt_monday);
 		//echo "Next Monday:". date('Y-m-d', strtotime('next monday', strtotime('2016-07-04')));
 		//echo "Next Monday:". date('Y-m-d', strtotime('next monday', strtotime($today_date)));
 ?>
@@ -131,7 +157,7 @@ date_default_timezone_set('Asia/Gaza');
 	  <table class="table table-striped table-bordered table-hover" id="calenderTable">
         <thead>
           <tr>
-            <th scope="col"><?php echo date('D',strtotime($last_monday)).' '.$last_monday; ?></th>
+            <th scope="col"><?php echo date('D',strtotime($currnt_monday)).' '.$currnt_monday; ?></th>
             <th scope="col"><?php echo date('D',mktime(0, 0, 0, $parts[1], $parts[2]+1,$parts[0])).' '.date('y-m-d',mktime(0, 0, 0,$parts[1],$parts[2]+1,$parts[0]));?></th>
             <th scope="col"><?php echo date('D',mktime(0, 0, 0, $parts[1], $parts[2]+2,$parts[0])).' '.date('y-m-d',mktime(0, 0, 0,$parts[1],$parts[2]+2,$parts[0]));?></th>
             <th scope="col"><?php echo date('D',mktime(0, 0, 0, $parts[1], $parts[2]+3,$parts[0])).' '.date('y-m-d',mktime(0, 0, 0,$parts[1],$parts[2]+3,$parts[0]));?></th>
