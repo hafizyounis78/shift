@@ -9,9 +9,12 @@ class Fullschedulecont extends CI_Controller
 		{
 			show_404();
 		}
+		//if($this->session->userdata('user_id'))
+		{
 		$userId=$this->uri->segment(3);
 		//$this->session->set_userdata('itemname','');
-		
+	
+	
 		if (strpos($this->uri->segment(3),'emp') != '')
 		{
 			$arg=explode("-",$this->uri->segment(3));
@@ -49,7 +52,10 @@ class Fullschedulecont extends CI_Controller
 		//echo 'permission value : '.strpos($this->uri->segment(3),'emp');
 
 		exit();*/
+	
 			$this->lang->load('label_lang', 'german');//load german languge
+			
+		
 			$this->data['title'] = $page;
 			
 			$this->$page();
@@ -64,7 +70,11 @@ class Fullschedulecont extends CI_Controller
 			$this->load->view('pages/'.$page,$this->data);
 			$this->load->view('templates/footer');
 			
-		
+		}
+	//	else 
+		{
+		//	redirect('http://hireit4u.com/edeka/', 'refresh');
+		}
 		
 	}
 	

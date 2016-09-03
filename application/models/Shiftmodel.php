@@ -9,7 +9,7 @@ class Shiftmodel extends CI_Model
 		$staffid = explode(",", $staffList);
 		foreach($staffid as $element)
 		{
-			
+			//WHERE   outusertb.type =2 ??
 		 $myquery = "SELECT  COUNT(1) as count_emp
 		 			 FROM    dusseldorf_users outusertb
 					 LEFT    OUTER JOIN dusseldorf_v3_shifts outshifttb on outusertb.id= outshifttb.user_id
